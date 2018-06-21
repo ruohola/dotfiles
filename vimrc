@@ -25,9 +25,6 @@ endif
 "make vim store g:CAPS variables to viminfo
 set viminfo+=!
 
-"sets default working directory
-cd ~/Desktop
-
 "clear the opened file argument list
 %argdel
 
@@ -156,6 +153,12 @@ set hidden
 "update changes to file automatically
 set autoread
 
+"automatically change working directory
+set autochdir
+
+"open splits to rightside
+set splitright
+
 "undo, backup, view and swapfiles
 set undolevels=5000
 set undofile
@@ -238,8 +241,8 @@ vnoremap <Leader>X "_X
 nnoremap <silent><Esc> <Esc>:noh<CR>
 
 "exceute current python file 
-nnoremap <F5> :w<CR>:!python %<CR>
-" nnoremap <F5> call term_sendkeys(buf, "ls\<CR>")
+nnoremap <F5> :w<CR>:vert term python %<CR>
+" nnoremap <F5> call term_sendkeys(buffer_number, "ls\<CR>")
 
 "open vimrc
 nnoremap <Leader>vr :e $MYVIMRC<CR>
