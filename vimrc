@@ -46,6 +46,7 @@ Plug 'vim-scripts/AutoComplPop'          "always show autocompletion
 Plug 'easymotion/vim-easymotion'         "KJump/easymotion for vim
 Plug 'ctrlpvim/ctrlp.vim'                "fuzzy finder
 Plug 'FelikZ/ctrlp-py-matcher'           "add-on for ctrlp
+Plug 'google/vim-searchindex'            "show x/y when searching
 call plug#end()
 
 "altercation/vim-colors-solarized
@@ -77,6 +78,7 @@ let g:ctrlp_clear_cache_on_exit=0
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 
+
 """""""""GENERAL""""""""""
 
 "theming
@@ -96,14 +98,26 @@ set guioptions-=b
 set guioptions-=e
 set guioptions+=k
 
+"statusline
+set laststatus=2                                    "always show statusline
+set statusline=                                     "clear statusline
+set statusline+=[%{strlen(&fenc)?&fenc:'none'},     "file encoding
+set statusline+=%{&ff}]                             "file format
+set statusline+=%y                                  "filetype
+set statusline+=\ %F                                "tail of the filename
+set statusline+=%h                                  "help file flag
+set statusline+=%m                                  "modified flag
+set statusline+=%r                                  "read only flag
+set statusline+=%=                                  "left/right separator
+set statusline+=%l/%L                               "cursor line/total lines
+set statusline+=:%c                                 "cursor column
+
 "visuals
 set guicursor+=n-v-c:blinkon0
 set guicursor+=i:ver25-blinkon0
 set cursorline
 set number
 set relativenumber
-set laststatus=2
-set ruler
 set showmode
 set showcmd
 
@@ -113,9 +127,6 @@ set linebreak
 set textwidth=0
 set wrapmargin=0
 set formatoptions-=t
-
-"pad cursor row with lines
-set scrolloff=1
 
 "indentation settings
 set tabstop=8
@@ -142,24 +153,6 @@ let $LANG='en_US'
 set encoding=utf-8
 set fileformats=unix,dos
 
-"use system clipboard
-set clipboard=unnamed
-
-"make backspace behave normally
-set backspace=indent,eol,start
-
-"switch to another buffer without saving
-set hidden
-
-"update changes to file automatically
-set autoread
-
-"automatically change working directory
-set autochdir
-
-"open splits to rightside
-set splitright
-
 "undo, backup, view and swapfiles
 set undolevels=5000
 set undofile
@@ -170,8 +163,16 @@ set viewdir=~/vimfiles/view
 set viminfo+=n~/vimfiles/.viminfo
 set updatecount=10
 
-"add <> to bracket matching
-set matchpairs+=<:>
+"mixed
+set clipboard=unnamed               "use system clipboard
+set backspace=indent,eol,start      "make backspace behave normally
+set hidden                          "switch to another buffer without saving
+set autoread                        "update changes to file automatically
+set autochdir                       "automatically change working directory
+set scrolloff=1                     "pad cursor row with lines
+set splitright                      "open splits to rightside
+set matchpairs+=<:>                 ""add <> to bracket matching
+set wildmode=list:longest,full      "better tab completion on command line mode
 
 
 """""""""MAPPINGS""""""""""
@@ -202,6 +203,7 @@ nnoremap <silent><Leader><Up> :cpfile<CR><C-G>
 
 "better autocompletion selection
 imap <expr> <TAB> pumvisible() ? "<C-Y>" : "<TAB>"
+imap <expr> <CR> pumvisible() ? "<C-E><CR>" : "<CR>"
 imap <expr> <C-J> pumvisible() ? "<Down>" : "<C-J>"
 imap <expr> <C-K> pumvisible() ? "<Up>" : "<C-K>"
 
@@ -210,9 +212,9 @@ nnoremap Y y$
 
 "change enter behaviour
 nnoremap <CR> o<Esc>
-nnoremap <C-Enter> o<Esc>k
+nnoremap <C-Enter> moo<Esc>`o
 nnoremap <S-Enter> O<Esc>
-nnoremap <C-S-Enter> O<Esc>j
+nnoremap <C-S-Enter> moO<Esc>`o
 nnoremap <Leader><CR> i<CR><Esc>
 
 "use tab and backspace for indenting
