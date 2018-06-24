@@ -107,9 +107,9 @@ set statusline+=%m                                  "modified flag
 set statusline+=%r                                  "read only flag
 set statusline+=%=                                  "left/right separator
 set statusline+=%l/%L                               "cursor line/total lines
-set statusline+=:%c\                                "cursor column
+set statusline+=:%c                                 "cursor column
 set statusline+=\ [%{strlen(&fenc)?&fenc:'none'},   "file encoding
-set statusline+=%{&ff}]                             "file format
+set statusline+=%{&ff}]                             "line endings
 set statusline+=%y                                  "filetype
 
 "visuals
