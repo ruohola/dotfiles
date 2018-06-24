@@ -102,15 +102,30 @@ set guioptions+=k
 set laststatus=2                                    "always show statusline
 set statusline=                                     "clear statusline
 set statusline+=%F                                  "filepath
+<<<<<<< HEAD
+=======
+set statusline+=[%{strlen(&fenc)?&fenc:'none'},     "file encoding
+set statusline+=%{&ff}]                             "file format
+set statusline+=%y                                  "filetype
+set statusline+=\ %F                                "tail of the filename
+>>>>>>> 51047907ec6cef387b31d6e7f305623f7ff92426
 set statusline+=%h                                  "help file flag
 set statusline+=%m                                  "modified flag
 set statusline+=%r                                  "read only flag
 set statusline+=%=                                  "left/right separator
 set statusline+=%l/%L                               "cursor line/total lines
+<<<<<<< HEAD
 set statusline+=:%c                                 "cursor column
+=======
+set statusline+=:%c\                                "cursor column
+>>>>>>> 51047907ec6cef387b31d6e7f305623f7ff92426
 set statusline+=\ [%{strlen(&fenc)?&fenc:'none'},   "file encoding
 set statusline+=%{&ff}]                             "line endings
 set statusline+=%y                                  "filetype
+<<<<<<< HEAD
+=======
+set statusline+=:%c                                 "cursor column
+>>>>>>> 51047907ec6cef387b31d6e7f305623f7ff92426
 
 "visuals
 set guicursor+=n-v-c:blinkon0
