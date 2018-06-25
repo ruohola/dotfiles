@@ -674,12 +674,15 @@ exe "hi! Cursor"         .s:fmt_none   .s:fg_base03 .s:bg_base0
 hi! link lCursor Cursor
 exe "hi! MatchParen"     .s:fmt_bold   .s:fg_red    .s:bg_base01
 
+
 "own modifications
 exe "hi! CursorLineNr"           .s:fmt_none   .s:fg_base01 .s:bg_base02
 exe "hi! HighlightedyankRegion"  .s:fmt_none   .s:fg_base01 .s:bg_base03 .s:fmt_revbb
 exe "hi EasyMotionTarget"        .s:fmt_none   .s:fg_red    .s:bg_none
 exe "hi EasyMotionTarget2First"  .s:fmt_none   .s:fg_red    .s:bg_none
 exe "hi EasyMotionTarget2Second" .s:fmt_none   .s:fg_red    .s:bg_none
+highlight PythonKwarg ctermfg=61 guifg=#6c71c4
+
 
 "}}}
 " vim syntax highlighting "{{{

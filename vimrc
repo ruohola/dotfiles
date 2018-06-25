@@ -11,9 +11,21 @@ autocmd!
 " set noshellslash
 " set shellquote="\
 
-" use git bash as shell
+" " use powershell.exe as shell
+" set shell=powershell.exe
+" set noshellslash
+" set shellquote="\
+
+" " use git bash as shell
+" let $CHERE_INVOKING=1
+" set shell=C:/Program\ Files/Git/bin/bash.exe
+" set shellxquote=\"
+" set noshellslash
+
+" use cygwin bash as shell
 let $CHERE_INVOKING=1
-set shell=C:/Program\ Files/Git/bin/bash.exe
+set shell=C:/cygwin64/bin/bash.exe
+set shellcmdflag=--login\ -c
 set shellxquote=\"
 set noshellslash
 
@@ -35,7 +47,6 @@ set viminfo+=!
 call plug#begin('~/vimfiles/plugged')
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'tpope/vim-surround'               " more text objects
-Plug 'exvim/ex-aftercolors'             " edit a colorscheme
 Plug 'scrooloose/nerdtree'              " file manager
 Plug 'tpope/vim-commentary'             " comment out lines
 Plug 'xolox/vim-misc'                   " required for xolox plugins
@@ -51,6 +62,8 @@ Plug 'machakann/vim-highlightedyank'    " highlight yanks
 Plug 'markonm/traces.vim'               " live substitution
 Plug 'gavinbeatty/dragvisuals.vim'      " drag blocks around
 Plug 'godlygeek/tabular'                " align text
+" Plug 'mbbill/undotree'                  " graphical undotree
+Plug 'simnalamburt/vim-mundo'           " graphical undotree
 call plug#end()
 
 " altercation/vim-colors-solarized
@@ -98,6 +111,7 @@ if !(&guifont == 'Consolas:h12')
     set guifont=Consolas:h12
 endif
 syntax enable
+let &background=g:BG
 set guioptions-=m guioptions-=M guioptions-=T guioptions-=L guioptions-=l
 set guioptions-=R guioptions-=r guioptions-=b guioptions-=e guioptions+=k
 
@@ -147,13 +161,13 @@ set fileformats=unix,dos
 
 " undo, backup, view and swapfiles
 set undolevels=5000
-set undofile
-set undodir=~/vimfiles/undo
-set backupdir=~/vimfiles/backup
-set directory=~/vimfiles/swap
-set viewdir=~/vimfiles/view
-set viminfo+=n~/vimfiles/.viminfo
 set updatecount=10
+set undofile
+set undodir=~/vimfiles/.temp
+set backupdir=~/vimfiles/.temp
+set directory=~/vimfiles/.temp
+set viewdir=~/vimfiles/.temp
+set viminfo+=n~/vimfiles/.temp/_viminfo
 
 " mixed
 set clipboard=unnamed          " use system clipboard
@@ -163,9 +177,9 @@ set autoread                   " update changes to file automatically
 set autochdir                  " automatically change working directory
 set scrolloff=1                " pad cursor row with lines
 set splitright                 " open splits to rightside
-set matchpairs+=<:>            " add <> to bracket matching
 set wildmode=list:longest,full " better tab completion on command line mode
 set history=1000               " remember more command history
+set matchpairs=(:),{:},[:]     " add <> to bracket matching
 
 
 
@@ -289,8 +303,14 @@ vmap <expr> <DOWN>  DVB_Drag('down')
 vmap <expr> <UP>    DVB_Drag('up')
 vmap <expr> D       DVB_Duplicate()
 
-" show NERDTree
+" toggle NERDTree
 nnoremap <silent><C-N> :NERDTreeToggle<CR>
+
+" toggle UndoTree
+nnoremap <silent><C-H> :UndotreeToggle<cr>
+
+" toggle Mundo
+nnoremap <silent><C-H> :MundoToggle<CR>
 
 " find char with easymotion
 map <Leader>f <Plug>(easymotion-bd-f)
