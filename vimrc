@@ -27,7 +27,8 @@ let $CHERE_INVOKING=1
 set shell=C:/cygwin64/bin/bash.exe
 set shellcmdflag=--login\ -c
 set shellxquote=\"
-set noshellslash
+" set noshellslash
+set shellslash
 
 " make the global variable if it doesn't exist
 if !exists('g:BG')
@@ -51,8 +52,8 @@ Plug 'scrooloose/nerdtree'              " file manager
 Plug 'tpope/vim-commentary'             " comment out lines
 Plug 'xolox/vim-misc'                   " required for xolox plugins
 Plug 'xolox/vim-session'                " session management
-Plug 'ap/vim-buftabline'                " buffers as tabs
 Plug 'xolox/vim-shell'                  " fullscreen mode
+Plug 'ap/vim-buftabline'                " buffers as tabs
 Plug 'vim-scripts/AutoComplPop'         " always show autocompletion
 Plug 'easymotion/vim-easymotion'        " KJump/easymotion for vim
 Plug 'ctrlpvim/ctrlp.vim'               " fuzzy finder
@@ -62,7 +63,6 @@ Plug 'machakann/vim-highlightedyank'    " highlight yanks
 Plug 'markonm/traces.vim'               " live substitution
 Plug 'gavinbeatty/dragvisuals.vim'      " drag blocks around
 Plug 'godlygeek/tabular'                " align text
-" Plug 'mbbill/undotree'                  " graphical undotree
 Plug 'simnalamburt/vim-mundo'           " graphical undotree
 call plug#end()
 
@@ -116,25 +116,32 @@ set guioptions-=m guioptions-=M guioptions-=T guioptions-=L guioptions-=l
 set guioptions-=R guioptions-=r guioptions-=b guioptions-=e guioptions+=k
 
 " statusline
-set laststatus=2                                                      " always show statusline
-set statusline=                                                       " clear statusline
-set statusline+=%F                                                    " filepath
-set statusline+=%h                                                    " help file flag
-set statusline+=%m                                                    " modified flag
-set statusline+=%r                                                    " read only flag
-set statusline+=%=                                                    " left/right separator
-set statusline+=L:%l/%L                                               " cursor line/total lines
-set statusline+=\ C:%c                                                " cursor column
-set statusline+=/%{strwidth(getline('.'))}\ \ \|                      " line length
-set statusline+=%{strlen(&ft)?(\'\ \'\ .\ &ft\ .\ \'\ \|\'):''}       " filetype
-set statusline+=%{strlen(&fenc)?(\'\ \ \'\ .\ &fenc\ .\ \'\ \|\'):''} " file encoding
-set statusline+=\ %{&ff}\ \|                                          " line endings
+set laststatus=2                                      " always show statusline
+set statusline=                                       " clear statusline
+set statusline+=%F                                    " filepath
+set statusline+=%h                                    " help file flag
+set statusline+=%m                                    " modified flag
+set statusline+=%r                                    " read only flag
+set statusline+=%=                                    " left/right separator
+set statusline+=L:%l/%L                               " cursor line/total lines
+set statusline+=\ C:%c                                " cursor column
+set statusline+=/%{strwidth(getline('.'))}            " line length
+set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}  " filetype
+set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''} " file encoding
+set statusline+=%{&ff}]                               " line endings
+
+" | ft | fe | le |
+" set statusline+=/%{strwidth(getline('.'))}\ \ \|                      " line length
+" set statusline+=%{strlen(&ft)?(\'\ \'\ .\ &ft\ .\ \'\ \|\'):''}       " filetype
+" set statusline+=%{strlen(&fenc)?(\'\ \ \'\ .\ &fenc\ .\ \'\ \|\'):''} " file encoding
+" set statusline+=\ %{&ff}\ \|                                          " line endings
 
 " visuals
 set guicursor+=n-v-c:blinkon0 guicursor+=i:ver25-blinkon0
 set cursorline
 set number relativenumber
 set showmode showcmd
+set cmdheight=2
 
 " line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0 formatoptions-=t
@@ -169,17 +176,19 @@ set directory=~/vimfiles/.temp
 set viewdir=~/vimfiles/.temp
 set viminfo+=n~/vimfiles/.temp/_viminfo
 
-" mixed
+" mixed settings
 set clipboard=unnamed          " use system clipboard
 set backspace=indent,eol,start " make backspace behave normally
 set hidden                     " switch to another buffer without saving
 set autoread                   " update changes to file automatically
 set autochdir                  " automatically change working directory
 set scrolloff=1                " pad cursor row with lines
-set splitright                 " open splits to rightside
+set splitright                 " open splits to the right
+set splitbelow                 " open splits to the bottom
 set wildmode=list:longest,full " better tab completion on command line mode
 set history=1000               " remember more command history
-set matchpairs=(:),{:},[:]     " add <> to bracket matching
+set matchpairs=(:),{:},[:]     " configure which braces to match
+set shortmess=a                " shorter prompt messages
 
 
 
@@ -272,14 +281,11 @@ vnoremap <Leader>X "_X
 nnoremap <silent><Esc> <Esc>:noh<CR>
 
 " exceute current python file
-nnoremap <F5> :w<CR>:vert term python %<CR>
+nnoremap <F5> :w<CR>:term ++rows=10 ++eof='' python %<CR>
 " nnoremap <F5> call term_sendkeys(buffer_number, "ls\<CR>")
 
 " open vimrc
 nnoremap <Leader>vr :e $MYVIMRC<CR>
-
-" source vimrc
-nnoremap <Leader>so :so $MYVIMRC<CR>
 
 " toggle theme background
 nnoremap <silent><F12> :call ToggleBackground()<CR>
@@ -306,11 +312,8 @@ vmap <expr> D       DVB_Duplicate()
 " toggle NERDTree
 nnoremap <silent><C-N> :NERDTreeToggle<CR>
 
-" toggle UndoTree
-nnoremap <silent><C-H> :UndotreeToggle<cr>
-
 " toggle Mundo
-nnoremap <silent><C-H> :MundoToggle<CR>
+nnoremap <silent><F2> :MundoToggle<CR>
 
 " find char with easymotion
 map <Leader>f <Plug>(easymotion-bd-f)
@@ -331,6 +334,9 @@ command! PI :PlugInstall
 command! PC :PlugClean
 command! PU :PlugUpdate
 
+" source vimrc
+command! SO :so $MYVIMRC
+
 
 
 " ============= FUNCTIONS =============
@@ -348,14 +354,6 @@ if !exists('*ToggleBackground')
         colorscheme solarized
     endfunction
 endif
-
-" Only apply to help files...
-function! HelpInNewTab()
-    if &buftype == 'help'
-        " Convert the help window to a tab
-        execute "normal \<C-W>T"
-    endif
-endfunction
 
 
 
@@ -381,8 +379,15 @@ augroup AutoSaveFolds
     autocmd BufRead ?* silent loadview
 augroup END
 
-" Only apply to .txt files...
+" open help fullscreen
 augroup HelpInTabs
+
+    function! HelpInNewTab()
+        if &buftype == 'help'
+            execute "normal \<C-W>o"
+        endif
+    endfunction
+
     autocmd!
     autocmd BufEnter *.txt call HelpInNewTab()
 augroup END
