@@ -15,7 +15,6 @@ autocmd!
 let $CHERE_INVOKING=1
 set shell=C:/Program\ Files/Git/bin/bash.exe
 set shellxquote=\"
-" set shellslash
 set noshellslash
 
 " make the global variable if it doesn't exist
@@ -56,38 +55,38 @@ call plug#end()
 
 " altercation/vim-colors-solarized
 " - own modifications on line 677...
-colorscheme solarized
-let g:solarized_italic=0
+colorscheme solarized                                  " use solarized colorscheme
+let g:solarized_italic=0                               " disable italics
 
 " xolox/vim-session
-let g:session_autosave='yes'
-let g:session_autoload='yes'
-let g:session_default_overwrite=1
-let g:session_default_to_last=1
+let g:session_autosave='yes'                           " always save session
+let g:session_autoload='yes'                           " always load session
+let g:session_default_overwrite=1                      " always rewrite 'default' session
+let g:session_default_to_last=1                        " open last session automatically
 
 " xolox/vim-shell
-let g:shell_mappings_enabled=0
+let g:shell_mappings_enabled=0                         " disable default mappings
 
 " xolox/vim-misc
 " - edited 2 lines to remove noruler and noshowmode
 
 " easymotion/vim-easymotion
-let g:EasyMotion_keys='jfhgurlsowmxapqzncbvytiekd'
-let g:EasyMotion_do_shade=0
-let g:EasyMotion_do_mapping=0
+let g:EasyMotion_keys='jfhgurlsowmxapqzncbvytiekd'     " better hotkeys
+let g:EasyMotion_do_shade=0                            " don't disable colors on activation
+let g:EasyMotion_do_mapping=0                          " disable default mappings
 
 " ctrlpvim/ctrlp.vim
-let g:ctrlp_max_files=0
-let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_max_files=0                                " unlimited file cache
+let g:ctrlp_clear_cache_on_exit=0                      " don't clear cache on exit
 
 " FelikZ/ctrl-py-matcher
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+let g:ctrlp_match_func={'match': 'pymatcher#PyMatch'}  " make ctrlp use py-matcher
 
 " machakann/vim-highlightedyank
-let g:highlightedyank_highlight_duration=300
+let g:highlightedyank_highlight_duration=300           " adjust yank highlight duration
 
 " gavinbeatty/dragvisuals.vim
-let g:DVB_TrimWS=1
+let g:DVB_TrimWS=1                                     " trim trailing whitespace after dragging a block
 
 
 
