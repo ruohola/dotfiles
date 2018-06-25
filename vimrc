@@ -27,8 +27,8 @@ let $CHERE_INVOKING=1
 set shell=C:/cygwin64/bin/bash.exe
 set shellcmdflag=--login\ -c
 set shellxquote=\"
-" set noshellslash
-set shellslash
+" set shellslash
+set noshellslash
 
 " make the global variable if it doesn't exist
 if !exists('g:BG')
