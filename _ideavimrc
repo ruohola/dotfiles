@@ -1,24 +1,19 @@
-""""""""""MISC"""""""""""
-
 "load the vimrc
 source ~/vimfiles/vimrc
 
 
-""""""""""GENERAL"""""""""""
+" ============= GENERAL =============
 
 "enable surround plugin emulation
 "makes <Leader>dd/cc slow, because of ds and cs mappings
 set surround
-
-"show editing mode
-set showmode
 
 "disable linenumbers because of lag and use a plugin
 set norelativenumber
 set nonumber
 
 
-"""""""""MAPPINGS""""""""""
+" ============= MAPPINGS =============
 
 "don't show match highlights
 nnoremap <Esc> <Esc>:noh<CR>
@@ -27,12 +22,16 @@ nnoremap <Esc> <Esc>:noh<CR>
 nnoremap <F12> :action ChangeColorScheme<CR>
 
 "move between splits
-nnoremap <C-L> :action NextSplitter<CR>
-nnoremap <C-H> :action PrevSplitter<CR>
+nnoremap <A-L> :action NextSplitter<CR>
+nnoremap <A-H> :action PrevSplitter<CR>
 
 "move between tabs
-nnoremap <A-L> :action NextTab<CR>
-nnoremap <A-H> :action PreviousTab<CR>
+nnoremap <A-M> :action NextTab<CR>
+nnoremap <A-N> :action PreviousTab<CR>
+
+"fix C-U and C-W
+inoremap <C-U> <C-U>
+inoremap <C-W> <C-W>
 
 "source ideavimrc
 nnoremap <Leader>so :so ~/_ideavimrc<CR>

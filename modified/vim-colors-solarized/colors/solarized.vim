@@ -394,7 +394,7 @@ if &background == "light"
     endif
 endif
 "}}}
-" Optional contrast schemes "{{{
+" Optional contrast schemecterm=reverse gui=reverses "{{{
 " ---------------------------------------------------------------------
 if g:solarized_contrast == "high"
     let s:base01      = s:base00
@@ -619,7 +619,6 @@ exe "hi! Search"         .s:fmt_revr   .s:fg_yellow .s:bg_none
 exe "hi! MoreMsg"        .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! ModeMsg"        .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! LineNr"         .s:fmt_none   .s:fg_base01 .s:bg_base02
-exe "hi! CursorLineNr"   .s:fmt_none   .s:fg_base01 .s:bg_base02
 exe "hi! Question"       .s:fmt_bold   .s:fg_cyan   .s:bg_none
 if ( has("gui_running") || &t_Co > 8 )
     exe "hi! VertSplit"  .s:fmt_none   .s:fg_base00 .s:bg_base00
@@ -674,6 +673,13 @@ exe "hi! ColorColumn"    .s:fmt_none   .s:fg_none   .s:bg_base02
 exe "hi! Cursor"         .s:fmt_none   .s:fg_base03 .s:bg_base0
 hi! link lCursor Cursor
 exe "hi! MatchParen"     .s:fmt_bold   .s:fg_red    .s:bg_base01
+
+"own modifications
+exe "hi! CursorLineNr"           .s:fmt_none   .s:fg_base01 .s:bg_base02
+exe "hi! HighlightedyankRegion"  .s:fmt_none   .s:fg_base01 .s:bg_base03 .s:fmt_revbb
+exe "hi EasyMotionTarget"        .s:fmt_none   .s:fg_red    .s:bg_none
+exe "hi EasyMotionTarget2First"  .s:fmt_none   .s:fg_red    .s:bg_none
+exe "hi EasyMotionTarget2Second" .s:fmt_none   .s:fg_red    .s:bg_none
 
 "}}}
 " vim syntax highlighting "{{{
