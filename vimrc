@@ -13,11 +13,6 @@ set shellcmdflag=--login\ -c
 set shellxquote=\"
 set noshellslash
 
-if !exists('g:BG')
-    " make the global variable if it doesn't exist
-   let g:BG=&background
-endif
-
 " make vim store g:CAPS variables to viminfo
 set viminfo+=!
 
@@ -30,6 +25,7 @@ set viminfo+=!
 
 call plug#begin('~/vimfiles/plugged')
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
+Plug 'vim-scripts/AfterColors.vim'      " edit solarized
 Plug 'tpope/vim-surround'               " more text objects
 Plug 'tpope/vim-commentary'             " comment out lines
 Plug 'xolox/vim-misc'                   " required for xolox plugins
@@ -43,13 +39,19 @@ Plug 'machakann/vim-highlightedyank'    " highlight yanks
 Plug 'markonm/traces.vim'               " live substitution
 Plug 'godlygeek/tabular'                " align text
 Plug 'simnalamburt/vim-mundo'           " graphical undotree
-Plug 'vim-scripts/AfterColors.vim'      " edit solarized
+Plug 'terryma/vim-multiple-cursors'     " multiple cursors
 call plug#end()
 
 " altercation/vim-colors-solarized
-" - own modifications on line 678...
+" - own modifications on line 678->
+if !exists('g:BG')
+    " make the global variable if it doesn't exist
+   let g:BG=&background
+endif
 let g:solarized_italic=0
 colorscheme solarized
+let &background=g:BG
+syntax enable
 
 " xolox/vim-session
 let g:session_autosave='yes'                           " always save session
@@ -87,9 +89,6 @@ if !(&guifont == 'Consolas:h12')
     " changing font moves the window
     set guifont=Consolas:h12
 endif
-echo g:BG
-let &background=g:BG
-syntax enable
 set guioptions-=m guioptions-=M guioptions-=T guioptions-=L guioptions-=l
 set guioptions-=R guioptions-=r guioptions-=b guioptions-=e guioptions+=k
 
