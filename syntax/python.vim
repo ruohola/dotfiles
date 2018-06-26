@@ -332,20 +332,20 @@ if !exists("python_no_doctest_highlight")
 endif
 
 
-"""""""""""""""""""""OWN ADDITIONS""""""""""""""""""""
+" ======== MODIFICATIONS =========
 
 "changed lines: 95, 103, 108
 "deleted lines: 197
 "added lines: 200
 
 " highlight function keyword arguments
-syn match PythonKwarg "\v[(,]\s{-}\zs\w+\ze[=].{-}[^:]$"
+syn match PythonKwarg "\v\zs\w+\ze\=\S+"
 
 " highlight self and cls
 syn match pythonExceptions "\(\W\|^\)\@<=self\([\.,)]\)\@="
 syn match pythonExceptions "\(\W\|^\)\@<=cls\([\.,)]\)\@="
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ================================
 
 
 let b:current_syntax = "python"

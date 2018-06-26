@@ -6,39 +6,22 @@ set nocompatible
 " clear all existing autocmds
 autocmd!
 
-" " use cmd.exe as shell
-" set shell=cmd.exe
-" set noshellslash
-" set shellquote="\
-
-" " use powershell.exe as shell
-" set shell=powershell.exe
-" set noshellslash
-" set shellquote="\
-
-" " use git bash as shell
-" let $CHERE_INVOKING=1
-" set shell=C:/Program\ Files/Git/bin/bash.exe
-" set shellxquote=\"
-" set noshellslash
-
 " use cygwin bash as shell
 let $CHERE_INVOKING=1
 set shell=C:/cygwin64/bin/bash.exe
 set shellcmdflag=--login\ -c
 set shellxquote=\"
-" set shellslash
 set noshellslash
 
-" make the global variable if it doesn't exist
 if !exists('g:BG')
+    " make the global variable if it doesn't exist
    let g:BG=&background
 endif
 
 " make vim store g:CAPS variables to viminfo
 set viminfo+=!
 
-" clear the opened file argument list
+" clear the opened file argument list for vim-session
 %argdel
 
 
@@ -48,7 +31,6 @@ set viminfo+=!
 call plug#begin('~/vimfiles/plugged')
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'tpope/vim-surround'               " more text objects
-Plug 'scrooloose/nerdtree'              " file manager
 Plug 'tpope/vim-commentary'             " comment out lines
 Plug 'xolox/vim-misc'                   " required for xolox plugins
 Plug 'xolox/vim-session'                " session management
@@ -56,20 +38,18 @@ Plug 'xolox/vim-shell'                  " fullscreen mode
 Plug 'ap/vim-buftabline'                " buffers as tabs
 Plug 'vim-scripts/AutoComplPop'         " always show autocompletion
 Plug 'easymotion/vim-easymotion'        " KJump/easymotion for vim
-Plug 'ctrlpvim/ctrlp.vim'               " fuzzy finder
-Plug 'FelikZ/ctrlp-py-matcher'          " add-on for ctrlp
 Plug 'google/vim-searchindex'           " show x/y when searching
 Plug 'machakann/vim-highlightedyank'    " highlight yanks
 Plug 'markonm/traces.vim'               " live substitution
-Plug 'gavinbeatty/dragvisuals.vim'      " drag blocks around
 Plug 'godlygeek/tabular'                " align text
 Plug 'simnalamburt/vim-mundo'           " graphical undotree
+Plug 'vim-scripts/AfterColors.vim'      " edit solarized
 call plug#end()
 
 " altercation/vim-colors-solarized
-" - own modifications on line 677...
-colorscheme solarized                                  " use solarized colorscheme
-let g:solarized_italic=0                               " disable italics
+" - own modifications on line 678...
+let g:solarized_italic=0
+colorscheme solarized
 
 " xolox/vim-session
 let g:session_autosave='yes'                           " always save session
@@ -88,18 +68,15 @@ let g:EasyMotion_keys='jfhgurlsowmxapqzncbvytiekd'     " better hotkeys
 let g:EasyMotion_do_shade=0                            " don't disable colors on activation
 let g:EasyMotion_do_mapping=0                          " disable default mappings
 
-" ctrlpvim/ctrlp.vim
-let g:ctrlp_max_files=0                                " unlimited file cache
-let g:ctrlp_clear_cache_on_exit=0                      " don't clear cache on exit
-
-" FelikZ/ctrl-py-matcher
-let g:ctrlp_match_func={'match': 'pymatcher#PyMatch'}  " make ctrlp use py-matcher
-
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300           " adjust yank highlight duration
 
-" gavinbeatty/dragvisuals.vim
-let g:DVB_TrimWS=1                                     " trim trailing whitespace after dragging a block
+" simnalamburt/vim-mundo
+let g:mundo_preview_statusline="Diff"                  " diff panel statusline
+let g:mundo_tree_statusline="History"                  " history panel statusline
+let g:mundo_mirror_graph=0                             " align graph to left
+let g:mundo_return_on_revert=0                         " keep focus on the graph
+let g:mundo_verbose_graph=0                            " configure graph length
 
 
 
@@ -110,8 +87,9 @@ if !(&guifont == 'Consolas:h12')
     " changing font moves the window
     set guifont=Consolas:h12
 endif
-syntax enable
+echo g:BG
 let &background=g:BG
+syntax enable
 set guioptions-=m guioptions-=M guioptions-=T guioptions-=L guioptions-=l
 set guioptions-=R guioptions-=r guioptions-=b guioptions-=e guioptions+=k
 
@@ -130,18 +108,19 @@ set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}  " filetype
 set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''} " file encoding
 set statusline+=%{&ff}]                               " line endings
 
-" | ft | fe | le |
-" set statusline+=/%{strwidth(getline('.'))}\ \ \|                      " line length
-" set statusline+=%{strlen(&ft)?(\'\ \'\ .\ &ft\ .\ \'\ \|\'):''}       " filetype
-" set statusline+=%{strlen(&fenc)?(\'\ \ \'\ .\ &fenc\ .\ \'\ \|\'):''} " file encoding
-" set statusline+=\ %{&ff}\ \|                                          " line endings
-
 " visuals
-set guicursor+=n-v-c:blinkon0 guicursor+=i:ver25-blinkon0
+set guicursor+=a:blinkon0
+set guicursor+=i-ci:ver20-blinkon0
 set cursorline
 set number relativenumber
 set showmode showcmd
 set cmdheight=2
+
+" netrw config
+let g:netrw_banner=0
+let g:netrw_liststyle=3
+let g:netrw_browse_split=4
+let g:netrw_winsize=25
 
 " line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0 formatoptions-=t
@@ -189,6 +168,8 @@ set wildmode=list:longest,full " better tab completion on command line mode
 set history=1000               " remember more command history
 set matchpairs=(:),{:},[:]     " configure which braces to match
 set shortmess=a                " shorter prompt messages
+set report=0                   " threshold when to report commands
+set tildeop                    " use ~ as an operator
 
 
 
@@ -280,15 +261,11 @@ vnoremap <Leader>X "_X
 " don't show match highlights
 nnoremap <silent><Esc> <Esc>:noh<CR>
 
-" exceute current python file
-nnoremap <F5> :w<CR>:term ++rows=10 ++eof='' python %<CR>
-" nnoremap <F5> call term_sendkeys(buffer_number, "ls\<CR>")
-
 " open vimrc
 nnoremap <Leader>vr :e $MYVIMRC<CR>
 
 " toggle theme background
-nnoremap <silent><F12> :call ToggleBackground()<CR>
+nnoremap <F12> :call ToggleBackground()<CR>
 
 " makes vim and ideavim comment actions more consistent
 nmap <C-G> gccj
@@ -301,16 +278,6 @@ map! <F13> <Nop>
 " toggle fullscreenmode
 nnoremap <silent><F11> :Fullscreen<CR>:Maximize<CR>
 nnoremap <silent><C-F11> :Maximize<CR>
-
-" dragvisuals mappings
-vmap <expr> <LEFT>  DVB_Drag('left')
-vmap <expr> <RIGHT> DVB_Drag('right')
-vmap <expr> <DOWN>  DVB_Drag('down')
-vmap <expr> <UP>    DVB_Drag('up')
-vmap <expr> D       DVB_Duplicate()
-
-" toggle NERDTree
-nnoremap <silent><C-N> :NERDTreeToggle<CR>
 
 " toggle Mundo
 nnoremap <silent><F2> :MundoToggle<CR>
@@ -330,12 +297,15 @@ nnoremap <silent><Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 " ============= COMMANDS =============
 
 " vim-plug commands
-command! PI :PlugInstall
-command! PC :PlugClean
-command! PU :PlugUpdate
+command! PI PlugInstall
+command! PC PlugClean
+command! PU PlugUpdate | PlugUpgrade
 
 " source vimrc
-command! SO :so $MYVIMRC
+command! SO so $MYVIMRC
+
+" count lines in file
+command! WC  /^\s*[^"]\w\+/
 
 
 
@@ -352,12 +322,24 @@ if !exists('*ToggleBackground')
             let g:BG="dark"
         endif
         colorscheme solarized
+        highlight PythonKwarg ctermfg=61 guifg=#6c71c4
     endfunction
 endif
 
 
 
 " ============= AUTOCMD =============
+
+" config for python files
+augroup Python
+    autocmd!
+    " exceute current python file
+    autocmd FileType python nnoremap <buffer> <silent><F5> :w<CR>:term ++rows=10 ++eof='' python %<CR>
+    "                       nnoremap                  <F5> call term_sendkeys(buffer_number, "ls\<CR>")
+
+    " highlight python keyword arguments
+    autocmd FileType python highlight PythonKwarg ctermfg=61 guifg=#6c71c4
+augroup END
 
 " toggle relative numbers between modes
 augroup LineNumbers
@@ -379,7 +361,7 @@ augroup AutoSaveFolds
     autocmd BufRead ?* silent loadview
 augroup END
 
-" open help fullscreen
+" open help in a new buffer fullscreen
 augroup HelpInTabs
 
     function! HelpInNewTab()
