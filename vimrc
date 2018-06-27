@@ -4,7 +4,6 @@ set viminfo+=!      " make vim store g:CAPS variables to viminfo
 " ============= PLUGINS =============
 
 call plug#begin('~/vimfiles/plugged')
-Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'vim-scripts/AfterColors.vim'      " edit solarized
 Plug 'tpope/vim-surround'               " edit braces easily
 Plug 'tpope/vim-commentary'             " comment out lines
@@ -18,17 +17,6 @@ Plug 'markonm/traces.vim'               " live substitution
 Plug 'simnalamburt/vim-mundo'           " graphical undotree
 Plug 'tommcdo/vim-lion'                 " align text
 call plug#end()
-
-" altercation/vim-colors-solarized
-" - own modifications on line 678->
-if !exists('g:BG')
-    " make the global variable if it doesn't exist
-   let g:BG=&background
-endif
-let g:solarized_italic=0
-colorscheme solarized
-let &background=g:BG
-syntax enable
 
 " easymotion/vim-easymotion
 let g:EasyMotion_keys='jfhgurlsowmxapqzncbvytiekd' " better hotkeys
@@ -47,6 +35,9 @@ let g:mundo_verbose_graph=0                        " configure graph length
 
 " tommcdo/vim-lion
 let g:lion_squeeze_spaces=1                        " remove useless spaces when aligning
+
+" tpope/vim-surround
+let g:surround_no_mappings=1                       " change s -> z
 
 
 
@@ -67,6 +58,14 @@ set shellxquote=\"
 set noshellslash
 
 " visuals
+if !exists('g:BG')
+    " make the global variable if it doesn't exist
+   let g:BG=&background
+endif
+let g:solarized_italic=0
+colorscheme solarized
+let &background=g:BG
+syntax enable
 set guioptions=
 set guicursor+=a:blinkon0
 set guicursor+=i-ci:ver20-blinkon0
@@ -261,14 +260,25 @@ map! <F13> <Nop>
 nnoremap <silent><F2> :MundoToggle<CR>
 
 " find char with easymotion
-map <Leader>f <Plug>(easymotion-bd-f)
-map <Leader>t <Plug>(easymotion-bd-t)
+map s <Plug>(easymotion-bd-f)
+map S <Plug>(easymotion-bd-t)
 
 " navigate to tag (useful in help file 'links')
 nnoremap <Leader>9 <C-]>
 
 " temp for testing productdata
 nnoremap <silent><Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
+
+nmap dz  <Plug>Dsurround
+nmap cz  <Plug>Csurround
+nmap cZ  <Plug>CSurround
+nmap yz  <Plug>Ysurround
+nmap yZ  <Plug>YSurround
+nmap yzz <Plug>Yssurround
+nmap yZz <Plug>YSsurround
+nmap yZZ <Plug>YSsurround
+xmap Z   <Plug>VSurround
+xmap gZ  <Plug>VgSurround
 
 
 
@@ -283,7 +293,7 @@ command! PU w | PlugUpdate | PlugUpgrade
 command! SO so $MYVIMRC
 
 " count lines in file
-command! WC  /^\s*[^"]\w\+/
+command! WC %s/^\s*\w\+//n | noh
 
 
 
@@ -333,7 +343,7 @@ augroup HelpInTabs
 
     function! HelpInNewTab()
         if &buftype == 'help'
-            execute 'normal \<C-W>o'
+            execute "normal \<C-W>o"
         endif
     endfunction
 
