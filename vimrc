@@ -8,6 +8,7 @@ Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'vim-scripts/AfterColors.vim'      " edit solarized
 Plug 'tpope/vim-surround'               " edit braces easily
 Plug 'tpope/vim-commentary'             " comment out lines
+Plug 'tpope/vim-repeat'                 " repeat plugin commands
 Plug 'ap/vim-buftabline'                " buffers as tabs
 Plug 'vim-scripts/AutoComplPop'         " always show autocompletion
 Plug 'easymotion/vim-easymotion'        " KJump/easymotion for vim
@@ -15,7 +16,6 @@ Plug 'google/vim-searchindex'           " show x/y when searching
 Plug 'machakann/vim-highlightedyank'    " highlight yanks
 Plug 'markonm/traces.vim'               " live substitution
 Plug 'simnalamburt/vim-mundo'           " graphical undotree
-Plug 'justinmk/vim-sneak'               " 2 character search
 Plug 'tommcdo/vim-lion'                 " align text
 call plug#end()
 
@@ -116,7 +116,7 @@ let $LANG='en_US'
 set encoding=utf-8
 set fileformats=unix,dos
 
-" undo, backup, view and swapfiles
+" temp file locations
 set undofile
 set undodir=~/vimfiles/.temp
 set backupdir=~/vimfiles/.temp
@@ -158,10 +158,8 @@ let mapleader=' '
 
 " makes these keys easier to use
 noremap , :
-" noremap : ;
-" noremap ; ,
-map : <Plug>Sneak_;
-map ; <Plug>Sneak_,
+noremap : ;
+noremap ; ,
 
 " operate on visual lines rather than physicals lines
 noremap <silent>k gk
