@@ -19,7 +19,7 @@ Plug 'tommcdo/vim-lion'                 " align text
 call plug#end()
 
 " easymotion/vim-easymotion
-let g:EasyMotion_keys='jfhgurlsowmxapqzncbvytiekd' " better hotkeys
+let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj' " better hotkeys
 let g:EasyMotion_do_shade=0                        " don't disable colors on activation
 let g:EasyMotion_do_mapping=0                      " disable default mappings
 
@@ -72,7 +72,7 @@ set guicursor+=i-ci:ver20-blinkon0
 set cursorline
 set number relativenumber
 set showmode showcmd
-set cmdheight=1
+set cmdheight=2
 
 " statusline
 set laststatus=2                                      " always show statusline
@@ -138,7 +138,6 @@ set history=1000               " remember more command history
 set matchpairs=(:),{:},[:]     " configure which braces to match
 set shortmess=a                " shorter prompt messages
 set report=1                   " threshold when to report commands
-set tildeop                    " use ~ as an operator
 
 " netrw config
 let g:netrw_banner=0
@@ -161,20 +160,26 @@ noremap : ;
 noremap ; ,
 
 " operate on visual lines rather than physicals lines
-noremap <silent>k gk
-noremap <silent>j gj
-noremap <silent>0 g0
-noremap <silent>$ g$
+noremap k gk
+noremap j gj
+noremap 0 g0
+noremap $ g$
 
 " split navigations (alt+hjkl)
-nnoremap <silent>è <C-W><C-H>
-nnoremap <silent>ê <C-W><C-J>
-nnoremap <silent>ë <C-W><C-K>
-nnoremap <silent>ì <C-W><C-L>
+nnoremap è <C-W><C-H>
+nnoremap ê <C-W><C-J>
+nnoremap ë <C-W><C-K>
+nnoremap ì <C-W><C-L>
+tnoremap è <C-W><C-H>
+tnoremap ê <C-W><C-J>
+tnoremap ë <C-W><C-K>
+tnoremap ì <C-W><C-L>
 
 " cycle buffers (alt+nm)
 nnoremap <silent>î :bprev<CR>
 nnoremap <silent>í :bnext<CR>
+tnoremap <silent>î <C-W>:bprev<CR>
+tnoremap <silent>í <C-W>:bnext<CR>
 
 " cycle tabs (alt+ui)
 nnoremap õ gT
@@ -205,15 +210,15 @@ nnoremap Y y$
 
 " change enter behaviour
 nnoremap <CR> o<Esc>
-nnoremap <C-Enter> moo<Esc>`o
+nnoremap <C-Enter> mzo<Esc>`z
 nnoremap <S-Enter> O<Esc>
-nnoremap <C-S-Enter> moO<Esc>`o
+nnoremap <C-S-Enter> mzO<Esc>`z
 nnoremap <Leader><CR> a<CR><Esc>
 
-" use tab and backspace for indenting
-nnoremap <Tab> >>
+" use tab and backspace for indenting lines
+nnoremap <S-BS> >>
 nnoremap <BS> <<
-vnoremap <Tab> >gv
+vnoremap <S-BS> >gv
 vnoremap <BS> <gv
 
 " Q plays back q macro
@@ -269,6 +274,7 @@ nnoremap <Leader>9 <C-]>
 " temp for testing productdata
 nnoremap <silent><Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 
+" make surround.vim use z instead of s
 nmap dz  <Plug>Dsurround
 nmap cz  <Plug>Csurround
 nmap cZ  <Plug>CSurround
