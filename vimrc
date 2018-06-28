@@ -183,12 +183,6 @@ let g:netrw_winsize=25
 
 " vmap > xmap for ideavimc compatibility
 
-
-" makes these keys easier to use
-noremap , :
-noremap : ;
-noremap ; ,
-
 " operate on visual lines rather than physicals lines
 noremap k gk
 noremap j gj
@@ -245,7 +239,7 @@ nnoremap <S-Enter> O<Esc>
 nnoremap <C-S-Enter> mzO<Esc>`z
 nnoremap <Leader><CR> a<CR><Esc>
 
-" use tab and backspace for indenting lines
+" backspace for indenting lines
 nnoremap <S-BS> >>
 nnoremap <BS> <<
 vnoremap <S-BS> >gv
@@ -274,9 +268,6 @@ nnoremap <silent><Esc> <Esc>:noh<CR>
 " open vimrc
 nnoremap <Leader>vr :e $MYVIMRC<CR>
 
-" navigate to tag (useful in help file 'links')
-nnoremap <Leader>9 <C-]>
-
 " toggle theme background
 nnoremap <silent><F12> :call ToggleBackground()<CR>
 function! ToggleBackground()
@@ -298,6 +289,7 @@ map! <F13> <Nop>
 nnoremap <silent><Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 
 nnoremap <silent><Leader>t :Vexplore<CR>
+
 
 
 " ============= COMMANDS =============
@@ -362,8 +354,7 @@ augroup END
 " "            \ | silent call delete($HOME . '/vimfiles/sessions/previous.vim')
 " augroup END
 
-
-augroup AutoSession
+augroup AutoSave
     autocmd!
     autocmd VimLeave * silent silent wviminfo!
     autocmd VimEnter * silent so $MYVIMRC
