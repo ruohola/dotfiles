@@ -1,43 +1,68 @@
 ﻿set nocompatible    " makes sure all the features all available
-set viminfo+=!      " make vim store g:CAPS variables to viminfo
+set viminfo+=!,%,n~/vimfiles/.temp/_viminfo
+let mapleader=' '   " use space as the leader key
 
 " ============= PLUGINS =============
 
 call plug#begin('~/vimfiles/plugged')
-Plug 'vim-scripts/AfterColors.vim'      " edit solarized
-Plug 'tpope/vim-surround'               " edit braces easily
-Plug 'tpope/vim-commentary'             " comment out lines
-Plug 'tpope/vim-repeat'                 " repeat plugin commands
-Plug 'ap/vim-buftabline'                " buffers as tabs
-Plug 'vim-scripts/AutoComplPop'         " always show autocompletion
-Plug 'easymotion/vim-easymotion'        " KJump/easymotion for vim
-Plug 'google/vim-searchindex'           " show x/y when searching
-Plug 'machakann/vim-highlightedyank'    " highlight yanks
-Plug 'markonm/traces.vim'               " live substitution
-Plug 'simnalamburt/vim-mundo'           " graphical undotree
-Plug 'tommcdo/vim-lion'                 " align text
+Plug 'tpope/vim-surround'            " edit braces easily
+Plug 'tpope/vim-commentary'          " comment out lines
+Plug 'tpope/vim-repeat'              " repeat plugin commands
+Plug 'ap/vim-buftabline'             " buffers as tabs
+Plug 'vim-scripts/AutoComplPop'      " always show autocompletion
+Plug 'easymotion/vim-easymotion'     " KJump/easymotion for vim
+Plug 'google/vim-searchindex'        " show x/y when searching
+Plug 'machakann/vim-highlightedyank' " highlight yanks
+Plug 'markonm/traces.vim'            " live substitution
+Plug 'simnalamburt/vim-mundo'        " graphical undotree
+Plug 'tommcdo/vim-lion'              " align text
+Plug 'maxbrunsfeld/vim-yankstack'    " yank stack
+Plug 'romainl/vim-tinyMRU'           " most recent files
 call plug#end()
 
+" maxbrunsfeld/vim-yankstack
+let g:yankstack_map_keys = 0
+call yankstack#setup()
+nmap <C-P> <Plug>yankstack_substitute_older_paste
+nmap <C-N> <Plug>yankstack_substitute_newer_paste
+
 " easymotion/vim-easymotion
-let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj' " better hotkeys
-let g:EasyMotion_do_shade=0                        " don't disable colors on activation
-let g:EasyMotion_do_mapping=0                      " disable default mappings
+let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
+let g:EasyMotion_do_shade=0
+let g:EasyMotion_do_mapping=0
+map s <Plug>(easymotion-bd-f)
+map S <Plug>(easymotion-bd-t)
 
 " machakann/vim-highlightedyank
-let g:highlightedyank_highlight_duration=300       " adjust yank highlight duration
+let g:highlightedyank_highlight_duration=300
 
 " simnalamburt/vim-mundo
-let g:mundo_preview_statusline='Diff'              " diff panel statusline
-let g:mundo_tree_statusline='History'              " history panel statusline
-let g:mundo_mirror_graph=0                         " align graph to left
-let g:mundo_return_on_revert=0                     " keep focus on the graph
-let g:mundo_verbose_graph=0                        " configure graph length
+let g:mundo_preview_statusline='Diff'
+let g:mundo_tree_statusline='History'
+let g:mundo_mirror_graph=0
+let g:mundo_return_on_revert=0
+let g:mundo_verbose_graph=0
+nnoremap <silent><F2> :MundoToggle<CR>
 
 " tommcdo/vim-lion
-let g:lion_squeeze_spaces=1                        " remove useless spaces when aligning
+let g:lion_squeeze_spaces=1
 
 " tpope/vim-surround
-let g:surround_no_mappings=1                       " change s -> z
+let g:surround_no_mappings=1
+nmap dz  <Plug>Dsurround
+nmap cz  <Plug>Csurround
+nmap cZ  <Plug>CSurround
+nmap yz  <Plug>Ysurround
+nmap yZ  <Plug>YSurround
+nmap yzz <Plug>Yssurround
+nmap yZz <Plug>YSsurround
+nmap yZZ <Plug>YSsurround
+xmap Z   <Plug>VSurround
+xmap gZ  <Plug>VgSurround
+
+" romainl/vim-tinyMRU
+set wildcharm=<C-Z>
+nnoremap <Leader>m :ME <C-Z>
 
 
 
@@ -60,11 +85,15 @@ set noshellslash
 " visuals
 if !exists('g:BG')
     " make the global variable if it doesn't exist
-   let g:BG=&background
+    let g:BG=&background
 endif
-let g:solarized_italic=0
+if g:BG == 'dark'
+    set background=dark
+else
+    set background=light
+endif
 colorscheme solarized
-let &background=g:BG
+let g:solarized_italic=0
 syntax enable
 set guioptions=
 set guicursor+=a:blinkon0
@@ -121,7 +150,7 @@ set undodir=~/vimfiles/.temp
 set backupdir=~/vimfiles/.temp
 set directory=~/vimfiles/.temp
 set viewdir=~/vimfiles/.temp
-set viminfo+=n~/vimfiles/.temp/_viminfo
+let g:netrw_home='~/vimfiles/.temp'
 
 " mixed settings
 set clipboard=unnamed          " use system clipboard
@@ -138,6 +167,9 @@ set history=1000               " remember more command history
 set matchpairs=(:),{:},[:]     " configure which braces to match
 set shortmess=a                " shorter prompt messages
 set report=1                   " threshold when to report commands
+filetype plugin indent on      " auto detect filetype
+set sessionoptions-=options
+set sessionoptions+=localoptions
 
 " netrw config
 let g:netrw_banner=0
@@ -151,8 +183,6 @@ let g:netrw_winsize=25
 
 " vmap > xmap for ideavimc compatibility
 
-" use space as the leader key
-let mapleader=' '
 
 " makes these keys easier to use
 noremap , :
@@ -244,6 +274,9 @@ nnoremap <silent><Esc> <Esc>:noh<CR>
 " open vimrc
 nnoremap <Leader>vr :e $MYVIMRC<CR>
 
+" navigate to tag (useful in help file 'links')
+nnoremap <Leader>9 <C-]>
+
 " toggle theme background
 nnoremap <silent><F12> :call ToggleBackground()<CR>
 function! ToggleBackground()
@@ -261,31 +294,10 @@ endfunction
 map <F13> <Nop>
 map! <F13> <Nop>
 
-" toggle Mundo
-nnoremap <silent><F2> :MundoToggle<CR>
-
-" find char with easymotion
-map s <Plug>(easymotion-bd-f)
-map S <Plug>(easymotion-bd-t)
-
-" navigate to tag (useful in help file 'links')
-nnoremap <Leader>9 <C-]>
-
 " temp for testing productdata
 nnoremap <silent><Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 
-" make surround.vim use z instead of s
-nmap dz  <Plug>Dsurround
-nmap cz  <Plug>Csurround
-nmap cZ  <Plug>CSurround
-nmap yz  <Plug>Ysurround
-nmap yZ  <Plug>YSurround
-nmap yzz <Plug>Yssurround
-nmap yZz <Plug>YSsurround
-nmap yZZ <Plug>YSsurround
-xmap Z   <Plug>VSurround
-xmap gZ  <Plug>VgSurround
-
+nnoremap <silent><Leader>t :Vexplore<CR>
 
 
 " ============= COMMANDS =============
@@ -336,13 +348,30 @@ augroup AutoFolds
     autocmd BufRead ?* silent loadview
 augroup END
 
-" open last files if invoked without arguments
+" " open last files if invoked without arguments
+" augroup AutoSession
+"     autocmd!
+"     autocmd VimLeave * silent mksession! ~/vimfiles/sessions/previous.vim | silent wviminfo!
+
+"     autocmd VimEnter *
+"             \ if argc() == 0 && filereadable($HOME . '/vimfiles/sessions/previous.vim')
+"                \ | silent so ~/vimfiles/sessions/previous.vim |  endif
+"             \ | silent so $MYVIMRC
+"             \ | if filereadable($HOME . '/vimfiles/.temp/_viminfo')
+"                 \ | silent rviminfo! | endif
+" "            \ | silent call delete($HOME . '/vimfiles/sessions/previous.vim')
+" augroup END
+
+
 augroup AutoSession
     autocmd!
-    autocmd VimLeave * mksession! ~/vimfiles/sessions/previous.vim
-
-    autocmd VimEnter * if argc() == 0 && filereadable($HOME . '/vimfiles/sessions/previous.vim') | source ~/vimfiles/sessions/previous.vim | endif
+    autocmd VimLeave * silent silent wviminfo!
+    autocmd VimEnter * silent so $MYVIMRC
+                \ | if filereadable($HOME . '/vimfiles/.temp/_viminfo')
+                    \ | silent rviminfo! | endif
 augroup END
+
+
 
 " open help in a new buffer fullscreen
 augroup HelpInTabs

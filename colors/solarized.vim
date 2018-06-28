@@ -682,7 +682,8 @@ exe "hi! HighlightedyankRegion"   . s:fmt_none . s:fg_base01 . s:bg_base03 . s:f
 exe "hi! EasyMotionTarget"        . s:fmt_none . s:fg_red    . s:bg_none
 exe "hi! EasyMotionTarget2First"  . s:fmt_none . s:fg_red    . s:bg_none
 exe "hi! EasyMotionTarget2Second" . s:fmt_none . s:fg_red    . s:bg_none
-
+exe "hi! PythonKwarg"             . s:fmt_none . s:fg_violet . s:bg_none
+" let &background = g:BG
 " ================================
 
 
