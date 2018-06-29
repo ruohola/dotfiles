@@ -30,8 +30,8 @@ nmap <C-N> <Plug>yankstack_substitute_newer_paste
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
-map s <Plug>(easymotion-bd-f)
-map S <Plug>(easymotion-bd-t)
+map <Leader>f <Plug>(easymotion-bd-f)
+map <Leader>t <Plug>(easymotion-bd-t)
 
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300
@@ -46,19 +46,6 @@ nnoremap <silent><F2> :MundoToggle<CR>
 
 " tommcdo/vim-lion
 let g:lion_squeeze_spaces=1
-
-" tpope/vim-surround
-let g:surround_no_mappings=1
-nmap dz  <Plug>Dsurround
-nmap cz  <Plug>Csurround
-nmap cZ  <Plug>CSurround
-nmap yz  <Plug>Ysurround
-nmap yZ  <Plug>YSurround
-nmap yzz <Plug>Yssurround
-nmap yZz <Plug>YSsurround
-nmap yZZ <Plug>YSsurround
-xmap Z   <Plug>VSurround
-xmap gZ  <Plug>VgSurround
 
 " romainl/vim-tinyMRU
 set wildcharm=<C-Z>
@@ -270,16 +257,6 @@ nnoremap <Leader>vr :e $MYVIMRC<CR>
 
 " toggle theme background
 nnoremap <silent><F12> :call ToggleBackground()<CR>
-function! ToggleBackground()
-    if &background == 'dark'
-        set background=light
-        let g:BG='light'
-    else
-        set background=dark
-        let g:BG='dark'
-    endif
-    colorscheme solarized
-endfunction
 
 " unmap push-to-talk key
 map <F13> <Nop>
@@ -307,17 +284,78 @@ command! WC %s/^\s*\w\+//n | noh
 
 
 
+" ============= FUNCTIONS =============
+
+function! s:RunPythonInSplitTerm()
+    " TODO: Poista ekan käynnistyksen cmd ikkuna, ehkä johtuu chmodista
+    let fileType = &filetype
+    let fileName = expand('%')
+    let fullPath = expand('%:p:h')
+    let winSize = 0.3
+    let winSize = winSize * winheight('$')
+    let winSize = float2nr(winSize)
+    let mainBuf = bufnr('%')
+
+    " make sure we're up to date
+    write
+
+    " do we already have a term?
+    let termBufNr = get(b:, "_run_term", -1)
+    let termWinNr = bufwinnr(termBufNr)
+    if termWinNr == -1
+        " nope... set it up
+
+        " make sure it's executable
+        silent !chmod +x %
+
+        let mainBuf = bufnr('%')
+
+        " manually split the window so we can open it how we want,
+        "  and reuse the window via the curwin option
+        exe 'below split | resize ' . winSize
+        let termBufNr = term_start('bash -l', {
+                    \ 'curwin': 1,
+                    \ 'term_finish': 'close',
+                    \ })
+
+        " save the bufnr so we can find it again
+        call setbufvar(mainBuf, "_run_term", termBufNr)
+    else
+        " yes! reuse it
+        exe termWinNr . 'wincmd w'
+        " call feedkeys('i', 't')
+    endif
+
+    let mainWin = bufwinnr(mainBuf)
+    let cmd = "python " . fileName
+
+    " always cd, just in case
+    call term_sendkeys(termBufNr, "cd " . fullPath . "\<cr>")
+    call term_sendkeys(termBufNr, "clear\<cr>")
+    call term_sendkeys(termBufNr, cmd . "\<cr>")
+    execute "normal \<C-W>w"
+endfunction
+
+function! ToggleBackground()
+    if &background == 'dark'
+        set background=light
+        let g:BG='light'
+    else
+        set background=dark
+        let g:BG='dark'
+    endif
+    colorscheme solarized
+endfunction
+
+
+
 " ============= AUTOCMD =============
 
 " config for python files
 augroup Python
     autocmd!
     " exceute current python file
-    autocmd FileType python nnoremap <buffer> <silent><F5> :w<CR>:term ++rows=10 ++eof='' python %<CR>
-    "                       nnoremap                  <F5> call term_sendkeys(buffer_number, "ls\<CR>")
-
-    " highlight python keyword arguments
-    " autocmd FileType python highlight PythonKwarg ctermfg=61 guifg=#6c71c4
+    autocmd FileType python nnoremap <buffer> <silent><F5> :call <SID>RunPythonInSplitTerm()<CR>
 augroup END
 
 " toggle relative numbers between modes
@@ -361,8 +399,6 @@ augroup AutoSave
                 \ | if filereadable($HOME . '/vimfiles/.temp/_viminfo')
                     \ | silent rviminfo! | endif
 augroup END
-
-
 
 " open help in a new buffer fullscreen
 augroup HelpInTabs
