@@ -5,23 +5,27 @@ let mapleader=' '   " use space as the leader key
 " ============= PLUGINS =============
 
 call plug#begin('~/vimfiles/plugged')
-Plug 'tpope/vim-surround'            " edit braces easily
-Plug 'tpope/vim-commentary'          " comment out lines
-Plug 'tpope/vim-repeat'              " repeat plugin commands
-Plug 'ap/vim-buftabline'             " buffers as tabs
-Plug 'vim-scripts/AutoComplPop'      " always show autocompletion
-Plug 'easymotion/vim-easymotion'     " KJump/easymotion for vim
-Plug 'google/vim-searchindex'        " show x/y when searching
-Plug 'machakann/vim-highlightedyank' " highlight yanks
-Plug 'markonm/traces.vim'            " live substitution
-Plug 'simnalamburt/vim-mundo'        " graphical undotree
-Plug 'tommcdo/vim-lion'              " align text
-Plug 'maxbrunsfeld/vim-yankstack'    " yank stack
-Plug 'romainl/vim-tinyMRU'           " most recent files
+Plug 'tpope/vim-surround'              " edit braces easily
+Plug 'tpope/vim-commentary'            " comment out lines
+Plug 'tpope/vim-repeat'                " repeat plugin commands
+Plug 'ap/vim-buftabline'               " buffers as tabs
+Plug 'vim-scripts/AutoComplPop'        " always show autocompletion
+Plug 'easymotion/vim-easymotion'       " KJump/easymotion for vim
+Plug 'google/vim-searchindex'          " show x/y when searching
+Plug 'machakann/vim-highlightedyank'   " highlight yanks
+Plug 'markonm/traces.vim'              " live substitution
+Plug 'simnalamburt/vim-mundo'          " graphical undotree
+Plug 'tommcdo/vim-lion'                " align text
+Plug 'maxbrunsfeld/vim-yankstack'      " yank stack
+Plug 'romainl/vim-tinyMRU'             " most recent files
+Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
+Plug 'wellle/targets.vim'              " more text objects
+Plug 'tommcdo/vim-exchange'            " echange two objects
+Plug 'rhysd/clever-f.vim'              " repeat last f with f
 call plug#end()
 
 " maxbrunsfeld/vim-yankstack
-let g:yankstack_map_keys = 0
+let g:yankstack_map_keys=0
 call yankstack#setup()
 nmap <C-P> <Plug>yankstack_substitute_older_paste
 nmap <C-N> <Plug>yankstack_substitute_newer_paste
@@ -50,6 +54,10 @@ let g:lion_squeeze_spaces=1
 " romainl/vim-tinyMRU
 set wildcharm=<C-Z>
 nnoremap <Leader>m :ME <C-Z>
+
+" 'rhysd/clever-f.vim'
+let g:clever_f_fix_key_direction=1
+let g:clever_f_mark_char_color="EasyMotionTarget"
 
 
 
@@ -88,6 +96,7 @@ set guicursor+=i-ci:ver20-blinkon0
 set cursorline
 set number relativenumber
 set showmode showcmd
+set report=1
 set cmdheight=2
 
 " statusline
@@ -153,7 +162,6 @@ set undolevels=5000            " remember more undo history
 set history=1000               " remember more command history
 set matchpairs=(:),{:},[:]     " configure which braces to match
 set shortmess=a                " shorter prompt messages
-set report=1                   " threshold when to report commands
 filetype plugin indent on      " auto detect filetype
 set sessionoptions-=options
 set sessionoptions+=localoptions
@@ -167,8 +175,36 @@ let g:netrw_winsize=25
 
 
 " ============= MAPPINGS =============
-
 " vmap > xmap for ideavimc compatibility
+
+" makes these easier to use
+noremap , :
+noremap g, g:
+
+" traverse change history with ; :
+" more logical this way
+noremap : g,
+noremap ; g;
+
+" old 'backups'
+" noremap , :
+" noremap : ;
+" noremap ; ,
+" noremap g, g:
+" more logical this way
+" noremap g: g,
+" noremap g; g;
+" " noremap ¤ $
+" " noremap § `
+" " noremap ½ ~
+" " noremap g½ g~
+
+" make Y behave the same way as D and C
+nnoremap Y y$
+
+" make V behave the same way as D and C
+nnoremap V v$
+nnoremap vv V
 
 " operate on visual lines rather than physicals lines
 noremap k gk
@@ -216,15 +252,16 @@ inoremap <expr> <CR> pumvisible() ? '<C-E><C-G>u<CR>' : '<C-G>u<CR>'
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
-" make Y behave the same way as D and C
-nnoremap Y y$
-
 " change enter behaviour
-nnoremap <CR> o<Esc>
-nnoremap <C-Enter> mzo<Esc>`z
-nnoremap <S-Enter> O<Esc>
-nnoremap <C-S-Enter> mzO<Esc>`z
-nnoremap <Leader><CR> a<CR><Esc>
+nnoremap <CR> mzo<Esc>`z
+nnoremap <S-Enter> mzO<Esc>`z
+nnoremap <Leader><CR> mza<CR><Esc>`z
+" old 'backups'
+" nnoremap <CR> o<Esc>
+" nnoremap <C-Enter> mzo<Esc>`z
+" nnoremap <S-Enter> O<Esc>
+" nnoremap <C-S-Enter> mzO<Esc>`z
+" nnoremap <Leader><CR> a<CR><Esc>
 
 " backspace for indenting lines
 nnoremap <S-BS> >>
@@ -265,7 +302,9 @@ map! <F13> <Nop>
 " temp for testing productdata
 nnoremap <silent><Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 
-nnoremap <silent><Leader>t :Vexplore<CR>
+nnoremap <silent><Leader>e :Vexplore<CR>
+
+nnoremap <Leader>b :bd<CR>
 
 
 
@@ -282,12 +321,16 @@ command! SO so $MYVIMRC
 " count lines in file
 command! WC %s/^\s*\w\+//n | noh
 
+" search help with the word under cursor
+nnoremap <Leader>h :help <C-R><C-W><CR>
+
 
 
 " ============= FUNCTIONS =============
 
 function! s:RunPythonInSplitTerm()
-    " TODO: Poista ekan käynnistyksen cmd ikkuna, ehkä johtuu chmodista
+    " TODO: Yritä poistaa ekan käynnistyksen cmd ikkunan teksti
+    " ehkä johtuu chmodista
     let fileType = &filetype
     let fileName = expand('%')
     let fullPath = expand('%:p:h')

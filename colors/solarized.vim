@@ -679,11 +679,11 @@ exe "hi! MatchParen"     .s:fmt_bold   .s:fg_red    .s:bg_base01
 
 exe "hi! CursorLineNr"            . s:fmt_none . s:fg_base01 . s:bg_base02
 exe "hi! HighlightedyankRegion"   . s:fmt_none . s:fg_base01 . s:bg_base03 . s:fmt_revbb
-exe "hi! EasyMotionTarget"        . s:fmt_none . s:fg_red    . s:bg_none
-exe "hi! EasyMotionTarget2First"  . s:fmt_none . s:fg_red    . s:bg_none
-exe "hi! EasyMotionTarget2Second" . s:fmt_none . s:fg_red    . s:bg_none
+exe "hi! EasyMotionTarget"        . s:fmt_bold . s:fg_red    . s:bg_none
+exe "hi! EasyMotionTarget2First"  . s:fmt_bold . s:fg_red    . s:bg_none
+exe "hi! EasyMotionTarget2Second" . s:fmt_bold . s:fg_red    . s:bg_none
 exe "hi! PythonKwarg"             . s:fmt_none . s:fg_violet . s:bg_none
-" let &background = g:BG
+
 " ================================
 
 
