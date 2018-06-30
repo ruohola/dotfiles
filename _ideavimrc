@@ -1,6 +1,7 @@
 "load the vimrc
 source ~/vimfiles/vimrc
 
+let mapleader=" "
 
 " ============= GENERAL =============
 
