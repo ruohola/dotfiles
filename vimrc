@@ -9,33 +9,53 @@ Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
 Plug 'tpope/vim-repeat'                " repeat plugin commands
 Plug 'ap/vim-buftabline'               " buffers as tabs
-Plug 'vim-scripts/AutoComplPop'        " always show autocompletion
+" Plug 'vim-scripts/AutoComplPop'        " always show autocompletion
 Plug 'easymotion/vim-easymotion'       " KJump/easymotion for vim
-Plug 'google/vim-searchindex'          " show x/y when searching
+Plug 'google/vim-searchindex'          " show [x/y] when searching
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
 Plug 'markonm/traces.vim'              " live substitution
 Plug 'simnalamburt/vim-mundo'          " graphical undotree
 Plug 'tommcdo/vim-lion'                " align text
-Plug 'maxbrunsfeld/vim-yankstack'      " yank stack
-Plug 'romainl/vim-tinyMRU'             " most recent files
+Plug 'vim-scripts/YankRing.vim'        " remember past yanks
+Plug 'romainl/vim-tinyMRU'             " show most recent files
 Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
 Plug 'tommcdo/vim-exchange'            " echange two objects
 Plug 'rhysd/clever-f.vim'              " repeat last f with f
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'powershell -executionpolicy bypass -File install.ps1',
+    \ }
+
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/deoplete.nvim'
 call plug#end()
 
-" maxbrunsfeld/vim-yankstack
-let g:yankstack_map_keys=0
-call yankstack#setup()
-nmap <C-P> <Plug>yankstack_substitute_older_paste
-nmap <C-N> <Plug>yankstack_substitute_newer_paste
+
+let g:deoplete#enable_at_startup = 1
+let g:python3_host_prog="python3"
+
+let g:LanguageClient_serverCommands = {
+    \ 'python': ['pyls'],
+    \ }
+
+nnoremap <F4> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
+
+
+" vim-scripts/YankRing.vim
+nnoremap <silent> <Leader>p :YRShow<CR>
 
 " easymotion/vim-easymotion
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
 map <Leader>f <Plug>(easymotion-bd-f)
-map <Leader>t <Plug>(easymotion-bd-t)
+nmap <Leader>t <Plug>(easymotion-bd-t)
 
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300
@@ -46,7 +66,7 @@ let g:mundo_tree_statusline='History'
 let g:mundo_mirror_graph=0
 let g:mundo_return_on_revert=0
 let g:mundo_verbose_graph=0
-nnoremap <silent><F2> :MundoToggle<CR>
+nnoremap <silent> <F2> :MundoToggle<CR>
 
 " tommcdo/vim-lion
 let g:lion_squeeze_spaces=1
@@ -55,7 +75,7 @@ let g:lion_squeeze_spaces=1
 set wildcharm=<C-Z>
 nnoremap <Leader>m :ME <C-Z>
 
-" 'rhysd/clever-f.vim'
+" rhysd/clever-f.vim
 let g:clever_f_fix_key_direction=1
 let g:clever_f_mark_char_color="EasyMotionTarget"
 
@@ -163,8 +183,7 @@ set history=1000               " remember more command history
 set matchpairs=(:),{:},[:]     " configure which braces to match
 set shortmess=a                " shorter prompt messages
 filetype plugin indent on      " auto detect filetype
-set sessionoptions-=options
-set sessionoptions+=localoptions
+set foldmethod=syntax          " configure autofolds
 
 " netrw config
 let g:netrw_banner=0
@@ -178,15 +197,18 @@ let g:netrw_winsize=25
 " vmap > xmap for ideavimc compatibility
 
 " makes these easier to use
-noremap , :
-noremap g, g:
+nnoremap , :
+augroup Q
+    autocmd!
+    autocmd BufWinEnter * if &l:buftype != 'nofile' | nnoremap <buffer> q, q: | endif
+augroup END
 
 " traverse change history with ; :
 " more logical this way
-noremap : g,
-noremap ; g;
+nnoremap : g,
+nnoremap ; g;
 
-" old 'backups'
+" old 'backups' huom. noremap
 " noremap , :
 " noremap : ;
 " noremap ; ,
@@ -202,9 +224,9 @@ noremap ; g;
 " make Y behave the same way as D and C
 nnoremap Y y$
 
-" make V behave the same way as D and C
-nnoremap V v$
-nnoremap vv V
+" " make V behave the same way as D and C
+" nnoremap V v$
+" nnoremap vv V
 
 " operate on visual lines rather than physicals lines
 noremap k gk
@@ -223,10 +245,10 @@ tnoremap ë <C-W><C-K>
 tnoremap ì <C-W><C-L>
 
 " cycle buffers (alt+nm)
-nnoremap <silent>î :bprev<CR>
-nnoremap <silent>í :bnext<CR>
-tnoremap <silent>î <C-W>:bprev<CR>
-tnoremap <silent>í <C-W>:bnext<CR>
+nnoremap <silent> î :bprev<CR>
+nnoremap <silent> í :bnext<CR>
+tnoremap <silent> î <C-W>:bprev<CR>
+tnoremap <silent> í <C-W>:bnext<CR>
 
 " cycle tabs (alt+ui)
 nnoremap õ gT
@@ -239,10 +261,10 @@ noremap! <C-J> <Down>
 noremap! <C-K> <Up>
 
 " use arrow keys to navigate after a :vimgrep or :helpgrep
-nnoremap <silent><Down> :cnext<CR>
-nnoremap <silent><Up> :cprev<CR>
-nnoremap <silent><C-Down> :cnfile<CR><C-G>
-nnoremap <silent><C-Up> :cpfile<CR><C-G>
+nnoremap <silent> <Down> :cnext<CR>
+nnoremap <silent> <Up> :cprev<CR>
+nnoremap <silent> <C-Down> :cnfile<CR><C-G>
+nnoremap <silent> <C-Up> :cpfile<CR><C-G>
 
 " better autocompletion selection and make CR undoable
 inoremap <expr> <TAB> pumvisible() ? '<C-Y>' : '<TAB>'
@@ -253,15 +275,11 @@ inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
 " change enter behaviour
-nnoremap <CR> mzo<Esc>`z
-nnoremap <S-Enter> mzO<Esc>`z
-nnoremap <Leader><CR> mza<CR><Esc>`z
-" old 'backups'
-" nnoremap <CR> o<Esc>
-" nnoremap <C-Enter> mzo<Esc>`z
-" nnoremap <S-Enter> O<Esc>
-" nnoremap <C-S-Enter> mzO<Esc>`z
-" nnoremap <Leader><CR> a<CR><Esc>
+nnoremap <CR> o<Esc>
+nnoremap <C-Enter> mzo<Esc>`z
+nnoremap <S-Enter> O<Esc>
+nnoremap <C-S-Enter> mzO<Esc>`z
+nnoremap <Leader><CR> a<CR><Esc>
 
 " backspace for indenting lines
 nnoremap <S-BS> >>
@@ -287,24 +305,32 @@ vnoremap <Leader>x "_x
 vnoremap <Leader>X "_X
 
 " don't show match highlights
-nnoremap <silent><Esc> <Esc>:noh<CR>
+nnoremap <silent> <Esc> <Esc>:noh<CR>
 
 " open vimrc
 nnoremap <Leader>vr :e $MYVIMRC<CR>
 
 " toggle theme background
-nnoremap <silent><F12> :call ToggleBackground()<CR>
+nnoremap <silent> <F12> :call ToggleBackground()<CR>
 
 " unmap push-to-talk key
 map <F13> <Nop>
 map! <F13> <Nop>
 
 " temp for testing productdata
-nnoremap <silent><Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
+nnoremap <silent> <Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 
-nnoremap <silent><Leader>e :Vexplore<CR>
+" open netrw in a vertical split
+nnoremap <silent> <Leader>e :Vexplore<CR>
 
+" close current buffer
 nnoremap <Leader>b :bd<CR>
+
+" search help with the word under cursor
+nnoremap <Leader>h :help <C-R><C-W><CR>
+
+" search help with the visual selection
+vnoremap <Leader>h "zy :help <C-R>z<CR>
 
 
 
@@ -320,9 +346,6 @@ command! SO so $MYVIMRC
 
 " count lines in file
 command! WC %s/^\s*\w\+//n | noh
-
-" search help with the word under cursor
-nnoremap <Leader>h :help <C-R><C-W><CR>
 
 
 
@@ -398,7 +421,7 @@ endfunction
 augroup Python
     autocmd!
     " exceute current python file
-    autocmd FileType python nnoremap <buffer> <silent><F5> :call <SID>RunPythonInSplitTerm()<CR>
+    autocmd FileType python nnoremap <buffer> <silent> <F5> :call <SID>RunPythonInSplitTerm()<CR>
 augroup END
 
 " toggle relative numbers between modes
@@ -435,7 +458,8 @@ augroup END
 " "            \ | silent call delete($HOME . '/vimfiles/sessions/previous.vim')
 " augroup END
 
-augroup AutoSave
+augroup Viminfo
+    " this shouldn't be needed?
     autocmd!
     autocmd VimLeave * silent silent wviminfo!
     autocmd VimEnter * silent so $MYVIMRC
