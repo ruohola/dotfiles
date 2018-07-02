@@ -7,7 +7,8 @@ call plug#begin('~/vimfiles/plugged')
 Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
 Plug 'tpope/vim-repeat'                " repeat plugin commands
-Plug 'ap/vim-buftabline'               " buffers as tabs
+" Plug 'ap/vim-buftabline'               " buffers as tabs
+Plug 'pacha/vem-tabline'               " buffers as tabs
 Plug 'easymotion/vim-easymotion'       " KJump/easymotion for vim
 Plug 'google/vim-searchindex'          " show [x/y] when searching
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
