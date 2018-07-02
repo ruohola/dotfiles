@@ -41,6 +41,7 @@ let g:jedi#rename_command='<Leader>r'
 let g:jedi#usages_command='<Leader>u'
 
 " vim-scripts/YankRing.vim
+let g:yankring_history_dir = '~/vimfiles/.temp'
 nnoremap <silent> <Leader>p :YRShow<CR>
 
 " easymotion/vim-easymotion
