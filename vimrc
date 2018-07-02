@@ -1,6 +1,5 @@
-﻿set nocompatible    " makes sure all the features all available
-set viminfo+=!,%,n~/vimfiles/.temp/_viminfo
-let mapleader=' '   " use space as the leader key
+﻿set viminfo+=!,%,n~/vimfiles/.temp/_viminfo
+let g:mapleader=' '   " use space as the leader key
 
 " ============= PLUGINS =============
 
@@ -9,7 +8,6 @@ Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
 Plug 'tpope/vim-repeat'                " repeat plugin commands
 Plug 'ap/vim-buftabline'               " buffers as tabs
-" Plug 'vim-scripts/AutoComplPop'        " always show autocompletion
 Plug 'easymotion/vim-easymotion'       " KJump/easymotion for vim
 Plug 'google/vim-searchindex'          " show [x/y] when searching
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
@@ -22,16 +20,24 @@ Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
 Plug 'tommcdo/vim-exchange'            " echange two objects
 Plug 'rhysd/clever-f.vim'              " repeat last f with f
-Plug 'davidhalter/jedi-vim'
-Plug 'w0rp/ale'
+Plug 'davidhalter/jedi-vim'            " python autocompletion etc
+Plug 'w0rp/ale'                        " automatic linting
 call plug#end()
 
-let b:ale_linters = {'python': ['flake8', 'mypy']}
-let g:ale_python_autopep8_use_global=1
-let g:ale_python_flake8_use_global=1
-let g:ale_python_mypy_use_global=1
-let g:ale_python_pylint_use_global=1
-" let g:ale_python_pyls_use_global=1
+" w0rp/ale
+let g:ale_sign_column_always=1
+let g:ale_fix_on_save=1
+let g:ale_linters = {'python': ['flake8', 'mypy']}
+let g:ale_fixers  = {'python': ['autopep8', 'isort']}
+nnoremap <silent> <Right> :ALENextWrap<CR>
+nnoremap <silent> <Left> :ALEPreviousWrap<CR>
+
+" davidhalter/jedi-vim
+let g:jedi#goto_command='<Leader>d'
+let g:jedi#goto_assignments_command='<Leader>a'
+let g:jedi#documentation_command='K'
+let g:jedi#rename_command='<Leader>r'
+let g:jedi#usages_command='<Leader>u'
 
 " vim-scripts/YankRing.vim
 nnoremap <silent> <Leader>p :YRShow<CR>
@@ -63,8 +69,10 @@ nnoremap <Leader>m :ME <C-Z>
 
 " rhysd/clever-f.vim
 let g:clever_f_fix_key_direction=1
-let g:clever_f_mark_char_color="EasyMotionTarget"
+let g:clever_f_mark_char_color='EasyMotionTarget'
 let g:clever_f_across_no_line=1
+nnoremap : g,
+nnoremap ; g;
 
 " vim-scripts/ReplaceWithRegister
 nmap s <Plug>ReplaceWithRegisterOperator
@@ -95,7 +103,7 @@ if !exists('g:BG')
     " make the global variable if it doesn't exist
     let g:BG=&background
 endif
-if g:BG == 'dark'
+if g:BG ==? 'dark'
     set background=dark
 else
     set background=light
@@ -110,6 +118,7 @@ set cursorline
 set number relativenumber
 set showmode showcmd
 set report=1
+
 set cmdheight=2
 
 " statusline
@@ -119,6 +128,20 @@ set statusline+=%F                                    " filepath
 set statusline+=%h                                    " help file flag
 set statusline+=%m                                    " modified flag
 set statusline+=%r                                    " read only flag
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+set statusline+=\ [%{LinterStatus()}]
+
 set statusline+=%=                                    " left/right separator
 set statusline+=L:%l/%L                               " cursor line/total lines
 set statusline+=(%p%%)
@@ -151,8 +174,9 @@ augroup END
 
 " language settings
 let $LANG='en_US'
-set encoding=utf-8
 set fileformats=unix,dos
+set encoding=utf-8
+scriptencoding utf-8
 
 " temp file locations
 set undofile
@@ -177,7 +201,7 @@ set history=1000               " remember more command history
 set matchpairs=(:),{:},[:]     " configure which braces to match
 set shortmess=a                " shorter prompt messages
 filetype plugin indent on      " auto detect filetype
-set foldmethod=syntax          " configure autofolds
+" set foldmethod=syntax          " configure autofolds
 
 " netrw config
 let g:netrw_banner=0
@@ -192,17 +216,13 @@ let g:netrw_winsize=25
 
 " makes these easier to use
 noremap , :
-augroup Q
+augroup QMappings
     autocmd!
-    autocmd BufWinEnter * if &l:buftype != 'nofile' | noremap <buffer> q, q: | endif
+    autocmd FileType * if &l:buftype =='' | nnoremap <buffer> <silent> q, q: | endif
+    autocmd FileType * if &l:buftype =='nofile' | nnoremap <buffer> <silent> q :q<CR> | endif
 augroup END
 
-" traverse change history with ; :
-" more logical this way
-nnoremap : g,
-nnoremap ; g;
-
-" makes these easier to use
+" " makes these easier to use in fin layout
 " noremap ¤ $
 " noremap § `
 " noremap ½ ~
@@ -218,10 +238,6 @@ nnoremap Y y$
 " testing if this is good
 vnoremap v V
 noremap V <Nop>
-
-" " make V behave the same way as D and C
-" nnoremap V v$
-" nnoremap vv V
 
 " operate on visual lines rather than physicals lines
 noremap k gk
@@ -255,11 +271,11 @@ noremap <C-K> <Up>
 noremap! <C-J> <Down>
 noremap! <C-K> <Up>
 
-" use arrow keys to navigate after a :vimgrep or :helpgrep
 nnoremap <silent> <Down> :cnext<CR>
 nnoremap <silent> <Up> :cprev<CR>
 nnoremap <silent> <C-Down> :cnfile<CR><C-G>
 nnoremap <silent> <C-Up> :cpfile<CR><C-G>
+
 
 " better autocompletion selection and make CR undoable
 inoremap <expr> <TAB> pumvisible() ? '<C-Y>' : '<TAB>'
@@ -267,7 +283,6 @@ inoremap <expr> <CR> pumvisible() ? '<C-E><C-G>u<CR>' : '<C-G>u<CR>'
 " inoremap <expr> <Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
 " inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u<CR>"
-" imap <C-Space> <Plug>(asyncomplete_force_refresh)
 
 " make C-U and C-W undoable
 inoremap <C-U> <C-G>u<C-U>
@@ -289,19 +304,19 @@ vnoremap <BS> <gv
 " Q plays back q macro
 nnoremap Q @q
 
-" dont copy to clipboard when editing with <Leader><key>
-nnoremap <Leader>d "_d
-nnoremap <Leader>D "_D
-nnoremap <Leader>c "_c
-nnoremap <Leader>C "_C
-nnoremap <Leader>x "_x
-nnoremap <Leader>X "_X
-vnoremap <Leader>d "_d
-vnoremap <Leader>D "_D
-vnoremap <Leader>c "_c
-vnoremap <Leader>C "_C
-vnoremap <Leader>x "_x
-vnoremap <Leader>X "_X
+" " don't copy to clipboard when editing with <Leader><key>
+" nnoremap <Leader>d "_d
+" nnoremap <Leader>D "_D
+" nnoremap <Leader>c "_c
+" nnoremap <Leader>C "_C
+" nnoremap <Leader>x "_x
+" nnoremap <Leader>X "_X
+" vnoremap <Leader>d "_d
+" vnoremap <Leader>D "_D
+" vnoremap <Leader>c "_c
+" vnoremap <Leader>C "_C
+" vnoremap <Leader>x "_x
+" vnoremap <Leader>X "_X
 
 " don't show match highlights
 nnoremap <silent> <Esc> <Esc>:noh<CR>
@@ -331,7 +346,7 @@ nnoremap <Leader>b :bd<CR>
 
 " vim-plug commands
 command! PI w | PlugInstall
-command! PC w | PlugClean
+command! PC w | PlugClean!
 command! PU w | PlugUpdate | PlugUpgrade
 
 " source vimrc
@@ -359,7 +374,7 @@ function! s:RunPythonInSplitTerm()
     write
 
     " do we already have a term?
-    let termBufNr = get(b:, "_run_term", -1)
+    let termBufNr = get(b:, '_run_term', -1)
     let termWinNr = bufwinnr(termBufNr)
     if termWinNr == -1
         " nope... set it up
@@ -378,7 +393,7 @@ function! s:RunPythonInSplitTerm()
                     \ })
 
         " save the bufnr so we can find it again
-        call setbufvar(mainBuf, "_run_term", termBufNr)
+        call setbufvar(mainBuf, '_run_term', termBufNr)
     else
         " yes! reuse it
         exe termWinNr . 'wincmd w'
@@ -386,17 +401,17 @@ function! s:RunPythonInSplitTerm()
     endif
 
     let mainWin = bufwinnr(mainBuf)
-    let cmd = "python " . fileName
+    let cmd = 'python ' . fileName
 
     " always cd, just in case
-    call term_sendkeys(termBufNr, "cd " . fullPath . "\<cr>")
-    call term_sendkeys(termBufNr, "clear\<cr>")
-    call term_sendkeys(termBufNr, cmd . "\<cr>")
-    execute "normal \<C-W>w"
+    call term_sendkeys(termBufNr, 'cd ' . fullPath . '\<cr>')
+    call term_sendkeys(termBufNr, 'clear\<cr>')
+    call term_sendkeys(termBufNr, cmd . '\<cr>')
+    execute 'normal \<C-W>w'
 endfunction
 
 function! ToggleBackground()
-    if &background == 'dark'
+    if &background ==? 'dark'
         set background=light
         let g:BG='light'
     else
@@ -411,17 +426,17 @@ endfunction
 " ============= AUTOCMD =============
 
 " config for python files
-" augroup Python
-"     autocmd!
-"     " exceute current python file
-"     autocmd FileType python nnoremap <buffer> <silent> <F5> :call <SID>RunPythonInSplitTerm()<CR>
-" augroup END
+augroup Python
+    autocmd!
+    " exceute current python file
+    autocmd FileType python nnoremap <buffer> <silent> <F5> :call <SID>RunPythonInSplitTerm()<CR>
+augroup END
 
 " toggle relative numbers between modes
 augroup LineNumbers
     autocmd!
-    autocmd InsertEnter * :set norelativenumber
-    autocmd InsertLeave * :set relativenumber
+    autocmd InsertEnter * set norelativenumber
+    autocmd InsertLeave * set relativenumber
 augroup END
 
 " source vimrc when it's saved
@@ -460,12 +475,12 @@ augroup Viminfo
                     \ | silent rviminfo! | endif
 augroup END
 
-" open help in a new buffer fullscreen
+" configure opening of help windows
 augroup HelpInTabs
-
     function! HelpInNewTab()
-        if &buftype == 'help'
-            execute "normal \<C-W>o"
+        if &buftype ==? 'help'
+            wincmd L
+            execute "norm \<C-W>60>"
         endif
     endfunction
 
@@ -483,5 +498,5 @@ augroup END
 " clear trailing whitespace on save
 augroup TrimWhitespace
     autocmd!
-    autocmd BufWritePre *vimrc,*.py :%s/\s\+$//e
+    autocmd BufWritePre *vimrc :%s/\s\+$//e
 augroup END
