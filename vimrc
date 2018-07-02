@@ -22,30 +22,16 @@ Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
 Plug 'tommcdo/vim-exchange'            " echange two objects
 Plug 'rhysd/clever-f.vim'              " repeat last f with f
-
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'powershell -executionpolicy bypass -File install.ps1',
-    \ }
-
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'Shougo/deoplete.nvim'
+Plug 'davidhalter/jedi-vim'
+Plug 'w0rp/ale'
 call plug#end()
 
-
-let g:deoplete#enable_at_startup = 1
-let g:python3_host_prog="python3"
-
-let g:LanguageClient_serverCommands = {
-    \ 'python': ['pyls'],
-    \ }
-
-nnoremap <F4> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
-
+let b:ale_linters = {'python': ['flake8', 'mypy']}
+let g:ale_python_autopep8_use_global=1
+let g:ale_python_flake8_use_global=1
+let g:ale_python_mypy_use_global=1
+let g:ale_python_pylint_use_global=1
+" let g:ale_python_pyls_use_global=1
 
 " vim-scripts/YankRing.vim
 nnoremap <silent> <Leader>p :YRShow<CR>
@@ -78,6 +64,13 @@ nnoremap <Leader>m :ME <C-Z>
 " rhysd/clever-f.vim
 let g:clever_f_fix_key_direction=1
 let g:clever_f_mark_char_color="EasyMotionTarget"
+let g:clever_f_across_no_line=1
+
+" vim-scripts/ReplaceWithRegister
+nmap s <Plug>ReplaceWithRegisterOperator
+nmap ss <Plug>ReplaceWithRegisterLine
+xmap s <Plug>ReplaceWithRegisterVisual
+nnoremap S s
 
 
 
@@ -128,6 +121,7 @@ set statusline+=%m                                    " modified flag
 set statusline+=%r                                    " read only flag
 set statusline+=%=                                    " left/right separator
 set statusline+=L:%l/%L                               " cursor line/total lines
+set statusline+=(%p%%)
 set statusline+=\ C:%c                                " cursor column
 set statusline+=/%{strwidth(getline('.'))}            " line length
 set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}  " filetype
@@ -197,10 +191,10 @@ let g:netrw_winsize=25
 " vmap > xmap for ideavimc compatibility
 
 " makes these easier to use
-nnoremap , :
+noremap , :
 augroup Q
     autocmd!
-    autocmd BufWinEnter * if &l:buftype != 'nofile' | nnoremap <buffer> q, q: | endif
+    autocmd BufWinEnter * if &l:buftype != 'nofile' | noremap <buffer> q, q: | endif
 augroup END
 
 " traverse change history with ; :
@@ -208,21 +202,22 @@ augroup END
 nnoremap : g,
 nnoremap ; g;
 
-" old 'backups' huom. noremap
-" noremap , :
-" noremap : ;
-" noremap ; ,
-" noremap g, g:
-" more logical this way
-" noremap g: g,
-" noremap g; g;
-" " noremap ¤ $
-" " noremap § `
-" " noremap ½ ~
-" " noremap g½ g~
+" makes these easier to use
+" noremap ¤ $
+" noremap § `
+" noremap ½ ~
+" noremap g½ g~
+" noremap - /
+" noremap q- q/
+" noremap + ?
+" noremap q+ q?
 
 " make Y behave the same way as D and C
 nnoremap Y y$
+
+" testing if this is good
+vnoremap v V
+noremap V <Nop>
 
 " " make V behave the same way as D and C
 " nnoremap V v$
@@ -269,6 +264,10 @@ nnoremap <silent> <C-Up> :cpfile<CR><C-G>
 " better autocompletion selection and make CR undoable
 inoremap <expr> <TAB> pumvisible() ? '<C-Y>' : '<TAB>'
 inoremap <expr> <CR> pumvisible() ? '<C-E><C-G>u<CR>' : '<C-G>u<CR>'
+" inoremap <expr> <Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
+" inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u<CR>"
+" imap <C-Space> <Plug>(asyncomplete_force_refresh)
 
 " make C-U and C-W undoable
 inoremap <C-U> <C-G>u<C-U>
@@ -282,8 +281,8 @@ nnoremap <C-S-Enter> mzO<Esc>`z
 nnoremap <Leader><CR> a<CR><Esc>
 
 " backspace for indenting lines
-nnoremap <S-BS> >>
-nnoremap <BS> <<
+nnoremap <S-BS> a<C-T><Esc>
+nnoremap <BS> a<C-D><Esc>
 vnoremap <S-BS> >gv
 vnoremap <BS> <gv
 
@@ -325,12 +324,6 @@ nnoremap <silent> <Leader>e :Vexplore<CR>
 
 " close current buffer
 nnoremap <Leader>b :bd<CR>
-
-" search help with the word under cursor
-nnoremap <Leader>h :help <C-R><C-W><CR>
-
-" search help with the visual selection
-vnoremap <Leader>h "zy :help <C-R>z<CR>
 
 
 
@@ -418,11 +411,11 @@ endfunction
 " ============= AUTOCMD =============
 
 " config for python files
-augroup Python
-    autocmd!
-    " exceute current python file
-    autocmd FileType python nnoremap <buffer> <silent> <F5> :call <SID>RunPythonInSplitTerm()<CR>
-augroup END
+" augroup Python
+"     autocmd!
+"     " exceute current python file
+"     autocmd FileType python nnoremap <buffer> <silent> <F5> :call <SID>RunPythonInSplitTerm()<CR>
+" augroup END
 
 " toggle relative numbers between modes
 augroup LineNumbers
@@ -430,7 +423,7 @@ augroup LineNumbers
     autocmd InsertEnter * :set norelativenumber
     autocmd InsertLeave * :set relativenumber
 augroup END
-,
+
 " source vimrc when it's saved
 augroup ReloadVimrc
     autocmd!
@@ -438,11 +431,11 @@ augroup ReloadVimrc
 augroup END
 
 " always save a view to have persistent folds
-augroup AutoFolds
-    autocmd!
-    autocmd BufWrite ?* mkview
-    autocmd BufRead ?* silent loadview
-augroup END
+" augroup AutoFolds
+"     autocmd!
+"     autocmd BufWrite ?* mkview
+"     autocmd BufRead ?* silent loadview
+" augroup END
 
 " " open last files if invoked without arguments
 " augroup AutoSession

@@ -1,6 +1,3 @@
-"load the vimrc
-source ~/vimfiles/vimrc
-
 let mapleader=" "
 
 " ============= GENERAL =============
@@ -9,12 +6,93 @@ let mapleader=" "
 "makes <Leader>dd/cc slow, because of ds and cs mappings
 set surround
 
-"disable linenumbers because of lag and use a plugin
-set norelativenumber
-set nonumber
+" " test if needed
+" set showmode
+" set showcmd
+
+" line numbers (might lag, mby use plugin)
+set number
+set relativenumber
+
+" search settings
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+" mixed settings
+set clipboard=unnamed          " use system clipboard
+set scrolloff=1                " pad cursor row with lines
 
 
 " ============= MAPPINGS =============
+
+" makes these easier to use
+noremap , :
+noremap q, q:
+nnoremap : ;
+nnoremap ; ,
+
+" makes these easier to use
+" noremap ¤ $
+" noremap § `
+" noremap ½ ~
+" noremap g½ g~
+" noremap - /
+" noremap q- q/
+" noremap + ?
+" noremap q+ q?
+
+" make Y behave the same way as D and C
+nnoremap Y y$
+
+" testing if this is good
+vnoremap v V
+noremap V <Nop>
+
+" " make V behave the same way as D and C
+" nnoremap V v$
+" nnoremap vv V
+
+" Ctrl+hjkl work as arrows
+noremap <C-H> <Left>
+noremap <C-J> <Down>
+noremap <C-K> <Up>
+noremap <C-L> <Right>
+noremap! <C-H> <Right>
+noremap! <C-J> <Down>
+noremap! <C-K> <Up>
+noremap! <C-L> <Left>
+
+" change enter behaviour
+nnoremap <CR> o<Esc>
+nnoremap <C-Enter> mzo<Esc>`z
+nnoremap <S-Enter> O<Esc>
+nnoremap <C-S-Enter> mzO<Esc>`z
+nnoremap <Leader><CR> a<CR><Esc>
+
+" backspace for indenting lines
+nnoremap <S-BS> a<C-T><Esc>
+nnoremap <BS> a<C-D><Esc>
+vnoremap <S-BS> >gv
+vnoremap <BS> <gv
+
+" Q plays back q macro
+nnoremap Q @q
+
+" dont copy to clipboard when editing with <Leader><key>
+nnoremap <Leader>d "_d
+nnoremap <Leader>D "_D
+nnoremap <Leader>c "_c
+nnoremap <Leader>C "_C
+nnoremap <Leader>x "_x
+nnoremap <Leader>X "_X
+vnoremap <Leader>d "_d
+vnoremap <Leader>D "_D
+vnoremap <Leader>c "_c
+vnoremap <Leader>C "_C
+vnoremap <Leader>x "_x
+vnoremap <Leader>X "_X
 
 "don't show match highlights
 nnoremap <Esc> <Esc>:noh<CR>
@@ -30,9 +108,8 @@ nnoremap <A-H> :action PrevSplitter<CR>
 nnoremap <A-M> :action NextTab<CR>
 nnoremap <A-N> :action PreviousTab<CR>
 
-"fix C-U and C-W
-inoremap <C-U> <C-U>
-inoremap <C-W> <C-W>
+" open ideavimrc
+nnoremap <Leader>vr :e ~/_ideavimrc<CR>
 
 "source ideavimrc
 nnoremap <Leader>so :so ~/_ideavimrc<CR>
