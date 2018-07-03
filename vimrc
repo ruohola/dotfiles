@@ -7,7 +7,6 @@ call plug#begin('~/vimfiles/plugged')
 Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
 Plug 'tpope/vim-repeat'                " repeat plugin commands
-" Plug 'ap/vim-buftabline'               " buffers as tabs
 Plug 'pacha/vem-tabline'               " buffers as tabs
 Plug 'easymotion/vim-easymotion'       " KJump/easymotion for vim
 Plug 'google/vim-searchindex'          " show [x/y] when searching
@@ -15,7 +14,7 @@ Plug 'machakann/vim-highlightedyank'   " highlight yanks
 Plug 'markonm/traces.vim'              " live substitution
 Plug 'simnalamburt/vim-mundo'          " graphical undotree
 Plug 'tommcdo/vim-lion'                " align text
-Plug 'vim-scripts/YankRing.vim'        " remember past yanks
+Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
 Plug 'romainl/vim-tinyMRU'             " show most recent files
 Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
@@ -27,9 +26,19 @@ call plug#end()
 
 " w0rp/ale
 let g:ale_sign_column_always=1
+let g:ale_change_sign_column_color=1
+let g:ale_use_global_executables=1
+let g:ale_linters_explicit=1
+let g:ale_linters = {'python': ['flake8', 'mypy'], 'vim': ['vint']}
+" let g:ale_fixers  = {'python': ['autopep8', 'isort']}
+
+let g:ale_fixers  = {'python': ['isort']}
+let g:ale_lint_on_enter=0
+let g:ale_lint_on_text_changed=0
+let g:ale_lint_on_filetype_changed=0
+let g:ale_lint_on_insert_leave=0
+let g:ale_lint_on_save=1
 let g:ale_fix_on_save=1
-let g:ale_linters = {'python': ['flake8', 'mypy']}
-let g:ale_fixers  = {'python': ['autopep8', 'isort']}
 nnoremap <silent> <Right> :ALENextWrap<CR>
 nnoremap <silent> <Left> :ALEPreviousWrap<CR>
 
@@ -40,9 +49,11 @@ let g:jedi#documentation_command='K'
 let g:jedi#rename_command='<Leader>r'
 let g:jedi#usages_command='<Leader>u'
 
-" vim-scripts/YankRing.vim
-let g:yankring_history_dir = '~/vimfiles/.temp'
-nnoremap <silent> <Leader>p :YRShow<CR>
+" maxbrunsfeld/vim-yankstack
+let g:yankstack_map_keys = 0
+nmap <C-P> <Plug>yankstack_substitute_older_paste
+nmap <C-N> <Plug>yankstack_substitute_newer_paste
+call yankstack#setup()
 
 " easymotion/vim-easymotion
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
@@ -218,6 +229,7 @@ let g:netrw_winsize=25
 
 " makes these easier to use
 noremap , :
+tnoremap , :
 augroup QMappings
     autocmd!
     autocmd FileType * if &l:buftype =='' | nnoremap <buffer> <silent> q, q: | endif
@@ -241,11 +253,11 @@ nnoremap Y y$
 vnoremap v V
 noremap V <Nop>
 
-" operate on visual lines rather than physicals lines
-noremap k gk
-noremap j gj
-noremap 0 g0
-noremap $ g$
+" " operate on visual lines rather than physicals lines
+" noremap k gk
+" noremap j gj
+" noremap 0 g0
+" noremap $ g$
 
 " split navigations (alt+hjkl)
 nnoremap è <C-W><C-H>
@@ -272,6 +284,9 @@ noremap <C-J> <Down>
 noremap <C-K> <Up>
 noremap! <C-J> <Down>
 noremap! <C-K> <Up>
+
+" insert diagrahs with C-L instead of C-K
+inoremap <C-L> <C-K>
 
 nnoremap <silent> <Down> :cnext<CR>
 nnoremap <silent> <Up> :cprev<CR>
@@ -329,6 +344,9 @@ nnoremap <Leader>vr :e $MYVIMRC<CR>
 " toggle theme background
 nnoremap <silent> <F12> :call ToggleBackground()<CR>
 
+" toggle fullscreen
+nnoremap <F11> :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+
 " unmap push-to-talk key
 map <F13> <Nop>
 map! <F13> <Nop>
@@ -336,8 +354,8 @@ map! <F13> <Nop>
 " temp for testing productdata
 nnoremap <silent> <Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 
-" open netrw in a vertical split
-nnoremap <silent> <Leader>e :Vexplore<CR>
+" open netrw on the side
+nnoremap <silent> <F1> :Vexplore<CR>
 
 " close current buffer
 nnoremap <Leader>b :bd<CR>
@@ -361,10 +379,10 @@ command! WC %s/^\s*\w\+//n | noh
 
 " ============= FUNCTIONS =============
 
+
 function! s:RunPythonInSplitTerm()
     " TODO: Yritä poistaa ekan käynnistyksen cmd ikkunan teksti
     " ehkä johtuu chmodista
-    let fileType = &filetype
     let fileName = expand('%')
     let fullPath = expand('%:p:h')
     let winSize = 0.3
@@ -380,9 +398,6 @@ function! s:RunPythonInSplitTerm()
     let termWinNr = bufwinnr(termBufNr)
     if termWinNr == -1
         " nope... set it up
-
-        " make sure it's executable
-        silent !chmod +x %
 
         let mainBuf = bufnr('%')
 
@@ -406,11 +421,63 @@ function! s:RunPythonInSplitTerm()
     let cmd = 'python ' . fileName
 
     " always cd, just in case
-    call term_sendkeys(termBufNr, 'cd ' . fullPath . '\<cr>')
-    call term_sendkeys(termBufNr, 'clear\<cr>')
-    call term_sendkeys(termBufNr, cmd . '\<cr>')
-    execute 'normal \<C-W>w'
+    call term_sendkeys(termBufNr, 'cd ' . fullPath . "\<cr>")
+    call term_sendkeys(termBufNr, "clear\<cr>")
+    call term_sendkeys(termBufNr, cmd . "\<cr>")
+    execute "normal \<C-W>w"
 endfunction
+
+
+" function! s:RunPythonInSplitTerm()
+"     " TODO: Yritä poistaa ekan käynnistyksen cmd ikkunan teksti
+"     " ehkä johtuu chmodista
+"     let fileType = &filetype
+"     let fileName = expand('%')
+"     let fullPath = expand('%:p:h')
+"     let winSize = 0.3
+"     let winSize = winSize * winheight('$')
+"     let winSize = float2nr(winSize)
+"     let mainBuf = bufnr('%')
+
+"     " make sure we're up to date
+"     write
+
+"     " do we already have a term?
+"     let termBufNr = get(b:, '_run_term', -1)
+"     let termWinNr = bufwinnr(termBufNr)
+"     if termWinNr == -1
+"         " nope... set it up
+
+"         " make sure it's executable
+"         silent !chmod +x %
+
+"         let mainBuf = bufnr('%')
+
+"         " manually split the window so we can open it how we want,
+"         "  and reuse the window via the curwin option
+"         exe 'below split | resize ' . winSize
+"         let termBufNr = term_start('bash -l', {
+"                     \ 'curwin': 1,
+"                     \ 'term_finish': 'close',
+"                     \ })
+
+"         " save the bufnr so we can find it again
+"         call setbufvar(mainBuf, '_run_term', termBufNr)
+"     else
+"         " yes! reuse it
+"         exe termWinNr . 'wincmd w'
+"         " call feedkeys('i', 't')
+"     endif
+
+"     let mainWin = bufwinnr(mainBuf)
+"     let cmd = 'python ' . fileName
+
+"     " always cd, just in case
+"     call term_sendkeys(termBufNr, 'cd ' . fullPath . "\<cr>")
+"     call term_sendkeys(termBufNr, "clear\<cr>")
+"     call term_sendkeys(termBufNr, cmd . "\<cr>")
+"     execute "normal \<C-W>w"
+" endfunction
 
 function! ToggleBackground()
     if &background ==? 'dark'
@@ -471,10 +538,10 @@ augroup END
 augroup Viminfo
     " this shouldn't be needed?
     autocmd!
-    autocmd VimLeave * silent silent wviminfo!
+    autocmd VimLeave * silent silent wviminfo
     autocmd VimEnter * silent so $MYVIMRC
                 \ | if filereadable($HOME . '/vimfiles/.temp/_viminfo')
-                    \ | silent rviminfo! | endif
+                    \ | silent rviminfo | endif
 augroup END
 
 " configure opening of help windows
@@ -482,7 +549,6 @@ augroup HelpInTabs
     function! HelpInNewTab()
         if &buftype ==? 'help'
             wincmd L
-            execute "norm \<C-W>60>"
         endif
     endfunction
 
