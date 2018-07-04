@@ -3,6 +3,9 @@ let g:mapleader=' '   " use space as the leader key
 
 " ============= PLUGINS =============
 
+let g:loaded_netrw=1
+let g:loaded_netrwPlugin=1
+
 call plug#begin('~/vimfiles/plugged')
 Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
@@ -13,16 +16,32 @@ Plug 'google/vim-searchindex'          " show [x/y] when searching
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
 Plug 'markonm/traces.vim'              " live substitution
 Plug 'simnalamburt/vim-mundo'          " graphical undotree
-Plug 'tommcdo/vim-lion'                " align text
+Plug 'tommcdo/vim-lion'                " align text with motion
 Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
-Plug 'romainl/vim-tinyMRU'             " show most recent files
 Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
 Plug 'tommcdo/vim-exchange'            " echange two objects
 Plug 'rhysd/clever-f.vim'              " repeat last f with f
 Plug 'davidhalter/jedi-vim'            " python autocompletion etc
 Plug 'w0rp/ale'                        " automatic linting
+Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
+Plug 'Yggdroot/LeaderF'                " fuzzy finding
+Plug 'scrooloose/nerdtree'             " file browser  TODO: conffaa
 call plug#end()
+
+" Yggdroot/LeaderF
+let g:Lf_CursorBlink=0
+" let g:Lf_UseVersionControlTool=0
+" let g:Lf_DefaultExternalTool="rg"
+" let g:Lf_ShowHidden=1
+let g:Lf_ShortcutF='<Leader>p'
+nnoremap <Leader>l :LeaderfLine<CR>
+nnoremap <Leader>ö :LeaderfSelf<CR>
+
+" " netrw
+" let g:netrw_home='~/vimfiles/.temp'
+" let g:netrw_banner=0
+" let g:netrw_liststyle=3
 
 " w0rp/ale
 let g:ale_sign_column_always=1
@@ -59,7 +78,7 @@ call yankstack#setup()
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
-map <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>t <Plug>(easymotion-bd-t)
 
 " machakann/vim-highlightedyank
@@ -76,10 +95,6 @@ nnoremap <silent> <F2> :MundoToggle<CR>
 " tommcdo/vim-lion
 let g:lion_squeeze_spaces=1
 
-" romainl/vim-tinyMRU
-set wildcharm=<C-Z>
-nnoremap <Leader>m :ME <C-Z>
-
 " rhysd/clever-f.vim
 let g:clever_f_fix_key_direction=1
 let g:clever_f_mark_char_color='EasyMotionTarget'
@@ -92,6 +107,12 @@ nmap s <Plug>ReplaceWithRegisterOperator
 nmap ss <Plug>ReplaceWithRegisterLine
 xmap s <Plug>ReplaceWithRegisterVisual
 nnoremap S s
+
+" terryma/vim-smooth-scroll
+noremap <silent> <C-U> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <C-D> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <C-B> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <C-F> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 
 
@@ -112,15 +133,6 @@ set shellxquote=\"
 set noshellslash
 
 " visuals
-if !exists('g:BG')
-    " make the global variable if it doesn't exist
-    let g:BG=&background
-endif
-if g:BG ==? 'dark'
-    set background=dark
-else
-    set background=light
-endif
 colorscheme solarized
 let g:solarized_italic=0
 syntax enable
@@ -131,7 +143,6 @@ set cursorline
 set number relativenumber
 set showmode showcmd
 set report=1
-
 set cmdheight=2
 
 " statusline
@@ -197,14 +208,13 @@ set undodir=~/vimfiles/.temp
 set backupdir=~/vimfiles/.temp
 set directory=~/vimfiles/.temp
 set viewdir=~/vimfiles/.temp
-let g:netrw_home='~/vimfiles/.temp'
 
 " mixed settings
 set clipboard=unnamed          " use system clipboard
 set backspace=indent,eol,start " make backspace behave normally
 set hidden                     " switch to another buffer without saving
 set autoread                   " update changes to file automatically
-set autochdir                  " automatically change working directory
+" set autochdir                  " automatically change working directory
 set scrolloff=1                " pad cursor row with lines
 set splitright                 " open splits to the right
 set splitbelow                 " open splits to the bottom
@@ -214,26 +224,18 @@ set history=1000               " remember more command history
 set matchpairs=(:),{:},[:]     " configure which braces to match
 set shortmess=a                " shorter prompt messages
 filetype plugin indent on      " auto detect filetype
-" set foldmethod=syntax          " configure autofolds
-
-" netrw config
-let g:netrw_banner=0
-let g:netrw_liststyle=3
-let g:netrw_browse_split=4
-let g:netrw_winsize=25
 
 
 
 " ============= MAPPINGS =============
-" vmap > xmap for ideavimc compatibility
 
 " makes these easier to use
 noremap , :
 tnoremap , :
 augroup QMappings
     autocmd!
-    autocmd FileType * if &l:buftype =='' | nnoremap <buffer> <silent> q, q: | endif
-    autocmd FileType * if &l:buftype =='nofile' | nnoremap <buffer> <silent> q :q<CR> | endif
+    autocmd FileType * if &l:buftype ==? '' |nnoremap <buffer> <silent> q, q:| endif
+    autocmd FileType * if &l:buftype ==? 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
 augroup END
 
 " " makes these easier to use in fin layout
@@ -250,7 +252,7 @@ augroup END
 nnoremap Y y$
 
 " testing if this is good
-vnoremap v V
+xnoremap v V
 noremap V <Nop>
 
 " " operate on visual lines rather than physicals lines
@@ -293,30 +295,31 @@ nnoremap <silent> <Up> :cprev<CR>
 nnoremap <silent> <C-Down> :cnfile<CR><C-G>
 nnoremap <silent> <C-Up> :cpfile<CR><C-G>
 
-
 " better autocompletion selection and make CR undoable
 inoremap <expr> <TAB> pumvisible() ? '<C-Y>' : '<TAB>'
 inoremap <expr> <CR> pumvisible() ? '<C-E><C-G>u<CR>' : '<C-G>u<CR>'
-" inoremap <expr> <Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
-" inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u<CR>"
 
 " make C-U and C-W undoable
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
 " change enter behaviour
-nnoremap <CR> o<Esc>
-nnoremap <C-Enter> mzo<Esc>`z
-nnoremap <S-Enter> O<Esc>
-nnoremap <C-S-Enter> mzO<Esc>`z
-nnoremap <Leader><CR> a<CR><Esc>
+augroup EnterMappings
+    autocmd!
+    autocmd FileType * if &l:buftype ==? ''
+            \| nnoremap <buffer> <CR> o<Esc>
+            \| nnoremap <buffer> <C-Enter> mzo<Esc>`z
+            \| nnoremap <buffer> <S-Enter> O<Esc>
+            \| nnoremap <buffer> <C-S-Enter> mzO<Esc>`z
+            \| nnoremap <buffer> <Leader><CR> a<CR><Esc>
+            \| endif
+augroup END
 
 " backspace for indenting lines
-nnoremap <S-BS> a<C-T><Esc>
-nnoremap <BS> a<C-D><Esc>
-vnoremap <S-BS> >gv
-vnoremap <BS> <gv
+nnoremap <S-BS> <<
+nnoremap <BS> >>
+xnoremap <S-BS> >gv
+xnoremap <BS> <gv
 
 " Q plays back q macro
 nnoremap Q @q
@@ -328,12 +331,12 @@ nnoremap Q @q
 " nnoremap <Leader>C "_C
 " nnoremap <Leader>x "_x
 " nnoremap <Leader>X "_X
-" vnoremap <Leader>d "_d
-" vnoremap <Leader>D "_D
-" vnoremap <Leader>c "_c
-" vnoremap <Leader>C "_C
-" vnoremap <Leader>x "_x
-" vnoremap <Leader>X "_X
+" xnoremap <Leader>d "_d
+" xnoremap <Leader>D "_D
+" xnoremap <Leader>c "_c
+" xnoremap <Leader>C "_C
+" xnoremap <Leader>x "_x
+" xnoremap <Leader>X "_X
 
 " don't show match highlights
 nnoremap <silent> <Esc> <Esc>:noh<CR>
@@ -380,104 +383,27 @@ command! WC %s/^\s*\w\+//n | noh
 " ============= FUNCTIONS =============
 
 
-function! s:RunPythonInSplitTerm()
-    " TODO: Yritä poistaa ekan käynnistyksen cmd ikkunan teksti
-    " ehkä johtuu chmodista
-    let fileName = expand('%')
-    let fullPath = expand('%:p:h')
-    let winSize = 0.3
-    let winSize = winSize * winheight('$')
-    let winSize = float2nr(winSize)
-    let mainBuf = bufnr('%')
-
-    " make sure we're up to date
+function! s:RunCommandInSplitTerm(command)
     write
-
-    " do we already have a term?
+    let winSize = float2nr(0.3 * winheight('$'))
+    let mainBuf = bufnr('%')
     let termBufNr = get(b:, '_run_term', -1)
     let termWinNr = bufwinnr(termBufNr)
+
     if termWinNr == -1
-        " nope... set it up
-
-        let mainBuf = bufnr('%')
-
-        " manually split the window so we can open it how we want,
-        "  and reuse the window via the curwin option
         exe 'below split | resize ' . winSize
         let termBufNr = term_start('bash -l', {
                     \ 'curwin': 1,
                     \ 'term_finish': 'close',
                     \ })
-
-        " save the bufnr so we can find it again
-        call setbufvar(mainBuf, '_run_term', termBufNr)
     else
-        " yes! reuse it
         exe termWinNr . 'wincmd w'
-        " call feedkeys('i', 't')
     endif
 
     let mainWin = bufwinnr(mainBuf)
-    let cmd = 'python ' . fileName
-
-    " always cd, just in case
-    call term_sendkeys(termBufNr, 'cd ' . fullPath . "\<cr>")
-    call term_sendkeys(termBufNr, "clear\<cr>")
-    call term_sendkeys(termBufNr, cmd . "\<cr>")
-    execute "normal \<C-W>w"
+    call term_sendkeys(termBufNr, a:command . "\<CR>")
+    exe "normal \<C-W>w"
 endfunction
-
-
-" function! s:RunPythonInSplitTerm()
-"     " TODO: Yritä poistaa ekan käynnistyksen cmd ikkunan teksti
-"     " ehkä johtuu chmodista
-"     let fileType = &filetype
-"     let fileName = expand('%')
-"     let fullPath = expand('%:p:h')
-"     let winSize = 0.3
-"     let winSize = winSize * winheight('$')
-"     let winSize = float2nr(winSize)
-"     let mainBuf = bufnr('%')
-
-"     " make sure we're up to date
-"     write
-
-"     " do we already have a term?
-"     let termBufNr = get(b:, '_run_term', -1)
-"     let termWinNr = bufwinnr(termBufNr)
-"     if termWinNr == -1
-"         " nope... set it up
-
-"         " make sure it's executable
-"         silent !chmod +x %
-
-"         let mainBuf = bufnr('%')
-
-"         " manually split the window so we can open it how we want,
-"         "  and reuse the window via the curwin option
-"         exe 'below split | resize ' . winSize
-"         let termBufNr = term_start('bash -l', {
-"                     \ 'curwin': 1,
-"                     \ 'term_finish': 'close',
-"                     \ })
-
-"         " save the bufnr so we can find it again
-"         call setbufvar(mainBuf, '_run_term', termBufNr)
-"     else
-"         " yes! reuse it
-"         exe termWinNr . 'wincmd w'
-"         " call feedkeys('i', 't')
-"     endif
-
-"     let mainWin = bufwinnr(mainBuf)
-"     let cmd = 'python ' . fileName
-
-"     " always cd, just in case
-"     call term_sendkeys(termBufNr, 'cd ' . fullPath . "\<cr>")
-"     call term_sendkeys(termBufNr, "clear\<cr>")
-"     call term_sendkeys(termBufNr, cmd . "\<cr>")
-"     execute "normal \<C-W>w"
-" endfunction
 
 function! ToggleBackground()
     if &background ==? 'dark'
@@ -498,7 +424,8 @@ endfunction
 augroup Python
     autocmd!
     " exceute current python file
-    autocmd FileType python nnoremap <buffer> <silent> <F5> :call <SID>RunPythonInSplitTerm()<CR>
+    autocmd FileType python nnoremap <buffer> <silent> <F5>
+                \ :call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR>
 augroup END
 
 " toggle relative numbers between modes
@@ -514,41 +441,21 @@ augroup ReloadVimrc
     autocmd BufWritePost vimrc so $MYVIMRC
 augroup END
 
-" always save a view to have persistent folds
-" augroup AutoFolds
-"     autocmd!
-"     autocmd BufWrite ?* mkview
-"     autocmd BufRead ?* silent loadview
-" augroup END
-
-" " open last files if invoked without arguments
-" augroup AutoSession
-"     autocmd!
-"     autocmd VimLeave * silent mksession! ~/vimfiles/sessions/previous.vim | silent wviminfo!
-
-"     autocmd VimEnter *
-"             \ if argc() == 0 && filereadable($HOME . '/vimfiles/sessions/previous.vim')
-"                \ | silent so ~/vimfiles/sessions/previous.vim |  endif
-"             \ | silent so $MYVIMRC
-"             \ | if filereadable($HOME . '/vimfiles/.temp/_viminfo')
-"                 \ | silent rviminfo! | endif
-" "            \ | silent call delete($HOME . '/vimfiles/sessions/previous.vim')
-" augroup END
-
 augroup Viminfo
-    " this shouldn't be needed?
     autocmd!
-    autocmd VimLeave * silent silent wviminfo
+    autocmd VimLeave * silent wviminfo
     autocmd VimEnter * silent so $MYVIMRC
-                \ | if filereadable($HOME . '/vimfiles/.temp/_viminfo')
-                    \ | silent rviminfo | endif
+                \| if filereadable($HOME . '/vimfiles/.temp/_viminfo')
+                    \| silent rviminfo
+                    \| let &background=g:BG
+                \| endif
 augroup END
 
 " configure opening of help windows
 augroup HelpInTabs
     function! HelpInNewTab()
         if &buftype ==? 'help'
-            wincmd L
+            exe "normal \<C-W>o"
         endif
     endfunction
 
@@ -556,12 +463,13 @@ augroup HelpInTabs
     autocmd BufEnter *.txt call HelpInNewTab()
 augroup END
 
-" fix enter behaviour in specific buffers
-augroup EnterBehaviour
-    autocmd!
-    autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
-    autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-augroup END
+" " fix enter behaviour in specific buffers
+" augroup EnterBehaviour
+"     autocmd!
+"     autocmd FileType * if &l:buftype =='nofile' | nnoremap <buffer> <CR> <CR> | endif
+"     " autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
+"     " autocmd BufReadPost quickfix,netrw nnoremap <buffer> <CR> <CR>
+" augroup END
 
 " clear trailing whitespace on save
 augroup TrimWhitespace
