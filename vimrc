@@ -27,8 +27,9 @@ Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
 Plug 'Yggdroot/LeaderF'                " fuzzy finding
 Plug 'scrooloose/nerdtree'             " file browser
 Plug 'chrisbra/Colorizer'              " preview colors
-Plug 'junegunn/vim-easy-align'         " aling text with motion
-Plug 'jreybert/vimagit'                " git client
+Plug 'junegunn/vim-easy-align'         " align text with motion
+Plug 'chriskempson/base16-vim'         " base16 colorschemes
+Plug 'mhartington/oceanic-next'        " oceanic colorschme
 call plug#end()
 
 " scrooloose/nerdtree
@@ -37,9 +38,9 @@ nnoremap <silent> <F1> :NERDTreeToggle<CR>
 " Yggdroot/LeaderF
 let g:Lf_StlColorscheme='default'
 let g:Lf_CursorBlink=0
-" let g:Lf_UseVersionControlTool=0
-" let g:Lf_DefaultExternalTool="rg"
-" let g:Lf_ShowHidden=1
+let g:Lf_UseVersionControlTool=0
+let g:Lf_DefaultExternalTool='rg'
+let g:Lf_ShowHidden=1
 let TempFolder = $HOME . '/vimfiles/.temp'
 let g:Lf_CacheDirectory=TempFolder
 let g:Lf_IndexTimeLimit=600
@@ -48,11 +49,14 @@ let g:Lf_HighlightIndividual=1
 let g:Lf_NumberOfHighlight=100
 let g:Lf_UseMemoryCache=1
 let g:Lf_WildIgnore = {
-        \ 'dir': [],
+        \ 'dir': ['.git'],
         \ 'file': []
         \}
 let g:Lf_ShortcutF='<Leader>p'
 nnoremap <Leader>l :LeaderfLine<CR>
+nnoremap <Leader>o :LeaderfLineAll<CR>
+nnoremap <Leader>k :LeaderfHelp<CR>
+nnoremap <Leader>n :LeaderfBufferAll<CR>
 nnoremap <Leader>m :LeaderfMru<CR>
 nnoremap <Leader>ö :LeaderfSelf<CR>
 
@@ -65,16 +69,13 @@ let g:ale_use_global_executables=1
 let g:ale_linters_explicit=1
 let g:ale_set_quickfix=1
 let g:ale_linters = {'python': ['flake8', 'mypy'], 'vim': ['vint']}
-" let g:ale_fixers  = {'python': ['autopep8', 'isort']}
-let g:ale_fixers  = {'python': ['isort']}
+let g:ale_fixers  = {'python': ['autopep8', 'isort']}
 let g:ale_lint_on_enter=0
-let g:ale_lint_on_text_changed=0
+let g:ale_lint_on_text_changed='never'
 let g:ale_lint_on_filetype_changed=0
 let g:ale_lint_on_insert_leave=0
 let g:ale_lint_on_save=1
-let g:ale_fix_on_save=1
-" nnoremap <silent> <Right> :ALENextWrap<CR>
-" nnoremap <silent> <Left> :ALEPreviousWrap<CR>
+let g:ale_fix_on_save=0
 
 " davidhalter/jedi-vim
 let g:jedi#goto_command='<C-]>'
@@ -125,8 +126,6 @@ nnoremap <silent> <C-F> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " pacha/vem-tabline
 let g:vem_tabline_show=2
-" jreybert/vimagit
-let g:magit_default_show_all_files=0
 
 
 
@@ -147,8 +146,9 @@ set shellxquote=\"
 set noshellslash
 
 " visuals
-colorscheme solarized
-let g:solarized_italic=0
+" colorscheme solarized
+" let g:solarized_italic=0
+colorscheme OceanicNext
 syntax enable
 set guioptions=
 set guicursor+=a:blinkon0
@@ -277,6 +277,7 @@ nnoremap Y y$
 xnoremap v V
 noremap V <Nop>
 
+" search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 
 " split navigations (alt+hjkl)
@@ -308,6 +309,7 @@ noremap! <C-K> <Up>
 " insert diagrahs with C-L instead of C-K
 inoremap <C-L> <C-K>
 
+" navigate quickfix list and vimgrep
 nnoremap <silent> <Down> :cnext<CR>
 nnoremap <silent> <Up> :cprev<CR>
 nnoremap <silent> <C-Down> :cnfile<CR><C-G>
@@ -323,18 +325,28 @@ inoremap <C-W> <C-G>u<C-W>
 
 " change enter behaviour
 augroup EnterMappings
-    " TODO: fiksaa 5<S-enter>
-    " TODO: ehkä korvaa z rekisteri jollain muulla, ehkä [ reg
     " FIXME: ei toimi tyhjissä tiedostoissa!
     autocmd!
     autocmd FileType * if &l:buftype ==? ''
             \| nnoremap <buffer> <CR> o<Esc>
-            \| nnoremap <buffer> <C-Enter> mzo<Esc>`z
             \| nnoremap <buffer> <S-Enter> O<Esc>
-            \| nnoremap <buffer> <C-S-Enter> mzO<Esc>`z
+            \| nnoremap <buffer> <C-Enter> :<C-U>call <SID>BlankDown(v:count1)<CR>
+            \| nnoremap <buffer> <C-S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
             \| nnoremap <buffer> <Leader><CR> a<CR><Esc>
             \| endif
 augroup END
+function! s:BlankUp(count) abort
+    :norm! mz
+    put!=repeat(nr2char(10), a:count)
+    silent! call repeat#set("\<Plug>unimpairedBlankUp", a:count)
+    :norm! `z
+endfunction
+function! s:BlankDown(count) abort
+    :norm! mz
+    put =repeat(nr2char(10), a:count)
+    silent! call repeat#set("\<Plug>unimpairedBlankDown", a:count)
+    :norm! `z
+endfunction
 
 " backspace for indenting lines
 nnoremap <S-BS> >>
@@ -342,11 +354,10 @@ nnoremap <BS> <<
 xnoremap <S-BS> >gv
 xnoremap <BS> <gv
 
-" keep selection when indenting
+" persistent visual selection
 xnoremap > >gv
 xnoremap < <gv
-" TODO: fiksaa alla oleva
-" xmap gc :Commentary<CR>gv
+xnoremap gc :norm gcc<CR>gv
 
 " Q plays back q macro
 nnoremap Q @q
@@ -492,4 +503,4 @@ augroup END
 " clear the search register for no highlighting
 let @/=''
 " macro to add a plugin
-let @p='gg/call plug#end()OPlug ''+''  " glip-"nkA '
+let @p='gg/call plug#end()OPlug ''+'' " glip-"nkA '
