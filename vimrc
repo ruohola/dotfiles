@@ -28,6 +28,7 @@ Plug 'Yggdroot/LeaderF'                " fuzzy finding
 Plug 'scrooloose/nerdtree'             " file browser
 Plug 'chrisbra/Colorizer'              " preview colors
 Plug 'junegunn/vim-easy-align'         " aling text with motion
+Plug 'jreybert/vimagit'                " git client
 call plug#end()
 
 " scrooloose/nerdtree
@@ -56,7 +57,7 @@ nnoremap <Leader>m :LeaderfMru<CR>
 nnoremap <Leader>ö :LeaderfSelf<CR>
 
 " w0rp/ale
-let g:ale_sign_column_always=1
+let g:ale_sign_column_always=0
 let g:ale_change_sign_column_color=1
 let g:ale_set_signs=1
 let g:ale_max_signs=-1
@@ -122,6 +123,11 @@ nnoremap <silent> <C-D> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 nnoremap <silent> <C-B> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 nnoremap <silent> <C-F> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
+" pacha/vem-tabline
+let g:vem_tabline_show=2
+" jreybert/vimagit
+let g:magit_default_show_all_files=0
+
 
 
 " ============= GENERAL =============
@@ -148,7 +154,6 @@ set guioptions=
 set guicursor+=a:blinkon0
 set guicursor+=i-ci:ver20-blinkon0
 set cursorline
-set showtabline=2
 set number relativenumber
 set showmode showcmd
 set report=1
@@ -272,6 +277,8 @@ nnoremap Y y$
 xnoremap v V
 noremap V <Nop>
 
+xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
+
 " split navigations (alt+hjkl)
 nnoremap è <C-W><C-H>
 nnoremap ê <C-W><C-J>
@@ -316,6 +323,9 @@ inoremap <C-W> <C-G>u<C-W>
 
 " change enter behaviour
 augroup EnterMappings
+    " TODO: fiksaa 5<S-enter>
+    " TODO: ehkä korvaa z rekisteri jollain muulla, ehkä [ reg
+    " FIXME: ei toimi tyhjissä tiedostoissa!
     autocmd!
     autocmd FileType * if &l:buftype ==? ''
             \| nnoremap <buffer> <CR> o<Esc>
@@ -335,7 +345,8 @@ xnoremap <BS> <gv
 " keep selection when indenting
 xnoremap > >gv
 xnoremap < <gv
-" xmap gc :Commentary<CR>gv " TODO: fiksaa
+" TODO: fiksaa alla oleva
+" xmap gc :Commentary<CR>gv
 
 " Q plays back q macro
 nnoremap Q @q
@@ -473,3 +484,12 @@ augroup TrimWhitespace
     autocmd!
     autocmd BufWritePre *vimrc :%s/\s\+$//e
 augroup END
+
+
+
+" ============= REGISTERS =============
+
+" clear the search register for no highlighting
+let @/=''
+" macro to add a plugin
+let @p='gg/call plug#end()OPlug ''+''  " glip-"nkA '
