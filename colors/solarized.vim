@@ -672,19 +672,19 @@ exe "hi! CursorLine"     .s:fmt_uopt   .s:fg_none   .s:bg_base02  .s:sp_base1
 exe "hi! ColorColumn"    .s:fmt_none   .s:fg_none   .s:bg_base02
 exe "hi! Cursor"         .s:fmt_none   .s:fg_base03 .s:bg_base0
 hi! link lCursor Cursor
-exe "hi! MatchParen"     .s:fmt_bold   .s:fg_red    .s:bg_base01
 
 
 " ======== MODIFICATIONS =========
 
-exe "hi! CursorLineNr"               .s:fmt_none .s:fg_base01 .s:bg_base02
-exe "hi! HighlightedyankRegion"      .s:fmt_none .s:fg_base01 .s:bg_base03 .s:fmt_revbb
-exe "hi! EasyMotionTarget"           .s:fmt_bold .s:fg_red    .s:bg_none
-exe "hi! EasyMotionTarget2First"     .s:fmt_bold .s:fg_red    .s:bg_none
-exe "hi! EasyMotionTarget2Second"    .s:fmt_bold .s:fg_violet .s:bg_none
-exe "hi! PythonKwarg"                .s:fmt_none .s:fg_violet .s:bg_none
-exe 'hi! ALESignColumnWithoutErrors' .s:fmt_uopt .s:fg_none   .s:bg_base02 .s:sp_base1
-exe 'hi! ALESignColumnWithErrors'    .s:fmt_uopt .s:fg_none   .s:bg_base02 .s:sp_base1
+exe "hi! MatchParen"                .s:fmt_undb .s:fg_magenta .s:bg_none
+exe "hi! CursorLineNr"              .s:fmt_none .s:fg_base01  .s:bg_base02
+exe "hi! HighlightedyankRegion"     .s:fmt_none .s:fg_base01  .s:bg_base03 .s:fmt_revbb
+exe "hi! EasyMotionTarget"          .s:fmt_bold .s:fg_red     .s:bg_none
+exe "hi! EasyMotionTarget2First"    .s:fmt_bold .s:fg_red     .s:bg_none
+exe "hi! EasyMotionTarget2Second"   .s:fmt_bold .s:fg_violet  .s:bg_none
+exe "hi! PythonKwarg"               .s:fmt_none .s:fg_violet  .s:bg_none
+exe 'hi! ALESignColumnWithoutErrors'.s:fmt_uopt .s:fg_none    .s:bg_base02 .s:sp_base1
+exe 'hi! ALESignColumnWithErrors'   .s:fmt_uopt .s:fg_none    .s:bg_base02 .s:sp_base1
 
 " ================================
 

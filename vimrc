@@ -11,7 +11,6 @@ call plug#begin('~/vimfiles/plugged')
 Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
 Plug 'tpope/vim-repeat'                " repeat plugin commands
-Plug 'pacha/vem-tabline'               " buffers as tabs
 Plug 'easymotion/vim-easymotion'       " KJump/easymotion for vim
 Plug 'google/vim-searchindex'          " show [x/y] when searching
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
@@ -28,12 +27,15 @@ Plug 'Yggdroot/LeaderF'                " fuzzy finding
 Plug 'scrooloose/nerdtree'             " file browser
 Plug 'chrisbra/Colorizer'              " preview colors
 Plug 'junegunn/vim-easy-align'         " align text with motion
-Plug 'chriskempson/base16-vim'         " base16 colorschemes
-Plug 'mhartington/oceanic-next'        " oceanic colorschme
+Plug 'vim-python/python-syntax'        " better python syntax
+" Plug 'pacha/vem-tabline'             " buffers as tabs
 call plug#end()
 
+" vim-python/python-syntax
+let g:python_highlight_all=1
+
 " scrooloose/nerdtree
-nnoremap <silent> <F1> :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>1 :NERDTreeToggle<CR>
 
 " Yggdroot/LeaderF
 let g:Lf_StlColorscheme='default'
@@ -58,12 +60,11 @@ nnoremap <Leader>o :LeaderfLineAll<CR>
 nnoremap <Leader>k :LeaderfHelp<CR>
 nnoremap <Leader>n :LeaderfBufferAll<CR>
 nnoremap <Leader>m :LeaderfMru<CR>
-nnoremap <Leader>ö :LeaderfSelf<CR>
 
 " w0rp/ale
 let g:ale_sign_column_always=0
 let g:ale_change_sign_column_color=1
-let g:ale_set_signs=1
+let g:ale_set_signs=0
 let g:ale_max_signs=-1
 let g:ale_use_global_executables=1
 let g:ale_linters_explicit=1
@@ -76,6 +77,8 @@ let g:ale_lint_on_filetype_changed=0
 let g:ale_lint_on_insert_leave=0
 let g:ale_lint_on_save=1
 let g:ale_fix_on_save=0
+nnoremap <Left> :ALEPreviousWrap<CR>
+nnoremap <Right> :ALENextWrap<CR>
 
 " davidhalter/jedi-vim
 let g:jedi#goto_command='<C-]>'
@@ -106,7 +109,7 @@ let g:mundo_tree_statusline='History'
 let g:mundo_mirror_graph=0
 let g:mundo_return_on_revert=0
 let g:mundo_verbose_graph=0
-nnoremap <silent> <F2> :MundoToggle<CR>
+nnoremap <silent> <Leader>2 :MundoToggle<CR>
 
 " junegunn/vim-easy-align
 nmap gl <Plug>(EasyAlign)
@@ -124,8 +127,8 @@ nnoremap <silent> <C-D> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 nnoremap <silent> <C-B> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 nnoremap <silent> <C-F> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
-" pacha/vem-tabline
-let g:vem_tabline_show=2
+" " pacha/vem-tabline
+" let g:vem_tabline_show=2
 
 
 
@@ -136,6 +139,7 @@ if !exists('g:notfirstopen')
     let g:notfirstopen=1
     set lines=40 columns=120  " initial window size
     set guifont=Consolas:h12  " changing font moves the window
+    syntax enable
 endif
 
 " use cygwin bash as shell
@@ -146,10 +150,8 @@ set shellxquote=\"
 set noshellslash
 
 " visuals
-" colorscheme solarized
-" let g:solarized_italic=0
-colorscheme OceanicNext
-syntax enable
+colorscheme solarized
+let g:solarized_italic=0
 set guioptions=
 set guicursor+=a:blinkon0
 set guicursor+=i-ci:ver20-blinkon0
@@ -160,14 +162,16 @@ set report=1
 set cmdheight=2
 
 " statusline
-set laststatus=2                                      " always show statusline
-set statusline=                                       " clear statusline
-set statusline+=%<                                    " start to truncate here
-set statusline+=\|%{getcwd()}\|                       " current working dir
-set statusline+=\ %F                                  " filepath
-set statusline+=%h                                    " help file flag
-set statusline+=%m                                    " modified flag
-set statusline+=%r                                    " read only flag
+set laststatus=2                            " always show statusline
+set statusline=                             " clear statusline
+set statusline+=%L                          " total lines
+set statusline+=(%p%%)                      " percentage through the file
+set statusline+=\ %2c                       " cursor column
+set statusline+=/%2{strwidth(getline('.'))} " line length
+set statusline+=\ %{LinterStatus()}         " ALE status
+set statusline+=\ %F                        " filepath
+set statusline+=%m                          " modified flag
+set statusline+=%r                          " read only flag
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -180,16 +184,10 @@ function! LinterStatus() abort
     \ all_errors,
     \)
 endfunction
-set statusline+=\ %{LinterStatus()}                   " ALE status
 
-set statusline+=%=                                    " left/right separator
-set statusline+=%l/%L                                 " cursor line/total lines
-set statusline+=(%p%%)                                " percentage through the file
-set statusline+=\<%2c                                 " cursor column
-set statusline+=/%2{strwidth(getline('.'))}\>           " line length
-set statusline+=[%{strlen(&ft)?(&ft\ .\ \',\'):''}  " filetype
-set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''} " file encoding
-set statusline+=%{&ff}]                               " line endings
+set statusline+=%=                          " left/right separator
+set statusline+=\|%{getcwd()}\|             " current working dir
+set statusline+=%<                          " start to truncate here
 
 " line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0 formatoptions-=t
@@ -245,14 +243,29 @@ filetype plugin indent on      " auto detect filetype
 
 " ============= MAPPINGS =============
 
-" makes these easier to use
-noremap , :
-tnoremap , :
-noremap : ;
-noremap ; ,
+" makes these easier to use in profin layout
+" noremap , :
+" tnoremap , :
+" noremap : ;
+" noremap ; ,
+" augroup QMappings
+    " autocmd!
+    " autocmd FileType * if &l:buftype ==? '' |nnoremap <buffer> <silent> q, q:| endif
+    " autocmd FileType * if &l:buftype ==? 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
+" augroup END
+
+nnoremap ; :
+nnoremap , ;
+nnoremap : ,
+xnoremap ; :
+xnoremap , ;
+xnoremap : ,
+tnoremap ; :
+tnoremap , ;
+tnoremap : ,
 augroup QMappings
     autocmd!
-    autocmd FileType * if &l:buftype ==? '' |nnoremap <buffer> <silent> q, q:| endif
+    autocmd FileType * if &l:buftype ==? '' |nnoremap <buffer> <silent> q; q:| endif
     autocmd FileType * if &l:buftype ==? 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
 augroup END
 
@@ -274,7 +287,7 @@ nnoremap ¬ g;
 nnoremap Y y$
 
 " testing if this is good
-xnoremap v V
+nnoremap vv V
 noremap V <Nop>
 
 " search for selected text
@@ -290,11 +303,11 @@ tnoremap ê <C-W><C-J>
 tnoremap ë <C-W><C-K>
 tnoremap ì <C-W><C-L>
 
-" cycle buffers (alt+nm)
-nnoremap <silent> î :bprev<CR>
-nnoremap <silent> í :bnext<CR>
-tnoremap <silent> î <C-W>:bprev<CR>
-tnoremap <silent> í <C-W>:bnext<CR>
+" " cycle buffers (alt+nm)
+" nnoremap <silent> î :bprev<CR>
+" nnoremap <silent> í :bnext<CR>
+" tnoremap <silent> î <C-W>:bprev<CR>
+" tnoremap <silent> í <C-W>:bnext<CR>
 
 " cycle tabs (alt+ui)
 nnoremap õ gT
@@ -348,16 +361,15 @@ function! s:BlankDown(count) abort
     :norm! `z
 endfunction
 
-" backspace for indenting lines
-nnoremap <S-BS> >>
-nnoremap <BS> <<
-xnoremap <S-BS> >gv
-xnoremap <BS> <gv
+" " backspace for indenting lines
+" nnoremap <S-BS> >>
+" nnoremap <BS> <<
+" xnoremap <S-BS> >gv
+" xnoremap <BS> <gv
 
 " persistent visual selection
 xnoremap > >gv
 xnoremap < <gv
-xnoremap gc :norm gcc<CR>gv
 
 " Q plays back q macro
 nnoremap Q @q
@@ -377,7 +389,7 @@ nnoremap <Leader>vr :e $MYVIMRC<CR>
 nnoremap <silent> <F12> :call ToggleBackground()<CR>
 
 " toggle fullscreen
-nnoremap <F11> :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+nnoremap <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
 " unmap push-to-talk key
 map <F13> <Nop>
@@ -386,8 +398,40 @@ map! <F13> <Nop>
 " temp for testing productdata
 nnoremap <silent> <Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 
-" close current buffer
-nnoremap <Leader>b :bd<CR>
+" https://stackoverflow.com/a/44950143
+func! DeleteCurBufferNotCloseWindow() abort
+    if &modified
+        echohl ErrorMsg
+        echom 'E89: no write since last change'
+        echohl None
+    elseif winnr('$') == 1
+        bd
+    else  " multiple window
+        let oldbuf = bufnr('%')
+        let oldwin = winnr()
+        while 1   " all windows that display oldbuf will remain open
+            if buflisted(bufnr('#'))
+                b#
+            else
+                bn
+                let curbuf = bufnr('%')
+                if curbuf == oldbuf
+                    enew    " oldbuf is the only buffer, create one
+                endif
+            endif
+            let win = bufwinnr(oldbuf)
+            if win == -1
+                break
+            else        " there are other window that display oldbuf
+                exec win 'wincmd w'
+            endif
+        endwhile
+        " delete oldbuf and restore window to oldwin
+        exec oldbuf 'bd'
+        exec oldwin 'wincmd w'
+    endif
+endfunc
+nnoremap <Leader>b :call DeleteCurBufferNotCloseWindow()<CR>
 
 
 
@@ -408,7 +452,7 @@ command! WC %s/^\s*\w\+//n | noh
 
 " ============= FUNCTIONS =============
 
-
+" https://github.com/dhleong/dots/blob/master/.vim/init/terminal.vim
 function! s:RunCommandInSplitTerm(command)
     write
     let winSize = float2nr(0.3 * winheight('$'))
@@ -422,14 +466,38 @@ function! s:RunCommandInSplitTerm(command)
                     \ 'curwin': 1,
                     \ 'term_finish': 'close',
                     \ })
+        call setbufvar(mainBuf, '_run_term', termBufNr)
     else
         exe termWinNr . 'wincmd w'
     endif
 
     let mainWin = bufwinnr(mainBuf)
     call term_sendkeys(termBufNr, a:command . "\<CR>")
-    exe "normal \<C-W>w"
+    exe "normal \<C-W>p"
 endfunction
+
+
+" function! s:RunCommandInSplitTerm(command)
+"     write
+"     let winSize = float2nr(0.3 * winheight('$'))
+"     let mainBuf = bufnr('%')
+"     let termBufNr = get(b:, '_run_term', -1)
+"     let termWinNr = bufwinnr(termBufNr)
+
+"     if termWinNr == -1
+"         exe 'below split | resize ' . winSize
+"         let termBufNr = term_start('bash -l', {
+"                     \ 'curwin': 1,
+"                     \ 'term_finish': 'close',
+"                     \ })
+"     else
+"         exe termWinNr . 'wincmd w'
+"     endif
+
+"     let mainWin = bufwinnr(mainBuf)
+"     call term_sendkeys(termBufNr, a:command . "\<CR>")
+"     exe "normal \<C-W>w"
+" endfunction
 
 function! ToggleBackground()
     if &background ==? 'dark'
@@ -450,7 +518,7 @@ endfunction
 augroup Python
     autocmd!
     " exceute current python file
-    autocmd FileType python nnoremap <buffer> <silent> <F5>
+    autocmd FileType python nnoremap <buffer> <silent> <Leader>5
                 \ :call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR>
 augroup END
 
@@ -470,24 +538,25 @@ augroup END
 " handle vim opening and closing
 augroup VimBoot
     autocmd!
-     autocmd VimLeave * silent wviminfo
+    autocmd VimLeave * silent wviminfo
     autocmd VimEnter * silent so $MYVIMRC
-                \| if filereadable($HOME . '/vimfiles/.temp/_viminfo')
-                    \| silent rviminfo
-                    \| let &background=g:BG
-                \| endif
+            \| if filereadable($HOME . '/vimfiles/.temp/_viminfo')
+                \| let &background=g:BG
+                \| silent rviminfo
+            \| endif
 augroup END
 
 " configure opening of help windows
-augroup HelpInTabs
-    function! HelpInNewTab()
+augroup HelpOpening
+    function! HelpOpen()
         if &buftype ==? 'help'
-            exe "normal \<C-W>o"
+            exe "normal \<C-W>p"
+            exe "normal \<C-W>c"
         endif
     endfunction
 
     autocmd!
-    autocmd BufRead *.txt call HelpInNewTab()
+    autocmd BufRead *.txt call HelpOpen()
 augroup END
 
 " clear trailing whitespace on save
