@@ -28,8 +28,11 @@ Plug 'scrooloose/nerdtree'             " file browser
 Plug 'chrisbra/Colorizer'              " preview colors
 Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'vim-python/python-syntax'        " better python syntax
-" Plug 'pacha/vem-tabline'             " buffers as tabs
+Plug 'ervandew/supertab'               " enhanced tab completion
 call plug#end()
+
+" pacha/vem-tabline
+let g:SuperTabDefaultCompletionType='context'
 
 " vim-python/python-syntax
 let g:python_highlight_all=1
@@ -82,10 +85,11 @@ nnoremap <silent> <Right> :ALENextWrap<CR>
 
 " davidhalter/jedi-vim
 let g:jedi#goto_command='<C-]>'
-let g:jedi#goto_assignments_command='<Leader>a'
 let g:jedi#documentation_command='K'
 let g:jedi#rename_command='<Leader>r'
 let g:jedi#usages_command='<Leader>u'
+let g:jedi#popup_on_dot=0
+let g:jedi#show_call_signatures=0
 
 " maxbrunsfeld/vim-yankstack
 let g:yankstack_map_keys = 0
@@ -161,31 +165,26 @@ set showmode showcmd
 set report=1
 set cmdheight=2
 
-" statusline
-set laststatus=2                            " always show statusline
-set statusline=                             " clear statusline
-set statusline+=%L                          " total lines
-set statusline+=(%p%%)                      " percentage through the file
-set statusline+=%3c                       " cursor column
-set statusline+=\|%-4{strwidth(getline('.'))} " line length
-set statusline+=%{LinterStatus()}         " ALE status
-" set statusline+=[%{strpart(getcwd(),strlen(getcwd())-1)=='\\'?getcwd():getcwd().'\\'}]             " current working dir
-set statusline+=%F                         " filepath
-set statusline+=%m                          " modified flag
-set statusline+=%r                          " read only flag
-set statusline+=%=                          " left/right separator
-set statusline+=%<                          " start to truncate here
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? '' : printf(
-    \ '[%dW %dE] ',
-    \ all_non_errors,
-    \ all_errors,
-    \)
-endfunction
+                                                                                         " statusline
+set laststatus=2                                                                         " always show statusline
+set statusline=                                                                          " clear statusline
+set statusline+=%{repeat('\ ',strwidth(line('$'))-strwidth(line('.')))}                   " pad with enough spaces
+set statusline+=%l                                                                       " current line number
+set statusline+=/%L                                                                      " total lines
+set statusline+=(%02p%%)                                                                   " percentage through the file
+set statusline+=%3c                                                                      " cursor column
+set statusline+=\|%-3{strwidth(getline('.'))}                                            " line length
+set statusline+=%{LinterStatus()}                                                        " ALE status
+" set statusline+=[%{strpart(getcwd(),strlen(getcwd())-1)=='\\'?getcwd():getcwd().'\\'}] " current working dir
+set statusline+=%F                                                                       " filepath
+set statusline+=%m                                                                       " modified flag
+set statusline+=%r                                                                       " read only flag
+set statusline+=%=                                                                       " left/right separator
+" set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}                                   " filetype
+" set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''}                                  " file encoding
+" set statusline+=%{&ff}]                                                                " line endings
+set statusline+=\ \|\ %{getcwd()}\                                                       " current working directory
+set statusline+=%<                                                                       " start to truncate here
 
 " line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0 formatoptions-=t
@@ -198,14 +197,13 @@ set smarttab  autoindent    smartindent  breakindent
 set nolist listchars=tab:>-,trail:.,nbsp:.
 
 " search settings
-set incsearch hlsearch ignorecase smartcase
-let @/ = ''
+set incsearch hlsearch ignorecase smartcase gdefault
 
 " no errorbells
 set noerrorbells
 augroup NoVisualBells
-    autocmd!
-    autocmd GUIEnter * set visualbell t_vb=
+autocmd!
+autocmd GUIEnter * set visualbell t_vb=
 augroup END
 
 " language settings
@@ -285,9 +283,9 @@ nnoremap ¬ g;
 " make Y behave the same way as D and C
 nnoremap Y y$
 
-" testing if this is good
+" makes v and V more consistent with other commands
 nnoremap vv V
-noremap V <Nop>
+nnoremap V <C-V>$
 
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
@@ -313,6 +311,7 @@ nnoremap õ gT
 nnoremap é gt
 
 " make C-J/C-K work as Down/Up
+" TODO: poista nämä kun split näppis tulee
 noremap <C-J> <Down>
 noremap <C-K> <Up>
 noremap! <C-J> <Down>
@@ -328,12 +327,14 @@ nnoremap <silent> <C-Down> :cnfile<CR><C-G>
 nnoremap <silent> <C-Up> :cpfile<CR><C-G>
 
 " better autocompletion selection and make CR undoable
-inoremap <expr> <TAB> pumvisible() ? '<C-Y>' : '<TAB>'
-inoremap <expr> <CR> pumvisible() ? '<C-E><C-G>u<CR>' : '<C-G>u<CR>'
-
-" make C-U and C-W undoable
+" maybe not useful with supertab
+" inoremap <expr> <TAB> pumvisible() ? '<C-Y>' : '<TAB>'
+" inoremap <expr> <CR> pumvisible() ? '<C-E><C-G>u<CR>' : '<C-G>u<CR>'
+"
+" make C-U and C-W and CR undoable
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
+inoremap <CR> <C-G>u<CR>
 
 " change enter behaviour
 augroup EnterMappings
@@ -347,28 +348,18 @@ augroup EnterMappings
             \| nnoremap <buffer> <Leader><CR> a<CR><Esc>
             \| endif
 augroup END
-function! s:BlankUp(count) abort
-    :norm! mz
-    put!=repeat(nr2char(10), a:count)
-    silent! call repeat#set("\<Plug>unimpairedBlankUp", a:count)
-    :norm! `z
-endfunction
-function! s:BlankDown(count) abort
-    :norm! mz
-    put =repeat(nr2char(10), a:count)
-    silent! call repeat#set("\<Plug>unimpairedBlankDown", a:count)
-    :norm! `z
-endfunction
 
 " backspace for indenting lines
-nnoremap <S-BS> >>
-nnoremap <BS> <<
-xnoremap <S-BS> >gv
-xnoremap <BS> <gv
+nnoremap <BS> >>
+nnoremap <S-BS> <<
+xnoremap <BS> >gv
+xnoremap <S-BS> <gv
 
-" persistent visual selection
+" persistent visuals
 xnoremap > >gv
 xnoremap < <gv
+xnoremap <C-X> <C-X>gv
+xnoremap <C-A> <C-A>gv
 
 " Q plays back q macro
 nnoremap Q @q
@@ -378,8 +369,8 @@ nnoremap <Leader>d "_d
 nnoremap <Leader>D "_D
 xnoremap <Leader>d "_d
 
-" don't show match highlights
-nnoremap <silent> <Esc> <Esc>:noh<bar>redraw!<CR>
+" clear highlights
+nnoremap <silent> <Esc> <Esc>:noh<CR>
 
 " open vimrc
 nnoremap <Leader>vr :e $MYVIMRC<CR>
@@ -397,40 +388,11 @@ map! <F13> <Nop>
 " temp for testing productdata
 nnoremap <silent> <Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 
-" https://stackoverflow.com/a/44950143
+" close current buffer
 nnoremap <silent> <Leader>b :call DeleteCurBufferNotCloseWindow()<CR>
-func! DeleteCurBufferNotCloseWindow() abort
-    if &modified
-        echohl ErrorMsg
-        echom 'E89: no write since last change'
-        echohl None
-    elseif winnr('$') == 1
-        bd
-    else  " multiple window
-        let oldbuf = bufnr('%')
-        let oldwin = winnr()
-        while 1   " all windows that display oldbuf will remain open
-            if buflisted(bufnr('#'))
-                b#
-            else
-                bn
-                let curbuf = bufnr('%')
-                if curbuf == oldbuf
-                    enew    " oldbuf is the only buffer, create one
-                endif
-            endif
-            let win = bufwinnr(oldbuf)
-            if win == -1
-                break
-            else        " there are other window that display oldbuf
-                exec win 'wincmd w'
-            endif
-        endwhile
-        " delete oldbuf and restore window to oldwin
-        exec oldbuf 'bd'
-        exec oldwin 'wincmd w'
-    endif
-endfunc
+
+" change working directory to current file's directory
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 
 
@@ -475,6 +437,55 @@ function! s:RunCommandInSplitTerm(command) abort
     exe "normal \<C-W>p"
 endfunction
 
+
+" https://stackoverflow.com/a/44950143
+func! DeleteCurBufferNotCloseWindow() abort
+    if &modified
+        echohl ErrorMsg
+        echom 'E89: no write since last change'
+        echohl None
+    elseif winnr('$') == 1
+        bd
+    else  " multiple window
+        let oldbuf = bufnr('%')
+        let oldwin = winnr()
+        while 1   " all windows that display oldbuf will remain open
+            if buflisted(bufnr('#'))
+                b#
+            else
+                bn
+                let curbuf = bufnr('%')
+                if curbuf == oldbuf
+                    enew    " oldbuf is the only buffer, create one
+                endif
+            endif
+            let win = bufwinnr(oldbuf)
+            if win == -1
+                break
+            else        " there are other window that display oldbuf
+                exec win 'wincmd w'
+            endif
+        endwhile
+        " delete oldbuf and restore window to oldwin
+        exec oldbuf 'bd'
+        exec oldwin 'wincmd w'
+    endif
+endfunc
+
+
+function! s:BlankUp(count) abort
+    :norm! mz
+    put!=repeat(nr2char(10), a:count)
+    :norm! `z
+endfunction
+
+function! s:BlankDown(count) abort
+    :norm! mz
+    put =repeat(nr2char(10), a:count)
+    :norm! `z
+endfunction
+
+
 function! ToggleBackground() abort
     if &background ==? 'dark'
         set background=light
@@ -484,6 +495,19 @@ function! ToggleBackground() abort
         let g:BG='dark'
     endif
     colorscheme solarized
+endfunction
+
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? '' : printf(
+    \ '[%dW %dE] ',
+    \ all_non_errors,
+    \ all_errors,
+    \)
 endfunction
 
 
@@ -498,6 +522,7 @@ augroup Python
                 \ :call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR>
 augroup END
 
+
 " toggle relative numbers between modes
 augroup LineNumbers
     autocmd!
@@ -505,11 +530,13 @@ augroup LineNumbers
     autocmd InsertLeave * set relativenumber
 augroup END
 
+
 " source vimrc when it's saved
 augroup ReloadVimrc
     autocmd!
     autocmd BufWritePost vimrc so $MYVIMRC
 augroup END
+
 
 " handle vim opening and closing
 augroup VimBoot
@@ -521,6 +548,7 @@ augroup VimBoot
                 \| silent rviminfo
             \| endif
 augroup END
+
 
 " configure opening of help windows
 augroup HelpOpening
@@ -536,6 +564,7 @@ augroup HelpOpening
     autocmd!
     autocmd BufRead *.txt call HelpOpen()
 augroup END
+
 
 " clear trailing whitespace on save
 augroup TrimWhitespace
