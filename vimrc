@@ -77,8 +77,8 @@ let g:ale_lint_on_filetype_changed=0
 let g:ale_lint_on_insert_leave=0
 let g:ale_lint_on_save=1
 let g:ale_fix_on_save=0
-nnoremap <Left> :ALEPreviousWrap<CR>
-nnoremap <Right> :ALENextWrap<CR>
+nnoremap <silent> <Left>  :ALEPreviousWrap<CR>
+nnoremap <silent> <Right> :ALENextWrap<CR>
 
 " davidhalter/jedi-vim
 let g:jedi#goto_command='<C-]>'
@@ -166,28 +166,26 @@ set laststatus=2                            " always show statusline
 set statusline=                             " clear statusline
 set statusline+=%L                          " total lines
 set statusline+=(%p%%)                      " percentage through the file
-set statusline+=\ %2c                       " cursor column
-set statusline+=/%2{strwidth(getline('.'))} " line length
-set statusline+=\ %{LinterStatus()}         " ALE status
-set statusline+=\ %F                        " filepath
+set statusline+=%3c                       " cursor column
+set statusline+=\|%-4{strwidth(getline('.'))} " line length
+set statusline+=%{LinterStatus()}         " ALE status
+" set statusline+=[%{strpart(getcwd(),strlen(getcwd())-1)=='\\'?getcwd():getcwd().'\\'}]             " current working dir
+set statusline+=%F                         " filepath
 set statusline+=%m                          " modified flag
 set statusline+=%r                          " read only flag
-
+set statusline+=%=                          " left/right separator
+set statusline+=%<                          " start to truncate here
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
 
     return l:counts.total == 0 ? '' : printf(
-    \ '[%dW %dE]',
+    \ '[%dW %dE] ',
     \ all_non_errors,
     \ all_errors,
     \)
 endfunction
-
-set statusline+=%=                          " left/right separator
-set statusline+=\|%{getcwd()}\|             " current working dir
-set statusline+=%<                          " start to truncate here
 
 " line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0 formatoptions-=t
@@ -244,30 +242,31 @@ filetype plugin indent on      " auto detect filetype
 " ============= MAPPINGS =============
 
 " makes these easier to use in profin layout
-" noremap , :
-" tnoremap , :
-" noremap : ;
-" noremap ; ,
-" augroup QMappings
-    " autocmd!
-    " autocmd FileType * if &l:buftype ==? '' |nnoremap <buffer> <silent> q, q:| endif
-    " autocmd FileType * if &l:buftype ==? 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
-" augroup END
-
-nnoremap ; :
-nnoremap , ;
-nnoremap : ,
-xnoremap ; :
-xnoremap , ;
-xnoremap : ,
-tnoremap ; :
-tnoremap , ;
-tnoremap : ,
+noremap , :
+tnoremap , :
+noremap : ;
+noremap ; ,
 augroup QMappings
     autocmd!
-    autocmd FileType * if &l:buftype ==? '' |nnoremap <buffer> <silent> q; q:| endif
+    autocmd FileType * if &l:buftype ==? '' |nnoremap <buffer> <silent> q, q:| endif
     autocmd FileType * if &l:buftype ==? 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
 augroup END
+
+" " makes these easier to use in us layout
+" nnoremap ; :
+" nnoremap , ;
+" nnoremap : ,
+" xnoremap ; :
+" xnoremap , ;
+" xnoremap : ,
+" tnoremap ; :
+" tnoremap , ;
+" tnoremap : ,
+" augroup QMappings
+"     autocmd!
+"     autocmd FileType * if &l:buftype ==? '' |nnoremap <buffer> <silent> q; q:| endif
+"     autocmd FileType * if &l:buftype ==? 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
+" augroup END
 
 " traverse history with alt+,.
 nnoremap ® g,
@@ -303,11 +302,11 @@ tnoremap ê <C-W><C-J>
 tnoremap ë <C-W><C-K>
 tnoremap ì <C-W><C-L>
 
-" " cycle buffers (alt+nm)
-" nnoremap <silent> î :bprev<CR>
-" nnoremap <silent> í :bnext<CR>
-" tnoremap <silent> î <C-W>:bprev<CR>
-" tnoremap <silent> í <C-W>:bnext<CR>
+" cycle buffers (alt+nm)
+nnoremap <silent> î :bprev<CR>
+nnoremap <silent> í :bnext<CR>
+tnoremap <silent> î <C-W>:bprev<CR>
+tnoremap <silent> í <C-W>:bnext<CR>
 
 " cycle tabs (alt+ui)
 nnoremap õ gT
@@ -361,11 +360,11 @@ function! s:BlankDown(count) abort
     :norm! `z
 endfunction
 
-" " backspace for indenting lines
-" nnoremap <S-BS> >>
-" nnoremap <BS> <<
-" xnoremap <S-BS> >gv
-" xnoremap <BS> <gv
+" backspace for indenting lines
+nnoremap <S-BS> >>
+nnoremap <BS> <<
+xnoremap <S-BS> >gv
+xnoremap <BS> <gv
 
 " persistent visual selection
 xnoremap > >gv
@@ -380,7 +379,7 @@ nnoremap <Leader>D "_D
 xnoremap <Leader>d "_d
 
 " don't show match highlights
-nnoremap <silent> <Esc> <Esc>:noh<CR>
+nnoremap <silent> <Esc> <Esc>:noh<bar>redraw!<CR>
 
 " open vimrc
 nnoremap <Leader>vr :e $MYVIMRC<CR>
@@ -399,6 +398,7 @@ map! <F13> <Nop>
 nnoremap <silent> <Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 
 " https://stackoverflow.com/a/44950143
+nnoremap <silent> <Leader>b :call DeleteCurBufferNotCloseWindow()<CR>
 func! DeleteCurBufferNotCloseWindow() abort
     if &modified
         echohl ErrorMsg
@@ -431,7 +431,6 @@ func! DeleteCurBufferNotCloseWindow() abort
         exec oldwin 'wincmd w'
     endif
 endfunc
-nnoremap <Leader>b :call DeleteCurBufferNotCloseWindow()<CR>
 
 
 
@@ -453,7 +452,7 @@ command! WC %s/^\s*\w\+//n | noh
 " ============= FUNCTIONS =============
 
 " https://github.com/dhleong/dots/blob/master/.vim/init/terminal.vim
-function! s:RunCommandInSplitTerm(command)
+function! s:RunCommandInSplitTerm(command) abort
     write
     let winSize = float2nr(0.3 * winheight('$'))
     let mainBuf = bufnr('%')
@@ -476,30 +475,7 @@ function! s:RunCommandInSplitTerm(command)
     exe "normal \<C-W>p"
 endfunction
 
-
-" function! s:RunCommandInSplitTerm(command)
-"     write
-"     let winSize = float2nr(0.3 * winheight('$'))
-"     let mainBuf = bufnr('%')
-"     let termBufNr = get(b:, '_run_term', -1)
-"     let termWinNr = bufwinnr(termBufNr)
-
-"     if termWinNr == -1
-"         exe 'below split | resize ' . winSize
-"         let termBufNr = term_start('bash -l', {
-"                     \ 'curwin': 1,
-"                     \ 'term_finish': 'close',
-"                     \ })
-"     else
-"         exe termWinNr . 'wincmd w'
-"     endif
-
-"     let mainWin = bufwinnr(mainBuf)
-"     call term_sendkeys(termBufNr, a:command . "\<CR>")
-"     exe "normal \<C-W>w"
-" endfunction
-
-function! ToggleBackground()
+function! ToggleBackground() abort
     if &background ==? 'dark'
         set background=light
         let g:BG='light'
@@ -548,10 +524,12 @@ augroup END
 
 " configure opening of help windows
 augroup HelpOpening
-    function! HelpOpen()
+    function! HelpOpen() abort
         if &buftype ==? 'help'
             exe "normal \<C-W>p"
             exe "normal \<C-W>c"
+            set number
+            set relativenumber
         endif
     endfunction
 
