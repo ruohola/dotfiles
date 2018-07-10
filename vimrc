@@ -31,7 +31,7 @@ Plug 'vim-python/python-syntax'        " better python syntax
 Plug 'ervandew/supertab'               " enhanced tab completion
 call plug#end()
 
-" pacha/vem-tabline
+" ervandew/supertab
 let g:SuperTabDefaultCompletionType='context'
 
 " vim-python/python-syntax
@@ -131,9 +131,6 @@ nnoremap <silent> <C-D> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 nnoremap <silent> <C-B> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 nnoremap <silent> <C-F> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
-" " pacha/vem-tabline
-" let g:vem_tabline_show=2
-
 
 
 " ============= GENERAL =============
@@ -168,10 +165,11 @@ set cmdheight=2
                                                                                          " statusline
 set laststatus=2                                                                         " always show statusline
 set statusline=                                                                          " clear statusline
-set statusline+=%{repeat('\ ',strwidth(line('$'))-strwidth(line('.')))}                   " pad with enough spaces
+" set statusline+=%{repeat('\ ',strwidth(line('$'))-strwidth(line('.')))}                " pad with enough spaces
 set statusline+=%l                                                                       " current line number
 set statusline+=/%L                                                                      " total lines
-set statusline+=(%02p%%)                                                                   " percentage through the file
+" set statusline+=(%02p%%)                                                               " percentage through the file
+set statusline+=(%p%%)                                                                   " percentage through the file
 set statusline+=%3c                                                                      " cursor column
 set statusline+=\|%-3{strwidth(getline('.'))}                                            " line length
 set statusline+=%{LinterStatus()}                                                        " ALE status
@@ -246,8 +244,8 @@ noremap : ;
 noremap ; ,
 augroup QMappings
     autocmd!
-    autocmd FileType * if &l:buftype ==? '' |nnoremap <buffer> <silent> q, q:| endif
-    autocmd FileType * if &l:buftype ==? 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
+    autocmd FileType * if &l:buftype !=# 'nofile' |nnoremap <buffer> <silent> q, q:| endif
+    autocmd FileType * if &l:buftype ==# 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
 augroup END
 
 " " makes these easier to use in us layout
@@ -340,7 +338,7 @@ inoremap <CR> <C-G>u<CR>
 augroup EnterMappings
     " FIXME: ei toimi tyhjissä tiedostoissa!
     autocmd!
-    autocmd FileType * if &l:buftype ==? ''
+    autocmd FileType * if &l:buftype !=# 'nofile'
             \| nnoremap <buffer> <CR> o<Esc>
             \| nnoremap <buffer> <S-Enter> O<Esc>
             \| nnoremap <buffer> <C-Enter> :<C-U>call <SID>BlankDown(v:count1)<CR>
@@ -350,10 +348,10 @@ augroup EnterMappings
 augroup END
 
 " backspace for indenting lines
-nnoremap <BS> >>
-nnoremap <S-BS> <<
-xnoremap <BS> >gv
-xnoremap <S-BS> <gv
+nnoremap <BS> <<
+nnoremap <S-BS> >>
+xnoremap <BS> <gv
+xnoremap <S-BS> >gv
 
 " persistent visuals
 xnoremap > >gv
@@ -526,8 +524,8 @@ augroup END
 " toggle relative numbers between modes
 augroup LineNumbers
     autocmd!
-    autocmd InsertEnter * set norelativenumber
-    autocmd InsertLeave * set relativenumber
+    autocmd BufEnter,FocusGained,InsertLeave * if &l:buftype !=# 'nofile' |set relativenumber|endif
+    autocmd BufLeave,FocusLost,InsertEnter * if &l:buftype !=# 'nofile' |set norelativenumber|endif
 augroup END
 
 
@@ -553,11 +551,14 @@ augroup END
 " configure opening of help windows
 augroup HelpOpening
     function! HelpOpen() abort
-        if &buftype ==? 'help'
-            exe "normal \<C-W>p"
-            exe "normal \<C-W>c"
+        if &buftype ==# 'help'
             set number
             set relativenumber
+            let new_height = winheight('%')
+            exe "normal \<C-W>p"
+            let old_height = winheight('%')
+            exe "normal \<C-W>c"
+            exe 'resize' . (old_height + new_height)
         endif
     endfunction
 
