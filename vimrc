@@ -33,6 +33,7 @@ call plug#end()
 
 " ervandew/supertab
 let g:SuperTabDefaultCompletionType='context'
+inoremap <expr> <TAB> pumvisible() ? "<C-Y>" : SuperTab('n')
 
 " vim-python/python-syntax
 " Edited row 471 to link PythonBoolean to Statement and not Boolean.
@@ -103,8 +104,8 @@ call yankstack#setup()
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
-nmap <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>t <Plug>(easymotion-bd-t)
+map <Leader>f <Plug>(easymotion-bd-f)
+map <Leader>t <Plug>(easymotion-bd-t)
 
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300
@@ -325,11 +326,6 @@ nnoremap <silent> <Up> :cprev<CR>
 nnoremap <silent> <C-Down> :cnfile<CR><C-G>
 nnoremap <silent> <C-Up> :cpfile<CR><C-G>
 
-" better autocompletion selection and make CR undoable
-" maybe not useful with supertab
-" inoremap <expr> <TAB> pumvisible() ? '<C-Y>' : '<TAB>'
-" inoremap <expr> <CR> pumvisible() ? '<C-E><C-G>u<CR>' : '<C-G>u<CR>'
-"
 " make C-U and C-W and CR undoable
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
@@ -550,21 +546,14 @@ augroup END
 
 
 " configure opening of help windows
-augroup HelpOpening
-    function! HelpOpen() abort
-        if &buftype ==# 'help'
-            set number
-            set relativenumber
-            let new_height = winheight('%')
-            exe "normal \<C-W>p"
-            let old_height = winheight('%')
-            exe "normal \<C-W>c"
-            exe 'resize' . (old_height + new_height)
-        endif
-    endfunction
-
+augroup HelpOpen
     autocmd!
-    autocmd BufRead *.txt call HelpOpen()
+    autocmd BufRead *.txt
+            \| if &buftype ==? 'help'
+                \|set number
+                \|set relativenumber
+                \|exe "normal \<C-W>T"
+            \|endif
 augroup END
 
 
