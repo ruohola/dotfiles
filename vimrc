@@ -35,6 +35,8 @@ call plug#end()
 let g:SuperTabDefaultCompletionType='context'
 
 " vim-python/python-syntax
+" Edited row 471 to link PythonBoolean to Statement and not Boolean.
+" Edited row 472 to link PythonNone to Statement and not Constant.
 let g:python_highlight_all=1
 
 " scrooloose/nerdtree
@@ -120,10 +122,10 @@ nmap gl <Plug>(EasyAlign)
 xmap gl <Plug>(EasyAlign)
 
 " vim-scripts/ReplaceWithRegister
-nmap s <Plug>ReplaceWithRegisterOperator
-nmap ss <Plug>ReplaceWithRegisterLine
-xmap s <Plug>ReplaceWithRegisterVisual
-nnoremap S s
+nmap ö <Plug>ReplaceWithRegisterOperator
+nmap Ö <Plug>ReplaceWithRegisterOperator$
+nmap öö <Plug>ReplaceWithRegisterLine
+xmap ö <Plug>ReplaceWithRegisterVisual
 
 " terryma/vim-smooth-scroll
 nnoremap <silent> <C-U> :call smooth_scroll#up(&scroll, 0, 2)<CR>
@@ -222,14 +224,13 @@ set clipboard=unnamed          " use system clipboard
 set backspace=indent,eol,start " make backspace behave normally
 set hidden                     " switch to another buffer without saving
 set autoread                   " update changes to file automatically
-" set autochdir                  " automatically change working directory
 set scrolloff=1                " pad cursor row with lines
 set splitright                 " open splits to the right
 set splitbelow                 " open splits to the bottom
 set wildmode=list:longest,full " better tab completion on command line mode
 set undolevels=5000            " remember more undo history
 set history=1000               " remember more command history
-set matchpairs=(:),{:},[:]     " configure which braces to match
+set matchpairs=(:),{:},[:],<:> " configure which braces to match
 set shortmess=a                " shorter prompt messages
 filetype plugin indent on      " auto detect filetype
 
