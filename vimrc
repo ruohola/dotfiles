@@ -33,11 +33,10 @@ call plug#end()
 
 " ervandew/supertab
 let g:SuperTabDefaultCompletionType='context'
-inoremap <expr> <TAB> pumvisible() ? "<C-Y>" : SuperTab('n')
+" inoremap <silent> <expr> <TAB> pumvisible() ? "<C-Y>" : SuperTab('n')
 
 " vim-python/python-syntax
-" Edited row 471 to link PythonBoolean to Statement and not Boolean.
-" Edited row 472 to link PythonNone to Statement and not Constant.
+" Edited lines 471 and 472
 let g:python_highlight_all=1
 
 " scrooloose/nerdtree
@@ -266,10 +265,6 @@ augroup END
 "     autocmd FileType * if &l:buftype ==? 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
 " augroup END
 
-" traverse history with alt+,.
-nnoremap ® g,
-nnoremap ¬ g;
-
 " " makes these easier to use in fin layout
 " noremap ¤ $
 " noremap § `
@@ -280,12 +275,19 @@ nnoremap ¬ g;
 " noremap + ?
 " noremap q+ q?
 
+" traverse history with alt+,.
+nnoremap ® g,
+nnoremap ¬ g;
+
 " make Y behave the same way as D and C
 nnoremap Y y$
 
 " makes v and V more consistent with other commands
 nnoremap vv V
 nnoremap V <C-V>$
+
+" makes S more useful
+nnoremap S ciw
 
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
@@ -312,10 +314,10 @@ nnoremap é gt
 
 " make C-J/C-K work as Down/Up
 " TODO: poista nämä kun split näppis tulee
-noremap <C-J> <Down>
-noremap <C-K> <Up>
-noremap! <C-J> <Down>
-noremap! <C-K> <Up>
+" noremap <C-J> <Down>
+" noremap <C-K> <Up>
+" noremap! <C-J> <Down>
+" noremap! <C-K> <Up>
 
 " insert diagrahs with C-L instead of C-K
 inoremap <C-L> <C-K>
@@ -335,7 +337,7 @@ inoremap <CR> <C-G>u<CR>
 augroup EnterMappings
     " FIXME: ei toimi tyhjissä tiedostoissa!
     autocmd!
-    autocmd FileType * if &l:buftype !=# 'nofile'
+    autocmd FileType * if &l:buftype ==# ''
             \| nnoremap <buffer> <CR> o<Esc>
             \| nnoremap <buffer> <S-Enter> O<Esc>
             \| nnoremap <buffer> <C-Enter> :<C-U>call <SID>BlankDown(v:count1)<CR>
@@ -512,9 +514,9 @@ endfunction
 " config for python files
 augroup Python
     autocmd!
-    " exceute current python file
     autocmd FileType python nnoremap <buffer> <silent> <Leader>5
                 \ :call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR>
+                \|nnoremap <buffer> <Leader>' ddO""""""<Esc>hhi
 augroup END
 
 
@@ -548,12 +550,11 @@ augroup END
 " configure opening of help windows
 augroup HelpOpen
     autocmd!
-    autocmd BufRead *.txt
-            \| if &buftype ==? 'help'
-                \|set number
-                \|set relativenumber
-                \|exe "normal \<C-W>T"
-            \|endif
+    autocmd BufRead *.txt if &buftype ==? 'help'
+                    \|set number
+                    \|set relativenumber
+                    \|exe "normal \<C-W>T"
+                \|endif
 augroup END
 
 
