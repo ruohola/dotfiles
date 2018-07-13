@@ -36,7 +36,7 @@ let g:SuperTabDefaultCompletionType='context'
 " inoremap <silent> <expr> <TAB> pumvisible() ? "<C-Y>" : SuperTab('n')
 
 " vim-python/python-syntax
-" Edited lines 471 and 472
+" Edited lines 471, 472 and 478
 let g:python_highlight_all=1
 
 " scrooloose/nerdtree
@@ -164,27 +164,24 @@ set showmode showcmd
 set report=1
 set cmdheight=2
 
-                                                                                         " statusline
-set laststatus=2                                                                         " always show statusline
-set statusline=                                                                          " clear statusline
-" set statusline+=%{repeat('\ ',strwidth(line('$'))-strwidth(line('.')))}                " pad with enough spaces
-set statusline+=%l                                                                       " current line number
-set statusline+=/%L                                                                      " total lines
-" set statusline+=(%02p%%)                                                               " percentage through the file
-set statusline+=(%p%%)                                                                   " percentage through the file
-set statusline+=%3c                                                                      " cursor column
-set statusline+=\|%-3{strwidth(getline('.'))}                                            " line length
-set statusline+=%{LinterStatus()}                                                        " ALE status
-" set statusline+=[%{strpart(getcwd(),strlen(getcwd())-1)=='\\'?getcwd():getcwd().'\\'}] " current working dir
-set statusline+=%F                                                                       " filepath
-set statusline+=%m                                                                       " modified flag
-set statusline+=%r                                                                       " read only flag
-set statusline+=%=                                                                       " left/right separator
-" set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}                                   " filetype
-" set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''}                                  " file encoding
-" set statusline+=%{&ff}]                                                                " line endings
-set statusline+=\ \|\ %{getcwd()}\                                                       " current working directory
-set statusline+=%<                                                                       " start to truncate here
+" statusline
+set laststatus=2                                      " always show statusline
+set statusline=                                       " clear statusline
+set statusline+=%l                                    " current line number
+set statusline+=/%L                                   " total lines
+set statusline+=(%p%%)                                " percentage through the file
+set statusline+=%3c                                   " cursor column
+set statusline+=\|%-3{strwidth(getline('.'))}         " line length
+set statusline+=%{LinterStatus()}                     " ALE status
+set statusline+=%F                                    " filepath
+set statusline+=%m                                    " modified flag
+set statusline+=%r                                    " read only flag
+set statusline+=%=                                    " left/right separator
+set statusline+=\ \|\ %{getcwd()}                     " current working directory
+set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}  " filetype
+set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''} " file encoding
+set statusline+=%{&ff}]                               " line endings
+set statusline+=%<                                    " start to truncate here
 
 " line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0 formatoptions-=t
@@ -240,7 +237,7 @@ filetype plugin indent on      " auto detect filetype
 
 " makes these easier to use in profin layout
 noremap , :
-tnoremap , :
+tnoremap <C-W>, <C-W>:
 noremap : ;
 noremap ; ,
 augroup QMappings
