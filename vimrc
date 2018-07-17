@@ -188,7 +188,7 @@ set wrap linebreak textwidth=0 wrapmargin=0 formatoptions-=t
 
 " indentation settings
 set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
-set smarttab  autoindent    smartindent  breakindent
+set smarttab  autoindent    breakindent
 
 " show unwanted whitespace on 'set list'
 set nolist listchars=tab:>-,trail:.,nbsp:.
@@ -229,7 +229,7 @@ set undolevels=5000            " remember more undo history
 set history=1000               " remember more command history
 set matchpairs=(:),{:},[:],<:> " configure which braces to match
 set shortmess=a                " shorter prompt messages
-filetype plugin indent on      " auto detect filetype
+    filetype plugin indent on      " auto detect filetype
 
 
 
@@ -309,16 +309,6 @@ tnoremap <silent> í <C-W>:bnext<CR>
 nnoremap õ gT
 nnoremap é gt
 
-" make C-J/C-K work as Down/Up
-" TODO: poista nämä kun split näppis tulee
-" noremap <C-J> <Down>
-" noremap <C-K> <Up>
-" noremap! <C-J> <Down>
-" noremap! <C-K> <Up>
-
-" insert diagrahs with C-L instead of C-K
-inoremap <C-L> <C-K>
-
 " navigate quickfix list and vimgrep
 nnoremap <silent> <Down> :cnext<CR>
 nnoremap <silent> <Up> :cprev<CR>
@@ -343,11 +333,16 @@ augroup EnterMappings
             \| endif
 augroup END
 
-" backspace for indenting lines
-nnoremap <BS> <<
-nnoremap <S-BS> >>
+" move CTRL-I and O, since tab is taken
+nnoremap <C-K> <C-I>
+nnoremap <C-J> <C-O>
+nnoremap <C-O> <Nop>
+
+" better way to indent
+nnoremap <BS> a<C-D><Esc>
+nnoremap <TAB> a<C-T><Esc>
 xnoremap <BS> <gv
-xnoremap <S-BS> >gv
+xnoremap <TAB> >gv
 
 " persistent visuals
 xnoremap > >gv
@@ -379,8 +374,8 @@ nnoremap <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<
 map <F13> <Nop>
 map! <F13> <Nop>
 
-" temp for testing productdata
-nnoremap <silent> <Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
+" " copies the current file name without extension to clipboard
+" nnoremap <silent> <Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 
 " close current buffer
 nnoremap <silent> <Leader>b :call DeleteCurBufferNotCloseWindow()<CR>
