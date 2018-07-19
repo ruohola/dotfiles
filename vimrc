@@ -28,12 +28,17 @@ Plug 'scrooloose/nerdtree'             " file browser
 Plug 'chrisbra/Colorizer'              " preview colors
 Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'vim-python/python-syntax'        " better python syntax
-Plug 'ervandew/supertab'               " enhanced tab completion
+" Plug 'ervandew/supertab'               " enhanced tab completion
+Plug 'Valloric/YouCompleteMe'          " better autocompletion
 call plug#end()
 
-" ervandew/supertab
-let g:SuperTabDefaultCompletionType='context'
-" inoremap <silent> <expr> <TAB> pumvisible() ? "<C-Y>" : SuperTab('n')
+" Valloric/YouCompleteMe
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_show_diagnostics_ui=0
+
+" " ervandew/supertab
+" let g:SuperTabDefaultCompletionType='context'
+" " inoremap <silent> <expr> <TAB> pumvisible() ? "<C-Y>" : SuperTab('n')
 
 " vim-python/python-syntax
 " Edited lines 471, 472 and 478
@@ -73,7 +78,8 @@ let g:ale_set_signs=0
 let g:ale_max_signs=-1
 let g:ale_use_global_executables=1
 let g:ale_linters_explicit=1
-let g:ale_set_quickfix=1
+let g:ale_set_quickfix=0
+let g:ale_set_loclist=0
 let g:ale_linters = {'python': ['flake8', 'mypy'], 'vim': ['vint']}
 let g:ale_fixers  = {'python': ['autopep8', 'isort']}
 let g:ale_lint_on_enter=0
@@ -90,6 +96,7 @@ let g:jedi#goto_command='<C-]>'
 let g:jedi#documentation_command='K'
 let g:jedi#rename_command='<Leader>r'
 let g:jedi#usages_command='<Leader>u'
+let g:jedi#completions_enabled=0
 let g:jedi#popup_on_dot=0
 let g:jedi#show_call_signatures=0
 
@@ -173,7 +180,7 @@ set statusline+=(%p%%)                                " percentage through the f
 set statusline+=%3c                                   " cursor column
 set statusline+=\|%-3{strwidth(getline('.'))}         " line length
 set statusline+=%{LinterStatus()}                     " ALE status
-set statusline+=%F                                    " filepath
+set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'\\'.expand('%:t'):expand('%')}  " dir\filename.ext
 set statusline+=%m                                    " modified flag
 set statusline+=%r                                    " read only flag
 set statusline+=%=                                    " left/right separator
