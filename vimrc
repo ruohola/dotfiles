@@ -1,4 +1,4 @@
-﻿set viminfo+=!,%,n~/vimfiles/.temp/_viminfo
+﻿" set viminfo+=!,%,n~/vimfiles/.temp/_viminfo
 let g:mapleader=' '
 
 " ============= PLUGINS =============
@@ -27,22 +27,25 @@ Plug 'Yggdroot/LeaderF'                " fuzzy finding
 Plug 'scrooloose/nerdtree'             " file browser
 Plug 'chrisbra/Colorizer'              " preview colors
 Plug 'junegunn/vim-easy-align'         " align text with motion
-Plug 'vim-python/python-syntax'        " better python syntax
-" Plug 'ervandew/supertab'               " enhanced tab completion
 Plug 'Valloric/YouCompleteMe'          " better autocompletion
+Plug 'sheerun/vim-polyglot'            " better syntax highlighting
+Plug 'trevordmiller/nova-vim'          " nova colorscheme
 call plug#end()
+
+" sheerun/vim-polyglot
+" Edited line 480
+
+
+" trevordmiller/nova-vim
+colorscheme nova
+highlight MatchParen gui=bold,underline guifg=#D18EC2
+highlight IncSearch gui=bold guifg=#A8CE93 guibg=#1E272C
+highlight Todo gui=bold guifg=#DF8C8C
+" TODO: underlinee errorit
 
 " Valloric/YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_show_diagnostics_ui=0
-
-" " ervandew/supertab
-" let g:SuperTabDefaultCompletionType='context'
-" " inoremap <silent> <expr> <TAB> pumvisible() ? "<C-Y>" : SuperTab('n')
-
-" vim-python/python-syntax
-" Edited lines 471, 472 and 478
-let g:python_highlight_all=1
 
 " scrooloose/nerdtree
 nnoremap <silent> <Leader>1 :NERDTreeToggle<CR>
@@ -160,8 +163,8 @@ set shellxquote=\"
 set noshellslash
 
 " visuals
-colorscheme solarized
-let g:solarized_italic=0
+" colorscheme solarized
+" let g:solarized_italic=0
 set guioptions=
 set guicursor+=a:blinkon0
 set guicursor+=i-ci:ver20-blinkon0
@@ -217,6 +220,7 @@ set encoding=utf-8
 scriptencoding utf-8
 
 " temp file locations
+set viminfo+=n~/vimfiles/.temp/_viminfo
 set undofile
 set undodir=~/vimfiles/.temp
 set backupdir=~/vimfiles/.temp
@@ -236,11 +240,14 @@ set undolevels=5000            " remember more undo history
 set history=1000               " remember more command history
 set matchpairs=(:),{:},[:],<:> " configure which braces to match
 set shortmess=a                " shorter prompt messages
-    filetype plugin indent on      " auto detect filetype
+filetype plugin indent on      " auto detect filetype
 
 
 
 " ============= MAPPINGS =============
+
+" XXX: Testing this
+inoremap jk <Esc>
 
 " makes these easier to use in profin layout
 noremap , :
@@ -252,32 +259,6 @@ augroup QMappings
     autocmd FileType * if &l:buftype !=# 'nofile' |nnoremap <buffer> <silent> q, q:| endif
     autocmd FileType * if &l:buftype ==# 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
 augroup END
-
-" " makes these easier to use in us layout
-" nnoremap ; :
-" nnoremap , ;
-" nnoremap : ,
-" xnoremap ; :
-" xnoremap , ;
-" xnoremap : ,
-" tnoremap ; :
-" tnoremap , ;
-" tnoremap : ,
-" augroup QMappings
-"     autocmd!
-"     autocmd FileType * if &l:buftype ==? '' |nnoremap <buffer> <silent> q; q:| endif
-"     autocmd FileType * if &l:buftype ==? 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
-" augroup END
-
-" " makes these easier to use in fin layout
-" noremap ¤ $
-" noremap § `
-" noremap ½ ~
-" noremap g½ g~
-" noremap - /
-" noremap q- q/
-" noremap + ?
-" noremap q+ q?
 
 " traverse history with alt+,.
 nnoremap ® g,
@@ -313,8 +294,10 @@ tnoremap <silent> î <C-W>:bprev<CR>
 tnoremap <silent> í <C-W>:bnext<CR>
 
 " cycle tabs (alt+ui)
-nnoremap õ gT
-nnoremap é gt
+nnoremap õ :tabprevious<CR>
+nnoremap é :tabnext<CR>
+tnoremap õ <C-W>:tabprevious<CR>
+tnoremap é <C-W>:tabnext<CR>
 
 " navigate quickfix list and vimgrep
 nnoremap <silent> <Down> :cnext<CR>
@@ -371,8 +354,8 @@ nnoremap <silent> <Esc> <Esc>:noh<CR>
 " open vimrc
 nnoremap <Leader>vr :e $MYVIMRC<CR>
 
-" toggle theme background
-nnoremap <silent> <F12> :call ToggleBackground()<CR>
+" " toggle theme background
+" nnoremap <silent> <F12> :call ToggleBackground()<CR>
 
 " toggle fullscreen
 nnoremap <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
@@ -380,9 +363,6 @@ nnoremap <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<
 " unmap push-to-talk key
 map <F13> <Nop>
 map! <F13> <Nop>
-
-" " copies the current file name without extension to clipboard
-" nnoremap <silent> <Leader>cn :let @+ = "'" . expand("%:t:r") . "'"<CR>
 
 " close current buffer
 nnoremap <silent> <Leader>b :call DeleteCurBufferNotCloseWindow()<CR>
@@ -482,16 +462,16 @@ function! s:BlankDown(count) abort
 endfunction
 
 
-function! ToggleBackground() abort
-    if &background ==? 'dark'
-        set background=light
-        let g:BG='light'
-    else
-        set background=dark
-        let g:BG='dark'
-    endif
-    colorscheme solarized
-endfunction
+" function! ToggleBackground() abort
+"     if &background ==? 'dark'
+"         set background=light
+"         let g:BG='light'
+"     else
+"         set background=dark
+"         let g:BG='dark'
+"     endif
+"     colorscheme solarized
+" endfunction
 
 
 function! LinterStatus() abort
@@ -534,17 +514,16 @@ augroup ReloadVimrc
 augroup END
 
 
-" handle vim opening and closing
-augroup VimBoot
-    autocmd!
-    autocmd VimLeave * silent wviminfo
-    autocmd VimEnter * silent so $MYVIMRC
-            \| if filereadable($HOME . '/vimfiles/.temp/_viminfo')
-                \| let &background=g:BG
-                \| silent rviminfo
-            \| endif
-augroup END
-
+" " handle vim opening and closing
+" augroup VimBoot
+"     autocmd!
+"     autocmd VimLeave * silent wviminfo
+"     autocmd VimEnter * silent so $MYVIMRC
+"             \| if filereadable($HOME . '/vimfiles/.temp/_viminfo')
+"                 \| let &background=g:BG
+"                 \| silent rviminfo
+"             \| endif
+" augroup END
 
 " configure opening of help windows
 augroup HelpOpen
