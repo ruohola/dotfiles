@@ -246,9 +246,6 @@ filetype plugin indent on      " auto detect filetype
 
 " ============= MAPPINGS =============
 
-" XXX: Testing this
-inoremap jk <Esc>
-
 " makes these easier to use in profin layout
 noremap , :
 tnoremap <C-W>, <C-W>:
@@ -495,7 +492,7 @@ augroup Python
     autocmd!
     autocmd FileType python nnoremap <buffer> <silent> <Leader>5
                 \ :call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR>
-                \|nnoremap <buffer> <Leader>' ddO""""""<Esc>hhi
+                \|nnoremap <buffer> <Leader>' o""""""<Esc>hhi
 augroup END
 
 
