@@ -180,8 +180,8 @@ set statusline=                                       " clear statusline
 set statusline+=%l                                    " current line number
 set statusline+=/%L                                   " total lines
 set statusline+=(%p%%)                                " percentage through the file
-set statusline+=%3c                                   " cursor column
-set statusline+=\|%-3{strwidth(getline('.'))}         " line length
+set statusline+=%4c                                   " cursor column
+set statusline+=\|%-4{strwidth(getline('.'))}         " line length
 set statusline+=%{LinterStatus()}                     " ALE status
 set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'\\'.expand('%:t'):expand('%')}  " dir\filename.ext
 set statusline+=%m                                    " modified flag
@@ -326,8 +326,8 @@ nnoremap <C-J> <C-O>
 nnoremap <C-O> <Nop>
 
 " better way to indent
-nnoremap <BS> a<C-D><Esc>
-nnoremap <TAB> a<C-T><Esc>
+nnoremap <BS> <<
+nnoremap <TAB> >>
 xnoremap <BS> <gv
 xnoremap <TAB> >gv
 
@@ -340,7 +340,7 @@ xnoremap <C-A> <C-A>gv
 " Q plays back q macro
 nnoremap Q @q
 
-" " don't copy to clipboard when editing with <Leader>d
+" don't copy to clipboard when deleting with <Leader>d
 nnoremap <Leader>d "_d
 nnoremap <Leader>D "_D
 xnoremap <Leader>d "_d
