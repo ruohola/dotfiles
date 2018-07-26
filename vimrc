@@ -19,8 +19,8 @@ Plug 'simnalamburt/vim-mundo'          " graphical undotree
 Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
 Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
-Plug 'tommcdo/vim-exchange'            " echange two objects
-Plug 'davidhalter/jedi-vim'            " python autocompletion etc
+Plug 'tommcdo/vim-exchange'            " change two objects
+Plug 'davidhalter/jedi-vim'            " python engine
 Plug 'w0rp/ale'                        " automatic linting
 Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
 Plug 'Yggdroot/LeaderF'                " fuzzy finding
@@ -33,15 +33,13 @@ Plug 'trevordmiller/nova-vim'          " nova colorscheme
 call plug#end()
 
 " sheerun/vim-polyglot
-" Edited line 480
-
+" Edited line 480, python self and cls highlighting
 
 " trevordmiller/nova-vim
 colorscheme nova
 highlight MatchParen gui=bold,underline guifg=#D18EC2
 highlight IncSearch gui=bold guifg=#A8CE93 guibg=#1E272C
 highlight Todo gui=bold guifg=#DF8C8C
-" TODO: underlinee errorit
 
 " Valloric/YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -163,8 +161,6 @@ set shellxquote=\"
 set noshellslash
 
 " visuals
-" colorscheme solarized
-" let g:solarized_italic=0
 set guioptions=
 set guicursor+=a:blinkon0
 set guicursor+=i-ci:ver20-blinkon0
@@ -351,9 +347,6 @@ nnoremap <silent> <Esc> <Esc>:noh<CR>
 " open vimrc
 nnoremap <Leader>vr :e $MYVIMRC<CR>
 
-" " toggle theme background
-" nnoremap <silent> <F12> :call ToggleBackground()<CR>
-
 " toggle fullscreen
 nnoremap <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
@@ -381,6 +374,9 @@ command! SO so $MYVIMRC
 
 " count lines in file
 command! WC %s/^\s*\w\+//n | noh
+
+" count all .py files lines
+command! PYL !grep -vc '^\s*$' *.py && echo -n 'total:' && grep -v '^\s*$' *.py | wc -l
 
 
 
@@ -459,18 +455,6 @@ function! s:BlankDown(count) abort
 endfunction
 
 
-" function! ToggleBackground() abort
-"     if &background ==? 'dark'
-"         set background=light
-"         let g:BG='light'
-"     else
-"         set background=dark
-"         let g:BG='dark'
-"     endif
-"     colorscheme solarized
-" endfunction
-
-
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
@@ -491,7 +475,7 @@ endfunction
 augroup Python
     autocmd!
     autocmd FileType python nnoremap <buffer> <silent> <Leader>5
-                \ :call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR>
+                \ :write<BAR>:tabn 1<BAR>:call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR>
                 \|nnoremap <buffer> <Leader>' o""""""<Esc>hhi
 augroup END
 
@@ -510,17 +494,6 @@ augroup ReloadVimrc
     autocmd BufWritePost vimrc so $MYVIMRC
 augroup END
 
-
-" " handle vim opening and closing
-" augroup VimBoot
-"     autocmd!
-"     autocmd VimLeave * silent wviminfo
-"     autocmd VimEnter * silent so $MYVIMRC
-"             \| if filereadable($HOME . '/vimfiles/.temp/_viminfo')
-"                 \| let &background=g:BG
-"                 \| silent rviminfo
-"             \| endif
-" augroup END
 
 " configure opening of help windows
 augroup HelpOpen
