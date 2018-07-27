@@ -1,5 +1,4 @@
-﻿" set viminfo+=!,%,n~/vimfiles/.temp/_viminfo
-let g:mapleader=' '
+﻿let g:mapleader=' '
 
 " ============= PLUGINS =============
 
@@ -316,10 +315,8 @@ augroup EnterMappings
             \| endif
 augroup END
 
-" move CTRL-I and O, since tab is taken
+" move CTRL-I, since tab is taken
 nnoremap <C-K> <C-I>
-nnoremap <C-J> <C-O>
-nnoremap <C-O> <Nop>
 
 " better way to indent
 nnoremap <BS> <<
@@ -472,11 +469,13 @@ endfunction
 " ============= AUTOCMD =============
 
 " config for python files
+" TODO: pistä run command vaihtamaan poist terminaalista, esim oik puol splittiin
 augroup Python
     autocmd!
     autocmd FileType python nnoremap <buffer> <silent> <Leader>5
                 \ :write<BAR>:tabn 1<BAR>:call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR>
                 \|nnoremap <buffer> <Leader>' o""""""<Esc>hhi
+                \|nnoremap <buffer> <Leader>x ccprint()  # XXX<Esc>F)i
 augroup END
 
 
