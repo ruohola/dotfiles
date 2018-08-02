@@ -14,7 +14,7 @@ Plug 'easymotion/vim-easymotion'       " KJump/easymotion for vim
 Plug 'google/vim-searchindex'          " show [x/y] when searching
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
 Plug 'markonm/traces.vim'              " live substitution
-Plug 'simnalamburt/vim-mundo'          " graphical undotree
+" Plug 'simnalamburt/vim-mundo'        " graphical undotree
 Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
 Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
@@ -29,6 +29,7 @@ Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'Valloric/YouCompleteMe'          " better autocompletion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'trevordmiller/nova-vim'          " nova colorscheme
+Plug 'mbbill/undotree'                 " graphical undotree
 call plug#end()
 
 " sheerun/vim-polyglot
@@ -116,13 +117,17 @@ map <Leader>t <Plug>(easymotion-bd-t)
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300
 
-" simnalamburt/vim-mundo
-let g:mundo_preview_statusline='Diff'
-let g:mundo_tree_statusline='History'
-let g:mundo_mirror_graph=0
-let g:mundo_return_on_revert=0
-let g:mundo_verbose_graph=0
-nnoremap <silent> <Leader>2 :MundoToggle<CR>
+" " simnalamburt/vim-mundo
+" let g:mundo_preview_statusline='Diff'
+" let g:mundo_tree_statusline='History'
+" let g:mundo_mirror_graph=0
+" let g:mundo_return_on_revert=0
+" let g:mundo_verbose_graph=0
+" nnoremap <silent> <Leader>2 :MundoToggle<CR>
+
+" mbbill/undotree
+nnoremap <silent> <Leader>2 :UndotreeToggle<CR>
+let g:undotree_TreeNodeShape='o'
 
 " junegunn/vim-easy-align
 nmap gl <Plug>(EasyAlign)
@@ -475,15 +480,15 @@ augroup Python
     autocmd FileType python nnoremap <buffer> <silent> <Leader>5
                 \ :write<BAR>:tabn 1<BAR>:call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR>
                 \|nnoremap <buffer> <Leader>' o""""""<Esc>hhi
-                \|nnoremap <buffer> <Leader>x ccprint()  # XXX<Esc>F)i
+                \|nnoremap <buffer> <Leader>x "_ccprint()  # XXX<Esc>F)i
 augroup END
 
 
 " toggle relative numbers between modes
 augroup LineNumbers
     autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * if &l:buftype !=# 'nofile' |set relativenumber|endif
-    autocmd BufLeave,FocusLost,InsertEnter * if &l:buftype !=# 'nofile' |set norelativenumber|endif
+    autocmd BufEnter,FocusGained,InsertLeave * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' |set relativenumber|endif
+    autocmd BufLeave,FocusLost,InsertEnter * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' |set norelativenumber|endif
 augroup END
 
 
