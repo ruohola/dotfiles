@@ -14,7 +14,7 @@ Plug 'easymotion/vim-easymotion'       " KJump/easymotion for vim
 Plug 'google/vim-searchindex'          " show [x/y] when searching
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
 Plug 'markonm/traces.vim'              " live substitution
-" Plug 'simnalamburt/vim-mundo'        " graphical undotree
+Plug 'simnalamburt/vim-mundo'          " graphical undotree
 Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
 Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
@@ -29,14 +29,12 @@ Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'Valloric/YouCompleteMe'          " better autocompletion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'trevordmiller/nova-vim'          " nova colorscheme
-Plug 'mbbill/undotree'                 " graphical undotree
 call plug#end()
 
 " sheerun/vim-polyglot
 " Edited line 480, python self and cls highlighting
 
 " trevordmiller/nova-vim
-colorscheme nova
 highlight MatchParen gui=bold,underline guifg=#D18EC2
 highlight IncSearch gui=bold guifg=#A8CE93 guibg=#1E272C
 highlight Todo gui=bold guifg=#DF8C8C
@@ -117,17 +115,13 @@ map <Leader>t <Plug>(easymotion-bd-t)
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300
 
-" " simnalamburt/vim-mundo
-" let g:mundo_preview_statusline='Diff'
-" let g:mundo_tree_statusline='History'
-" let g:mundo_mirror_graph=0
-" let g:mundo_return_on_revert=0
-" let g:mundo_verbose_graph=0
-" nnoremap <silent> <Leader>2 :MundoToggle<CR>
-
-" mbbill/undotree
-nnoremap <silent> <Leader>2 :UndotreeToggle<CR>
-let g:undotree_TreeNodeShape='o'
+" simnalamburt/vim-mundo
+let g:mundo_preview_statusline='Diff'
+let g:mundo_tree_statusline='History'
+let g:mundo_mirror_graph=0
+let g:mundo_return_on_revert=0
+let g:mundo_verbose_graph=0
+nnoremap <silent> <Leader>2 :MundoToggle<CR>
 
 " junegunn/vim-easy-align
 nmap gl <Plug>(EasyAlign)
@@ -155,6 +149,7 @@ if !exists('g:notfirstopen')
     set lines=40 columns=120  " initial window size
     set guifont=Consolas:h12  " changing font moves the window
     syntax enable
+    colorscheme nova  " messes up Mundo if loaded again
 endif
 
 " use cygwin bash as shell
@@ -220,12 +215,11 @@ set encoding=utf-8
 scriptencoding utf-8
 
 " temp file locations
-set viminfo+=n~/vimfiles/.temp/_viminfo
 set undofile
-set undodir=~/vimfiles/.temp
-set backupdir=~/vimfiles/.temp
-set directory=~/vimfiles/.temp
-set viewdir=~/vimfiles/.temp
+set viminfo+=n~/vimfiles/.temp/_viminfo
+set undodir=~/vimfiles/.temp/undo
+set backupdir=~/vimfiles/.temp/backup
+set directory=~/vimfiles/.temp/swap
 
 " mixed settings
 set clipboard=unnamed          " use system clipboard
@@ -238,6 +232,7 @@ set splitbelow                 " open splits to the bottom
 set wildmode=list:longest,full " better tab completion on command line mode
 set undolevels=5000            " remember more undo history
 set history=1000               " remember more command history
+set updatecount=10             " update swap file more often
 set matchpairs=(:),{:},[:],<:> " configure which braces to match
 set shortmess=a                " shorter prompt messages
 filetype plugin indent on      " auto detect filetype
