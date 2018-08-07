@@ -233,7 +233,7 @@ set wildmode=list:longest,full " better tab completion on command line mode
 set undolevels=5000            " remember more undo history
 set history=1000               " remember more command history
 set updatecount=10             " update swap file more often
-set matchpairs=(:),{:},[:],<:> " configure which braces to match
+set matchpairs=(:),{:},[:]     " configure which braces to match
 set shortmess=a                " shorter prompt messages
 filetype plugin indent on      " auto detect filetype
 
