@@ -304,14 +304,17 @@ inoremap <CR> <C-G>u<CR>
 
 " change enter behaviour
 augroup EnterMappings
-    " FIXME: ei toimi tyhjissä tiedostoissa!
     autocmd!
-    autocmd FileType * if &l:buftype ==# ''
+    " Complex but works
+    autocmd BufEnter * if &l:buftype ==# ''
             \| nnoremap <buffer> <CR> o<Esc>
             \| nnoremap <buffer> <S-Enter> O<Esc>
             \| nnoremap <buffer> <C-Enter> :<C-U>call <SID>BlankDown(v:count1)<CR>
             \| nnoremap <buffer> <C-S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
             \| nnoremap <buffer> <Leader><CR> a<CR><Esc>
+            \| endif
+    autocmd BufWinEnter * if &l:buftype ==# 'quickfix'
+            \| unmap <buffer> <CR>
             \| endif
 augroup END
 
