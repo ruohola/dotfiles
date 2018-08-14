@@ -478,7 +478,8 @@ augroup Python
     autocmd FileType python nnoremap <buffer> <silent> <Leader>5
                 \ :write<BAR>:tabn 1<BAR>:call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR>
                 \|nnoremap <buffer> <Leader>' o""""""<Esc>hhi
-                \|nnoremap <buffer> <Leader>x "_ccprint()  # XXX<Esc>F)i
+                \|nnoremap <buffer> <Leader>x mzA  # XXX<Esc>`z
+                \|nnoremap <buffer> <Leader>z mz$F#gEl"_D`z
 augroup END
 
 
