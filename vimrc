@@ -10,7 +10,7 @@ call plug#begin('~/vimfiles/plugged')
 Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
 Plug 'tpope/vim-repeat'                " repeat plugin commands
-Plug 'easymotion/vim-easymotion'       " KJump/easymotion for vim
+Plug 'easymotion/vim-easymotion'       " jump to any position
 Plug 'google/vim-searchindex'          " show [x/y] when searching
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
 Plug 'markonm/traces.vim'              " live substitution
@@ -376,7 +376,7 @@ command! SO so $MYVIMRC
 command! WC %s/^\s*\w\+//n | noh
 
 " count all .py files lines
-command! PYL !grep -vc '^\s*$' *.py && echo -n 'total:' && grep -v '^\s*$' *.py | wc -l
+command! PYL write|tabn 1|call <SID>RunCommandInSplitTerm("grep -vc '^\\s*$' *.py && echo -n 'total:' && grep -v '^\\s*$' *.py | wc -l")
 
 
 
@@ -443,15 +443,32 @@ endfunc
 
 
 function! s:BlankUp(count) abort
-    :norm! mz
+    norm! mz
     put!=repeat(nr2char(10), a:count)
-    :norm! `z
+    norm! `z
 endfunction
 
 function! s:BlankDown(count) abort
-    :norm! mz
+    norm! mz
     put =repeat(nr2char(10), a:count)
-    :norm! `z
+    norm! `z
+endfunction
+
+
+function! s:PutXXX(count) abort
+    norm! mz
+    for i in range(1, a:count)
+        norm! A  # XXXj
+    endfor
+    norm! `z
+endfunction
+
+function! s:NoXXX(count) abort
+    norm! mz
+    for i in range(1, a:count)
+        norm! $F#gEl"_Dj
+    endfor
+    norm! `z
 endfunction
 
 
@@ -472,14 +489,15 @@ endfunction
 " ============= AUTOCMD =============
 
 " config for python files
-" TODO: pistä run command vaihtamaan poist terminaalista, esim oik puol splittiin
+" TODO: pistä run command vaihtamaan pois terminaalista, esim oik puol splittiin
+" Last <BAR>:<CR> in run python command mapping maybe removes 'ml_get: invalid lnum' error
 augroup Python
     autocmd!
     autocmd FileType python nnoremap <buffer> <silent> <Leader>5
-                \ :write<BAR>:tabn 1<BAR>:call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR>
+                \ :write<BAR>:tabn 1<BAR>:call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR><BAR>:<CR>
                 \|nnoremap <buffer> <Leader>' o""""""<Esc>hhi
-                \|nnoremap <buffer> <Leader>x mzA  # XXX<Esc>`z
-                \|nnoremap <buffer> <Leader>z mz$F#gEl"_D`z
+                \|nnoremap <buffer> <Leader>x :<C-U>call <SID>PutXXX(v:count1)<CR>
+                \|nnoremap <buffer> <Leader>z :<C-U>call <SID>NoXXX(v:count1)<CR>
 augroup END
 
 
