@@ -29,6 +29,7 @@ Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'Valloric/YouCompleteMe'          " better autocompletion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'trevordmiller/nova-vim'          " nova colorscheme
+Plug 'tmhedberg/SimpylFold'            " python folding
 call plug#end()
 
 " sheerun/vim-polyglot
@@ -138,6 +139,10 @@ nnoremap <silent> <C-U> :call smooth_scroll#up(&scroll, 0, 2)<CR>
 nnoremap <silent> <C-D> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 nnoremap <silent> <C-B> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 nnoremap <silent> <C-F> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
+" tmhedberg/SimpylFold
+let g:SimpylFold_fold_docstring=0
+let g:SimpylFold_fold_import=0
 
 
 
