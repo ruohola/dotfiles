@@ -141,8 +141,9 @@ nnoremap <silent> <C-B> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 nnoremap <silent> <C-F> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " tmhedberg/SimpylFold
+let g:SimpylFold_docstring_preview=0
 let g:SimpylFold_fold_docstring=0
-let g:SimpylFold_fold_import=0
+let g:SimpylFold_fold_import=1
 
 
 
@@ -340,6 +341,9 @@ xnoremap <C-A> <C-A>gv
 
 " Q plays back q macro
 nnoremap Q @q
+
+" toggle fold
+nnoremap <Leader><Leader> za
 
 " don't copy to clipboard when deleting with <Leader>d
 nnoremap <Leader>d "_d
