@@ -301,6 +301,9 @@ nnoremap <silent> <Up> :cprev<CR>
 nnoremap <silent> <C-Down> :cnfile<CR><C-G>
 nnoremap <silent> <C-Up> :cpfile<CR><C-G>
 
+" capitalize word under/before under cursor
+inoremap <C-J> <Esc>mzbgUiw`za
+
 " make C-U and C-W and CR undoable
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
@@ -352,7 +355,7 @@ xnoremap <Leader>d "_d
 nnoremap <silent> <Esc> <Esc>:noh<CR>
 
 " open vimrc
-nnoremap <Leader>vr :e $MYVIMRC<CR>
+nnoremap <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
 
 " toggle fullscreen
 nnoremap <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
