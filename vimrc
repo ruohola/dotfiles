@@ -35,11 +35,6 @@ call plug#end()
 " sheerun/vim-polyglot
 " Edited line 480, python self and cls highlighting
 
-" trevordmiller/nova-vim
-highlight MatchParen gui=bold,underline guifg=#D18EC2
-highlight IncSearch gui=bold guifg=#A8CE93 guibg=#1E272C
-highlight Todo gui=bold guifg=#DF8C8C
-
 " Valloric/YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_show_diagnostics_ui=0
@@ -156,6 +151,9 @@ if !exists('g:notfirstopen')
     set guifont=Consolas:h12  " changing font moves the window
     syntax enable
     colorscheme nova  " messes up Mundo if loaded again
+    highlight MatchParen gui=bold,underline guifg=#D18EC2
+    highlight IncSearch gui=bold guifg=#A8CE93 guibg=#1E272C
+    highlight Todo gui=bold guifg=#DF8C8C
 endif
 
 " use cygwin bash as shell
