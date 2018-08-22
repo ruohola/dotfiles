@@ -290,10 +290,10 @@ tnoremap <silent> î <C-W>:bprev<CR>
 tnoremap <silent> í <C-W>:bnext<CR>
 
 " cycle tabs (alt+ui)
-nnoremap õ :tabprevious<CR>
-nnoremap é :tabnext<CR>
-tnoremap õ <C-W>:tabprevious<CR>
-tnoremap é <C-W>:tabnext<CR>
+nnoremap <silent>õ :tabprevious<CR>
+nnoremap <silent>é :tabnext<CR>
+tnoremap <silent>õ <C-W>:tabprevious<CR>
+tnoremap <silent>é <C-W>:tabnext<CR>
 
 " navigate quickfix list and vimgrep
 nnoremap <silent> <Down> :cnext<CR>
@@ -355,10 +355,10 @@ xnoremap <Leader>d "_d
 nnoremap <silent> <Esc> <Esc>:noh<CR>
 
 " open vimrc
-nnoremap <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
+nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
 
 " toggle fullscreen
-nnoremap <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+nnoremap <silent> <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
 " unmap push-to-talk key
 map <F13> <Nop>
@@ -386,7 +386,7 @@ command! SO so $MYVIMRC
 command! WC %s/^\s*\w\+//n | noh
 
 " count all .py files lines
-command! PYL write|tabn 1|call <SID>RunCommandInSplitTerm("grep -vc '^\\s*$' *.py && echo -n 'total:' && grep -v '^\\s*$' *.py | wc -l")
+command! PL write|tabn 1|call <SID>RunCommandInSplitTerm("grep -vc '^\\s*$' *.py && echo -n 'total:' && grep -v '^\\s*$' *.py | wc -l")
 
 
 
