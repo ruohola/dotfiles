@@ -412,7 +412,7 @@ function! s:RunCommandInSplitTerm(command) abort
     endif
 
     let mainWin = bufwinnr(mainBuf)
-    call term_sendkeys(termBufNr, a:command . "\<CR>")
+    call term_sendkeys(termBufNr, a:command . '')
     exe "normal \<C-W>p"
 endfunction
 
