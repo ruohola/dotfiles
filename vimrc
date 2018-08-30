@@ -316,8 +316,8 @@ augroup EnterMappings
     autocmd BufEnter * if &l:buftype ==# ''
             \| nnoremap <buffer> <CR> o<Esc>
             \| nnoremap <buffer> <S-Enter> O<Esc>
-            \| nnoremap <buffer> <C-Enter> :<C-U>call <SID>BlankDown(v:count1)<CR>
-            \| nnoremap <buffer> <C-S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
+            \| nnoremap <buffer> <silent> <C-Enter> :<C-U>call <SID>BlankDown(v:count1)<CR>
+            \| nnoremap <buffer> <silent> <C-S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
             \| nnoremap <buffer> <Leader><CR> a<CR><Esc>
             \| endif
     autocmd BufWinEnter * if &l:buftype ==# 'quickfix'
@@ -454,13 +454,17 @@ endfunc
 
 function! s:BlankUp(count) abort
     norm! mz
-    put!=repeat(nr2char(10), a:count)
+    for i in range(1, a:count)
+        norm! O
+    endfor
     norm! `z
 endfunction
 
 function! s:BlankDown(count) abort
     norm! mz
-    put =repeat(nr2char(10), a:count)
+    for i in range(1, a:count)
+        norm! o
+    endfor
     norm! `z
 endfunction
 
