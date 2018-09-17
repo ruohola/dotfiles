@@ -343,9 +343,6 @@ xnoremap <C-A> <C-A>gv
 " Q plays back q macro
 nnoremap Q @q
 
-" toggle fold
-nnoremap <Leader><Leader> za
-
 " don't copy to clipboard when deleting with <Leader>d
 nnoremap <Leader>d "_d
 nnoremap <Leader>D "_D

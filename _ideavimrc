@@ -1,4 +1,4 @@
-let mapleader=" "
+let mapleader=' '
 
 " ============= GENERAL =============
 
@@ -33,49 +33,34 @@ noremap q, q:
 nnoremap : ;
 nnoremap ; ,
 
-" makes these easier to use
-" noremap ¤ $
-" noremap § `
-" noremap ½ ~
-" noremap g½ g~
-" noremap - /
-" noremap q- q/
-" noremap + ?
-" noremap q+ q?
-
 " make Y behave the same way as D and C
 nnoremap Y y$
 
-" testing if this is good
-vnoremap v V
-noremap V <Nop>
+" makes v and V more consistent with other commands
+nnoremap vv V
+nnoremap V <C-V>$
 
-" " make V behave the same way as D and C
-" nnoremap V v$
-" nnoremap vv V
-
-" Ctrl+hjkl work as arrows
-noremap <C-H> <Left>
-noremap <C-J> <Down>
-noremap <C-K> <Up>
-noremap <C-L> <Right>
-noremap! <C-H> <Right>
-noremap! <C-J> <Down>
-noremap! <C-K> <Up>
-noremap! <C-L> <Left>
+" makes S more useful
+nnoremap S ciw
 
 " change enter behaviour
 nnoremap <CR> o<Esc>
-nnoremap <C-Enter> mzo<Esc>`z
 nnoremap <S-Enter> O<Esc>
+nnoremap <C-Enter> mzo<Esc>`z
 nnoremap <C-S-Enter> mzO<Esc>`z
 nnoremap <Leader><CR> a<CR><Esc>
 
-" backspace for indenting lines
-nnoremap <S-BS> a<C-T><Esc>
-nnoremap <BS> a<C-D><Esc>
-vnoremap <S-BS> >gv
+" better way to indent
+nnoremap <BS> <<
+nnoremap <TAB> >>
 vnoremap <BS> <gv
+vnoremap <TAB> >gv
+
+" persistent visuals
+vnoremap > >gv
+vnoremap < <gv
+vnoremap <C-X> <C-X>gv
+vnoremap <C-A> <C-A>gv
 
 " Q plays back q macro
 nnoremap Q @q
@@ -83,30 +68,18 @@ nnoremap Q @q
 " dont copy to clipboard when editing with <Leader><key>
 nnoremap <Leader>d "_d
 nnoremap <Leader>D "_D
-nnoremap <Leader>c "_c
-nnoremap <Leader>C "_C
-nnoremap <Leader>x "_x
-nnoremap <Leader>X "_X
 vnoremap <Leader>d "_d
-vnoremap <Leader>D "_D
-vnoremap <Leader>c "_c
-vnoremap <Leader>C "_C
-vnoremap <Leader>x "_x
-vnoremap <Leader>X "_X
 
-"don't show match highlights
+" clear highlights
 nnoremap <Esc> <Esc>:noh<CR>
-
-"change color scheme
-nnoremap <F12> :action ChangeColorScheme<CR>
 
 "move between splits
 nnoremap <A-L> :action NextSplitter<CR>
 nnoremap <A-H> :action PrevSplitter<CR>
 
 "move between tabs
-nnoremap <A-M> :action NextTab<CR>
-nnoremap <A-N> :action PreviousTab<CR>
+nnoremap <A-I> :action NextTab<CR>
+nnoremap <A-U> :action PreviousTab<CR>
 
 " open ideavimrc
 nnoremap <Leader>vr :e ~/_ideavimrc<CR>
