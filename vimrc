@@ -515,8 +515,8 @@ augroup END
 " toggle relative numbers between modes
 augroup LineNumbers
     autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' |set relativenumber|endif
-    autocmd BufLeave,FocusLost,InsertEnter * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' |set norelativenumber|endif
+    autocmd WinEnter,FocusGained,InsertLeave * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' |set relativenumber|endif
+    autocmd WinLeave,FocusLost,InsertEnter * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' |set norelativenumber|endif
 augroup END
 
 
