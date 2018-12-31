@@ -6,7 +6,11 @@
 let g:loaded_netrw=1
 let g:loaded_netrwPlugin=1
 
-call plug#begin('~/vimfiles/plugged')
+if has('win32')
+    call plug#begin('~/vimfiles/plugged')
+else
+    call plug#begin('~/.vim/plugged')
+endif
 Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
 Plug 'tpope/vim-repeat'                " repeat plugin commands
@@ -19,25 +23,16 @@ Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
 Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
 Plug 'tommcdo/vim-exchange'            " change two objects
-Plug 'davidhalter/jedi-vim'            " python engine
-Plug 'w0rp/ale'                        " automatic linting
 Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
 Plug 'Yggdroot/LeaderF'                " fuzzy finding
 Plug 'scrooloose/nerdtree'             " file browser
-Plug 'chrisbra/Colorizer'              " preview colors
 Plug 'junegunn/vim-easy-align'         " align text with motion
-Plug 'Valloric/YouCompleteMe'          " better autocompletion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'trevordmiller/nova-vim'          " nova colorscheme
-Plug 'tmhedberg/SimpylFold'            " python folding
 call plug#end()
 
 " sheerun/vim-polyglot
 " Edited line 480, python self and cls highlighting
-
-" Valloric/YouCompleteMe
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_show_diagnostics_ui=0
 
 " scrooloose/nerdtree
 nnoremap <silent> <Leader>1 :NERDTreeToggle<CR>
@@ -48,7 +43,11 @@ let g:Lf_CursorBlink=0
 let g:Lf_UseVersionControlTool=0
 let g:Lf_DefaultExternalTool='rg'
 let g:Lf_ShowHidden=1
-let TempFolder = $HOME . '/vimfiles/.temp'
+if has('win32')
+    let TempFolder = $HOME . '/vimfiles/.temp'
+else
+    let TempFolder = $HOME . '/.vim/.temp'
+endif
 let g:Lf_CacheDirectory=TempFolder
 let g:Lf_IndexTimeLimit=600
 let g:Lf_UseCache=1
@@ -65,35 +64,6 @@ nnoremap <Leader>o :LeaderfLineAll<CR>
 nnoremap <Leader>k :LeaderfHelp<CR>
 nnoremap <Leader>n :LeaderfBufferAll<CR>
 nnoremap <Leader>m :LeaderfMru<CR>
-
-" w0rp/ale
-let g:ale_sign_column_always=0
-let g:ale_change_sign_column_color=1
-let g:ale_set_signs=0
-let g:ale_max_signs=-1
-let g:ale_use_global_executables=1
-let g:ale_linters_explicit=1
-let g:ale_set_quickfix=0
-let g:ale_set_loclist=0
-let g:ale_linters = {'python': ['flake8', 'mypy'], 'vim': ['vint']}
-let g:ale_fixers  = {'python': ['autopep8', 'isort']}
-let g:ale_lint_on_enter=0
-let g:ale_lint_on_text_changed='never'
-let g:ale_lint_on_filetype_changed=0
-let g:ale_lint_on_insert_leave=0
-let g:ale_lint_on_save=1
-let g:ale_fix_on_save=0
-nnoremap <silent> <Left>  :ALEPreviousWrap<CR>
-nnoremap <silent> <Right> :ALENextWrap<CR>
-
-" davidhalter/jedi-vim
-let g:jedi#goto_command='<C-]>'
-let g:jedi#documentation_command='K'
-let g:jedi#rename_command='<Leader>r'
-let g:jedi#usages_command='<Leader>u'
-let g:jedi#completions_enabled=0
-let g:jedi#popup_on_dot=0
-let g:jedi#show_call_signatures=0
 
 " maxbrunsfeld/vim-yankstack
 let g:yankstack_map_keys = 0
@@ -135,11 +105,6 @@ nnoremap <silent> <C-D> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 nnoremap <silent> <C-B> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 nnoremap <silent> <C-F> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
-" tmhedberg/SimpylFold
-let g:SimpylFold_docstring_preview=0
-let g:SimpylFold_fold_docstring=0
-let g:SimpylFold_fold_import=1
-
 
 
 " ============= GENERAL =============
@@ -147,26 +112,57 @@ let g:SimpylFold_fold_import=1
 " set these only when vim starts, not when sourcing vimrc
 if !exists('g:notfirstopen')
     let g:notfirstopen=1
+
+    if has('gui_running')
+        colorscheme nova  " messes up Mundo if loaded again
+        if has ('win32')
+            set guifont=Consolas:h12  " changing font moves the window
+        else
+            set guifont=Menlo:h16  " changing font moves the window
+        endif
+    else
+        colorscheme industry
+    endif
+
     set lines=40 columns=120  " initial window size
-    set guifont=Consolas:h12  " changing font moves the window
     syntax enable
-    colorscheme nova  " messes up Mundo if loaded again
     highlight MatchParen gui=bold,underline guifg=#D18EC2
     highlight IncSearch gui=bold guifg=#A8CE93 guibg=#1E272C
     highlight Todo gui=bold guifg=#DF8C8C
 endif
 
-" use cygwin bash as shell
-let $CHERE_INVOKING=1
-set shell=C:/cygwin64/bin/bash.exe
-set shellcmdflag=--login\ -c
-set shellxquote=\"
-set noshellslash
+" Windows settings
+if has('win32')
+    " use cygwin bash as shell
+    let $CHERE_INVOKING=1
+    set shell=C:/cygwin64/bin/bash.exe
+    set shellcmdflag=--login\ -c
+    set shellxquote=\"
+    set noshellslash
+
+    " temp file locations
+    set viminfo+=n~/vimfiles/.temp/_viminfo
+    set undodir=~/vimfiles/.temp/undo
+    set backupdir=~/vimfiles/.temp/backup
+    set directory=~/vimfiles/.temp/swap
+" Unix settings
+else
+    " temp file locations
+    set viminfo+=n~/.vim/.temp/.viminfo
+    set undodir=~/.vim/.temp/undo
+    set backupdir=~/.vim/.temp/backup
+    set directory=~/.vim/.temp/swap
+endif
+
+" GUI specific settings
+if has('gui_running')
+    " visuals
+    set guioptions=
+    set guicursor+=a:blinkon0
+    set guicursor+=i-ci:ver20-blinkon0
+endif
 
 " visuals
-set guioptions=
-set guicursor+=a:blinkon0
-set guicursor+=i-ci:ver20-blinkon0
 set cursorline
 set number relativenumber
 set showmode showcmd
@@ -181,7 +177,6 @@ set statusline+=/%L                                   " total lines
 set statusline+=(%p%%)                                " percentage through the file
 set statusline+=%4c                                   " cursor column
 set statusline+=\|%-4{strwidth(getline('.'))}         " line length
-set statusline+=%{LinterStatus()}                     " ALE status
 set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'\\'.expand('%:t'):expand('%')}  " dir\filename.ext
 set statusline+=%m                                    " modified flag
 set statusline+=%r                                    " read only flag
@@ -218,14 +213,8 @@ set fileformats=unix,dos
 set encoding=utf-8
 scriptencoding utf-8
 
-" temp file locations
-set undofile
-set viminfo+=n~/vimfiles/.temp/_viminfo
-set undodir=~/vimfiles/.temp/undo
-set backupdir=~/vimfiles/.temp/backup
-set directory=~/vimfiles/.temp/swap
-
 " mixed settings
+set undofile
 set clipboard=unnamed          " use system clipboard
 set backspace=indent,eol,start " make backspace behave normally
 set hidden                     " switch to another buffer without saving
@@ -349,7 +338,13 @@ nnoremap <Leader>D "_D
 xnoremap <Leader>d "_d
 
 " clear highlights
-nnoremap <silent> <Esc> <Esc>:noh<CR>
+if has('gui_running')
+    nnoremap <silent> <Esc> <Esc>:noh<CR>
+else
+    augroup no_highlight
+    autocmd TermResponse * nnoremap <silent> <Esc> <Esc>:noh<CR>
+    augroup END
+endif
 
 " open vimrc
 nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
