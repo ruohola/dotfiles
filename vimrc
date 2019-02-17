@@ -29,6 +29,7 @@ Plug 'scrooloose/nerdtree'             " file browser
 Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'trevordmiller/nova-vim'          " nova colorscheme
+Plug 'lifepillar/vim-solarized8'       " solarized colorscheme
 call plug#end()
 
 " sheerun/vim-polyglot
@@ -113,18 +114,20 @@ nnoremap <silent> <C-F> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 if !exists('g:notfirstopen')
     let g:notfirstopen=1
 
+    " messes up Mundo if loaded again
+    " set background=dark
+    " colorscheme solarized8
+    colorscheme nova
+
     if has('gui_running')
-        colorscheme nova  " messes up Mundo if loaded again
+        set lines=40 columns=120  " initial window size
         if has ('win32')
             set guifont=Consolas:h12  " changing font moves the window
         else
-            set guifont=Menlo:h16  " changing font moves the window
+            set guifont=SFMono-Regular:h16  " changing font moves the window
         endif
-    else
-        colorscheme industry
     endif
 
-    set lines=40 columns=120  " initial window size
     syntax enable
     highlight MatchParen gui=bold,underline guifg=#D18EC2
     highlight IncSearch gui=bold guifg=#A8CE93 guibg=#1E272C
@@ -133,6 +136,7 @@ endif
 
 " Windows settings
 if has('win32')
+
     " use cygwin bash as shell
     let $CHERE_INVOKING=1
     set shell=C:/cygwin64/bin/bash.exe
@@ -153,6 +157,7 @@ else
     set backupdir=~/.vim/.temp/backup
     set directory=~/.vim/.temp/swap
 endif
+set clipboard=unnamed  " use system clipboard
 
 " GUI specific settings
 if has('gui_running')
@@ -160,6 +165,11 @@ if has('gui_running')
     set guioptions=
     set guicursor+=a:blinkon0
     set guicursor+=i-ci:ver20-blinkon0
+else
+    if $TERM_PROGRAM =~ "iTerm"
+        let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+        let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+    endif
 endif
 
 " visuals
@@ -203,8 +213,8 @@ set incsearch hlsearch ignorecase smartcase gdefault
 " no errorbells
 set noerrorbells
 augroup NoVisualBells
-autocmd!
-autocmd GUIEnter * set visualbell t_vb=
+    autocmd!
+    autocmd GUIEnter * set visualbell t_vb=
 augroup END
 
 " language settings
@@ -215,7 +225,7 @@ scriptencoding utf-8
 
 " mixed settings
 set undofile
-set clipboard=unnamed          " use system clipboard
+
 set backspace=indent,eol,start " make backspace behave normally
 set hidden                     " switch to another buffer without saving
 set autoread                   " update changes to file automatically
@@ -234,7 +244,61 @@ filetype plugin indent on      " auto detect filetype
 
 " ============= MAPPINGS =============
 
-" makes these easier to use in profin layout
+if has('win32')
+    " traverse history with alt+,.
+    nnoremap ® g,
+    nnoremap ¬ g;
+
+    " split navigations (alt+hjkl)
+    nnoremap è <C-W><C-H>
+    tnoremap è <C-W><C-H>
+    tnoremap ê <C-W><C-J>
+    nnoremap ê <C-W><C-J>
+    nnoremap ë <C-W><C-K>
+    tnoremap ë <C-W><C-K>
+    nnoremap ì <C-W><C-L>
+    tnoremap ì <C-W><C-L>
+
+    " cycle buffers (alt+nm)
+    nnoremap <silent> î :bprev<CR>
+    tnoremap <silent> î <C-W>:bprev<CR>
+    nnoremap <silent> í :bnext<CR>
+    tnoremap <silent> í <C-W>:bnext<CR>
+
+    " cycle tabs (alt+ui)
+    nnoremap <silent>õ :tabprevious<CR>
+    tnoremap <silent>õ <C-W>:tabprevious<CR>
+    nnoremap <silent>é :tabnext<CR>
+    tnoremap <silent>é <C-W>:tabnext<CR>
+else
+    " traverse history with alt+,.
+    nnoremap ′ g,
+    nnoremap … g;
+
+    " split navigations (alt+hjkl)
+    nnoremap ← <C-W><C-H>
+    tnoremap ← <C-W><C-H>
+    tnoremap ↓ <C-W><C-J>
+    nnoremap ↓ <C-W><C-J>
+    nnoremap ↑ <C-W><C-K>
+    tnoremap ↑ <C-W><C-K>
+    nnoremap → <C-W><C-L>
+    tnoremap → <C-W><C-L>
+
+    " cycle buffers (alt+nm)
+    nnoremap <silent> № :bprev<CR>
+    tnoremap <silent> № <C-W>:bprev<CR>
+    nnoremap <silent> µ :bnext<CR>
+    tnoremap <silent> µ <C-W>:bnext<CR>
+
+    " cycle tabs (alt+ui)
+    nnoremap <silent>ü :tabprevious<CR>
+    tnoremap <silent>ü <C-W>:tabprevious<CR>
+    nnoremap <silent>↔︎ :tabnext<CR>
+    tnoremap <silent>↔︎ <C-W>:tabnext<CR>
+endif
+
+" makes these easier to use
 noremap , :
 tnoremap <C-W>, <C-W>:
 noremap : ;
@@ -245,9 +309,6 @@ augroup QMappings
     autocmd FileType * if &l:buftype ==# 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
 augroup END
 
-" traverse history with alt+,.
-nnoremap ® g,
-nnoremap ¬ g;
 
 " make Y behave the same way as D and C
 nnoremap Y y$
@@ -261,28 +322,6 @@ nnoremap S ciw
 
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
-
-" split navigations (alt+hjkl)
-nnoremap è <C-W><C-H>
-nnoremap ê <C-W><C-J>
-nnoremap ë <C-W><C-K>
-nnoremap ì <C-W><C-L>
-tnoremap è <C-W><C-H>
-tnoremap ê <C-W><C-J>
-tnoremap ë <C-W><C-K>
-tnoremap ì <C-W><C-L>
-
-" cycle buffers (alt+nm)
-nnoremap <silent> î :bprev<CR>
-nnoremap <silent> í :bnext<CR>
-tnoremap <silent> î <C-W>:bprev<CR>
-tnoremap <silent> í <C-W>:bnext<CR>
-
-" cycle tabs (alt+ui)
-nnoremap <silent>õ :tabprevious<CR>
-nnoremap <silent>é :tabnext<CR>
-tnoremap <silent>õ <C-W>:tabprevious<CR>
-tnoremap <silent>é <C-W>:tabnext<CR>
 
 " navigate quickfix list and vimgrep
 nnoremap <silent> <Down> :cnext<CR>
@@ -337,12 +376,13 @@ nnoremap <Leader>d "_d
 nnoremap <Leader>D "_D
 xnoremap <Leader>d "_d
 
-" clear highlights
+" clear highlights, doesn't play well with terminal vim
 if has('gui_running')
     nnoremap <silent> <Esc> <Esc>:noh<CR>
 else
-    augroup no_highlight
-    autocmd TermResponse * nnoremap <silent> <Esc> <Esc>:noh<CR>
+    augroup ClearHighlights
+        autocmd!
+        autocmd TermResponse * nnoremap <silent> <Esc> <Esc>:noh<CR>|nnoremap <Esc>[ <Esc>[
     augroup END
 endif
 
