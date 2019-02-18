@@ -11,32 +11,27 @@ if has('win32')
 else
     call plug#begin('~/.vim/plugged')
 endif
-Plug 'tpope/vim-surround'              " edit braces easily
-Plug 'tpope/vim-commentary'            " comment out lines
-Plug 'tpope/vim-repeat'                " repeat plugin commands
-Plug 'easymotion/vim-easymotion'       " jump to any position
-Plug 'google/vim-searchindex'          " show [x/y] when searching
-Plug 'machakann/vim-highlightedyank'   " highlight yanks
-Plug 'markonm/traces.vim'              " live substitution
-Plug 'simnalamburt/vim-mundo'          " graphical undotree
-Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
-Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
-Plug 'wellle/targets.vim'              " more text objects
-Plug 'tommcdo/vim-exchange'            " change two objects
-Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
-Plug 'Yggdroot/LeaderF'                " fuzzy finding
-Plug 'scrooloose/nerdtree'             " file browser
-Plug 'junegunn/vim-easy-align'         " align text with motion
-Plug 'sheerun/vim-polyglot'            " better syntax highlighting
-Plug 'trevordmiller/nova-vim'          " nova colorscheme
-Plug 'lifepillar/vim-solarized8'       " solarized colorscheme
+Plug 'tpope/vim-surround'                      " edit braces easily
+Plug 'tpope/vim-commentary'                    " comment out lines
+Plug 'tpope/vim-repeat'                        " repeat plugin commands
+Plug 'easymotion/vim-easymotion'               " jump to any position
+Plug 'google/vim-searchindex'                  " show [x/y] when searching
+Plug 'machakann/vim-highlightedyank'           " highlight yanks
+Plug 'markonm/traces.vim'                      " live substitution
+Plug 'simnalamburt/vim-mundo'                  " graphical undotree
+Plug 'maxbrunsfeld/vim-yankstack'              " remember past yanks
+Plug 'vim-scripts/ReplaceWithRegister'         " operator to replace text
+Plug 'wellle/targets.vim'                      " more text objects
+Plug 'tommcdo/vim-exchange'                    " change two objects
+Plug 'terryma/vim-smooth-scroll'               " smooth scrolling
+Plug 'Yggdroot/LeaderF'                        " fuzzy finding
+Plug 'junegunn/vim-easy-align'                 " align text with motion
+Plug 'sheerun/vim-polyglot'                    " better syntax highlighting
+Plug 'trevordmiller/nova-vim'                  " nova colorscheme
 call plug#end()
 
 " sheerun/vim-polyglot
 " Edited line 480, python self and cls highlighting
-
-" scrooloose/nerdtree
-nnoremap <silent> <Leader>1 :NERDTreeToggle<CR>
 
 " Yggdroot/LeaderF
 let g:Lf_StlColorscheme='default'
@@ -115,8 +110,7 @@ if !exists('g:notfirstopen')
     let g:notfirstopen=1
 
     " messes up Mundo if loaded again
-    " set background=dark
-    " colorscheme solarized8
+    set termguicolors
     colorscheme nova
 
     if has('gui_running')
@@ -161,14 +155,14 @@ set clipboard=unnamed  " use system clipboard
 
 " GUI specific settings
 if has('gui_running')
-    " visuals
     set guioptions=
+    " Cursor is a vertical bar in insert mode and a block in normal mode.
     set guicursor+=a:blinkon0
     set guicursor+=i-ci:ver20-blinkon0
 else
     if $TERM_PROGRAM =~ "iTerm"
-        let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-        let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+        let &t_SI = "\e[6 q"
+        let &t_EI = "\e[2 q"
     endif
 endif
 
@@ -226,6 +220,10 @@ scriptencoding utf-8
 " mixed settings
 set undofile
 
+" remove delay from esc
+set timeoutlen=1000
+set ttimeoutlen=0
+
 set backspace=indent,eol,start " make backspace behave normally
 set hidden                     " switch to another buffer without saving
 set autoread                   " update changes to file automatically
@@ -270,6 +268,13 @@ if has('win32')
     tnoremap <silent>õ <C-W>:tabprevious<CR>
     nnoremap <silent>é :tabnext<CR>
     tnoremap <silent>é <C-W>:tabnext<CR>
+
+    " toggle fullscreen
+    nnoremap <silent> <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+
+    " unmap push-to-talk key
+    map <F13> <Nop>
+    map! <F13> <Nop>
 else
     " traverse history with alt+,.
     nnoremap ′ g,
@@ -376,7 +381,7 @@ nnoremap <Leader>d "_d
 nnoremap <Leader>D "_D
 xnoremap <Leader>d "_d
 
-" clear highlights, doesn't play well with terminal vim
+" clear highlights
 if has('gui_running')
     nnoremap <silent> <Esc> <Esc>:noh<CR>
 else
@@ -388,13 +393,6 @@ endif
 
 " open vimrc
 nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
-
-" toggle fullscreen
-nnoremap <silent> <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
-
-" unmap push-to-talk key
-map <F13> <Nop>
-map! <F13> <Nop>
 
 " close current buffer
 nnoremap <silent> <Leader>b :call DeleteCurBufferNotCloseWindow()<CR>
@@ -417,7 +415,7 @@ command! SO so $MYVIMRC
 " count lines in file
 command! WC %s/^\s*\w\+//n | noh
 
-" count all .py files lines
+" Count all .py files lines, have to have terminal open in tab 1 for this to work.
 command! PL write|tabn 1|call <SID>RunCommandInSplitTerm("grep -vc '^\\s*$' *.py && echo -n 'total:' && grep -v '^\\s*$' *.py | wc -l")
 
 
@@ -492,6 +490,7 @@ function! s:BlankUp(count) abort
     norm! `z
 endfunction
 
+
 function! s:BlankDown(count) abort
     norm! mz
     for i in range(1, a:count)
@@ -515,19 +514,6 @@ function! s:NoXXX(count) abort
         norm! $F#gEl"_Dj
     endfor
     norm! `z
-endfunction
-
-
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? '' : printf(
-    \ '[%dW %dE] ',
-    \ all_non_errors,
-    \ all_errors,
-    \)
 endfunction
 
 
@@ -558,7 +544,7 @@ augroup END
 " source vimrc when it's saved
 augroup ReloadVimrc
     autocmd!
-    autocmd BufWritePost vimrc so $MYVIMRC
+    autocmd BufWritePost *vimrc so $MYVIMRC
 augroup END
 
 
