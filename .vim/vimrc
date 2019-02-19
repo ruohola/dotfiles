@@ -130,8 +130,8 @@ if !exists('g:notfirstopen')
     " highlight Todo gui=bold guifg=#DF8C8C
 endif
 
-" Windows settings
 if has('win32')
+    " Windows settings
 
     " use cygwin bash as shell
     let $CHERE_INVOKING=1
@@ -145,8 +145,9 @@ if has('win32')
     set undodir=~/vimfiles/.temp/undo
     set backupdir=~/vimfiles/.temp/backup
     set directory=~/vimfiles/.temp/swap
-" Unix settings
 else
+    " Unix settings
+
     " use the bash installed with homebrew as shell
     set shell=/usr/local/bin/bash\ --login
 
@@ -158,14 +159,17 @@ else
 endif
 set clipboard=unnamed  " use system clipboard
 
-" GUI specific settings
 if has('gui_running')
+    " GUI specific settings
     set guioptions=
     " Cursor is a vertical bar in insert mode and a block in normal mode.
     set guicursor+=a:blinkon0
     set guicursor+=i-ci:ver20-blinkon0
 else
+    " Terminal specific settings
+    set mouse=a
     if $TERM_PROGRAM =~ "iTerm"
+        set ttymouse=sgr
         let &t_SI = "\e[6 q"
         let &t_EI = "\e[2 q"
         let &t_SR = "\e[4 q"
@@ -231,10 +235,8 @@ scriptencoding utf-8
 
 " mixed settings
 set undofile
-
 set timeoutlen=500
 set ttimeoutlen=0              " remove delay from esc
-
 set backspace=indent,eol,start " make backspace behave normally
 set hidden                     " switch to another buffer without saving
 set autoread                   " update changes to file automatically
@@ -580,7 +582,7 @@ augroup END
 
 " ============= REGISTERS =============
 
-" clear the search register for no highlighting
+" clear the search register for no highlighting on startup
 let @/=''
 " macro to add a plugin
 let @p='gg/call plug#end()OPlug ''+'' " glip-"nkA '
