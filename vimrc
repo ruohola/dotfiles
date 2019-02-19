@@ -147,6 +147,9 @@ if has('win32')
     set directory=~/vimfiles/.temp/swap
 " Unix settings
 else
+    " use the bash installed with homebrew as shell
+    set shell=/usr/local/bin/bash\ --login
+
     " temp file locations
     set viminfo+=n~/.vim/.temp/.viminfo
     set undodir=~/.vim/.temp/undo
@@ -184,7 +187,13 @@ set statusline+=/%L                                   " total lines
 set statusline+=(%p%%)                                " percentage through the file
 set statusline+=%4c                                   " cursor column
 set statusline+=\|%-4{strwidth(getline('.'))}         " line length
-set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'\\'.expand('%:t'):expand('%')}  " dir\filename.ext
+if has('win32')
+    " different separator between current filename and folder for Windows: \ vs Unix: /
+    " could maybe be cleaner, but this does the job
+    set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'\\'.expand('%:t'):expand('%')}  " dir\filename.ext
+else
+    set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'/'.expand('%:t'):expand('%')}  " dir\filename.ext
+endif
 set statusline+=%m                                    " modified flag
 set statusline+=%r                                    " read only flag
 set statusline+=%=                                    " left/right separator
