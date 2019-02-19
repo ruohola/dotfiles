@@ -81,11 +81,10 @@ nnoremap <A-H> :action PrevSplitter<CR>
 nnoremap <A-I> :action NextTab<CR>
 nnoremap <A-U> :action PreviousTab<CR>
 
-" open ideavimrc
-nnoremap <Leader>vr :e ~/_ideavimrc<CR>
-
-"source ideavimrc
-nnoremap <Leader>so :so ~/_ideavimrc<CR>
+nnoremap ci) f)ci)
+" nnoremap ci" f"ci"
+nnoremap di) f)di)
+" nnoremap di" f"di"
 
 "activate KJump
 nnoremap <leader>f :action KJumpAction<CR>
