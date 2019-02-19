@@ -11,23 +11,24 @@ if has('win32')
 else
     call plug#begin('~/.vim/plugged')
 endif
-Plug 'tpope/vim-surround'                      " edit braces easily
-Plug 'tpope/vim-commentary'                    " comment out lines
-Plug 'tpope/vim-repeat'                        " repeat plugin commands
-Plug 'easymotion/vim-easymotion'               " jump to any position
-Plug 'google/vim-searchindex'                  " show [x/y] when searching
-Plug 'machakann/vim-highlightedyank'           " highlight yanks
-Plug 'markonm/traces.vim'                      " live substitution
-Plug 'simnalamburt/vim-mundo'                  " graphical undotree
-Plug 'maxbrunsfeld/vim-yankstack'              " remember past yanks
-Plug 'vim-scripts/ReplaceWithRegister'         " operator to replace text
-Plug 'wellle/targets.vim'                      " more text objects
-Plug 'tommcdo/vim-exchange'                    " change two objects
-Plug 'terryma/vim-smooth-scroll'               " smooth scrolling
-Plug 'Yggdroot/LeaderF'                        " fuzzy finding
-Plug 'junegunn/vim-easy-align'                 " align text with motion
-Plug 'sheerun/vim-polyglot'                    " better syntax highlighting
-Plug 'trevordmiller/nova-vim'                  " nova colorscheme
+Plug 'tpope/vim-surround'              " edit braces easily
+Plug 'tpope/vim-commentary'            " comment out lines
+Plug 'tpope/vim-repeat'                " repeat plugin commands
+Plug 'easymotion/vim-easymotion'       " jump to any position
+Plug 'google/vim-searchindex'          " show [x/y] when searching
+Plug 'machakann/vim-highlightedyank'   " highlight yanks
+Plug 'markonm/traces.vim'              " live substitution
+Plug 'simnalamburt/vim-mundo'          " graphical undotree
+Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
+Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
+Plug 'wellle/targets.vim'              " more text objects
+Plug 'tommcdo/vim-exchange'            " change two objects
+Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
+Plug 'Yggdroot/LeaderF'                " fuzzy finding
+Plug 'junegunn/vim-easy-align'         " align text with motion
+Plug 'sheerun/vim-polyglot'            " better syntax highlighting
+Plug 'trevordmiller/nova-vim'          " nova colorscheme
+Plug 'lifepillar/vim-solarized8'       " solarized colorcheme
 call plug#end()
 
 " sheerun/vim-polyglot
@@ -109,9 +110,10 @@ nnoremap <silent> <C-F> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 if !exists('g:notfirstopen')
     let g:notfirstopen=1
 
-    " messes up Mundo if loaded again
     set termguicolors
-    colorscheme nova
+    set background=dark
+
+    colorscheme solarized8  " messes up Mundo if loaded again
 
     if has('gui_running')
         set lines=40 columns=120  " initial window size
@@ -123,9 +125,9 @@ if !exists('g:notfirstopen')
     endif
 
     syntax enable
-    highlight MatchParen gui=bold,underline guifg=#D18EC2
-    highlight IncSearch gui=bold guifg=#A8CE93 guibg=#1E272C
-    highlight Todo gui=bold guifg=#DF8C8C
+    " highlight MatchParen gui=bold,underline guifg=#D18EC2
+    " highlight IncSearch gui=bold guifg=#A8CE93 guibg=#1E272C
+    " highlight Todo gui=bold guifg=#DF8C8C
 endif
 
 " Windows settings
@@ -220,9 +222,8 @@ scriptencoding utf-8
 " mixed settings
 set undofile
 
-" remove delay from esc
-set timeoutlen=1000
-set ttimeoutlen=0
+set timeoutlen=500
+set ttimeoutlen=0              " remove delay from esc
 
 set backspace=indent,eol,start " make backspace behave normally
 set hidden                     " switch to another buffer without saving
