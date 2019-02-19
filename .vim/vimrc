@@ -29,6 +29,7 @@ Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'trevordmiller/nova-vim'          " nova colorscheme
 Plug 'lifepillar/vim-solarized8'       " solarized colorcheme
+Plug 'ajh17/vimcompletesme'            " tab completion
 call plug#end()
 
 " sheerun/vim-polyglot
@@ -236,20 +237,21 @@ scriptencoding utf-8
 " mixed settings
 set undofile
 set timeoutlen=500
-set ttimeoutlen=0              " remove delay from esc
-set backspace=indent,eol,start " make backspace behave normally
-set hidden                     " switch to another buffer without saving
-set autoread                   " update changes to file automatically
-set scrolloff=1                " pad cursor row with lines
-set splitright                 " open splits to the right
-set splitbelow                 " open splits to the bottom
-set wildmode=list:longest,full " better tab completion on command line mode
-set undolevels=5000            " remember more undo history
-set history=1000               " remember more command history
-set updatecount=10             " update swap file more often
-set matchpairs=(:),{:},[:]     " configure which braces to match
-set shortmess=a                " shorter prompt messages
-filetype plugin indent on      " auto detect filetype
+set ttimeoutlen=0               " remove delay from esc
+set backspace=indent,eol,start  " make backspace behave normally
+set hidden                      " switch to another buffer without saving
+set autoread                    " update changes to file automatically
+set scrolloff=1                 " pad cursor row with lines
+set splitright                  " open splits to the right
+set splitbelow                  " open splits to the bottom
+set completeopt=longest,menuone " better autocompletion settings
+set wildmode=list:longest,full  " better tab completion on command line mode
+set undolevels=5000             " remember more undo history
+set history=1000                " remember more command history
+set updatecount=10              " update swap file more often
+set matchpairs=(:),{:},[:]      " configure which braces to match
+set shortmess=a                 " shorter prompt messages
+filetype plugin indent on       " auto detect filetype
 
 
 
