@@ -49,7 +49,7 @@ PROMPT_COMMAND='history -a;history -n'
 HISTSIZE= 
 HISTFILESIZE=
 
-# enables autocompletion if it exists
+# autocompletion settings
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   source $(brew --prefix)/etc/bash_completion
 fi

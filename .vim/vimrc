@@ -36,6 +36,8 @@ call plug#end()
 " Edited line 480, python self and cls highlighting
 
 " Yggdroot/LeaderF
+" Requires ripgrep: https://github.com/BurntSushi/ripgrep
+" A lot faster if the C extension is installed: https://github.com/Yggdroot/LeaderF
 let g:Lf_StlColorscheme='default'
 let g:Lf_CursorBlink=0
 let g:Lf_UseVersionControlTool=0
@@ -119,9 +121,10 @@ if !exists('g:notfirstopen')
     if has('gui_running')
         set lines=40 columns=120  " initial window size
         if has ('win32')
-            set guifont=Consolas:h12  " changing font moves the window
+            " changing font moves the window
+            set guifont=Consolas:h12
         else
-            set guifont=SFMono-Regular:h16  " changing font moves the window
+            set guifont=SFMono-Regular:h16
         endif
     endif
 
@@ -410,10 +413,11 @@ endif
 nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
 
 " close current buffer
-nnoremap <silent> <Leader>b :call DeleteCurBufferNotCloseWindow()<CR>
+nnoremap <silent> <Leader>b :<C-U>call DeleteCurBufferNotCloseWindow()<CR>
 
-" change working directory to current file's directory
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+" add or remove end-of-line comments
+nnoremap <Leader>c :<C-U>call <SID>AddEOLComment(v:count1)<CR>
+nnoremap <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 
 
 
@@ -430,8 +434,11 @@ command! SO so $MYVIMRC
 " count lines in file
 command! WC %s/^\s*\w\+//n | noh
 
-" Count all .py files lines, have to have terminal open in tab 1 for this to work.
+" count all .py files lines, have to have terminal open in tab 1 for this to work.
 command! PL write|tabn 1|call <SID>RunCommandInSplitTerm("grep -vc '^\\s*$' *.py && echo -n 'total:' && grep -v '^\\s*$' *.py | wc -l")
+
+" change working directory to current file's directory
+command! CD cd %:p:h|pwd
 
 
 
@@ -515,18 +522,21 @@ function! s:BlankDown(count) abort
 endfunction
 
 
-function! s:PutXXX(count) abort
-    norm! mz
+function! s:AddEOLComment(count) abort
+    let char = strpart(&commentstring, 0, 1)
     for i in range(1, a:count)
-        norm! A  # XXXj
+        execute 'norm! A  '.char.' j'
     endfor
-    norm! `z
+    norm! k
+    startinsert!
 endfunction
 
-function! s:NoXXX(count) abort
+
+function! s:NoEOLComment(count) abort
     norm! mz
+    let char = strpart(&commentstring, 0, 1)
     for i in range(1, a:count)
-        norm! $F#gEl"_Dj
+        execute 'norm! 0f'.char.'gEl"_Dj'
     endfor
     norm! `z
 endfunction
@@ -543,8 +553,6 @@ augroup Python
     autocmd FileType python nnoremap <buffer> <silent> <Leader>5
                 \ :write<BAR>:tabn 1<BAR>:call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR><BAR>:<CR>
                 \|nnoremap <buffer> <Leader>' o""""""<Esc>hhi
-                \|nnoremap <buffer> <Leader>x :<C-U>call <SID>PutXXX(v:count1)<CR>
-                \|nnoremap <buffer> <Leader>z :<C-U>call <SID>NoXXX(v:count1)<CR>
 augroup END
 
 
