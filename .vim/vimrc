@@ -1,5 +1,32 @@
 ﻿let g:mapleader=' '
 
+let TempFolder = '/.temp'
+if has('win32')
+    let VimFolder = '/vimfiles'
+    exe 'set viminfo+=n~' . VimFolder . TempFolder . '/_viminfo'
+else
+    let VimFolder = '/.vim'
+    exe 'set viminfo+=n~' . VimFolder . TempFolder . '/.viminfo'
+endif
+let PathToTempFolder = $HOME . VimFolder . TempFolder
+
+" make sure that the temp file locations exists
+for folder in ['/undo', '/backup', '/swap']
+    if !isdirectory(PathToTempFolder . folder)
+        call mkdir(PathToTempFolder . folder, 'p')
+    endif
+endfor
+
+" temp file locations
+set viminfo+=n~/vimfiles/.temp/_viminfo
+
+let &undodir = PathToTempFolder . '/undo'
+let &backupdir = PathToTempFolder . '/backup'
+let &directory = PathToTempFolder . '/swap'
+
+" test
+
+
 " ============= PLUGINS =============
 
 " disable netrw
@@ -43,12 +70,7 @@ let g:Lf_CursorBlink=0
 let g:Lf_UseVersionControlTool=0
 let g:Lf_DefaultExternalTool='rg'
 let g:Lf_ShowHidden=1
-if has('win32')
-    let TempFolder = $HOME . '/vimfiles/.temp'
-else
-    let TempFolder = $HOME . '/.vim/.temp'
-endif
-let g:Lf_CacheDirectory=TempFolder
+let g:Lf_CacheDirectory=PathToTempFolder
 let g:Lf_IndexTimeLimit=600
 let g:Lf_UseCache=1
 let g:Lf_HighlightIndividual=1
@@ -94,6 +116,7 @@ nmap gl <Plug>(EasyAlign)
 xmap gl <Plug>(EasyAlign)
 
 " vim-scripts/ReplaceWithRegister
+" FIXME: not working when starting vim, have to source vimrc again for these to work
 nmap ö <Plug>ReplaceWithRegisterOperator
 nmap Ö <Plug>ReplaceWithRegisterOperator$
 nmap öö <Plug>ReplaceWithRegisterLine
@@ -143,24 +166,13 @@ if has('win32')
     set shellcmdflag=--login\ -c
     set shellxquote=\"
     set noshellslash
-
-    " temp file locations
-    set viminfo+=n~/vimfiles/.temp/_viminfo
-    set undodir=~/vimfiles/.temp/undo
-    set backupdir=~/vimfiles/.temp/backup
-    set directory=~/vimfiles/.temp/swap
 else
-    " Unix settings
+    " *nix settings
 
     " use the bash installed with homebrew as shell
     set shell=/usr/local/bin/bash\ --login
-
-    " temp file locations
-    set viminfo+=n~/.vim/.temp/.viminfo
-    set undodir=~/.vim/.temp/undo
-    set backupdir=~/.vim/.temp/backup
-    set directory=~/.vim/.temp/swap
 endif
+
 set clipboard=unnamed  " use system clipboard
 
 if has('gui_running')
@@ -196,7 +208,7 @@ set statusline+=(%p%%)                                " percentage through the f
 set statusline+=%4c                                   " cursor column
 set statusline+=\|%-4{strwidth(getline('.'))}         " line length
 if has('win32')
-    " different separator between current filename and folder for Windows: \ vs Unix: /
+    " different separator between current filename and folder for Windows: \ vs *nix: /
     " could maybe be cleaner, but this does the job
     set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'\\'.expand('%:t'):expand('%')}  " dir\filename.ext
 else
