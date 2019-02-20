@@ -50,9 +50,7 @@ HISTSIZE=
 HISTFILESIZE=
 
 # autocompletion settings
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  source $(brew --prefix)/etc/bash_completion
-fi
+source $(brew --prefix)/etc/bash_completion 2> /dev/null
 bind "TAB:menu-complete"
 bind "set show-all-if-ambiguous on"
 bind "set menu-complete-display-prefix on"
@@ -62,10 +60,15 @@ block_cursor () {
     echo -e -n "\x1b[\x32 q"
 }
 
-alias vim='block_cursor && mvim -v'
-alias vimdiff='block_cursor && mvimdiff -v'
-alias fg='block_cursor && fg'
+if [ "$OSTYPE" == "darwin"* ]; then
+    alias vim='block_cursor && mvim -v'
+    alias vimdiff='block_cursor && mvimdiff -v'
+else
+    alias vim='block_cursor && vim'
+    alias vimdiff='block_cursor && vim'
+fi
 
+alias fg='block_cursor && fg'
 alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
 alias virc='vim ~/.inputrc'
 alias vvrc='vim ~/.vim/vimrc'
