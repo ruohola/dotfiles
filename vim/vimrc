@@ -428,8 +428,8 @@ nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
 nnoremap <silent> <Leader>b :<C-U>call DeleteCurBufferNotCloseWindow()<CR>
 
 " add or remove end-of-line comments
-nnoremap <Leader>c :<C-U>call <SID>AddEOLComment(v:count1)<CR>
-nnoremap <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
+nnoremap <silent> <Leader>c :<C-U>call <SID>AddEOLComment(v:count1)<CR>
+nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 
 
 
@@ -536,6 +536,11 @@ endfunction
 
 function! s:AddEOLComment(count) abort
     let char = strpart(&commentstring, 0, 1)
+    if char == strpart(&commentstring, 1, 1)
+        " Knows to insert two chars for commenting if 'commentstring'
+        " is for example //%s (in java) vs only one char e.g. #%s in python.
+        let char = char . char
+    endif
     for i in range(1, a:count)
         execute 'norm! A  '.char.' j'
     endfor
@@ -548,7 +553,9 @@ function! s:NoEOLComment(count) abort
     norm! mz
     let char = strpart(&commentstring, 0, 1)
     for i in range(1, a:count)
-        execute 'norm! 0f'.char.'gEl"_Dj'
+        execute 'norm! 0f'.char.'gEl"_D'
+        " j command is separated so that if the above failes, it still continues the loop
+        norm! j
     endfor
     norm! `z
 endfunction
