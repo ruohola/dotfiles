@@ -35,8 +35,10 @@ let g:loaded_netrwPlugin=1
 
 if has('win32')
     call plug#begin('~/vimfiles/plugged')
+    Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 else
     call plug#begin('~/.vim/plugged')
+    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 endif
 Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
@@ -51,7 +53,6 @@ Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
 Plug 'tommcdo/vim-exchange'            " change two objects
 Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
-Plug 'Yggdroot/LeaderF'                " fuzzy finding
 Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'trevordmiller/nova-vim'          " nova colorscheme
@@ -436,9 +437,9 @@ nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 " ============= COMMANDS =============
 
 " vim-plug commands
-command! PI w | PlugInstall
-command! PC w | PlugClean!
-command! PU w | PlugUpdate | PlugUpgrade
+command! PI PlugInstall
+command! PC PlugClean!
+command! PU PlugUpdate | PlugUpgrade
 
 " source vimrc
 command! SO so $MYVIMRC
