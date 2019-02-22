@@ -12,7 +12,7 @@ fi
 
 
 # make the needed symlinks if they don't exist
-cd ~ # makes sure that the symlinks are shown as relative paths with ls -la
+cd ~ # makes sure that the symlinks are shown as relative to ~ with ls -la
 
 if [ ! -e .vim/ ]; then
     echo "Made symlink .vim -> $dotfiles/vim"
@@ -33,5 +33,5 @@ for file in "$dotfiles"/misc/.[^.]*; do
 done
 
 
-# install all vim plugins (cannot be done in background)
+# install all vim plugins (cannot be done in background with &)
 vim -c "PlugClean!" -c "PlugInstall" -c "qa!"

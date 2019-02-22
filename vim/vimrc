@@ -365,9 +365,6 @@ nnoremap <silent> <Up> :cprev<CR>
 nnoremap <silent> <C-Down> :cnfile<CR><C-G>
 nnoremap <silent> <C-Up> :cpfile<CR><C-G>
 
-" capitalize word under/before under cursor
-inoremap <C-J> <Esc>mzbgUiw`za
-
 " make C-U and C-W and CR undoable
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
