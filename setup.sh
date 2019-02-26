@@ -32,6 +32,15 @@ for file in "$dotfiles"/misc/.[^.]*; do
     fi
 done
 
+# on purpose as absolute link and not relative to ~
+for file in "$dotfiles"/keylayouts/*.keylayout; do
+    file=$(basename "$file")
+    if [ ! -e ~/Library/Keyboard\ Layouts/"$file" ]; then
+        ln -s ~/"$dotfiles"/keylayouts/"$file" ~/Library/Keyboard\ Layouts/"$file"
+        echo "Made symlink ~/Library/Keyboard Layouts/$file -> ~/$dotfiles/keylayouts/$file"
+    fi
+done
+
 
 # install all vim plugins (cannot be done in background with &)
 vim -c "PlugClean!" -c "PlugInstall" -c "qa!"
