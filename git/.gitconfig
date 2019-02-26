@@ -6,7 +6,6 @@
 	excludesfile = /Users/eero/.gitignore_global
 [difftool "sourcetree"]
 	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
-	path = 
 [mergetool "sourcetree"]
 	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
 	trustExitCode = true
@@ -14,3 +13,5 @@
 	template = /Users/eero/.stCommitMsg
 [credential]
 	helper = osxkeychain
+[gc]
+	autoDetach = false

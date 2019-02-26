@@ -32,6 +32,14 @@ for file in "$dotfiles"/misc/.[^.]*; do
     fi
 done
 
+for file in "$dotfiles"/git/.[^.]*; do
+    file=$(basename "$file")
+    if [ ! -e "$file" ]; then
+        ln -s "$dotfiles"/git/"$file" "$file"
+        echo "Made symlink $file -> $dotfiles/git/$file"
+    fi
+done
+
 # on purpose as absolute link and not relative to ~
 for file in "$dotfiles"/keylayouts/*.keylayout; do
     file=$(basename "$file")

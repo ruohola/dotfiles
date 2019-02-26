@@ -18,20 +18,15 @@ for folder in ['/undo', '/backup', '/swap']
 endfor
 
 " temp file locations
-set viminfo+=n~/vimfiles/.temp/_viminfo
-
 let &undodir = PathToTempFolder . '/undo'
 let &backupdir = PathToTempFolder . '/backup'
 let &directory = PathToTempFolder . '/swap'
 
-" test
 
 
 " ============= PLUGINS =============
 
-" disable netrw
-let g:loaded_netrw=1
-let g:loaded_netrwPlugin=1
+
 
 if has('win32')
     call plug#begin('~/vimfiles/plugged')
@@ -429,14 +424,33 @@ nnoremap <silent> <Leader>b :<C-U>call DeleteCurBufferNotCloseWindow()<CR>
 nnoremap <silent> <Leader>c :<C-U>call <SID>AddEOLComment(v:count1)<CR>
 nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 
+" make mappings work by visual lines
+noremap <silent> <Leader>w :<C-U>call WrapMappingsOn()<CR>
+noremap <silent> <Leader>e :<C-U>call WrapMappingsOff()<CR>
+function WrapMappingsOn()
+    noremap <buffer> <silent> j gj
+    noremap <buffer> <silent> k gk
+    noremap <buffer> <silent> $ g$
+    noremap <buffer> <silent> ^ g^
+    noremap <buffer> <silent> 0 g0
+endfunction
+
+function WrapMappingsOff()
+    noremap <buffer> <silent> j j
+    noremap <buffer> <silent> k k
+    noremap <buffer> <silent> $ $
+    noremap <buffer> <silent> ^ ^
+    noremap <buffer> <silent> 0 0
+endfunction
+
 
 
 " ============= COMMANDS =============
 
 " vim-plug commands
-command! PI PlugInstall
-command! PC PlugClean!
-command! PU PlugUpdate | PlugUpgrade
+command! PI w | PlugInstall
+command! PC w | PlugClean!
+command! PU w | PlugUpdate | PlugUpgrade
 
 " source vimrc
 command! SO so $MYVIMRC
