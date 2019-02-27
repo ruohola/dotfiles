@@ -1,37 +1,45 @@
 let mapleader=' '
 
+
+" ============= PLUGINS =============
+
+set surround  " makes <Leader>dd slow, because of ds mapping
+set multiple-cursors
+
+" activate KJump
+nnoremap <leader>f :action KJumpAction<CR>
+
+
 " ============= GENERAL =============
 
-"enable surround plugin emulation
-"makes <Leader>dd/cc slow, because of ds and cs mappings
-set surround
-
-" " test if needed
-" set showmode
-" set showcmd
-
-" line numbers (might lag, mby use plugin)
-set number
-set relativenumber
+" line numbers
+set number relativenumber
 
 " search settings
-set incsearch
-set hlsearch
-set ignorecase
-set smartcase
+set incsearch hlsearch ignorecase smartcase gdefault
 
-" mixed settings
-set clipboard=unnamed          " use system clipboard
-set scrolloff=1                " pad cursor row with lines
+set clipboard=unnamed  " use system clipboard
+set scrolloff=1        " pad scrolling with one line
+set showmode           " show current mode in statusbar
+set visualbell         " removes errorbells
 
 
 " ============= MAPPINGS =============
 
+" move between splits
+nnoremap <A-L> :action NextSplitter<CR>
+nnoremap <A-H> :action PrevSplitter<CR>
+
+" move between tabs
+nnoremap <A-I> :action NextTab<CR>
+nnoremap <A-U> :action PreviousTab<CR>
+
 " makes these easier to use
 noremap , :
-noremap q, q:
 nnoremap : ;
 nnoremap ; ,
+noremap q, q:
+noremap @, @:
 
 " make Y behave the same way as D and C
 nnoremap Y y$
@@ -49,6 +57,9 @@ nnoremap <S-Enter> O<Esc>
 nnoremap <C-Enter> mzo<Esc>`z
 nnoremap <C-S-Enter> mzO<Esc>`z
 nnoremap <Leader><CR> a<CR><Esc>
+
+" for consistency, since tab is taken in normal vim
+nnoremap <C-K> <C-I>
 
 " better way to indent
 nnoremap <BS> <<
@@ -73,18 +84,10 @@ vnoremap <Leader>d "_d
 " clear highlights
 nnoremap <Esc> <Esc>:noh<CR>
 
-"move between splits
-nnoremap <A-L> :action NextSplitter<CR>
-nnoremap <A-H> :action PrevSplitter<CR>
-
-"move between tabs
-nnoremap <A-I> :action NextTab<CR>
-nnoremap <A-U> :action PreviousTab<CR>
-
-nnoremap ci) f)ci)
+" nnoremap ci) f)ci)
 " nnoremap ci" f"ci"
-nnoremap di) f)di)
+" nnoremap di) f)di)
 " nnoremap di" f"di"
 
-"activate KJump
-nnoremap <leader>f :action KJumpAction<CR>
+nnoremap <Leader>vr :e ~/.ideavimrc<CR>
+nnoremap <Leader>so :source ~/.ideavimrc<CR>
