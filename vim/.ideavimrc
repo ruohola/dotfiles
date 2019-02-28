@@ -18,6 +18,7 @@ set number relativenumber
 " search settings
 set incsearch hlsearch ignorecase smartcase gdefault
 
+set timeoutlen=300
 set clipboard=unnamed  " use system clipboard
 set scrolloff=1        " pad scrolling with one line
 set showmode           " show current mode in statusbar
@@ -30,8 +31,8 @@ set visualbell         " removes errorbells
 nnoremap <A-L> :action NextSplitter<CR>
 nnoremap <A-H> :action PrevSplitter<CR>
 
-" move between tabs
-nnoremap <A-I> :action NextTab<CR>
+"move between tabs
+" nnoremap <A-I> :action NextTab<CR>  " not currently working
 nnoremap <A-U> :action PreviousTab<CR>
 
 " makes these easier to use
@@ -58,9 +59,6 @@ nnoremap <C-Enter> mzo<Esc>`z
 nnoremap <C-S-Enter> mzO<Esc>`z
 nnoremap <Leader><CR> a<CR><Esc>
 
-" for consistency, since tab is taken in normal vim
-nnoremap <C-K> <C-I>
-
 " better way to indent
 nnoremap <BS> <<
 nnoremap <TAB> >>
@@ -84,10 +82,77 @@ vnoremap <Leader>d "_d
 " clear highlights
 nnoremap <Esc> <Esc>:noh<CR>
 
-" nnoremap ci) f)ci)
-" nnoremap ci" f"ci"
-" nnoremap di) f)di)
-" nnoremap di" f"di"
+" makes these usable from outside the braces also
+nnoremap ci) %ci)
+nnoremap di) %di)
+nnoremap ca) %ca)
+nnoremap da) %da)
+nnoremap ci( %ci(
+nnoremap di( %di(
+nnoremap ca( %ca(
+nnoremap da( %da(
+nnoremap ci] %ci]
+nnoremap di] %di]
+nnoremap ca] %ca]
+nnoremap da] %da]
+nnoremap ci[ %ci[
+nnoremap di[ %di[
+nnoremap ca[ %ca[
+nnoremap da[ %da[
+nnoremap ci} %ci}
+nnoremap di} %di}
+nnoremap ca} %ca}
+nnoremap da} %da}
+nnoremap ci{ %ci{
+nnoremap di{ %di{
+nnoremap ca{ %ca{
+nnoremap da{ %da{
+
+" TODO: comment out lines and paragraphs etc
+" noremap <C-S-A> :action CommentByLineComment<CR>
+" nmap gcc mzvvj<C-S-A>`z
+" map gcc @='<C-A>'<CR>
+" nmap 3gcc mzvv2jgcc<Esc>`z
+" nmap 4gcc mzvv3jgcc<Esc>`z
+" nmap 5gcc mzvv4jgcc<Esc>`z
+" nmap 6gcc mzvv5jgcc<Esc>`z
+" nmap 7gcc mzvv6jgcc<Esc>`z
+" nmap 8gcc mzvv7jgcc<Esc>`z
+" nmap 9gcc mzvv8jgcc<Esc>`z
+" nmap 10gcc mzvv9jgcc<Esc>`z
+" nmap 11gcc mzvv10jgcc<Esc>`z
+" nmap 12gcc mzvv11jgcc<Esc>`z
+" nmap 13gcc mzvv12jgcc<Esc>`z
+" nmap 14gcc mzvv13jgcc<Esc>`z
+" nmap 15gcc mzvv14jgcc<Esc>`z
+" nmap 16gcc mzvv15jgcc<Esc>`z
+" nmap 17gcc mzvv16jgcc<Esc>`z
+" nmap 18gcc mzvv17jgcc<Esc>`z
+" nmap 19gcc mzvv18jgcc<Esc>`z
+" nmap 20gcc mzvv19jgcc<Esc>`z
+" nmap 21gcc mzvv20jgcc<Esc>`z
+" nmap 22gcc mzvv21jgcc<Esc>`z
+" nmap 23gcc mzvv22jgcc<Esc>`z
+" nmap 24gcc mzvv23jgcc<Esc>`z
+" nmap 25gcc mzvv24jgcc<Esc>`z
+" nmap 26gcc mzvv25jgcc<Esc>`z
 
 nnoremap <Leader>vr :e ~/.ideavimrc<CR>
 nnoremap <Leader>so :source ~/.ideavimrc<CR>
+
+nnoremap <Leader>p :action GotoFile<CR>
+nnoremap <Leader>l :action GotoSymbol<CR>
+nnoremap <Leader>g :action GotoAction<CR>
+nnoremap <Leader>r :action RenameElement<CR>
+nnoremap <Leader>u :action FindUsages<CR>
+
+nnoremap <C-1> :action ActivateProjectToolWindow<CR>
+nnoremap <C-2> :action LocalHistory.ShowHistory<CR>
+nnoremap <C-3> :action ActivateStructureToolWindow<CR>
+nnoremap <C-4> :action ActivatePythonConsoleToolWindow<CR>
+nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
+nnoremap <C-H> :action HideAllWindows<CR>
+
+nnoremap <Leader>e :action Run<CR>
+nnoremap <Leader>w :action Debug<CR>
+

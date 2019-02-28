@@ -242,7 +242,7 @@ scriptencoding utf-8
 
 " mixed settings
 set undofile
-set timeoutlen=500
+set timeoutlen=300
 set ttimeoutlen=0               " remove delay from esc
 set backspace=indent,eol,start  " make backspace behave normally
 set hidden                      " switch to another buffer without saving
@@ -365,7 +365,7 @@ inoremap <CR> <C-G>u<CR>
 augroup EnterMappings
     autocmd!
     " Complex but works
-    " Does not work on terminal vim
+    " FIXME: not working in terminal vim
     autocmd BufEnter * if &l:buftype ==# ''
             \| nnoremap <buffer> <CR> o<Esc>
             \| nnoremap <buffer> <S-Enter> O<Esc>
@@ -420,7 +420,7 @@ nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 
 " make mappings work by visual lines
 noremap <silent> <Leader>w :<C-U>call WrapMappingsOn()<CR>
-noremap <silent> <Leader>e :<C-U>call WrapMappingsOff()<CR>
+noremap <silent> <Leader>q :<C-U>call WrapMappingsOff()<CR>
 function WrapMappingsOn()
     noremap <buffer> <silent> j gj
     noremap <buffer> <silent> k gk
