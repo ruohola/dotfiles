@@ -24,11 +24,11 @@ if [ ! -e .ideavimrc ]; then
     echo "Made symlink .ideavimrc -> $dotfiles/vim/.ideavimrc"
 fi
 
-for file in "$dotfiles"/misc/.[^.]*; do
+for file in "$dotfiles"/bash/.[^.]*; do
     file=$(basename "$file")
     if [ ! -e "$file" ]; then
-        ln -s "$dotfiles"/misc/"$file" "$file"
-        echo "Made symlink $file -> $dotfiles/misc/$file"
+        ln -s "$dotfiles"/bash/"$file" "$file"
+        echo "Made symlink $file -> $dotfiles/bash/$file"
     fi
 done
 

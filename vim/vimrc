@@ -48,14 +48,13 @@ Plug 'tommcdo/vim-exchange'            " change two objects
 Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
 Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
-Plug 'trevordmiller/nova-vim'          " nova colorscheme
 Plug 'lifepillar/vim-solarized8'       " solarized colorcheme
 Plug 'ajh17/vimcompletesme'            " tab completion
 call plug#end()
 
 " Yggdroot/LeaderF
 " Requires ripgrep: https://github.com/BurntSushi/ripgrep
-" A lot faster if the C extension is installed: https://github.com/Yggdroot/LeaderF
+" A lot faster if the C extension is installed with the install script
 let g:Lf_StlColorscheme='default'
 let g:Lf_CursorBlink=0
 let g:Lf_UseVersionControlTool=0
