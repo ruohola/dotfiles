@@ -65,12 +65,6 @@ nnoremap <TAB> >>
 vnoremap <BS> <gv
 vnoremap <TAB> >gv
 
-" persistent visuals
-vnoremap > >gv
-vnoremap < <gv
-vnoremap <C-X> <C-X>gv
-vnoremap <C-A> <C-A>gv
-
 " Q plays back q macro
 nnoremap Q @q
 
@@ -108,34 +102,10 @@ nnoremap di{ %di{
 nnoremap ca{ %ca{
 nnoremap da{ %da{
 
-" TODO: comment out lines and paragraphs etc
-" noremap <C-S-A> :action CommentByLineComment<CR>
-" nmap gcc mzvvj<C-S-A>`z
-" map gcc @='<C-A>'<CR>
-" nmap 3gcc mzvv2jgcc<Esc>`z
-" nmap 4gcc mzvv3jgcc<Esc>`z
-" nmap 5gcc mzvv4jgcc<Esc>`z
-" nmap 6gcc mzvv5jgcc<Esc>`z
-" nmap 7gcc mzvv6jgcc<Esc>`z
-" nmap 8gcc mzvv7jgcc<Esc>`z
-" nmap 9gcc mzvv8jgcc<Esc>`z
-" nmap 10gcc mzvv9jgcc<Esc>`z
-" nmap 11gcc mzvv10jgcc<Esc>`z
-" nmap 12gcc mzvv11jgcc<Esc>`z
-" nmap 13gcc mzvv12jgcc<Esc>`z
-" nmap 14gcc mzvv13jgcc<Esc>`z
-" nmap 15gcc mzvv14jgcc<Esc>`z
-" nmap 16gcc mzvv15jgcc<Esc>`z
-" nmap 17gcc mzvv16jgcc<Esc>`z
-" nmap 18gcc mzvv17jgcc<Esc>`z
-" nmap 19gcc mzvv18jgcc<Esc>`z
-" nmap 20gcc mzvv19jgcc<Esc>`z
-" nmap 21gcc mzvv20jgcc<Esc>`z
-" nmap 22gcc mzvv21jgcc<Esc>`z
-" nmap 23gcc mzvv22jgcc<Esc>`z
-" nmap 24gcc mzvv23jgcc<Esc>`z
-" nmap 25gcc mzvv24jgcc<Esc>`z
-" nmap 26gcc mzvv25jgcc<Esc>`z
+" comment out lines and paragraphs etc
+nnoremap gcc :action CommentByLineComment<CR>
+nnoremap gcip vip:action CommentByLineComment<CR>
+vnoremap gc :action CommentByLineComment<CR>
 
 nnoremap <Leader>vr :e ~/.ideavimrc<CR>
 nnoremap <Leader>so :source ~/.ideavimrc<CR>
