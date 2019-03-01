@@ -243,6 +243,7 @@ augroup END
 " mixed settings
 set undofile
 set timeoutlen=300
+set nomodeline                  " don't try to parse commands from opened file
 set ttimeoutlen=0               " remove delay from esc
 set backspace=indent,eol,start  " make backspace behave normally
 set hidden                      " switch to another buffer without saving
