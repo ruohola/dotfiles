@@ -1,5 +1,11 @@
 ﻿let g:mapleader=' '
 
+" language settings (have to be before ä and ö mappings)
+let $LANG='en_US'
+set fileformats=unix,dos
+set encoding=utf-8
+scriptencoding utf-8
+
 let TempFolder = '/.temp'
 if has('win32')
     let VimFolder = '/vimfiles'
@@ -106,7 +112,6 @@ nmap gl <Plug>(EasyAlign)
 xmap gl <Plug>(EasyAlign)
 
 " vim-scripts/ReplaceWithRegister
-" FIXME: not working when starting vim, have to source vimrc again for these to work
 nmap ö <Plug>ReplaceWithRegisterOperator
 nmap Ö <Plug>ReplaceWithRegisterOperator$
 nmap öö <Plug>ReplaceWithRegisterLine
@@ -232,12 +237,6 @@ augroup NoVisualBells
     autocmd!
     autocmd GUIEnter * set visualbell t_vb=
 augroup END
-
-" language settings
-let $LANG='en_US'
-set fileformats=unix,dos
-set encoding=utf-8
-scriptencoding utf-8
 
 " mixed settings
 set undofile
@@ -420,7 +419,7 @@ nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 " make mappings work by visual lines
 noremap <silent> <Leader>w :<C-U>call WrapMappingsOn()<CR>
 noremap <silent> <Leader>q :<C-U>call WrapMappingsOff()<CR>
-function WrapMappingsOn()
+function! WrapMappingsOn()
     noremap <buffer> <silent> j gj
     noremap <buffer> <silent> k gk
     noremap <buffer> <silent> $ g$
@@ -428,7 +427,7 @@ function WrapMappingsOn()
     noremap <buffer> <silent> 0 g0
 endfunction
 
-function WrapMappingsOff()
+function! WrapMappingsOff()
     noremap <buffer> <silent> j j
     noremap <buffer> <silent> k k
     noremap <buffer> <silent> $ $
