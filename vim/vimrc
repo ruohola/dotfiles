@@ -1,4 +1,6 @@
-﻿let g:mapleader=' '
+﻿" ============= SETUP =============
+
+let g:mapleader=' '
 
 " language settings (have to be before ä and ö mappings)
 let $LANG='en_US'
