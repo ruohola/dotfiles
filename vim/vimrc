@@ -270,28 +270,31 @@ if has('win32')
 
     " split navigations (alt+hjkl)
     nnoremap è <C-W><C-H>
-    tnoremap è <C-W><C-H>
-    tnoremap ê <C-W><C-J>
     nnoremap ê <C-W><C-J>
     nnoremap ë <C-W><C-K>
-    tnoremap ë <C-W><C-K>
     nnoremap ì <C-W><C-L>
-    tnoremap ì <C-W><C-L>
 
     " cycle buffers (alt+nm)
     nnoremap <silent> î :bprev<CR>
-    tnoremap <silent> î <C-W>:bprev<CR>
     nnoremap <silent> í :bnext<CR>
-    tnoremap <silent> í <C-W>:bnext<CR>
 
     " cycle tabs (alt+ui)
     nnoremap <silent>õ :tabprevious<CR>
-    tnoremap <silent>õ <C-W>:tabprevious<CR>
     nnoremap <silent>é :tabnext<CR>
-    tnoremap <silent>é <C-W>:tabnext<CR>
 
     " toggle fullscreen
     nnoremap <silent> <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+
+    if has('terminal')
+        tnoremap è <C-W><C-H>
+        tnoremap ê <C-W><C-J>
+        tnoremap ë <C-W><C-K>
+        tnoremap ì <C-W><C-L>
+        tnoremap <silent> î <C-W>:bprev<CR>
+        tnoremap <silent> í <C-W>:bnext<CR>
+        tnoremap <silent>õ <C-W>:tabprevious<CR>
+        tnoremap <silent>é <C-W>:tabnext<CR>
+    endif
 
     " unmap push-to-talk key
     map <F13> <Nop>
@@ -303,30 +306,35 @@ else
 
     " split navigations (alt+hjkl)
     nnoremap ← <C-W><C-H>
-    tnoremap ← <C-W><C-H>
-    tnoremap ↓ <C-W><C-J>
     nnoremap ↓ <C-W><C-J>
     nnoremap ↑ <C-W><C-K>
-    tnoremap ↑ <C-W><C-K>
     nnoremap → <C-W><C-L>
-    tnoremap → <C-W><C-L>
 
     " cycle buffers (alt+nm)
     nnoremap <silent> № :bprev<CR>
-    tnoremap <silent> № <C-W>:bprev<CR>
     nnoremap <silent> µ :bnext<CR>
-    tnoremap <silent> µ <C-W>:bnext<CR>
 
     " cycle tabs (alt+ui)
     nnoremap <silent>ü :tabprevious<CR>
-    tnoremap <silent>ü <C-W>:tabprevious<CR>
     nnoremap <silent>↔︎ :tabnext<CR>
-    tnoremap <silent>↔︎ <C-W>:tabnext<CR>
+
+    if has('terminal')
+        tnoremap ← <C-W><C-H>
+        tnoremap ↓ <C-W><C-J>
+        tnoremap ↑ <C-W><C-K>
+        tnoremap → <C-W><C-L>
+        tnoremap <silent> № <C-W>:bprev<CR>
+        tnoremap <silent> µ <C-W>:bnext<CR>
+        tnoremap <silent>ü <C-W>:tabprevious<CR>
+        tnoremap <silent>↔︎ <C-W>:tabnext<CR>
+    endif
 endif
 
 " makes these easier to use
 noremap , :
-tnoremap <C-W>, <C-W>:
+if has('terminal')
+    tnoremap <C-W>, <C-W>:
+endif
 noremap : ;
 noremap ; ,
 noremap @, @:
