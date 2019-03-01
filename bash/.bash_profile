@@ -49,6 +49,9 @@ PROMPT_COMMAND='history -a;history -n'
 HISTSIZE= 
 HISTFILESIZE=
 
+# ** expands to any number of directories
+shopt -s globstar
+
 # autocompletion settings
 if [ "$OSTYPE" == "darwin"* ]; then
     source $(brew --prefix)/etc/bash_completion 2> /dev/null
@@ -74,6 +77,7 @@ alias fg='block_cursor && fg'
 alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
 alias virc='vim ~/.inputrc'
 alias vvrc='vim ~/.vim/vimrc'
+alias vset='vim ~/.dotfiles/setup.sh'
 
 alias lsa='ls -a'
 alias lsla='ls -la'
