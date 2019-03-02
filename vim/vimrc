@@ -45,7 +45,7 @@ Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
 Plug 'tpope/vim-repeat'                " repeat plugin commands
 Plug 'easymotion/vim-easymotion'       " jump to any position
-Plug 'google/vim-searchindex'          " show [x/y] when searching
+Plug 'henrik/vim-indexed-search'       " show position when searching
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
 Plug 'markonm/traces.vim'              " live substitution
 Plug 'simnalamburt/vim-mundo'          " graphical undotree
@@ -57,8 +57,17 @@ Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
 Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'lifepillar/vim-solarized8'       " solarized colorcheme
-Plug 'ajh17/vimcompletesme'            " tab completion
+Plug 'maralla/completor.vim'           " autocompletion
 call plug#end()
+
+" maralla/completor.vim
+inoremap <expr> <Tab> pumvisible() ? "\<C-Y>" : "\<Tab>"
+inoremap <expr> <C-J> pumvisible() ? "\<Down>" : "\<C-J>"
+inoremap <expr> <C-K> pumvisible() ? "\<Up>" : "\<C-K>"
+let g:completor_complete_options='menuone,noinsert'
+let g:completor_completion_delay=0
+let g:completor_min_chars=1
+let g:completor_python_binary = '/usr/local/bin/python3'
 
 " Yggdroot/LeaderF
 " Requires ripgrep: https://github.com/BurntSushi/ripgrep
@@ -241,8 +250,8 @@ augroup NoVisualBells
 augroup END
 
 " mixed settings
-set undofile
-set timeoutlen=300
+set timeoutlen=300              " timeout for keymappings
+set pumheight=12                " max height for the autocompletion popup
 set nomodeline                  " don't try to parse commands from opened file
 set ttimeoutlen=0               " remove delay from esc
 set backspace=indent,eol,start  " make backspace behave normally
@@ -251,8 +260,8 @@ set autoread                    " update changes to file automatically
 set scrolloff=1                 " pad cursor row with lines
 set splitright                  " open splits to the right
 set splitbelow                  " open splits to the bottom
-set completeopt=longest,menuone " better autocompletion settings
 set wildmode=list:longest,full  " better tab completion on command line mode
+set undofile                    " use an undofile for persistent undo
 set undolevels=10000            " remember more undo history
 set history=1000                " remember more command history
 set updatecount=10              " update swap file more often
@@ -263,6 +272,10 @@ filetype plugin indent on       " auto detect filetype
 
 
 " ============= MAPPINGS =============
+
+" make j and k populate the jump list, when used with a count
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 
 if has('win32')
     " traverse history with alt+,.
@@ -451,9 +464,9 @@ endfunction
 " ============= COMMANDS =============
 
 " vim-plug commands
-command! PI w | PlugInstall
-command! PC w | PlugClean!
-command! PU w | PlugUpdate | PlugUpgrade
+command! PI silent! w | PlugInstall
+command! PC silent! w | PlugClean!
+command! PU silent! w | PlugUpgrade | PlugUpdate
 
 " source vimrc
 command! SO so $MYVIMRC
