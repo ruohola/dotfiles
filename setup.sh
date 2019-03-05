@@ -39,8 +39,8 @@ done
 # on purpose as absolute links and not relative to ~
 for file in "$dotfiles"/keylayouts/*.keylayout; do
     file=$(basename "$file")
-    if [ ! -L ~/Library/Keyboard\ Layouts/"$file" ]; then
-        ln -sfv ~/"$dotfiles"/keylayouts/"$file" ~/Library/Keyboard\ Layouts/"$file"
+    if [ ! -L /Library/Keyboard\ Layouts/"$file" ]; then
+        sudo ln -sfv ~/"$dotfiles"/keylayouts/"$file" /Library/Keyboard\ Layouts/"$file"
     fi
 done
 
