@@ -250,7 +250,7 @@ augroup NoVisualBells
 augroup END
 
 " mixed settings
-set timeoutlen=300              " timeout for keymappings
+set timeoutlen=1000              " timeout for keymappings
 set pumheight=12                " max height for the autocompletion popup
 set nomodeline                  " don't try to parse commands from opened file
 set ttimeoutlen=0               " remove delay from esc

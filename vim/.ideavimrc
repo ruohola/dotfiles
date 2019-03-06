@@ -9,6 +9,73 @@ set multiple-cursors
 " activate KJump
 nnoremap <leader>f :action KJumpAction<CR>
 
+" emulates wellle/targets.vim
+nnoremap ci) %ci)
+nnoremap di) %di)
+nnoremap ca) %ca)
+nnoremap da) %da)
+nnoremap ci( %ci(
+nnoremap di( %di(
+nnoremap ca( %ca(
+nnoremap da( %da(
+nnoremap ci] %ci]
+nnoremap di] %di]
+nnoremap ca] %ca]
+nnoremap da] %da]
+nnoremap ci[ %ci[
+nnoremap di[ %di[
+nnoremap ca[ %ca[
+nnoremap da[ %da[
+nnoremap ci} %ci}
+nnoremap di} %di}
+nnoremap ca} %ca}
+nnoremap da} %da}
+nnoremap ci{ %ci{
+nnoremap di{ %di{
+nnoremap ca{ %ca{
+nnoremap da{ %da{
+
+" emulates vim-scripts/ReplaceWithRegister
+nnoremap öiw "_diwP
+nnoremap öaw "_dawP
+nnoremap öIw "_dIwP
+nnoremap öAw "_dAwP
+nnoremap öis "_disP
+nnoremap öas "_dasP
+nnoremap öip "_dipP
+nnoremap öap "_dapP
+nnoremap öib "_dibP
+nnoremap öab "_dabP
+nnoremap öiB "_diBP
+nnoremap öaB "_daBP
+nnoremap öi( "_di(P
+nnoremap öi) "_di)P
+nnoremap öa( "_da(P
+nnoremap öa) "_da)P
+nnoremap öi[ "_di[P
+nnoremap öi] "_di]P
+nnoremap öa[ "_da[P
+nnoremap öa] "_da]P
+nnoremap öi{ "_di{P
+nnoremap öi} "_di}P
+nnoremap öa{ "_da{P
+nnoremap öa} "_da}P
+nnoremap öi< "_di<P
+nnoremap öi> "_di>P
+nnoremap öa< "_da<P
+nnoremap öa> "_da>P
+nnoremap öi" "_di"P
+nnoremap öa" "_da"P
+nnoremap öi' "_di'P
+nnoremap öa' "_da'P
+nnoremap öi` "_di`P
+nnoremap öa` "_da`P
+nnoremap öit "_ditP
+nnoremap öat "_datP
+nnoremap Ö "_Dp
+nnoremap öö "_ddP
+vnoremap ö "_dP
+
 
 " ============= GENERAL =============
 
@@ -18,7 +85,7 @@ set number relativenumber
 " search settings
 set incsearch hlsearch ignorecase smartcase gdefault
 
-set timeoutlen=300
+set timeoutlen=1000    " timeout for keymappings
 set clipboard=unnamed  " use system clipboard
 set scrolloff=1        " pad scrolling with one line
 set showmode           " show current mode in statusbar
@@ -76,32 +143,6 @@ vnoremap <Leader>d "_d
 " clear highlights
 nnoremap <Esc> <Esc>:noh<CR>
 
-" makes these usable from outside the braces also
-nnoremap ci) %ci)
-nnoremap di) %di)
-nnoremap ca) %ca)
-nnoremap da) %da)
-nnoremap ci( %ci(
-nnoremap di( %di(
-nnoremap ca( %ca(
-nnoremap da( %da(
-nnoremap ci] %ci]
-nnoremap di] %di]
-nnoremap ca] %ca]
-nnoremap da] %da]
-nnoremap ci[ %ci[
-nnoremap di[ %di[
-nnoremap ca[ %ca[
-nnoremap da[ %da[
-nnoremap ci} %ci}
-nnoremap di} %di}
-nnoremap ca} %ca}
-nnoremap da} %da}
-nnoremap ci{ %ci{
-nnoremap di{ %di{
-nnoremap ca{ %ca{
-nnoremap da{ %da{
-
 " comment out lines and paragraphs etc
 nnoremap gcc :action CommentByLineComment<CR>
 nnoremap gcip vip:action CommentByLineComment<CR>
@@ -125,4 +166,3 @@ nnoremap <C-H> :action HideAllWindows<CR>
 
 nnoremap <Leader>e :action Run<CR>
 nnoremap <Leader>w :action Debug<CR>
-
