@@ -56,6 +56,10 @@ shopt -s globstar
 if [ "$OSTYPE" == "darwin"* ]; then
     source $(brew --prefix)/etc/bash_completion 2> /dev/null
 fi
+
+# FIXME:
+# gives this error when running LeaderF C extionsion install.sh
+# /Users/eero/.bash_profile: line 61: bind: warning: line editing not enabled
 bind "TAB:menu-complete"
 bind "set show-all-if-ambiguous on"
 bind "set menu-complete-display-prefix on"

@@ -158,6 +158,9 @@ nnoremap <Leader>r :action RenameElement<CR>
 nnoremap <Leader>u :action FindUsages<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
 
+noremap <Leader>o :action Unwrap<CR>
+noremap <Leader>i :action SurroundWith<CR>
+
 nnoremap <C-1> :action ActivateProjectToolWindow<CR>
 nnoremap <C-2> :action LocalHistory.ShowHistory<CR>
 nnoremap <C-3> :action ActivateStructureToolWindow<CR>
