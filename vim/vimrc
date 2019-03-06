@@ -45,7 +45,7 @@ Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
 Plug 'tpope/vim-repeat'                " repeat plugin commands
 Plug 'easymotion/vim-easymotion'       " jump to any position
-Plug 'henrik/vim-indexed-search'       " show position when searching
+Plug 'google/vim-searchindex'          " show [x/y] when searching
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
 Plug 'markonm/traces.vim'              " live substitution
 Plug 'simnalamburt/vim-mundo'          " graphical undotree
@@ -158,9 +158,9 @@ if !exists('g:notfirstopen')
     endif
 
     syntax enable
-    " highlight MatchParen gui=bold,underline guifg=#D18EC2
-    " highlight IncSearch gui=bold guifg=#A8CE93 guibg=#1E272C
-    " highlight Todo gui=bold guifg=#DF8C8C
+
+    " make solarized8 terminal and gui cursor the same color
+    highlight Cursor ctermfg=15 ctermbg=4 guifg=#073642 guibg=#839496
 endif
 
 if has('win32')
@@ -230,7 +230,7 @@ set statusline+=%{&ff}]                               " line endings
 set statusline+=%<                                    " start to truncate here
 
 " line wrapping
-set wrap linebreak textwidth=0 wrapmargin=0 formatoptions-=t
+set wrap linebreak textwidth=0 wrapmargin=0
 
 " indentation settings
 set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
@@ -250,24 +250,25 @@ augroup NoVisualBells
 augroup END
 
 " mixed settings
-set timeoutlen=1000              " timeout for keymappings
-set pumheight=12                " max height for the autocompletion popup
-set nomodeline                  " don't try to parse commands from opened file
-set ttimeoutlen=0               " remove delay from esc
-set backspace=indent,eol,start  " make backspace behave normally
-set hidden                      " switch to another buffer without saving
-set autoread                    " update changes to file automatically
-set scrolloff=1                 " pad cursor row with lines
-set splitright                  " open splits to the right
-set splitbelow                  " open splits to the bottom
-set wildmode=list:longest,full  " better tab completion on command line mode
-set undofile                    " use an undofile for persistent undo
-set undolevels=10000            " remember more undo history
-set history=1000                " remember more command history
-set updatecount=10              " update swap file more often
-set matchpairs=(:),{:},[:]      " configure which braces to match
-set shortmess=a                 " shorter prompt messages
-filetype plugin indent on       " auto detect filetype
+set timeoutlen=600             " timeout for keymappings
+" set formatoptions=ql           " don't autocontinue comment lines TODO: set this in filetype plugin
+set pumheight=12               " max height for the autocompletion popup
+set nomodeline                 " don't try to parse commands from opened file
+set ttimeoutlen=0              " remove delay from esc
+set backspace=indent,eol,start " make backspace behave normally
+set hidden                     " switch to another buffer without saving
+set autoread                   " update changes to file automatically
+set scrolloff=1                " pad cursor row with lines
+set splitright                 " open splits to the right
+set splitbelow                 " open splits to the bottom
+set wildmode=list:longest,full " better tab completion on command line mode
+set undofile                   " use an undofile for persistent undo
+set undolevels=10000           " remember more undo history
+set history=1000               " remember more command history
+set updatecount=10             " update swap file more often
+set matchpairs=(:),{:},[:]     " configure which braces to match
+set shortmess=a                " shorter prompt messages
+filetype plugin indent on      " auto detect filetype
 
 
 
@@ -459,6 +460,8 @@ function! WrapMappingsOff()
     noremap <buffer> <silent> 0 0
 endfunction
 
+nnoremap <Leader>re i<C-R>=RED('')<Left><Left>
+
 
 
 " ============= COMMANDS =============
@@ -509,6 +512,7 @@ function! s:RunCommandInSplitTerm(command) abort
 endfunction
 
 
+" insert blank lines before current line
 function! s:BlankUp(count) abort
     norm! mz
     for i in range(1, a:count)
@@ -518,6 +522,7 @@ function! s:BlankUp(count) abort
 endfunction
 
 
+" insert blank lines after current line
 function! s:BlankDown(count) abort
     norm! mz
     for i in range(1, a:count)
@@ -527,6 +532,7 @@ function! s:BlankDown(count) abort
 endfunction
 
 
+" insert an EOL comment to the end of N lines
 function! s:AddEOLComment(count) abort
     let char = strpart(&commentstring, 0, 1)
     if char == strpart(&commentstring, 1, 1)
@@ -542,6 +548,7 @@ function! s:AddEOLComment(count) abort
 endfunction
 
 
+" remove an EOL comment from the end of N lines
 function! s:NoEOLComment(count) abort
     norm! mz
     let char = strpart(&commentstring, 0, 1)
@@ -551,6 +558,16 @@ function! s:NoEOLComment(count) abort
         norm! j
     endfor
     norm! `z
+endfunction
+
+" redir command's output to the current line
+function! RED(command)
+    redir => output
+    silent exec a:command
+    redir END
+    let @z = substitute(output, '^\n', '', '')
+    execute "put z"
+    return ''
 endfunction
 
 
