@@ -87,3 +87,7 @@ alias lsa='ls -a'
 alias lsla='ls -la'
 alias ls1='ls -1'
 alias lsa1='ls -a1'
+
+alias gits='git status'
+alias gita='git add .'
+alias gitc='git commit'

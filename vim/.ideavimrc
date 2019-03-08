@@ -6,9 +6,6 @@ let mapleader=' '
 set surround  " makes <Leader>dd slow, because of ds mapping
 set multiple-cursors
 
-" activate KJump
-nnoremap <leader>f :action KJumpAction<CR>
-
 " emulates wellle/targets.vim
 nnoremap ci) %ci)
 nnoremap di) %di)
@@ -135,38 +132,50 @@ vnoremap <TAB> >gv
 " Q plays back q macro
 nnoremap Q @q
 
-" dont copy to clipboard when editing with <Leader><key>
-nnoremap <Leader>d "_d
-nnoremap <Leader>D "_D
-vnoremap <Leader>d "_d
-
 " clear highlights
 nnoremap <Esc> <Esc>:noh<CR>
+
+" makes using marks a lot better
+nnoremap ' :action ShowBookmarks<CR>
+nnoremap m :action ToggleBookmarkWithMnemonic<CR>
 
 " comment out lines and paragraphs etc
 nnoremap gcc :action CommentByLineComment<CR>
 nnoremap gcip vip:action CommentByLineComment<CR>
 vnoremap gc :action CommentByLineComment<CR>
 
-nnoremap <Leader>vr :e ~/.ideavimrc<CR>
-nnoremap <Leader>so :source ~/.ideavimrc<CR>
+nnoremap <F1> :vsp ~/.ideavimrc<CR>
+nnoremap <F2> :source ~/.ideavimrc<CR>
 
-nnoremap <Leader>p :action GotoFile<CR>
-nnoremap <Leader>l :action GotoSymbol<CR>
-nnoremap <Leader>g :action GotoAction<CR>
-nnoremap <Leader>r :action RenameElement<CR>
-nnoremap <Leader>u :action FindUsages<CR>
+nnoremap <Leader>e :action Run<CR>
+nnoremap <leader>f :action KJumpAction<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
-
-noremap <Leader>o :action Unwrap<CR>
+nnoremap <Leader>g :action GotoAction<CR>
+nnoremap <Leader>h :action ParameterInfo<CR>
 noremap <Leader>i :action SurroundWith<CR>
+nnoremap <Leader>j :action QuickImplementations<CR>
+nnoremap <Leader>k :action QuickJavaDoc<CR>
+nnoremap <Leader>l :action FindInPath<CR>
+nnoremap <Leader>m :action RecentFiles<CR>
+nnoremap <Leader>o :action Unwrap<CR>
+nnoremap <Leader>p :action GotoFile<CR>
+nnoremap <Leader>r :action RenameElement<CR>
+nnoremap <Leader>s :action GotoSymbol<CR>
+nnoremap <Leader>u :action FindUsages<CR>
+nnoremap <Leader>y :action ExpressionTypeInfo<CR>
+nnoremap <Leader>v :action Refactorings.QuickListPopupAction<CR>
+nnoremap <Leader>w :action Debug<CR>
+
+nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 
 nnoremap <C-1> :action ActivateProjectToolWindow<CR>
 nnoremap <C-2> :action LocalHistory.ShowHistory<CR>
 nnoremap <C-3> :action ActivateStructureToolWindow<CR>
 nnoremap <C-4> :action ActivatePythonConsoleToolWindow<CR>
 nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
-nnoremap <C-H> :action HideAllWindows<CR>
+nnoremap <C-0> :action ToggleDistractionFreeMode<CR>
 
-nnoremap <Leader>e :action Run<CR>
-nnoremap <Leader>w :action Debug<CR>
+nnoremap <C-H> :action HideAllWindows<CR>
+nnoremap <C-N> :action GotoNextError<CR>
+nnoremap <C-P> :action GotoPreviousError<CR>
+
