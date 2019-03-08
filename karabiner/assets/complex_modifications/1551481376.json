@@ -2,14 +2,16 @@
   "title": "Finder",
   "rules": [
     {
-      "description": "Use Return as Open",
+      "description": "Use fn + o as Open",
       "manipulators": [
         {
           "type": "basic",
           "from": {
-            "key_code": "return_or_enter",
+            "key_code": "o",
             "modifiers": {
-              "optional": ["any"]
+              "mandatory": [
+                "fn"
+              ]
             }
           },
           "to": [

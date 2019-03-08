@@ -53,6 +53,7 @@ HISTFILESIZE=
 shopt -s globstar
 
 # autocompletion settings
+# FIXME: doesn't pass if
 if [ "$OSTYPE" == "darwin"* ]; then
     source $(brew --prefix)/etc/bash_completion 2> /dev/null
 fi
@@ -69,7 +70,8 @@ block_cursor () {
     echo -e -n "\x1b[\x32 q"
 }
 
-if [ "$OSTYPE" == "darwin"* ]; then
+# FIXME: goes to else branch
+if [ "$OSTYPE" == "darwin*" ]; then
     alias vim='block_cursor && mvim -v'
     alias vimdiff='block_cursor && mvimdiff -v'
 else
@@ -88,6 +90,6 @@ alias lsla='ls -la'
 alias ls1='ls -1'
 alias lsa1='ls -a1'
 
-alias gits='git status'
-alias gita='git add .'
-alias gitc='git commit'
+alias gs='git status'
+alias ga='git add .'
+alias gc='git commit'
