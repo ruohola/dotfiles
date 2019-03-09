@@ -3,7 +3,7 @@ let mapleader=' '
 
 " ============= PLUGINS =============
 
-set surround  " makes <Leader>dd slow, because of ds mapping
+set surround
 set multiple-cursors
 
 " emulates easymotion/vim-easymotion
@@ -38,8 +38,8 @@ nnoremap da{ %da{
 " emulates vim-scripts/ReplaceWithRegister
 nnoremap äiw "_diwP
 nnoremap äaw "_dawP
-nnoremap äIw "_dIwP
-nnoremap äAw "_dAwP
+nnoremap äiW "_dIwP
+nnoremap äaW "_dAwP
 nnoremap äis "_disP
 nnoremap äas "_dasP
 nnoremap äip "_dipP
@@ -147,24 +147,25 @@ nnoremap gcc :action CommentByLineComment<CR>
 nnoremap gcip vip:action CommentByLineComment<CR>
 vnoremap gc :action CommentByLineComment<CR>
 
-nnoremap <F1> :vsp ~/.ideavimrc<CR>
+" open or source ideavimrc
+nnoremap <F1> :vsp ~/.ideavimrc<CR><C-W>w
 nnoremap <F2> :source ~/.ideavimrc<CR>
 
-nnoremap <Leader>e :action Run<CR>
+nnoremap <Leader>a :action GotoAction<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
-nnoremap <Leader>g :action GotoAction<CR>
-nnoremap <Leader>h :action ParameterInfo<CR>
+nnoremap <Leader>c :action FileStructurePopup<CR>
+nnoremap <Leader>d :action QuickJavaDoc<CR>
+nnoremap <Leader>e :action Run<CR>
+nnoremap <Leader>f :action GotoFile<CR>
+nnoremap <Leader>g :action QuickImplementations<CR>
 noremap <Leader>i :action SurroundWith<CR>
-nnoremap <Leader>j :action QuickImplementations<CR>
-nnoremap <Leader>k :action QuickJavaDoc<CR>
 nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>m :action RecentFiles<CR>
 nnoremap <Leader>o :action Unwrap<CR>
-nnoremap <Leader>p :action GotoFile<CR>
 nnoremap <Leader>r :action RenameElement<CR>
 nnoremap <Leader>s :action GotoSymbol<CR>
-nnoremap <Leader>u :action FindUsages<CR>
-nnoremap <Leader>y :action ExpressionTypeInfo<CR>
+nnoremap <Leader>t :action ExpressionTypeInfo<CR>
+nnoremap <Leader>u :action ShowUsages<CR>
 nnoremap <Leader>v :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Leader>w :action Debug<CR>
 
@@ -172,9 +173,10 @@ nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 
 nnoremap <C-1> :action ActivateProjectToolWindow<CR>
 nnoremap <C-2> :action LocalHistory.ShowHistory<CR>
-nnoremap <C-3> :action ActivateStructureToolWindow<CR>
-nnoremap <C-4> :action ActivatePythonConsoleToolWindow<CR>
-nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
+nnoremap <C-3> :action ParameterInfo<CR>
+inoremap <C-3> <C-O>:action ParameterInfo<CR>
+nnoremap <C-4> :action ActivateTerminalToolWindow<CR>
+nnoremap <C-5> :action ActivatePythonConsoleToolWindow<CR>
 nnoremap <C-0> :action ToggleDistractionFreeMode<CR>
 
 nnoremap <C-H> :action HideAllWindows<CR>
