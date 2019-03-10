@@ -79,7 +79,7 @@ fi
 
 alias fg='block_cursor && fg'
 alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
-alias virc='vim ~/.inputrc'
+alias virc='vim ~/.vim/.ideavimrc'
 alias vvrc='vim ~/.vim/vimrc'
 alias vset='vim ~/.dotfiles/setup.sh'
 

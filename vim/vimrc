@@ -87,11 +87,10 @@ let g:Lf_WildIgnore = {
         \ 'dir': ['.git'],
         \ 'file': []
         \}
-let g:Lf_ShortcutF='<Leader>p'
-nnoremap <Leader>l :LeaderfLine<CR>
-nnoremap <Leader>o :LeaderfLineAll<CR>
-nnoremap <Leader>k :LeaderfHelp<CR>
-nnoremap <Leader>n :LeaderfBufferAll<CR>
+let g:Lf_ShortcutF='<Leader>f'
+nnoremap <Leader>l :LeaderfLineAll<CR>
+nnoremap <Leader>h :LeaderfHelp<CR>
+nnoremap <Leader>b :LeaderfBufferAll<CR>
 nnoremap <Leader>m :LeaderfMru<CR>
 
 " maxbrunsfeld/vim-yankstack
@@ -393,7 +392,7 @@ augroup EnterMappings
             \| nnoremap <buffer> <S-Enter> O<Esc>
             \| nnoremap <buffer> <silent> <C-Enter> :<C-U>call <SID>BlankDown(v:count1)<CR>
             \| nnoremap <buffer> <silent> <C-S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
-            \| nnoremap <buffer> <Leader><CR> a<CR><Esc>
+            \| nnoremap <buffer> <Leader><CR> mqa<CR><Esc>`q
             \| endif
     autocmd BufWinEnter * if &l:buftype ==# 'quickfix'
             \| unmap <buffer> <CR>
@@ -417,11 +416,6 @@ xnoremap <C-A> <C-A>gv
 
 " Q plays back q macro
 nnoremap Q @q
-
-" don't copy to clipboard when deleting with <Leader>d
-nnoremap <Leader>d "_d
-nnoremap <Leader>D "_D
-xnoremap <Leader>d "_d
 
 " clear highlights
 if has('gui_running')
@@ -513,21 +507,21 @@ endfunction
 
 " insert blank lines before current line
 function! s:BlankUp(count) abort
-    norm! mz
+    norm! qz
     for i in range(1, a:count)
         norm! O
     endfor
-    norm! `z
+    norm! `q
 endfunction
 
 
 " insert blank lines after current line
 function! s:BlankDown(count) abort
-    norm! mz
+    norm! qz
     for i in range(1, a:count)
         norm! o
     endfor
-    norm! `z
+    norm! `q
 endfunction
 
 
@@ -549,14 +543,14 @@ endfunction
 
 " remove an EOL comment from the end of N lines
 function! s:NoEOLComment(count) abort
-    norm! mz
+    norm! qz
     let char = strpart(&commentstring, 0, 1)
     for i in range(1, a:count)
         execute 'norm! 0f'.char.'gEl"_D'
         " j command is separated so that if the above failes, it still continues the loop
         norm! j
     endfor
-    norm! `z
+    norm! `q
 endfunction
 
 " redir command's output to the current line
@@ -578,7 +572,7 @@ endfunction
 " Last <BAR>:<CR> in run python command mapping maybe removes 'ml_get: invalid lnum' error
 augroup Python
     autocmd!
-    autocmd FileType python nnoremap <buffer> <silent> <Leader>5
+    autocmd FileType python nnoremap <buffer> <silent> <Leader>e
                 \ :write<BAR>:tabn 1<BAR>:call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR><BAR>:<CR>
                 \|nnoremap <buffer> <Leader>' o""""""<Esc>hhi
 augroup END

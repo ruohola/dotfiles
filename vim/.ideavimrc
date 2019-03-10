@@ -122,9 +122,9 @@ nnoremap S ciw
 " change enter behaviour
 nnoremap <CR> o<Esc>
 nnoremap <S-Enter> O<Esc>
-nnoremap <C-Enter> mzo<Esc>`z
-nnoremap <C-S-Enter> mzO<Esc>`z
-nnoremap <Leader><CR> a<CR><Esc>
+nnoremap <C-Enter> mqo<Esc>`q
+nnoremap <C-S-Enter> mqO<Esc>`q
+nnoremap <Leader><CR> mqa<CR><Esc>`q
 
 " better way to indent
 nnoremap <BS> <<
@@ -151,35 +151,48 @@ vnoremap gc :action CommentByLineComment<CR>
 nnoremap <F1> :vsp ~/.ideavimrc<CR><C-W>w
 nnoremap <F2> :source ~/.ideavimrc<CR>
 
-nnoremap <Leader>a :action GotoAction<CR>
-nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
-nnoremap <Leader>c :action FileStructurePopup<CR>
-nnoremap <Leader>d :action QuickJavaDoc<CR>
+noremap <Leader>q :action Unwrap<CR>
+noremap <Leader>w :action SurroundWith<CR>
 nnoremap <Leader>e :action Run<CR>
-nnoremap <Leader>f :action GotoFile<CR>
-nnoremap <Leader>g :action QuickImplementations<CR>
-noremap <Leader>i :action SurroundWith<CR>
-nnoremap <Leader>l :action FindInPath<CR>
-nnoremap <Leader>m :action RecentFiles<CR>
-nnoremap <Leader>o :action Unwrap<CR>
 nnoremap <Leader>r :action RenameElement<CR>
-nnoremap <Leader>s :action GotoSymbol<CR>
 nnoremap <Leader>t :action ExpressionTypeInfo<CR>
+" nnoremap <Leader>y <CR>
 nnoremap <Leader>u :action ShowUsages<CR>
-nnoremap <Leader>v :action Refactorings.QuickListPopupAction<CR>
-nnoremap <Leader>w :action Debug<CR>
+nnoremap <Leader>i :action QuickImplementations<CR>
+nnoremap <Leader>o :action ShowReformatFileDialog<CR>
+vnoremap <Leader>o :action VimReformatVisual<CR>
+nnoremap <Leader>p :action PasteMultiple<CR>
+nnoremap <Leader>a :action GotoAction<CR>
+nnoremap <Leader>s :action GotoSymbol<CR>
+nnoremap <Leader>d :action QuickJavaDoc<CR>
+nnoremap <Leader>f :action GotoFile<CR>
+nnoremap <Leader>g :action Generate<CR>
+nnoremap <Leader>h :action HighlightUsagesInFile<CR>
+" nnoremap <Leader>j <CR>
+" nnoremap <Leader>k <CR>
+nnoremap <Leader>l :action FindInPath<CR>
+nnoremap <Leader>z :action RenameFile<CR>
+nnoremap <Leader>x :action Debug<CR>
+nnoremap <Leader>c :action FileStructurePopup<CR>
+noremap <Leader>v :action Refactorings.QuickListPopupAction<CR>
+nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
+nnoremap <Leader>n :action NewFile<CR>
+nnoremap <Leader>m :action RecentFiles<CR>
 
 nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 
 nnoremap <C-1> :action ActivateProjectToolWindow<CR>
 nnoremap <C-2> :action LocalHistory.ShowHistory<CR>
-nnoremap <C-3> :action ParameterInfo<CR>
-inoremap <C-3> <C-O>:action ParameterInfo<CR>
-nnoremap <C-4> :action ActivateTerminalToolWindow<CR>
-nnoremap <C-5> :action ActivatePythonConsoleToolWindow<CR>
-nnoremap <C-0> :action ToggleDistractionFreeMode<CR>
+nnoremap <C-3> :action ActivateTerminalToolWindow<CR>
+nnoremap <C-4> :action ActivatePythonConsoleToolWindow<CR>
 
-nnoremap <C-H> :action HideAllWindows<CR>
-nnoremap <C-N> :action GotoNextError<CR>
+nnoremap <C-L> :action ParameterInfo<CR>
+nnoremap <C-J> :action EditorCloneCaretBelow<CR>
+nnoremap <C-K> :action EditorCloneCaretAbove<CR>
+inoremap <C-L> <C-O>:action ParameterInfo<CR>
+inoremap <C-J> <C-O>:action EditorCloneCaretBelow<CR>
+inoremap <C-K> <C-O>:action EditorCloneCaretAbove<CR>
+
 nnoremap <C-P> :action GotoPreviousError<CR>
+nnoremap <C-N> :action GotoNextError<CR>
 
