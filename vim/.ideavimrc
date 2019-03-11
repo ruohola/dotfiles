@@ -7,7 +7,7 @@ set surround
 set multiple-cursors
 
 " emulates easymotion/vim-easymotion
-nnoremap ö :action KJumpAction<CR>
+nnoremap <Leader>f :action KJumpAction<CR>
 
 " emulates wellle/targets.vim
 nnoremap ci) %ci)
@@ -36,45 +36,45 @@ nnoremap ca{ %ca{
 nnoremap da{ %da{
 
 " emulates vim-scripts/ReplaceWithRegister
-nnoremap äiw "_diwP
-nnoremap äaw "_dawP
-nnoremap äiW "_dIwP
-nnoremap äaW "_dAwP
-nnoremap äis "_disP
-nnoremap äas "_dasP
-nnoremap äip "_dipP
-nnoremap äap "_dapP
-nnoremap äib "_dibP
-nnoremap äab "_dabP
-nnoremap äiB "_diBP
-nnoremap äaB "_daBP
-nnoremap äi( "_di(P
-nnoremap äi) "_di)P
-nnoremap äa( "_da(P
-nnoremap äa) "_da)P
-nnoremap äi[ "_di[P
-nnoremap äi] "_di]P
-nnoremap äa[ "_da[P
-nnoremap äa] "_da]P
-nnoremap äi{ "_di{P
-nnoremap äi} "_di}P
-nnoremap äa{ "_da{P
-nnoremap äa} "_da}P
-nnoremap äi< "_di<P
-nnoremap äi> "_di>P
-nnoremap äa< "_da<P
-nnoremap äa> "_da>P
-nnoremap äi" "_di"P
-nnoremap äa" "_da"P
-nnoremap äi' "_di'P
-nnoremap äa' "_da'P
-nnoremap äi` "_di`P
-nnoremap äa` "_da`P
-nnoremap äit "_ditP
-nnoremap äat "_datP
-nnoremap Ä "_Dp
-nnoremap ää "_ddP
-vnoremap ä "_dP
+nnoremap öiw "_diwP
+nnoremap öaw "_dawP
+nnoremap öiW "_dIwP
+nnoremap öaW "_dAwP
+nnoremap öis "_disP
+nnoremap öas "_dasP
+nnoremap öip "_dipP
+nnoremap öap "_dapP
+nnoremap öib "_dibP
+nnoremap öab "_dabP
+nnoremap öiB "_diBP
+nnoremap öaB "_daBP
+nnoremap öi( "_di(P
+nnoremap öi) "_di)P
+nnoremap öa( "_da(P
+nnoremap öa) "_da)P
+nnoremap öi[ "_di[P
+nnoremap öi] "_di]P
+nnoremap öa[ "_da[P
+nnoremap öa] "_da]P
+nnoremap öi{ "_di{P
+nnoremap öi} "_di}P
+nnoremap öa{ "_da{P
+nnoremap öa} "_da}P
+nnoremap öi< "_di<P
+nnoremap öi> "_di>P
+nnoremap öa< "_da<P
+nnoremap öa> "_da>P
+nnoremap öi" "_di"P
+nnoremap öa" "_da"P
+nnoremap öi' "_di'P
+nnoremap öa' "_da'P
+nnoremap öi` "_di`P
+nnoremap öa` "_da`P
+nnoremap öit "_ditP
+nnoremap öat "_datP
+nnoremap Ö "_Dp
+nnoremap öö "_ddP
+vnoremap ö "_dP
 
 
 " ============= GENERAL =============
@@ -162,10 +162,9 @@ nnoremap <Leader>p :action PasteMultiple<CR>
 nnoremap <Leader>a :action GotoAction<CR>
 nnoremap <Leader>s :action GotoSymbol<CR>
 nnoremap <Leader>d :action QuickJavaDoc<CR>
-nnoremap <Leader>f :action GotoFile<CR>
 nnoremap <Leader>g :action Generate<CR>
 nnoremap <Leader>h :action HighlightUsagesInFile<CR>
-" nnoremap <Leader>j <CR>
+nnoremap <Leader>j :action GotoFile<CR>
 nnoremap <Leader>k :action ViewBreakpoints<CR>
 nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>z :action RenameFile<CR>
