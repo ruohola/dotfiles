@@ -95,12 +95,8 @@ set visualbell         " removes errorbells
 " ============= MAPPINGS =============
 
 " move between splits
-nnoremap <A-L> :action NextSplitter<CR>
-nnoremap <A-H> :action PrevSplitter<CR>
-
-"move between tabs
-" nnoremap <A-I> :action NextTab<CR>  " not currently working
-nnoremap <A-U> :action PreviousTab<CR>
+nnoremap <A-L> <C-W>l
+nnoremap <A-H> <C-W>h
 
 " makes these easier to use
 noremap , :
@@ -125,6 +121,7 @@ nnoremap <S-Enter> O<Esc>
 nnoremap <C-Enter> mqo<Esc>`q
 nnoremap <C-S-Enter> mqO<Esc>`q
 nnoremap <Leader><CR> mqa<CR><Esc>`q
+inoremap <C-Enter> <C-O>:action EditorCompleteStatement<CR>
 
 " better way to indent
 nnoremap <BS> <<
@@ -148,15 +145,15 @@ nnoremap gcip vip:action CommentByLineComment<CR>
 vnoremap gc :action CommentByLineComment<CR>
 
 " open or source ideavimrc
-nnoremap <F1> :vsp ~/.ideavimrc<CR><C-W>w
-nnoremap <F2> :source ~/.ideavimrc<CR>
+nnoremap <S-F11> :vsp ~/.ideavimrc<CR><C-W>l
+nnoremap <S-F12> :source ~/.ideavimrc<CR>
 
 noremap <Leader>q :action Unwrap<CR>
 noremap <Leader>w :action SurroundWith<CR>
 nnoremap <Leader>e :action Run<CR>
 nnoremap <Leader>r :action RenameElement<CR>
-nnoremap <Leader>t :action ExpressionTypeInfo<CR>
-" nnoremap <Leader>y <CR>
+noremap <Leader>t :action ExpressionTypeInfo<CR>
+nnoremap <Leader>y :action ChooseRunConfiguration<CR>
 nnoremap <Leader>u :action ShowUsages<CR>
 nnoremap <Leader>i :action QuickImplementations<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
@@ -169,22 +166,22 @@ nnoremap <Leader>f :action GotoFile<CR>
 nnoremap <Leader>g :action Generate<CR>
 nnoremap <Leader>h :action HighlightUsagesInFile<CR>
 " nnoremap <Leader>j <CR>
-" nnoremap <Leader>k <CR>
+nnoremap <Leader>k :action ViewBreakpoints<CR>
 nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>z :action RenameFile<CR>
-nnoremap <Leader>x :action Debug<CR>
+noremap <Leader>x :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Leader>c :action FileStructurePopup<CR>
-noremap <Leader>v :action Refactorings.QuickListPopupAction<CR>
+nnoremap <Leader>v :action Debug<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
 nnoremap <Leader>n :action NewFile<CR>
-nnoremap <Leader>m :action RecentFiles<CR>
+nnoremap <Leader>m :action RecentChangedFiles<CR>
 
 nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 
-nnoremap <C-1> :action ActivateProjectToolWindow<CR>
-nnoremap <C-2> :action LocalHistory.ShowHistory<CR>
-nnoremap <C-3> :action ActivateTerminalToolWindow<CR>
-nnoremap <C-4> :action ActivatePythonConsoleToolWindow<CR>
+nnoremap <C-2> :action ActivateProjectToolWindow<CR>
+nnoremap <C-3> :action LocalHistory.ShowHistory<CR>
+nnoremap <C-4> :action ActivateTerminalToolWindow<CR>
+nnoremap <C-5> :action ActivatePythonConsoleToolWindow<CR>
 
 nnoremap <C-L> :action ParameterInfo<CR>
 nnoremap <C-J> :action EditorCloneCaretBelow<CR>
@@ -195,4 +192,3 @@ inoremap <C-K> <C-O>:action EditorCloneCaretAbove<CR>
 
 nnoremap <C-P> :action GotoPreviousError<CR>
 nnoremap <C-N> :action GotoNextError<CR>
-
