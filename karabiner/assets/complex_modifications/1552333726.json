@@ -1,13 +1,13 @@
 {
-  "title": "Change fn + i/u/n/m to page_up, page_down, home and end keys",
+  "title": "Change fn + u/i/y/n to home/end/pgup/pgdn keys",
   "rules": [
     {
-      "description": "Change fn + i/u/n/m to page_up, page_down, home and end keys",
+      "description": "Change fn + u/i/y/n to home/end/pgup/pgdn keys",
       "manipulators": [
         {
           "type": "basic",
           "from": {
-            "key_code": "i",
+            "key_code": "y",
             "modifiers": {
               "mandatory": [
                 "fn"
@@ -26,7 +26,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "u",
+            "key_code": "n",
             "modifiers": {
               "mandatory": [
                 "fn"
@@ -45,7 +45,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "n",
+            "key_code": "u",
             "modifiers": {
               "mandatory": [
                 "fn"
@@ -64,7 +64,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "m",
+            "key_code": "i",
             "modifiers": {
               "mandatory": [
                 "fn"
