@@ -83,6 +83,8 @@ alias virc='vim ~/.vim/.ideavimrc'
 alias vvrc='vim ~/.vim/vimrc'
 alias vset='vim ~/.dotfiles/setup.sh'
 
+alias ranger='block_cursor && ranger'
+
 alias lsa='ls -a'
 alias lsla='ls -la'
 alias ls1='ls -1'
