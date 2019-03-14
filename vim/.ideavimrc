@@ -10,30 +10,19 @@ set multiple-cursors
 nnoremap <Leader>f :action KJumpAction<CR>
 
 " emulates wellle/targets.vim
+" no di/da mappings, they clash with surround
 nnoremap ci) %ci)
-nnoremap di) %di)
 nnoremap ca) %ca)
-nnoremap da) %da)
 nnoremap ci( %ci(
-nnoremap di( %di(
 nnoremap ca( %ca(
-nnoremap da( %da(
 nnoremap ci] %ci]
-nnoremap di] %di]
 nnoremap ca] %ca]
-nnoremap da] %da]
 nnoremap ci[ %ci[
-nnoremap di[ %di[
 nnoremap ca[ %ca[
-nnoremap da[ %da[
 nnoremap ci} %ci}
-nnoremap di} %di}
 nnoremap ca} %ca}
-nnoremap da} %da}
 nnoremap ci{ %ci{
-nnoremap di{ %di{
 nnoremap ca{ %ca{
-nnoremap da{ %da{
 
 " emulates vim-scripts/ReplaceWithRegister
 nnoremap öiw "_diwP
