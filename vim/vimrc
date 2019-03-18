@@ -508,7 +508,7 @@ endfunction
 
 " insert blank lines before current line
 function! s:BlankUp(count) abort
-    norm! qz
+    norm! mq
     for i in range(1, a:count)
         norm! O
     endfor
@@ -518,7 +518,7 @@ endfunction
 
 " insert blank lines after current line
 function! s:BlankDown(count) abort
-    norm! qz
+    norm! mq
     for i in range(1, a:count)
         norm! o
     endfor
@@ -544,7 +544,7 @@ endfunction
 
 " remove an EOL comment from the end of N lines
 function! s:NoEOLComment(count) abort
-    norm! qz
+    norm! mq
     let char = strpart(&commentstring, 0, 1)
     for i in range(1, a:count)
         execute 'norm! 0f'.char.'gEl"_D'
