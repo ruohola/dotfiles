@@ -58,6 +58,7 @@ Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'lifepillar/vim-solarized8'       " solarized colorcheme
 Plug 'maralla/completor.vim'           " autocompletion
+Plug 'pgdouyon/vim-yin-yang'           " b/w colorscheme
 call plug#end()
 
 " maralla/completor.vim
