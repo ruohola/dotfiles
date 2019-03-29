@@ -25,45 +25,45 @@ nnoremap ci{ %ci{
 nnoremap ca{ %ca{
 
 " emulates vim-scripts/ReplaceWithRegister
-nnoremap Ã¶iw "_diwP
-nnoremap Ã¶aw "_dawP
-nnoremap Ã¶iW "_dIwP
-nnoremap Ã¶aW "_dAwP
-nnoremap Ã¶is "_disP
-nnoremap Ã¶as "_dasP
-nnoremap Ã¶ip "_dipP
-nnoremap Ã¶ap "_dapP
-nnoremap Ã¶ib "_dibP
-nnoremap Ã¶ab "_dabP
-nnoremap Ã¶iB "_diBP
-nnoremap Ã¶aB "_daBP
-nnoremap Ã¶i( "_di(P
-nnoremap Ã¶i) "_di)P
-nnoremap Ã¶a( "_da(P
-nnoremap Ã¶a) "_da)P
-nnoremap Ã¶i[ "_di[P
-nnoremap Ã¶i] "_di]P
-nnoremap Ã¶a[ "_da[P
-nnoremap Ã¶a] "_da]P
-nnoremap Ã¶i{ "_di{P
-nnoremap Ã¶i} "_di}P
-nnoremap Ã¶a{ "_da{P
-nnoremap Ã¶a} "_da}P
-nnoremap Ã¶i< "_di<P
-nnoremap Ã¶i> "_di>P
-nnoremap Ã¶a< "_da<P
-nnoremap Ã¶a> "_da>P
-nnoremap Ã¶i" "_di"P
-nnoremap Ã¶a" "_da"P
-nnoremap Ã¶i' "_di'P
-nnoremap Ã¶a' "_da'P
-nnoremap Ã¶i` "_di`P
-nnoremap Ã¶a` "_da`P
-nnoremap Ã¶it "_ditP
-nnoremap Ã¶at "_datP
-nnoremap Ã– "_Dp
-nnoremap Ã¶Ã¶ "_ddP
-vnoremap Ã¶ "_dP
+nnoremap öiw "_diwP
+nnoremap öaw "_dawP
+nnoremap öiW "_dIwP
+nnoremap öaW "_dAwP
+nnoremap öis "_disP
+nnoremap öas "_dasP
+nnoremap öip "_dipP
+nnoremap öap "_dapP
+nnoremap öib "_dibP
+nnoremap öab "_dabP
+nnoremap öiB "_diBP
+nnoremap öaB "_daBP
+nnoremap öi( "_di(P
+nnoremap öi) "_di)P
+nnoremap öa( "_da(P
+nnoremap öa) "_da)P
+nnoremap öi[ "_di[P
+nnoremap öi] "_di]P
+nnoremap öa[ "_da[P
+nnoremap öa] "_da]P
+nnoremap öi{ "_di{P
+nnoremap öi} "_di}P
+nnoremap öa{ "_da{P
+nnoremap öa} "_da}P
+nnoremap öi< "_di<P
+nnoremap öi> "_di>P
+nnoremap öa< "_da<P
+nnoremap öa> "_da>P
+nnoremap öi" "_di"P
+nnoremap öa" "_da"P
+nnoremap öi' "_di'P
+nnoremap öa' "_da'P
+nnoremap öi` "_di`P
+nnoremap öa` "_da`P
+nnoremap öit "_ditP
+nnoremap öat "_datP
+nnoremap Ö "_Dp
+nnoremap öö "_ddP
+vnoremap ö "_dP
 
 
 " ============= GENERAL =============
@@ -132,8 +132,8 @@ nnoremap gcip vip:action CommentByLineComment<CR>
 vnoremap gc :action CommentByLineComment<CR>
 
 " open or source ideavimrc
-nnoremap <S-F11> :vsp ~/.ideavimrc<CR><C-W>l
-nnoremap <S-F12> :source ~/.ideavimrc<CR>
+nnoremap <F11> :vsp ~\_ideavimrc<CR><C-W>l
+nnoremap <F12> :source ~\_ideavimrc<CR>
 
 noremap <Leader>q :action Unwrap<CR>
 noremap <Leader>w :action SurroundWith<CR>
