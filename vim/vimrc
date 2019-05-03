@@ -625,5 +625,4 @@ augroup END
 " clear the search register for no highlighting on startup
 let @/=''
 " macro to add a plugin
-let @p='gg/call plug#end()
-OPlug ''+'''
+let @p='gg/call plug#end()OPlug ''+'''
