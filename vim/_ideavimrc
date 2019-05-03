@@ -1,5 +1,11 @@
 let mapleader=' '
 
+" ============= OS specific settings =============
+
+" open or source ideavimrc
+nnoremap <F11> :vsp ~\_ideavimrc<CR><C-W>l
+nnoremap <F12> :source ~\_ideavimrc<CR>
+
 
 " ============= PLUGINS =============
 
@@ -7,7 +13,7 @@ set surround
 set multiple-cursors
 
 " emulates easymotion/vim-easymotion
-nnoremap <Leader>f :action KJumpAction<CR>
+nnoremap ö :action KJumpAction<CR>
 
 " emulates wellle/targets.vim
 " no di/da mappings, they clash with surround
@@ -25,45 +31,45 @@ nnoremap ci{ %ci{
 nnoremap ca{ %ca{
 
 " emulates vim-scripts/ReplaceWithRegister
-nnoremap öiw "_diwP
-nnoremap öaw "_dawP
-nnoremap öiW "_dIwP
-nnoremap öaW "_dAwP
-nnoremap öis "_disP
-nnoremap öas "_dasP
-nnoremap öip "_dipP
-nnoremap öap "_dapP
-nnoremap öib "_dibP
-nnoremap öab "_dabP
-nnoremap öiB "_diBP
-nnoremap öaB "_daBP
-nnoremap öi( "_di(P
-nnoremap öi) "_di)P
-nnoremap öa( "_da(P
-nnoremap öa) "_da)P
-nnoremap öi[ "_di[P
-nnoremap öi] "_di]P
-nnoremap öa[ "_da[P
-nnoremap öa] "_da]P
-nnoremap öi{ "_di{P
-nnoremap öi} "_di}P
-nnoremap öa{ "_da{P
-nnoremap öa} "_da}P
-nnoremap öi< "_di<P
-nnoremap öi> "_di>P
-nnoremap öa< "_da<P
-nnoremap öa> "_da>P
-nnoremap öi" "_di"P
-nnoremap öa" "_da"P
-nnoremap öi' "_di'P
-nnoremap öa' "_da'P
-nnoremap öi` "_di`P
-nnoremap öa` "_da`P
-nnoremap öit "_ditP
-nnoremap öat "_datP
-nnoremap Ö "_Dp
-nnoremap öö "_ddP
-vnoremap ö "_dP
+nnoremap äiw "_diwP
+nnoremap äaw "_dawP
+nnoremap äiW "_dIwP
+nnoremap äaW "_dAwP
+nnoremap äis "_disP
+nnoremap äas "_dasP
+nnoremap äip "_dipP
+nnoremap äap "_dapP
+nnoremap äib "_dibP
+nnoremap äab "_dabP
+nnoremap äiB "_diBP
+nnoremap äaB "_daBP
+nnoremap äi( "_di(P
+nnoremap äi) "_di)P
+nnoremap äa( "_da(P
+nnoremap äa) "_da)P
+nnoremap äi[ "_di[P
+nnoremap äi] "_di]P
+nnoremap äa[ "_da[P
+nnoremap äa] "_da]P
+nnoremap äi{ "_di{P
+nnoremap äi} "_di}P
+nnoremap äa{ "_da{P
+nnoremap äa} "_da}P
+nnoremap äi< "_di<P
+nnoremap äi> "_di>P
+nnoremap äa< "_da<P
+nnoremap äa> "_da>P
+nnoremap äi" "_di"P
+nnoremap äa" "_da"P
+nnoremap äi' "_di'P
+nnoremap äa' "_da'P
+nnoremap äi` "_di`P
+nnoremap äa` "_da`P
+nnoremap äit "_ditP
+nnoremap äat "_datP
+nnoremap Ä "_Dp
+nnoremap ää "_ddP
+vnoremap ä "_dP
 
 
 " ============= GENERAL =============
@@ -131,43 +137,36 @@ nnoremap gcc :action CommentByLineComment<CR>
 nnoremap gcip vip:action CommentByLineComment<CR>
 vnoremap gc :action CommentByLineComment<CR>
 
-" open or source ideavimrc
-nnoremap <F11> :vsp ~\_ideavimrc<CR><C-W>l
-nnoremap <F12> :source ~\_ideavimrc<CR>
-
-noremap <Leader>q :action Unwrap<CR>
-noremap <Leader>w :action SurroundWith<CR>
-nnoremap <Leader>e :action Run<CR>
-nnoremap <Leader>r :action RenameElement<CR>
-noremap <Leader>t :action ExpressionTypeInfo<CR>
-nnoremap <Leader>y :action ChooseRunConfiguration<CR>
-nnoremap <Leader>u :action ShowUsages<CR>
+nnoremap <Leader>a :action GotoAction<CR>
+nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
+nnoremap <Leader>c :action FileStructurePopup<CR>
+nnoremap <Leader>d :action QuickJavaDoc<CR>
+nnoremap <Leader>e :action ChooseRunConfiguration<CR>
+nnoremap <Leader>f :action GotoFile<CR>
+nnoremap <Leader>g :action Generate<CR>
+nnoremap <Leader>h :action HighlightUsagesInFile<CR>
 nnoremap <Leader>i :action QuickImplementations<CR>
+" nnoremap <Leader>j :action
+nnoremap <Leader>k :action ViewBreakpoints<CR>
+nnoremap <Leader>l :action FindInPath<CR>
+nnoremap <Leader>m :action RecentChangedFiles<CR>
+nnoremap <Leader>n :action NewFile<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
 vnoremap <Leader>o :action VimReformatVisual<CR>
 nnoremap <Leader>p :action PasteMultiple<CR>
-nnoremap <Leader>a :action GotoAction<CR>
+noremap <Leader>q :action Unwrap<CR>
+nnoremap <Leader>r :action RenameElement<CR>
 nnoremap <Leader>s :action GotoSymbol<CR>
-nnoremap <Leader>d :action QuickJavaDoc<CR>
-nnoremap <Leader>g :action Generate<CR>
-nnoremap <Leader>h :action HighlightUsagesInFile<CR>
-nnoremap <Leader>j :action GotoFile<CR>
-nnoremap <Leader>k :action ViewBreakpoints<CR>
-nnoremap <Leader>l :action FindInPath<CR>
-nnoremap <Leader>z :action RenameFile<CR>
-noremap <Leader>x :action Refactorings.QuickListPopupAction<CR>
-nnoremap <Leader>c :action FileStructurePopup<CR>
+noremap <Leader>t :action ExpressionTypeInfo<CR>
+nnoremap <Leader>u :action ShowUsages<CR>
 nnoremap <Leader>v :action Debug<CR>
-nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
-nnoremap <Leader>n :action NewFile<CR>
-nnoremap <Leader>m :action RecentChangedFiles<CR>
+noremap <Leader>w :action SurroundWith<CR>
+noremap <Leader>x :action Refactorings.QuickListPopupAction<CR>
+nnoremap <Leader>y :action ShowErrorDescription<CR>
+nnoremap <Leader>z :action RenameFile<CR>
+nnoremap <Leader>[ :action LocalHistory.ShowHistory<CR>
 
 nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
-
-nnoremap <C-2> :action ActivateProjectToolWindow<CR>
-nnoremap <C-3> :action LocalHistory.ShowHistory<CR>
-nnoremap <C-4> :action ActivateTerminalToolWindow<CR>
-nnoremap <C-5> :action ActivatePythonConsoleToolWindow<CR>
 
 nnoremap <C-I> :action ParameterInfo<CR>
 nnoremap <C-J> :action EditorCloneCaretBelow<CR>

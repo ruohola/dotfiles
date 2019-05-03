@@ -89,7 +89,7 @@ let g:Lf_WildIgnore = {
         \ 'dir': ['.git'],
         \ 'file': []
         \}
-let g:Lf_ShortcutF='<Leader>j'
+let g:Lf_ShortcutF='<Leader>f'
 nnoremap <Leader>l :LeaderfLineAll<CR>
 nnoremap <Leader>h :LeaderfHelp<CR>
 nnoremap <Leader>b :LeaderfBufferAll<CR>
@@ -105,8 +105,7 @@ call yankstack#setup()
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
-map <Leader>f <Plug>(easymotion-bd-f)
-map <Leader>t <Plug>(easymotion-bd-t)
+map ö <Plug>(easymotion-bd-f)
 
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300
@@ -117,16 +116,16 @@ let g:mundo_tree_statusline='History'
 let g:mundo_mirror_graph=0
 let g:mundo_return_on_revert=0
 let g:mundo_verbose_graph=0
-nnoremap <silent> <Leader>2 :MundoToggle<CR>
+nnoremap <silent> <Leader>[ :MundoToggle<CR>
 
 " junegunn/vim-easy-align
 nmap gl <Plug>(EasyAlign)
 xmap gl <Plug>(EasyAlign)
 
 " vim-scripts/ReplaceWithRegister
-nmap ö <Plug>ReplaceWithRegisterOperator
-nmap Ö <Plug>ReplaceWithRegisterOperator$
-nmap öö <Plug>ReplaceWithRegisterLine
+nmap ä <Plug>ReplaceWithRegisterOperator
+nmap Ä <Plug>ReplaceWithRegisterOperator$
+nmap ää <Plug>ReplaceWithRegisterLine
 xmap ö <Plug>ReplaceWithRegisterVisual
 
 " terryma/vim-smooth-scroll
