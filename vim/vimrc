@@ -1,4 +1,4 @@
-﻿" ============= SETUP =============
+" ============= SETUP =============
 
 let g:mapleader=' '
 
@@ -41,25 +41,26 @@ else
     call plug#begin('~/.vim/plugged')
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 endif
-Plug 'tpope/vim-surround'                              " edit braces easily
-Plug 'tpope/vim-commentary'                            " comment out lines
-Plug 'tpope/vim-repeat'                                " repeat plugin commands
-Plug 'easymotion/vim-easymotion'                       " jump to any position
-Plug 'google/vim-searchindex'                          " show [x/y] when searching
-Plug 'machakann/vim-highlightedyank'                   " highlight yanks
-Plug 'markonm/traces.vim'                              " live substitution
-Plug 'simnalamburt/vim-mundo'                          " graphical undotree
-Plug 'maxbrunsfeld/vim-yankstack'                      " remember past yanks
-Plug 'vim-scripts/ReplaceWithRegister'                 " operator to replace text
-Plug 'wellle/targets.vim'                              " more text objects
-Plug 'tommcdo/vim-exchange'                            " change two objects
-Plug 'terryma/vim-smooth-scroll'                       " smooth scrolling
-Plug 'junegunn/vim-easy-align'                         " align text with motion
-Plug 'sheerun/vim-polyglot'                            " better syntax highlighting
-Plug 'lifepillar/vim-solarized8'                       " solarized colorcheme
-Plug 'maralla/completor.vim'                           " autocompletion
-Plug 'pgdouyon/vim-yin-yang'                           " b/w colorscheme
+Plug 'tpope/vim-surround'              " edit braces easily
+Plug 'tpope/vim-commentary'            " comment out lines
+Plug 'tpope/vim-repeat'                " repeat plugin commands
+Plug 'easymotion/vim-easymotion'       " jump to any position
+Plug 'google/vim-searchindex'          " show [x/y] when searching
+Plug 'machakann/vim-highlightedyank'   " highlight yanks
+Plug 'markonm/traces.vim'              " live substitution
+Plug 'simnalamburt/vim-mundo'          " graphical undotree
+Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
+Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
+Plug 'wellle/targets.vim'              " more text objects
+Plug 'tommcdo/vim-exchange'            " change two objects
+Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
+Plug 'junegunn/vim-easy-align'         " align text with motion
+Plug 'sheerun/vim-polyglot'            " better syntax highlighting
+Plug 'maralla/completor.vim'           " autocompletion
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
+" colorshemes
+Plug 'lifepillar/vim-solarized8'
+Plug 'pgdouyon/vim-yin-yang'
 call plug#end()
 
 
@@ -93,7 +94,7 @@ let g:Lf_WildIgnore = {
         \ 'dir': ['.git'],
         \ 'file': []
         \}
-let g:Lf_ShortcutF='<Leader>j'
+let g:Lf_ShortcutF='<Leader>f'
 nnoremap <Leader>l :LeaderfLineAll<CR>
 nnoremap <Leader>h :LeaderfHelp<CR>
 nnoremap <Leader>b :LeaderfBufferAll<CR>
@@ -109,8 +110,7 @@ call yankstack#setup()
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
-map <Leader>f <Plug>(easymotion-bd-f)
-map <Leader>t <Plug>(easymotion-bd-t)
+map ö <Plug>(easymotion-bd-f)
 
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300
@@ -121,17 +121,17 @@ let g:mundo_tree_statusline='History'
 let g:mundo_mirror_graph=0
 let g:mundo_return_on_revert=0
 let g:mundo_verbose_graph=0
-nnoremap <silent> <Leader>2 :MundoToggle<CR>
+nnoremap <silent> <Leader>[ :MundoToggle<CR>
 
 " junegunn/vim-easy-align
 nmap gl <Plug>(EasyAlign)
 xmap gl <Plug>(EasyAlign)
 
 " vim-scripts/ReplaceWithRegister
-nmap ö <Plug>ReplaceWithRegisterOperator
-nmap Ö <Plug>ReplaceWithRegisterOperator$
-nmap öö <Plug>ReplaceWithRegisterLine
-xmap ö <Plug>ReplaceWithRegisterVisual
+nmap ä <Plug>ReplaceWithRegisterOperator
+nmap Ä <Plug>ReplaceWithRegisterOperator$
+nmap ää <Plug>ReplaceWithRegisterLine
+xmap ä <Plug>ReplaceWithRegisterVisual
 
 " terryma/vim-smooth-scroll
 nnoremap <silent> <C-U> :call smooth_scroll#up(&scroll, 0, 2)<CR>
@@ -507,7 +507,8 @@ function! s:RunCommandInSplitTerm(command) abort
     endif
 
     let mainWin = bufwinnr(mainBuf)
-    call term_sendkeys(termBufNr, a:command . '')
+    call term_sendkeys(termBufNr, a:command . '
+')
     exe "normal \<C-W>p"
 endfunction
 
@@ -624,4 +625,5 @@ augroup END
 " clear the search register for no highlighting on startup
 let @/=''
 " macro to add a plugin
-let @p='gg/call plug#end()OPlug ''+'' " glip-"nkA '
+let @p='gg/call plug#end()
+OPlug ''+'''
