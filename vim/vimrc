@@ -56,9 +56,10 @@ Plug 'tommcdo/vim-exchange'            " change two objects
 Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
 Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
-Plug 'lifepillar/vim-solarized8'       " solarized colorcheme
 Plug 'maralla/completor.vim'           " autocompletion
-Plug 'pgdouyon/vim-yin-yang'           " b/w colorscheme
+" colorshemes
+Plug 'lifepillar/vim-solarized8'
+Plug 'pgdouyon/vim-yin-yang'
 call plug#end()
 
 " maralla/completor.vim
@@ -619,4 +620,4 @@ augroup END
 " clear the search register for no highlighting on startup
 let @/=''
 " macro to add a plugin
-let @p='gg/call plug#end()OPlug ''+'' " glip-"nkA '
+let @p='gg/call plug#end()OPlug ''+'''
