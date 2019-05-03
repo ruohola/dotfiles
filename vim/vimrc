@@ -41,25 +41,30 @@ else
     call plug#begin('~/.vim/plugged')
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 endif
-Plug 'tpope/vim-surround'              " edit braces easily
-Plug 'tpope/vim-commentary'            " comment out lines
-Plug 'tpope/vim-repeat'                " repeat plugin commands
-Plug 'easymotion/vim-easymotion'       " jump to any position
-Plug 'google/vim-searchindex'          " show [x/y] when searching
-Plug 'machakann/vim-highlightedyank'   " highlight yanks
-Plug 'markonm/traces.vim'              " live substitution
-Plug 'simnalamburt/vim-mundo'          " graphical undotree
-Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
-Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
-Plug 'wellle/targets.vim'              " more text objects
-Plug 'tommcdo/vim-exchange'            " change two objects
-Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
-Plug 'junegunn/vim-easy-align'         " align text with motion
-Plug 'sheerun/vim-polyglot'            " better syntax highlighting
-Plug 'lifepillar/vim-solarized8'       " solarized colorcheme
-Plug 'maralla/completor.vim'           " autocompletion
-Plug 'pgdouyon/vim-yin-yang'           " b/w colorscheme
+Plug 'tpope/vim-surround'                              " edit braces easily
+Plug 'tpope/vim-commentary'                            " comment out lines
+Plug 'tpope/vim-repeat'                                " repeat plugin commands
+Plug 'easymotion/vim-easymotion'                       " jump to any position
+Plug 'google/vim-searchindex'                          " show [x/y] when searching
+Plug 'machakann/vim-highlightedyank'                   " highlight yanks
+Plug 'markonm/traces.vim'                              " live substitution
+Plug 'simnalamburt/vim-mundo'                          " graphical undotree
+Plug 'maxbrunsfeld/vim-yankstack'                      " remember past yanks
+Plug 'vim-scripts/ReplaceWithRegister'                 " operator to replace text
+Plug 'wellle/targets.vim'                              " more text objects
+Plug 'tommcdo/vim-exchange'                            " change two objects
+Plug 'terryma/vim-smooth-scroll'                       " smooth scrolling
+Plug 'junegunn/vim-easy-align'                         " align text with motion
+Plug 'sheerun/vim-polyglot'                            " better syntax highlighting
+Plug 'lifepillar/vim-solarized8'                       " solarized colorcheme
+Plug 'maralla/completor.vim'                           " autocompletion
+Plug 'pgdouyon/vim-yin-yang'                           " b/w colorscheme
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 call plug#end()
+
+
+" xuhdev/vim-latex-live-preview
+let g:livepreview_previewer = 'open -a Skim'
 
 " maralla/completor.vim
 inoremap <expr> <Tab> pumvisible() ? "\<C-Y>" : "\<Tab>"
@@ -233,8 +238,8 @@ set statusline+=%<                                    " start to truncate here
 set wrap linebreak textwidth=0 wrapmargin=0
 
 " indentation settings
-set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
-set smarttab  autoindent    breakindent
+" set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
+" set smarttab  autoindent    breakindent
 
 " show unwanted whitespace on 'set list'
 set nolist listchars=tab:>-,trail:.,nbsp:.

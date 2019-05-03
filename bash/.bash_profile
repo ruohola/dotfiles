@@ -98,3 +98,14 @@ alias gpl='git pull'
 alias gps='git push'
 alias gds='git diff --staged'
 alias gdh='git diff HEAD'
+
+alias bkandi='
+pdflatex kandi.tex
+bibtex kandi
+pdflatex kandi.tex
+pdflatex kandi.tex
+rm kandi.aux
+rm kandi.bbl
+rm kandi.blg
+rm kandi.log
+rm kandi.toc'
