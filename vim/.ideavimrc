@@ -168,10 +168,10 @@ nnoremap <Leader>[ :action LocalHistory.ShowHistory<CR>
 
 nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 
-nnoremap <C-I> :action ParameterInfo<CR>
+nnoremap <C-H> :action ParameterInfo<CR>
 nnoremap <C-J> :action EditorCloneCaretBelow<CR>
 nnoremap <C-K> :action EditorCloneCaretAbove<CR>
-inoremap <C-I> <C-O>:action ParameterInfo<CR>
+inoremap <C-H> <C-O>:action ParameterInfo<CR>
 inoremap <C-J> <C-O>:action EditorCloneCaretBelow<CR>
 inoremap <C-K> <C-O>:action EditorCloneCaretAbove<CR>
 
