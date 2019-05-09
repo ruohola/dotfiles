@@ -164,6 +164,7 @@ if !exists('g:notfirstopen')
 
     syntax enable
 
+    highlight Comment term=NONE ctermfg=10 gui=NONE guifg=#586e75
     " make solarized8 terminal and gui cursor the same color
     highlight Cursor ctermfg=15 ctermbg=4 guifg=#073642 guibg=#839496
 endif
