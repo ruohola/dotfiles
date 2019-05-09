@@ -146,7 +146,7 @@ nnoremap <Leader>f :action GotoFile<CR>
 nnoremap <Leader>g :action Generate<CR>
 nnoremap <Leader>h :action HighlightUsagesInFile<CR>
 nnoremap <Leader>i :action QuickImplementations<CR>
-" nnoremap <Leader>j :action
+nnoremap <Leader>j :action ShowNavBar<CR>
 nnoremap <Leader>k :action ViewBreakpoints<CR>
 nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>m :action RecentChangedFiles<CR>
@@ -177,3 +177,7 @@ inoremap <C-K> <C-O>:action EditorCloneCaretAbove<CR>
 
 nnoremap <C-P> :action GotoPreviousError<CR>
 nnoremap <C-N> :action GotoNextError<CR>
+
+nnoremap <C-T> :action Back<CR>
+nnoremap <C-O> :action Back<CR>
+nnoremap <C-I> :action Forward<CR>
