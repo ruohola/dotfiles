@@ -1,12 +1,5 @@
 let mapleader=' '
 
-" ============= OS specific settings =============
-
-" open or source ideavimrc
-nnoremap <F11> :vsp ~/.ideavimrc<CR><C-W>l
-nnoremap <F12> :source ~/.ideavimrc<CR>
-
-
 " ============= PLUGINS =============
 
 set surround
@@ -68,6 +61,7 @@ nnoremap äa` "_da`P
 nnoremap äit "_ditP
 nnoremap äat "_datP
 nnoremap Ä "_Dp
+nnoremap äG "_dGp
 nnoremap ää "_ddP
 vnoremap ä "_dP
 
@@ -88,6 +82,10 @@ set visualbell         " removes errorbells
 
 
 " ============= MAPPINGS =============
+
+" open or source ideavimrc
+nnoremap <F11> :source ~\.ideavimrc<CR>
+nnoremap <F12> :source ~/.ideavimrc<CR>
 
 " move between splits
 nnoremap <A-L> <C-W>l
@@ -135,13 +133,17 @@ nnoremap m :action ToggleBookmarkWithMnemonic<CR>
 " comment out lines and paragraphs etc
 nnoremap gcc :action CommentByLineComment<CR>
 nnoremap gcip vip:action CommentByLineComment<CR>
+nnoremap gci} vi}:action CommentByLineComment<CR>
+nnoremap gci{ vi{:action CommentByLineComment<CR>
 vnoremap gc :action CommentByLineComment<CR>
+
+nnoremap g] :action GotoRelated<CR>
 
 nnoremap <Leader>a :action GotoAction<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
 nnoremap <Leader>c :action FileStructurePopup<CR>
 nnoremap <Leader>d :action QuickJavaDoc<CR>
-nnoremap <Leader>e :action ChooseRunConfiguration<CR>
+nnoremap <Leader>e :action Run<CR>
 nnoremap <Leader>f :action GotoFile<CR>
 nnoremap <Leader>g :action Generate<CR>
 nnoremap <Leader>h :action HighlightUsagesInFile<CR>
@@ -150,7 +152,7 @@ nnoremap <Leader>j :action ShowNavBar<CR>
 nnoremap <Leader>k :action ViewBreakpoints<CR>
 nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>m :action RecentChangedFiles<CR>
-nnoremap <Leader>n :action NewFile<CR>
+nnoremap <Leader>n :action ChooseRunConfiguration<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
 vnoremap <Leader>o :action VimReformatVisual<CR>
 nnoremap <Leader>p :action PasteMultiple<CR>
@@ -164,6 +166,7 @@ noremap <Leader>w :action SurroundWith<CR>
 noremap <Leader>x :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Leader>y :action ShowErrorDescription<CR>
 nnoremap <Leader>z :action RenameFile<CR>
+
 nnoremap <Leader>[ :action LocalHistory.ShowHistory<CR>
 
 nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
@@ -181,3 +184,4 @@ nnoremap <C-N> :action GotoNextError<CR>
 nnoremap <C-T> :action Back<CR>
 nnoremap <C-O> :action Back<CR>
 nnoremap <C-I> :action Forward<CR>
+
