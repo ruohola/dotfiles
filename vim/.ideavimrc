@@ -6,7 +6,7 @@ set surround
 set multiple-cursors
 
 " emulates easymotion/vim-easymotion
-nnoremap ö :action KJumpAction<CR>
+nnoremap <leader>f :action KJumpAction<CR>
 
 " emulates wellle/targets.vim
 " no di/da mappings, they clash with surround
@@ -24,46 +24,46 @@ nnoremap ci{ %ci{
 nnoremap ca{ %ca{
 
 " emulates vim-scripts/ReplaceWithRegister
-nnoremap äiw "_diwP
-nnoremap äaw "_dawP
-nnoremap äiW "_dIwP
-nnoremap äaW "_dAwP
-nnoremap äis "_disP
-nnoremap äas "_dasP
-nnoremap äip "_dipP
-nnoremap äap "_dapP
-nnoremap äib "_dibP
-nnoremap äab "_dabP
-nnoremap äiB "_diBP
-nnoremap äaB "_daBP
-nnoremap äi( "_di(P
-nnoremap äi) "_di)P
-nnoremap äa( "_da(P
-nnoremap äa) "_da)P
-nnoremap äi[ "_di[P
-nnoremap äi] "_di]P
-nnoremap äa[ "_da[P
-nnoremap äa] "_da]P
-nnoremap äi{ "_di{P
-nnoremap äi} "_di}P
-nnoremap äa{ "_da{P
-nnoremap äa} "_da}P
-nnoremap äi< "_di<P
-nnoremap äi> "_di>P
-nnoremap äa< "_da<P
-nnoremap äa> "_da>P
-nnoremap äi" "_di"P
-nnoremap äa" "_da"P
-nnoremap äi' "_di'P
-nnoremap äa' "_da'P
-nnoremap äi` "_di`P
-nnoremap äa` "_da`P
-nnoremap äit "_ditP
-nnoremap äat "_datP
-nnoremap Ä "_Dp
-nnoremap äG "_dGp
-nnoremap ää "_ddP
-vnoremap ä "_dP
+nnoremap öiw "_diwP
+nnoremap öaw "_dawP
+nnoremap öiW "_dIwP
+nnoremap öaW "_dAwP
+nnoremap öis "_disP
+nnoremap öas "_dasP
+nnoremap öip "_dipP
+nnoremap öap "_dapP
+nnoremap öib "_dibP
+nnoremap öab "_dabP
+nnoremap öiB "_diBP
+nnoremap öaB "_daBP
+nnoremap öi( "_di(P
+nnoremap öi) "_di)P
+nnoremap öa( "_da(P
+nnoremap öa) "_da)P
+nnoremap öi[ "_di[P
+nnoremap öi] "_di]P
+nnoremap öa[ "_da[P
+nnoremap öa] "_da]P
+nnoremap öi{ "_di{P
+nnoremap öi} "_di}P
+nnoremap öa{ "_da{P
+nnoremap öa} "_da}P
+nnoremap öi< "_di<P
+nnoremap öi> "_di>P
+nnoremap öa< "_da<P
+nnoremap öa> "_da>P
+nnoremap öi" "_di"P
+nnoremap öa" "_da"P
+nnoremap öi' "_di'P
+nnoremap öa' "_da'P
+nnoremap öi` "_di`P
+nnoremap öa` "_da`P
+nnoremap öit "_ditP
+nnoremap öat "_datP
+nnoremap Ö "_Dp
+nnoremap öG "_dGp
+nnoremap öö "_ddP
+vnoremap ö "_dP
 
 
 " ============= GENERAL =============
@@ -144,15 +144,15 @@ nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
 nnoremap <Leader>c :action FileStructurePopup<CR>
 nnoremap <Leader>d :action QuickJavaDoc<CR>
 nnoremap <Leader>e :action Run<CR>
-nnoremap <Leader>f :action GotoFile<CR>
+" kjump          f
 nnoremap <Leader>g :action Generate<CR>
 nnoremap <Leader>h :action HighlightUsagesInFile<CR>
 nnoremap <Leader>i :action QuickImplementations<CR>
-nnoremap <Leader>j :action ShowNavBar<CR>
+nnoremap <Leader>j :action GotoFile<CR>
 nnoremap <Leader>k :action ViewBreakpoints<CR>
 nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>m :action RecentChangedFiles<CR>
-nnoremap <Leader>n :action ChooseRunConfiguration<CR>
+nnoremap <Leader>n :action ShowNavBar<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
 vnoremap <Leader>o :action VimReformatVisual<CR>
 nnoremap <Leader>p :action PasteMultiple<CR>
@@ -168,6 +168,7 @@ nnoremap <Leader>y :action ShowErrorDescription<CR>
 nnoremap <Leader>z :action RenameFile<CR>
 
 nnoremap <Leader>[ :action LocalHistory.ShowHistory<CR>
+nnoremap <Leader>] :action ChooseRunConfiguration<CR>
 
 nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 

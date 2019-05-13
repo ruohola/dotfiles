@@ -110,7 +110,8 @@ call yankstack#setup()
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
-map ö <Plug>(easymotion-bd-f)
+map <leader>f <Plug>(easymotion-bd-f)
+map <leader>r <Plug>(easymotion-bd-t)
 
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300
@@ -128,10 +129,10 @@ nmap gl <Plug>(EasyAlign)
 xmap gl <Plug>(EasyAlign)
 
 " vim-scripts/ReplaceWithRegister
-nmap ä <Plug>ReplaceWithRegisterOperator
-nmap Ä <Plug>ReplaceWithRegisterOperator$
-nmap ää <Plug>ReplaceWithRegisterLine
-xmap ä <Plug>ReplaceWithRegisterVisual
+nmap ö <Plug>ReplaceWithRegisterOperator
+nmap Ö <Plug>ReplaceWithRegisterOperator$
+nmap öö <Plug>ReplaceWithRegisterLine
+xmap ö <Plug>ReplaceWithRegisterVisual
 
 " terryma/vim-smooth-scroll
 nnoremap <silent> <C-U> :call smooth_scroll#up(&scroll, 0, 2)<CR>
