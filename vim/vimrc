@@ -377,6 +377,8 @@ nnoremap V <C-V>$
 " makes S more useful
 nnoremap S ciw
 
+nnoremap Ä ct;
+
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 
