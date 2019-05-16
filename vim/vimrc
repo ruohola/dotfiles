@@ -110,8 +110,8 @@ call yankstack#setup()
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
-map s <Plug>(easymotion-bd-f)
-nnoremap ä s
+map <Leader>f <Plug>(easymotion-bd-f)
+map <Leader>t <Plug>(easymotion-bd-t)
 
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300
@@ -257,7 +257,7 @@ augroup NoVisualBells
 augroup END
 
 " mixed settings
-set timeoutlen=600             " timeout for keymappings
+set timeoutlen=2000             " timeout for keymappings
 " set formatoptions=ql           " don't autocontinue comment lines TODO: set this in filetype plugin
 set pumheight=12               " max height for the autocompletion popup
 set nomodeline                 " don't try to parse commands from opened file
@@ -377,7 +377,8 @@ nnoremap V <C-V>$
 " makes S more useful
 nnoremap S ciw
 
-nnoremap Ä ct;
+nnoremap ä ct;
+nnoremap Ä dt;
 
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>

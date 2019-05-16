@@ -6,8 +6,7 @@ set surround
 set multiple-cursors
 
 " emulates easymotion/vim-easymotion
-nnoremap s :action KJumpAction<CR>
-nnoremap ä s
+nnoremap <Leader>f :action KJumpAction<CR>
 
 " emulates wellle/targets.vim
 " no di/da mappings, they clash with surround
@@ -23,6 +22,10 @@ nnoremap ci} %ci}
 nnoremap ca} %ca}
 nnoremap ci{ %ci{
 nnoremap ca{ %ca{
+nnoremap ci> f>ci>
+nnoremap ca> f>ca>
+nnoremap ci< f<ci<
+nnoremap ca< f<ca<
 
 " emulates vim-scripts/ReplaceWithRegister
 nnoremap öiw "_diwP
@@ -75,7 +78,7 @@ set number relativenumber
 " search settings
 set incsearch hlsearch ignorecase smartcase gdefault
 
-set timeoutlen=600     " timeout for keymappings
+set timeoutlen=2000     " timeout for keymappings
 set clipboard=unnamed  " use system clipboard
 set scrolloff=1        " pad scrolling with one line
 set showmode           " show current mode in statusbar
@@ -107,7 +110,8 @@ nnoremap V <C-V>$
 " makes S more useful
 nnoremap S ciw
 
-nnoremap Ä ct;
+nnoremap ä ct;
+nnoremap Ä dt;
 
 " change enter behaviour
 nnoremap <CR> o<Esc>
@@ -115,7 +119,6 @@ nnoremap <S-Enter> O<Esc>
 nnoremap <C-Enter> mqo<Esc>`q
 nnoremap <C-S-Enter> mqO<Esc>`q
 nnoremap <Leader><CR> mqa<CR><Esc>`q
-inoremap <C-Enter> <C-O>:action EditorCompleteStatement<CR>
 
 " better way to indent
 nnoremap <BS> <<
@@ -147,15 +150,15 @@ nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
 nnoremap <Leader>c :action FileStructurePopup<CR>
 nnoremap <Leader>d :action QuickJavaDoc<CR>
 nnoremap <Leader>e :action Run<CR>
-nnoremap <Leader>f :action GotoFile<CR>
+" kjump          f
 nnoremap <Leader>g :action Generate<CR>
 nnoremap <Leader>h :action HighlightUsagesInFile<CR>
 nnoremap <Leader>i :action QuickImplementations<CR>
 nnoremap <Leader>j :action ShowNavBar<CR>
-nnoremap <Leader>k :action ViewBreakpoints<CR>
+nnoremap <Leader>k :action GotoFile<CR>
 nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>m :action RecentChangedFiles<CR>
-nnoremap <Leader>n :action EditBreakpoint<CR>
+nnoremap <Leader>n :action ViewBreakpoints<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
 vnoremap <Leader>o :action VimReformatVisual<CR>
 nnoremap <Leader>p :action PasteMultiple<CR>
