@@ -94,7 +94,7 @@ let g:Lf_WildIgnore = {
         \ 'dir': ['.git'],
         \ 'file': []
         \}
-let g:Lf_ShortcutF='<Leader>f'
+let g:Lf_ShortcutF='<Leader>k'
 nnoremap <Leader>l :LeaderfLineAll<CR>
 nnoremap <Leader>h :LeaderfHelp<CR>
 nnoremap <Leader>b :LeaderfBufferAll<CR>
