@@ -135,10 +135,10 @@ nmap öö <Plug>ReplaceWithRegisterLine
 xmap ö <Plug>ReplaceWithRegisterVisual
 
 " terryma/vim-smooth-scroll
-nnoremap <silent> <C-U> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-nnoremap <silent> <C-D> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-nnoremap <silent> <C-B> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-nnoremap <silent> <C-F> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+nnoremap <silent> <C-U> :<C-U>call smooth_scroll#up(&scroll, 0, 2)<CR>
+nnoremap <silent> <C-D> :<C-U>call smooth_scroll#down(&scroll, 0, 2)<CR>
+nnoremap <silent> <C-B> :<C-U>call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+nnoremap <silent> <C-F> :<C-U>call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 
 
@@ -239,9 +239,9 @@ set statusline+=%<                                    " start to truncate here
 " line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0
 
-" indentation settings
-" set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
-" set smarttab  autoindent    breakindent
+" indentation settings TODO: set in filetype file
+set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
+set smarttab  autoindent    breakindent
 
 " show unwanted whitespace on 'set list'
 set nolist listchars=tab:>-,trail:.,nbsp:.
@@ -305,7 +305,7 @@ if has('win32')
     nnoremap <silent>é :tabnext<CR>
 
     " toggle fullscreen
-    nnoremap <silent> <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+    nnoremap <silent> <Leader>0 :<C-U>call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
     if has('terminal')
         tnoremap è <C-W><C-H>
@@ -397,13 +397,9 @@ inoremap <CR> <C-G>u<CR>
 " change enter behaviour
 augroup EnterMappings
     autocmd!
-    " Complex but works
-    " FIXME: not working in terminal vim
     autocmd BufEnter * if &l:buftype ==# ''
-            \| nnoremap <buffer> <CR> o<Esc>
-            \| nnoremap <buffer> <S-Enter> O<Esc>
-            \| nnoremap <buffer> <silent> <C-Enter> :<C-U>call <SID>BlankDown(v:count1)<CR>
-            \| nnoremap <buffer> <silent> <C-S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
+            \| nnoremap <buffer> <CR> :<C-U>call <SID>BlankDown(v:count1)<CR>
+            \| nnoremap <buffer> <S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
             \| nnoremap <buffer> <Leader><CR> mqa<CR><Esc>`q
             \| endif
     autocmd BufWinEnter * if &l:buftype ==# 'quickfix'
@@ -521,7 +517,7 @@ endfunction
 " insert blank lines before current line
 function! s:BlankUp(count) abort
     norm! mq
-    for i in range(1, a:count)
+    for i in range(a:count)
         norm! O
     endfor
     norm! `q
@@ -531,7 +527,7 @@ endfunction
 " insert blank lines after current line
 function! s:BlankDown(count) abort
     norm! mq
-    for i in range(1, a:count)
+    for i in range(a:count)
         norm! o
     endfor
     norm! `q
@@ -546,7 +542,7 @@ function! s:AddEOLComment(count) abort
         " is for example //%s (in java) vs only one char e.g. #%s in python.
         let char = char . char
     endif
-    for i in range(1, a:count)
+    for i in range(a:count)
         execute 'norm! A  '.char.' j'
     endfor
     norm! k
@@ -558,7 +554,7 @@ endfunction
 function! s:NoEOLComment(count) abort
     norm! mq
     let char = strpart(&commentstring, 0, 1)
-    for i in range(1, a:count)
+    for i in range(a:count)
         execute 'norm! 0f'.char.'gEl"_D'
         " j command is separated so that if the above failes, it still continues the loop
         norm! j
@@ -586,7 +582,7 @@ endfunction
 augroup Python
     autocmd!
     autocmd FileType python nnoremap <buffer> <silent> <Leader>e
-                \ :write<BAR>:tabn 1<BAR>:call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR><BAR>:<CR>
+                \ :write<BAR>:tabn 1<BAR>:<C-U>call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR><BAR>:<CR>
                 \|nnoremap <buffer> <Leader>' o""""""<Esc>hhi
 augroup END
 

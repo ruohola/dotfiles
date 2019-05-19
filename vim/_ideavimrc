@@ -3,7 +3,7 @@ let mapleader=' '
 " =========== OS SPECIFIC ===========
 
 " source ideavimrc
-nnoremap <F12> :source ~/.ideavimrc<CR>
+nnoremap <F12> :source ~\_ideavimrc<CR>
 
 
 " ============= PLUGINS =============
@@ -34,46 +34,46 @@ nnoremap ci< f<ci<
 nnoremap ca< f<ca<
 
 " emulates vim-scripts/ReplaceWithRegister
-nnoremap Ã¶iw "_diwP
-nnoremap Ã¶aw "_dawP
-nnoremap Ã¶iW "_dIwP
-nnoremap Ã¶aW "_dAwP
-nnoremap Ã¶is "_disP
-nnoremap Ã¶as "_dasP
-nnoremap Ã¶ip "_dipP
-nnoremap Ã¶ap "_dapP
-nnoremap Ã¶ib "_dibP
-nnoremap Ã¶ab "_dabP
-nnoremap Ã¶iB "_diBP
-nnoremap Ã¶aB "_daBP
-nnoremap Ã¶i( "_di(P
-nnoremap Ã¶i) "_di)P
-nnoremap Ã¶a( "_da(P
-nnoremap Ã¶a) "_da)P
-nnoremap Ã¶i[ "_di[P
-nnoremap Ã¶i] "_di]P
-nnoremap Ã¶a[ "_da[P
-nnoremap Ã¶a] "_da]P
-nnoremap Ã¶i{ "_di{P
-nnoremap Ã¶i} "_di}P
-nnoremap Ã¶a{ "_da{P
-nnoremap Ã¶a} "_da}P
-nnoremap Ã¶i< "_di<P
-nnoremap Ã¶i> "_di>P
-nnoremap Ã¶a< "_da<P
-nnoremap Ã¶a> "_da>P
-nnoremap Ã¶i" "_di"P
-nnoremap Ã¶a" "_da"P
-nnoremap Ã¶i' "_di'P
-nnoremap Ã¶a' "_da'P
-nnoremap Ã¶i` "_di`P
-nnoremap Ã¶a` "_da`P
-nnoremap Ã¶it "_ditP
-nnoremap Ã¶at "_datP
-nnoremap Ã– "_Dp
-nnoremap Ã¶G "_dGp
-nnoremap Ã¶Ã¶ "_ddP
-vnoremap Ã¶ "_dP
+nnoremap öiw "_diwP
+nnoremap öaw "_dawP
+nnoremap öiW "_dIwP
+nnoremap öaW "_dAwP
+nnoremap öis "_disP
+nnoremap öas "_dasP
+nnoremap öip "_dipP
+nnoremap öap "_dapP
+nnoremap öib "_dibP
+nnoremap öab "_dabP
+nnoremap öiB "_diBP
+nnoremap öaB "_daBP
+nnoremap öi( "_di(P
+nnoremap öi) "_di)P
+nnoremap öa( "_da(P
+nnoremap öa) "_da)P
+nnoremap öi[ "_di[P
+nnoremap öi] "_di]P
+nnoremap öa[ "_da[P
+nnoremap öa] "_da]P
+nnoremap öi{ "_di{P
+nnoremap öi} "_di}P
+nnoremap öa{ "_da{P
+nnoremap öa} "_da}P
+nnoremap öi< "_di<P
+nnoremap öi> "_di>P
+nnoremap öa< "_da<P
+nnoremap öa> "_da>P
+nnoremap öi" "_di"P
+nnoremap öa" "_da"P
+nnoremap öi' "_di'P
+nnoremap öa' "_da'P
+nnoremap öi` "_di`P
+nnoremap öa` "_da`P
+nnoremap öit "_ditP
+nnoremap öat "_datP
+nnoremap Ö "_Dp
+nnoremap öG "_dGp
+nnoremap öö "_ddP
+vnoremap ö "_dP
 
 
 " ============= GENERAL =============
@@ -112,8 +112,8 @@ nnoremap V <C-V>$
 " makes S more useful
 nnoremap S ciw
 
-nnoremap Ã¤ ct;
-nnoremap Ã„ dt;
+nnoremap ä ct;
+nnoremap Ä dt;
 
 " change enter behaviour
 nnoremap <CR> mqo<Esc>`q
