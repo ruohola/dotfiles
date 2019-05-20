@@ -143,7 +143,7 @@ nnoremap gci} vi}:action CommentByLineComment<CR>
 nnoremap gci{ vi{:action CommentByLineComment<CR>
 vnoremap gc :action CommentByLineComment<CR>
 
-nnoremap g] :action GotoRelated<CR>
+nnoremap gr :action GotoRelated<CR>
 
 nnoremap <Leader>a :action GotoAction<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
@@ -173,6 +173,7 @@ noremap <Leader>x :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Leader>y :action ShowErrorDescription<CR>
 nnoremap <Leader>z :action RenameFile<CR>
 
+nnoremap <Leader>< :action NewFile<CR>
 nnoremap <Leader>[ :action LocalHistory.ShowHistory<CR>
 nnoremap <Leader>] :action ChooseRunConfiguration<CR>
 
