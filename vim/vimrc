@@ -259,6 +259,7 @@ augroup END
 " mixed settings
 set timeoutlen=2000             " timeout for keymappings
 " set formatoptions=ql           " don't autocontinue comment lines TODO: set this in filetype plugin
+set formatoptions+=j
 set pumheight=12               " max height for the autocompletion popup
 set nomodeline                 " don't try to parse commands from opened file
 set ttimeoutlen=0              " remove delay from esc
