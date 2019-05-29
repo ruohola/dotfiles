@@ -56,8 +56,9 @@ Plug 'tommcdo/vim-exchange'            " change two objects
 Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
 Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
-Plug 'maralla/completor.vim'           " autocompletion
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
+Plug 'maralla/completor.vim'           " autocompletion
+Plug 'kyouryuukunn/completor-necovim'  " vimscript support for completor
 " colorshemes
 Plug 'lifepillar/vim-solarized8'
 Plug 'pgdouyon/vim-yin-yang'
@@ -73,8 +74,11 @@ inoremap <expr> <C-J> pumvisible() ? "\<Down>" : "\<C-J>"
 inoremap <expr> <C-K> pumvisible() ? "\<Up>" : "\<C-K>"
 let g:completor_complete_options='menuone,noinsert'
 let g:completor_completion_delay=0
-let g:completor_min_chars=1
-let g:completor_python_binary = '/usr/local/bin/python3'
+if has ('win32')
+    let g:completor_python_binary = 'C:\Users\eero.ruohola\AppData\Local\Programs\Python\Python37-32\python.exe'
+else
+    let g:completor_python_binary = '/usr/local/bin/python3'
+endif
 
 " Yggdroot/LeaderF
 " Requires ripgrep: https://github.com/BurntSushi/ripgrep
@@ -257,9 +261,8 @@ augroup NoVisualBells
 augroup END
 
 " mixed settings
-set timeoutlen=2000             " timeout for keymappings
-" set formatoptions=ql           " don't autocontinue comment lines TODO: set this in filetype plugin
-set formatoptions+=j
+set timeoutlen=2000            " timeout for keymappings
+set formatoptions=qlj          " don't autocontinue comment lines, remove comment when joining
 set pumheight=12               " max height for the autocompletion popup
 set nomodeline                 " don't try to parse commands from opened file
 set ttimeoutlen=0              " remove delay from esc
@@ -509,8 +512,7 @@ function! s:RunCommandInSplitTerm(command) abort
     endif
 
     let mainWin = bufwinnr(mainBuf)
-    call term_sendkeys(termBufNr, a:command . '
-')
+    call term_sendkeys(termBufNr, a:command . '')  " should be literal ^M
     exe "normal \<C-W>p"
 endfunction
 
