@@ -2,14 +2,14 @@
     "title": "Vi Style Arrows",
     "rules": [
         {
-            "description": "Change fn + h/j/k/l to Arrows",
+            "description": "Change right_command + h/j/k/l to Arrows",
             "manipulators": [
                 {
                     "from": {
                         "key_code": "h",
                         "modifiers": {
                             "mandatory": [
-                                "fn"
+                                "right_command"
                             ],
                             "optional": [
                                 "caps_lock",
@@ -32,7 +32,7 @@
                         "key_code": "j",
                         "modifiers": {
                             "mandatory": [
-                                "fn"
+                                "right_command"
                             ],
                             "optional": [
                                 "caps_lock",
@@ -55,7 +55,7 @@
                         "key_code": "k",
                         "modifiers": {
                             "mandatory": [
-                                "fn"
+                                "right_command"
                             ],
                             "optional": [
                                 "caps_lock",
@@ -78,14 +78,14 @@
                         "key_code": "l",
                         "modifiers": {
                             "mandatory": [
-                                "fn"
+                                "right_command"
                             ],
                             "optional": [
                                 "caps_lock",
                                 "command",
                                 "option",
                                 "shift",
-                                "fn"
+                                "right_command"
                             ]
                         }
                     },

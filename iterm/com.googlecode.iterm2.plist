@@ -10,6 +10,8 @@
 	<integer>1</integer>
 	<key>AppleWindowTabbingMode</key>
 	<string>manual</string>
+	<key>BootstrapDaemon</key>
+	<false/>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>Dracula</key>
@@ -1966,14 +1968,16 @@
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>776 110 598 334 0 0 1440 877 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>410 363 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 126 606 469 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>191 462 770 429 0 0 1440 900 </string>
+	<string>626 360 1018 447 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 720 877 0 0 1440 877 </string>
+	<string>840 500 810 527 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>720 0 720 877 0 0 1440 900 </string>
+	<string>630 373 810 527 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>0 0 720 877 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
@@ -2724,6 +2728,8 @@
 	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
 	<false/>
+	<key>SUAutomaticallyUpdate</key>
+	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
@@ -2733,7 +2739,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-02-26T21:55:12Z</date>
+	<date>2019-05-29T18:26:09Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -2751,6 +2757,6 @@
 	<key>WindowNumber</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.2.7</string>
+	<string>3.2.9</string>
 </dict>
 </plist>

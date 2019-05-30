@@ -157,7 +157,7 @@ nnoremap <Leader>i :action QuickImplementations<CR>
 nnoremap <Leader>j :action ShowNavBar<CR>
 nnoremap <Leader>k :action GotoFile<CR>
 nnoremap <Leader>l :action FindInPath<CR>
-nnoremap <Leader>m :action RecentChangedFiles<CR>
+nnoremap <Leader>m :action RecentFiles<CR>
 nnoremap <Leader>n :action ViewBreakpoints<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
 vnoremap <Leader>o :action VimReformatVisual<CR>

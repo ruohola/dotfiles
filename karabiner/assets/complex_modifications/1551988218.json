@@ -10,7 +10,7 @@
             "key_code": "1",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -32,7 +32,7 @@
             "key_code": "2",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -54,7 +54,7 @@
             "key_code": "3",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -76,7 +76,7 @@
             "key_code": "4",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -98,7 +98,7 @@
             "key_code": "5",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -120,7 +120,7 @@
             "key_code": "6",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -142,7 +142,7 @@
             "key_code": "7",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -164,7 +164,7 @@
             "key_code": "8",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -186,7 +186,7 @@
             "key_code": "9",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -208,7 +208,7 @@
             "key_code": "0",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -230,7 +230,7 @@
             "key_code": "hyphen",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -252,7 +252,7 @@
             "key_code": "equal_sign",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -279,7 +279,7 @@
             "key_code": "1",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -298,7 +298,7 @@
             "key_code": "2",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -317,7 +317,7 @@
             "key_code": "3",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -336,7 +336,7 @@
             "key_code": "4",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -355,7 +355,7 @@
             "key_code": "5",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -374,7 +374,7 @@
             "key_code": "6",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -393,7 +393,7 @@
             "key_code": "7",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -412,7 +412,7 @@
             "key_code": "8",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -431,7 +431,7 @@
             "key_code": "9",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -450,7 +450,7 @@
             "key_code": "0",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -469,7 +469,7 @@
             "key_code": "hyphen",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
@@ -488,7 +488,7 @@
             "key_code": "equal_sign",
             "modifiers": {
               "mandatory": [
-                "fn"
+                "right_command"
               ],
               "optional": [
                 "any"
