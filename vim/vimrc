@@ -370,7 +370,6 @@ augroup QMappings
     autocmd FileType * if &l:buftype ==# 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
 augroup END
 
-
 " make Y behave the same way as D and C
 nnoremap Y y$
 
@@ -378,11 +377,14 @@ nnoremap Y y$
 nnoremap vv V
 nnoremap V <C-V>$
 
-" makes S more useful
+" makes these more useful
 nnoremap S ciw
+nnoremap K ct;
+nnoremap dK dt;
 
-nnoremap ä ct;
-nnoremap Ä dt;
+" add or remove end-of-line comments
+nnoremap <silent> ä :<C-U>call <SID>AddEOLComment(v:count1)<CR>
+nnoremap <silent> Ä :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
@@ -441,10 +443,6 @@ endif
 
 " open vimrc
 nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
-
-" add or remove end-of-line comments
-nnoremap <silent> <Leader>c :<C-U>call <SID>AddEOLComment(v:count1)<CR>
-nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 
 " make mappings work by visual lines
 noremap <silent> <Leader>w :<C-U>call WrapMappingsOn()<CR>

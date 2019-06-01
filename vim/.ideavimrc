@@ -99,8 +99,8 @@ nnoremap <A-H> <C-W>h
 
 " makes these easier to use
 noremap , :
-nnoremap : ;
-nnoremap ; ,
+noremap : ;
+noremap ; ,
 
 " make Y behave the same way as D and C
 nnoremap Y y$
@@ -109,11 +109,14 @@ nnoremap Y y$
 nnoremap vv V
 nnoremap V <C-V>$
 
-" makes S more useful
+" makes these more useful
 nnoremap S ciw
+nnoremap K ct;
+nnoremap dK dt;
 
-nnoremap ä ct;
-nnoremap Ä dt;
+" add or remove end-of-line comments
+nnoremap ä A  //<Space>
+nnoremap Ä mq0f/gEl"_D`q
 
 " change enter behaviour
 nnoremap <CR> mqo<Esc>`q
