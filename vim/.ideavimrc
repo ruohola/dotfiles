@@ -131,6 +131,10 @@ nnoremap Q @q
 " clear highlights
 nnoremap <Esc> <Esc>:noh<CR>
 
+" change eol comment to line comment and vice versa
+nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
+nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
+
 " makes using marks a lot better
 nnoremap ' :action ShowBookmarks<CR>
 nnoremap ` :action ShowBookmarks<CR>

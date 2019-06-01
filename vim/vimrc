@@ -385,6 +385,11 @@ nnoremap dK dt;
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 
+" change eol comment to line comment and vice versa
+" TODO: make this use eol comment function, so it can handle different commentchars
+nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
+nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
+
 " navigate quickfix list and vimgrep
 nnoremap <silent> <Down> :cnext<CR>
 nnoremap <silent> <Up> :cprev<CR>
