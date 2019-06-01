@@ -382,10 +382,6 @@ nnoremap S ciw
 nnoremap K ct;
 nnoremap dK dt;
 
-" add or remove end-of-line comments
-nnoremap <silent> ä :<C-U>call <SID>AddEOLComment(v:count1)<CR>
-nnoremap <silent> Ä :<C-U>call <SID>NoEOLComment(v:count1)<CR>
-
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 
@@ -463,6 +459,11 @@ function! WrapMappingsOff()
     noremap <buffer> <silent> 0 0
 endfunction
 
+" add or remove end-of-line comments
+nnoremap <silent> <Leader>c :<C-U>call <SID>AddEOLComment(v:count1)<CR>
+nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
+
+" insert contents of command to buffer
 nnoremap <Leader>re i<C-R>=RED('')<Left><Left>
 
 

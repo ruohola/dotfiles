@@ -114,10 +114,6 @@ nnoremap S ciw
 nnoremap K ct;
 nnoremap dK dt;
 
-" add or remove end-of-line comments
-nnoremap ä A  //<Space>
-nnoremap Ä mq0f/gEl"_D`q
-
 " change enter behaviour
 nnoremap <CR> mqo<Esc>`q
 nnoremap <S-Enter> mqO<Esc>`q
@@ -137,6 +133,7 @@ nnoremap <Esc> <Esc>:noh<CR>
 
 " makes using marks a lot better
 nnoremap ' :action ShowBookmarks<CR>
+nnoremap ` :action ShowBookmarks<CR>
 nnoremap m :action ToggleBookmarkWithMnemonic<CR>
 
 " comment out lines and paragraphs etc
