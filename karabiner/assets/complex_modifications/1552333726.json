@@ -1,8 +1,8 @@
 {
-  "title": "Change right_command + u/i/y/n to home/end/pgup/pgdn keys",
+  "title": "Change right_command + u/i/y/n to cmd←/cmd→/pgup/pgdn keys",
   "rules": [
     {
-      "description": "Change right_command + u/i/y/n to home/end/pgup/pgdn keys",
+      "description": "Change right_command + u/i/y/n to cmd←/cmd→/pgup/pgdn keys",
       "manipulators": [
         {
           "type": "basic",
@@ -57,7 +57,10 @@
           },
           "to": [
             {
-              "key_code": "home"
+              "key_code": "left_arrow",
+              "modifiers": [
+                "left_command"
+              ]
             }
           ]
         },
@@ -76,7 +79,10 @@
           },
           "to": [
             {
-              "key_code": "end"
+              "key_code": "right_arrow",
+              "modifiers": [
+                "right_command"
+              ]
             }
           ]
         }
