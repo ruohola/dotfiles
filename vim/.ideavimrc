@@ -14,6 +14,11 @@ set multiple-cursors
 " emulates easymotion/vim-easymotion
 nnoremap <Leader>f :action KJumpAction<CR>
 
+" emulates tommcdo/vim-exchange
+" TODO: contine with more text objects
+nnoremap cxiw "jyiwma
+nnoremap criw "kdiw"jPmb`a"_diw"kP
+
 " emulates wellle/targets.vim
 " no di/da mappings, they clash with surround
 nnoremap ci) %ci)
@@ -135,9 +140,8 @@ nnoremap <Esc> <Esc>:noh<CR>
 nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
 nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 
-" makes using marks a lot better
+" makes using marks a lot better, ` mapping clashes with surround
 nnoremap ' :action ShowBookmarks<CR>
-nnoremap ` :action ShowBookmarks<CR>
 nnoremap m :action ToggleBookmarkWithMnemonic<CR>
 
 " comment out lines and paragraphs etc
