@@ -371,7 +371,6 @@ augroup QMappings
     autocmd FileType * if &l:buftype ==# 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
 augroup END
 
-
 " make Y behave the same way as D and C
 nnoremap Y y$
 
@@ -379,14 +378,18 @@ nnoremap Y y$
 nnoremap vv V
 nnoremap V <C-V>$
 
-" makes S more useful
+" makes these more useful
 nnoremap S ciw
-
-nnoremap ä ct;
-nnoremap Ä dt;
+nnoremap K ct;
+nnoremap dK dt;
 
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
+
+" change eol comment to line comment and vice versa
+" TODO: make this use eol comment function, so it can handle different commentchars
+nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
+nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 
 " navigate quickfix list and vimgrep
 nnoremap <silent> <Down> :cnext<CR>
@@ -443,10 +446,6 @@ endif
 " open vimrc
 nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
 
-" add or remove end-of-line comments
-nnoremap <silent> <Leader>c :<C-U>call <SID>AddEOLComment(v:count1)<CR>
-nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
-
 " make mappings work by visual lines
 noremap <silent> <Leader>w :<C-U>call WrapMappingsOn()<CR>
 noremap <silent> <Leader>q :<C-U>call WrapMappingsOff()<CR>
@@ -466,6 +465,11 @@ function! WrapMappingsOff()
     noremap <buffer> <silent> 0 0
 endfunction
 
+" add or remove end-of-line comments
+nnoremap <silent> <Leader>c :<C-U>call <SID>AddEOLComment(v:count1)<CR>
+nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
+
+" insert contents of command to buffer
 nnoremap <Leader>re i<C-R>=RED('')<Left><Left>
 
 
