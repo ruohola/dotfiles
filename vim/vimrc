@@ -190,7 +190,7 @@ else
     set shell=/usr/local/bin/bash\ --login
 endif
 
-set clipboard=unnamed  " use system clipboard
+set clipboard=unnamed  " use system clipboard, unnamedplus doesn't work with gvim
 
 if has('gui_running')
     " GUI specific settings
@@ -262,6 +262,7 @@ augroup END
 
 " mixed settings
 set timeoutlen=2000            " timeout for keymappings
+" TODO: formatoptions should be set in filetype files, otherwise they get overridden
 set formatoptions=qlj          " don't autocontinue comment lines, remove comment when joining
 set pumheight=12               " max height for the autocompletion popup
 set nomodeline                 " don't try to parse commands from opened file
