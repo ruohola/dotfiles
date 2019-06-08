@@ -109,3 +109,8 @@ rm kandi.bbl
 rm kandi.blg
 rm kandi.log
 rm kandi.toc'
+
+# fzf config
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --ignore-file ~/Library -g "!{.git}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

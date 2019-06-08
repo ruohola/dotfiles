@@ -36,29 +36,34 @@ let &directory = PathToTempFolder . '/swap'
 
 if has('win32')
     call plug#begin('~/vimfiles/plugged')
-    Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
+    " windows fzf path here
 else
     call plug#begin('~/.vim/plugged')
-    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+    Plug '/usr/local/opt/fzf'
 endif
+Plug 'google/vim-searchindex'          " show [x/y] when searching
+Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
+Plug 'machakann/vim-highlightedyank'   " highlight yanks
+Plug 'markonm/traces.vim'              " live substitution
+
+Plug 'easymotion/vim-easymotion'       " jump to any position
+Plug 'simnalamburt/vim-mundo'          " graphical undotree
+Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
+Plug 'junegunn/fzf.vim'                " fuzzy file finding
+
 Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
 Plug 'tpope/vim-repeat'                " repeat plugin commands
-Plug 'easymotion/vim-easymotion'       " jump to any position
-Plug 'google/vim-searchindex'          " show [x/y] when searching
-Plug 'machakann/vim-highlightedyank'   " highlight yanks
-Plug 'markonm/traces.vim'              " live substitution
-Plug 'simnalamburt/vim-mundo'          " graphical undotree
-Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
 Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
-Plug 'tommcdo/vim-exchange'            " change two objects
-Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
 Plug 'junegunn/vim-easy-align'         " align text with motion
+Plug 'tommcdo/vim-exchange'            " change two objects
+
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 Plug 'maralla/completor.vim'           " autocompletion
 Plug 'kyouryuukunn/completor-necovim'  " vimscript support for completor
+
 " colorshemes
 Plug 'lifepillar/vim-solarized8'
 Plug 'pgdouyon/vim-yin-yang'
@@ -80,29 +85,12 @@ else
     let g:completor_python_binary = '/usr/local/bin/python3'
 endif
 
-" Yggdroot/LeaderF
-" Requires ripgrep: https://github.com/BurntSushi/ripgrep
-" A lot faster if the C extension is installed with the install script
-let g:Lf_StlColorscheme='default'
-let g:Lf_CursorBlink=0
-let g:Lf_UseVersionControlTool=0
-let g:Lf_DefaultExternalTool='rg'
-let g:Lf_ShowHidden=1
-let g:Lf_CacheDirectory=PathToTempFolder
-let g:Lf_IndexTimeLimit=600
-let g:Lf_UseCache=1
-let g:Lf_HighlightIndividual=1
-let g:Lf_NumberOfHighlight=100
-let g:Lf_UseMemoryCache=1
-let g:Lf_WildIgnore = {
-        \ 'dir': ['.git'],
-        \ 'file': []
-        \}
-let g:Lf_ShortcutF='<Leader>k'
-nnoremap <Leader>l :LeaderfLineAll<CR>
-nnoremap <Leader>h :LeaderfHelp<CR>
-nnoremap <Leader>b :LeaderfBufferAll<CR>
-nnoremap <Leader>m :LeaderfMru<CR>
+" junegunn/fzf.vim
+nnoremap <Leader>k :Files<CR>
+nnoremap <Leader>l :Lines<CR>
+nnoremap <Leader>h :Helptags<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>m :History<CR>
 
 " maxbrunsfeld/vim-yankstack
 let g:yankstack_map_keys = 0
@@ -139,10 +127,10 @@ nmap öö <Plug>ReplaceWithRegisterLine
 xmap ö <Plug>ReplaceWithRegisterVisual
 
 " terryma/vim-smooth-scroll
-nnoremap <silent> <C-U> :<C-U>call smooth_scroll#up(&scroll, 0, 2)<CR>
-nnoremap <silent> <C-D> :<C-U>call smooth_scroll#down(&scroll, 0, 2)<CR>
-nnoremap <silent> <C-B> :<C-U>call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-nnoremap <silent> <C-F> :<C-U>call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+nnoremap <silent> <C-U> :<C-U>call smooth_scroll#up(&scroll, 0, 4)<CR>
+nnoremap <silent> <C-D> :<C-U>call smooth_scroll#down(&scroll, 0, 4)<CR>
+nnoremap <silent> <C-B> :<C-U>call smooth_scroll#up(&scroll*2, 0, 6)<CR>
+nnoremap <silent> <C-F> :<C-U>call smooth_scroll#down(&scroll*2, 0, 6)<CR>
 
 
 
@@ -217,28 +205,28 @@ set report=1
 set cmdheight=2
 
 " statusline
-set laststatus=2                                      " always show statusline
-set statusline=                                       " clear statusline
-set statusline+=%l                                    " current line number
-set statusline+=/%L                                   " total lines
-set statusline+=(%p%%)                                " percentage through the file
-set statusline+=%4c                                   " cursor column
-set statusline+=\|%-4{strwidth(getline('.'))}         " line length
+set laststatus=2                                           " always show statusline
+set statusline=                                            " clear statusline
+set statusline+=%l                                         " current line number
+set statusline+=/%L                                        " total lines
+set statusline+=(%p%%)                                     " percentage through the file
+set statusline+=%4c                                        " cursor column
+set statusline+=\|%-4{strwidth(getline('.'))}              " line length
 if has('win32')
     " different separator between current filename and folder for Windows: \ vs *nix: /
     " could maybe be cleaner, but this does the job
-    set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'\\'.expand('%:t'):expand('%')}  " dir\filename.ext
+    set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'\\'.expand('%:t'):expand('%')} " dir\filename.ext
 else
-    set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'/'.expand('%:t'):expand('%')}  " dir\filename.ext
+    set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'/'.expand('%:t'):expand('%')}  " dir/filename.ext
 endif
-set statusline+=%m                                    " modified flag
-set statusline+=%r                                    " read only flag
-set statusline+=%=                                    " left/right separator
-set statusline+=\ \|\ %{getcwd()}                     " current working directory
-set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}  " filetype
-set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''} " file encoding
-set statusline+=%{&ff}]                               " line endings
-set statusline+=%<                                    " start to truncate here
+set statusline+=%m                                         " modified flag
+set statusline+=%r                                         " read only flag
+set statusline+=%=                                         " left/right separator
+set statusline+=\ \|\ %{substitute(getcwd(),$HOME,'~','')} " current working directory
+set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}       " filetype
+set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''}      " file encoding
+set statusline+=%{&ff}]                                    " line endings
+set statusline+=%<                                         " start to truncate here
 
 " line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0
