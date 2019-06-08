@@ -110,6 +110,9 @@ rm kandi.blg
 rm kandi.log
 rm kandi.toc'
 
+alias clamshell='sudo pmset -a disablesleep 1'
+alias noclamshell='sudo pmset -a disablesleep 0'
+
 # fzf config
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --ignore-file ~/Library -g "!{.git}/*" 2> /dev/null'
