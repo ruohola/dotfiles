@@ -486,7 +486,7 @@ command! CD cd %:p:h|pwd
 " ============= FUNCTIONS =============
 
 " https://github.com/dhleong/dots/blob/master/.vim/init/terminal.vim
-function! s:RunCommandInSplitTerm(command) abort
+function! RunCommandInSplitTerm(command) abort
     write
     let winSize = float2nr(0.3 * winheight('$'))
     let mainBuf = bufnr('%')
@@ -571,17 +571,6 @@ endfunction
 
 
 " ============= AUTOCMD =============
-
-" config for python files
-" TODO: pistä run command vaihtamaan pois terminaalista, esim oik puol splittiin
-" Last <BAR>:<CR> in run python command mapping maybe removes 'ml_get: invalid lnum' error
-augroup Python
-    autocmd!
-    autocmd FileType python nnoremap <buffer> <silent> <Leader>e
-                \ :write<BAR>:tabn 1<BAR>:<C-U>call <SID>RunCommandInSplitTerm('python ' . shellescape(expand('%:p')))<CR><BAR>:<CR>
-                \|nnoremap <buffer> <Leader>' o""""""<Esc>hhi
-augroup END
-
 
 " toggle relative numbers between modes
 augroup LineNumbers
