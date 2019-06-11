@@ -8,6 +8,7 @@ set fileformats=unix,dos
 set encoding=utf-8
 scriptencoding utf-8
 
+
 let TempFolder = '/.temp'
 let PluginsFolder = '/plugins'
 if has('win32')
@@ -404,8 +405,8 @@ nnoremap K a<CR><Esc>k$
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 
 " change eol comment to line comment and vice versa
-" TODO: make this use eol comment function, so it can handle different commentchars
-nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
+" this // is the default version for unspecified filetypes
+nnoremap ä :set nohlsearch<CR>$?\v//<CR>gEl"_d/\v\//<CR>"qDO<C-R>q<Esc>^:set hlsearch<BAR>noh<CR>
 nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 
 " navigate quickfix list and vimgrep
