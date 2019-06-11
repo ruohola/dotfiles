@@ -118,7 +118,7 @@ nnoremap V <C-V>$
 nnoremap S ciw
 
 " make K the logical opposite of J
-nnoremap K mqa<CR><Esc>`q
+nnoremap K a<CR><Esc>k$
 
 " change enter behaviour
 nnoremap <CR> mqo<Esc>`q

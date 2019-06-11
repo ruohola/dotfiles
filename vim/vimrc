@@ -396,7 +396,7 @@ nnoremap V <C-V>$
 nnoremap S ciw
 
 " make K the logical opposite of J
-nnoremap K mqa<CR><Esc>`q
+nnoremap K a<CR><Esc>k$
 
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
