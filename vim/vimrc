@@ -9,6 +9,7 @@ set encoding=utf-8
 scriptencoding utf-8
 
 let TempFolder = '/.temp'
+let PluginsFolder = '/plugins'
 if has('win32')
     let VimFolder = '/vimfiles'
     exe 'set viminfo+=n~' . VimFolder . TempFolder . '/_viminfo'
@@ -17,6 +18,8 @@ else
     exe 'set viminfo+=n~' . VimFolder . TempFolder . '/.viminfo'
 endif
 let PathToTempFolder = $HOME . VimFolder . TempFolder
+let PathToPluginsFolder = $HOME . VimFolder . PluginsFolder
+
 
 " make sure that the temp file locations exists
 for folder in ['/undo', '/backup', '/swap']
@@ -34,11 +37,10 @@ let &directory = PathToTempFolder . '/swap'
 
 " ============= PLUGINS =============
 
+call plug#begin(PathToPluginsFolder)
 if has('win32')
-    call plug#begin('~/vimfiles/plugins')
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 else
-    call plug#begin('~/.vim/plugins')
     Plug '/usr/local/opt/fzf'
     Plug 'junegunn/fzf.vim'
 endif
@@ -482,6 +484,7 @@ nnoremap <Leader>r :call ChangeReg()<cr>
 command! PI silent! w | PlugInstall
 command! PC silent! w | PlugClean!
 command! PU silent! w | PlugUpgrade | PlugUpdate
+command! PS silent! exec ':w | PlugSnapshot! ' . PathToPluginsFolder . '/plugins.lock'
 
 " source vimrc
 command! SO so $MYVIMRC
