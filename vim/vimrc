@@ -394,8 +394,9 @@ nnoremap V <C-V>$
 
 " makes these more useful
 nnoremap S ciw
-nnoremap K ct;
-nnoremap dK dt;
+
+" make K the logical opposite of J
+nnoremap K mqa<CR><Esc>`q
 
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
@@ -422,7 +423,7 @@ augroup EnterMappings
     autocmd BufEnter * if &l:buftype ==# ''
             \| nnoremap <buffer> <CR> :<C-U>call <SID>BlankDown(v:count1)<CR>
             \| nnoremap <buffer> <S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
-            \| nnoremap <buffer> <Leader><CR> mqa<CR><Esc>`q
+            \| nnoremap <buffer> <Leader><CR> o<Esc>
             \| endif
     autocmd BufWinEnter * if &l:buftype ==# 'quickfix'
             \| unmap <buffer> <CR>
@@ -463,29 +464,16 @@ nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
 " make mappings work by visual lines
 noremap <silent> <Leader>w :<C-U>call WrapMappingsOn()<CR>
 noremap <silent> <Leader>q :<C-U>call WrapMappingsOff()<CR>
-function! WrapMappingsOn()
-    noremap <buffer> <silent> j gj
-    noremap <buffer> <silent> k gk
-    noremap <buffer> <silent> $ g$
-    noremap <buffer> <silent> ^ g^
-    noremap <buffer> <silent> 0 g0
-endfunction
-
-function! WrapMappingsOff()
-    noremap <buffer> <silent> j j
-    noremap <buffer> <silent> k k
-    noremap <buffer> <silent> $ $
-    noremap <buffer> <silent> ^ ^
-    noremap <buffer> <silent> 0 0
-endfunction
 
 " add or remove end-of-line comments
 nnoremap <silent> <Leader>c :<C-U>call <SID>AddEOLComment(v:count1)<CR>
 nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 
 " insert contents of command to buffer
-nnoremap <Leader>re i<C-R>=RED('')<Left><Left>
+nnoremap <Leader>p i<C-R>=RED('')<Left><Left>
 
+" change the contents of a register
+nnoremap <Leader>r :call ChangeReg()<cr>
 
 
 " ============= COMMANDS =============
@@ -584,6 +572,24 @@ function! s:NoEOLComment(count) abort
     norm! `q
 endfunction
 
+
+function! WrapMappingsOn()
+    noremap <buffer> <silent> j gj
+    noremap <buffer> <silent> k gk
+    noremap <buffer> <silent> $ g$
+    noremap <buffer> <silent> ^ g^
+    noremap <buffer> <silent> 0 g0
+endfunction
+
+function! WrapMappingsOff()
+    noremap <buffer> <silent> j j
+    noremap <buffer> <silent> k k
+    noremap <buffer> <silent> $ $
+    noremap <buffer> <silent> ^ ^
+    noremap <buffer> <silent> 0 0
+endfunction
+
+
 " redir command's output to the current line
 function! RED(command)
     redir => output
@@ -593,6 +599,12 @@ function! RED(command)
     execute "put z"
     return ''
 endfunction
+
+
+fun! ChangeReg() abort
+  let x = nr2char(getchar())
+  call feedkeys("q:ilet @" . x . " = \<c-r>\<c-r>=string(@" . x . ")\<cr>\<esc>0f'", 'n')
+endfun
 
 
 

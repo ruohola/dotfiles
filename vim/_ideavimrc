@@ -116,13 +116,14 @@ nnoremap V <C-V>$
 
 " makes these more useful
 nnoremap S ciw
-nnoremap K ct;
-nnoremap dK dt;
+
+" make K the logical opposite of J
+nnoremap K mqa<CR><Esc>`q
 
 " change enter behaviour
 nnoremap <CR> mqo<Esc>`q
 nnoremap <S-Enter> mqO<Esc>`q
-nnoremap <Leader><CR> mqa<CR><Esc>`q
+nnoremap <Leader><CR> o<Esc>
 
 " better way to indent
 nnoremap <BS> <<
