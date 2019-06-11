@@ -36,10 +36,11 @@ let &directory = PathToTempFolder . '/swap'
 
 if has('win32')
     call plug#begin('~/vimfiles/plugged')
-    " windows fzf path here
+    Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 else
     call plug#begin('~/.vim/plugged')
     Plug '/usr/local/opt/fzf'
+    Plug 'junegunn/fzf.vim'
 endif
 Plug 'google/vim-searchindex'          " show [x/y] when searching
 Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
@@ -49,7 +50,6 @@ Plug 'markonm/traces.vim'              " live substitution
 Plug 'easymotion/vim-easymotion'       " jump to any position
 Plug 'simnalamburt/vim-mundo'          " graphical undotree
 Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
-Plug 'junegunn/fzf.vim'                " fuzzy file finding
 
 Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
@@ -85,12 +85,38 @@ else
     let g:completor_python_binary = '/usr/local/bin/python3'
 endif
 
-" junegunn/fzf.vim
-nnoremap <Leader>k :Files<CR>
-nnoremap <Leader>l :Lines<CR>
-nnoremap <Leader>h :Helptags<CR>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>m :History<CR>
+if has('win32')
+    " Yggdroot/LeaderF
+    " Requires ripgrep: https://github.com/BurntSushi/ripgrep
+    " A lot faster if the C extension is installed with the install script
+    let g:Lf_StlColorscheme='default'
+    let g:Lf_CursorBlink=0
+    let g:Lf_UseVersionControlTool=0
+    let g:Lf_DefaultExternalTool='rg'
+    let g:Lf_ShowHidden=1
+    let g:Lf_CacheDirectory=PathToTempFolder
+    let g:Lf_IndexTimeLimit=600
+    let g:Lf_UseCache=1
+    let g:Lf_HighlightIndividual=1
+    let g:Lf_NumberOfHighlight=100
+    let g:Lf_UseMemoryCache=1
+    let g:Lf_WildIgnore = {
+            \ 'dir': ['.git'],
+            \ 'file': []
+            \}
+    let g:Lf_ShortcutF='<Leader>k'
+    nnoremap <Leader>l :LeaderfLineAll<CR>
+    nnoremap <Leader>h :LeaderfHelp<CR>
+    nnoremap <Leader>b :LeaderfBufferAll<CR>
+    nnoremap <Leader>m :LeaderfMru<CR>
+else
+    " junegunn/fzf.vim
+    nnoremap <Leader>k :Files<CR>
+    nnoremap <Leader>l :Lines<CR>
+    nnoremap <Leader>h :Helptags<CR>
+    nnoremap <Leader>b :Buffers<CR>
+    nnoremap <Leader>m :History<CR>
+endif
 
 " maxbrunsfeld/vim-yankstack
 let g:yankstack_map_keys = 0
@@ -165,9 +191,9 @@ endif
 if has('win32')
     " Windows settings
 
-    " use cygwin bash as shell
+    " use git bash as shell
     let $CHERE_INVOKING=1
-    set shell=C:/cygwin64/bin/bash.exe
+    set shell=C:/Program\ Files/Git/bin/bash.exe
     set shellcmdflag=--login\ -c
     set shellxquote=\"
     set noshellslash
