@@ -35,10 +35,10 @@ let &directory = PathToTempFolder . '/swap'
 " ============= PLUGINS =============
 
 if has('win32')
-    call plug#begin('~/vimfiles/plugged')
+    call plug#begin('~/vimfiles/plugins')
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 else
-    call plug#begin('~/.vim/plugged')
+    call plug#begin('~/.vim/plugins')
     Plug '/usr/local/opt/fzf'
     Plug 'junegunn/fzf.vim'
 endif
