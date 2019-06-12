@@ -100,6 +100,7 @@ alias gds='git diff --staged'
 alias gdh='git diff HEAD'
 
 alias bkandi='
+cd ~/Documents/yliopisto/kandi
 pdflatex kandi.tex
 bibtex kandi
 pdflatex kandi.tex
@@ -115,7 +116,17 @@ alias noclamshell='sudo pmset -a disablesleep 0'
 
 # fzf config
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    fzf_exclude='.git,Library,Qt,.DS_Store,.Trash,.temp'
+
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-    export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --ignore-file ~/Library -g "!{.git}/*" 2> /dev/null'
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+    # remap cd to dir from ALT-C to CTRL-F
+    bind '"\C-f": "\C-x\C-addi`__fzf_cd__`\C-x\C-e\C-x\C-r\C-m"'
+
+    # open file from fzf in vim
+    bind '"\C-v": "vim \C-t\C-m"'
+
+    # -g is the opposite of --exclude, that's why the ! on the first one
+    export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --no-ignore -g "!{$fzf_exclude}" 2> /dev/null'
+    export FZF_ALT_C_COMMAND='fd -t d --hidden --no-ignore --exclude "{$fzf_exclude}" .'
 fi
