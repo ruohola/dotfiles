@@ -1,27 +1,29 @@
-# SGR - SELECT GRAPHIC RENDITION
-# 0 => default rendition (implementation-defined), cancels the effect
-# of any preceding occurrence of SGR in the data stream regardless
-# of the setting of the GRAPHIC RENDITION COMBINATION MODE (GRCM)
-tput sgr0
-# solarized colors for coloring prompt
-BASE03=$(tput setaf 234)
-BASE02=$(tput setaf 235)
-BASE01=$(tput setaf 240)
-BASE00=$(tput setaf 241)
-BASE0=$(tput setaf 244)
-BASE1=$(tput setaf 245)
-BASE2=$(tput setaf 254)
-BASE3=$(tput setaf 230)
-YELLOW=$(tput setaf 136)
-ORANGE=$(tput setaf 166)
-RED=$(tput setaf 160)
-MAGENTA=$(tput setaf 125)
-VIOLET=$(tput setaf 61)
-BLUE=$(tput setaf 33)
-CYAN=$(tput setaf 37)
-GREEN=$(tput setaf 64)
-BOLD=$(tput bold)
-RESET=$(tput sgr0)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # SGR - SELECT GRAPHIC RENDITION
+    # 0 => default rendition (implementation-defined), cancels the effect
+    # of any preceding occurrence of SGR in the data stream regardless
+    # of the setting of the GRAPHIC RENDITION COMBINATION MODE (GRCM)
+    tput sgr0
+    # solarized colors for coloring prompt
+    BASE03=$(tput setaf 234)
+    BASE02=$(tput setaf 235)
+    BASE01=$(tput setaf 240)
+    BASE00=$(tput setaf 241)
+    BASE0=$(tput setaf 244)
+    BASE1=$(tput setaf 245)
+    BASE2=$(tput setaf 254)
+    BASE3=$(tput setaf 230)
+    YELLOW=$(tput setaf 136)
+    ORANGE=$(tput setaf 166)
+    RED=$(tput setaf 160)
+    MAGENTA=$(tput setaf 125)
+    VIOLET=$(tput setaf 61)
+    BLUE=$(tput setaf 33)
+    CYAN=$(tput setaf 37)
+    GREEN=$(tput setaf 64)
+    BOLD=$(tput bold)
+    RESET=$(tput sgr0)
+fi
 
 # function to show git branch on the prompt, last -e flag add one space to the end
 parse_git_branch () {
