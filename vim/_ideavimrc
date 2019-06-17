@@ -2,5 +2,52 @@
 
 source ~\dotfiles\vim\.ideavimrc
 
-" OS Specific
+" ============ OS Specific ============
+
 nnoremap <F12> :source ~\_ideavimrc<CR>
+
+" emulates vim-scripts/ReplaceWithRegister
+nnoremap öiw "_diwP
+nnoremap öaw "_dawP
+nnoremap öiW "_dIwP
+nnoremap öaW "_dAwP
+nnoremap öis "_disP
+nnoremap öas "_dasP
+nnoremap öip "_dipP
+nnoremap öap "_dapP
+nnoremap öib "_dibP
+nnoremap öab "_dabP
+nnoremap öiB "_diBP
+nnoremap öaB "_daBP
+nnoremap öi( "_di(P
+nnoremap öi) "_di)P
+nnoremap öa( "_da(P
+nnoremap öa) "_da)P
+nnoremap öi[ "_di[P
+nnoremap öi] "_di]P
+nnoremap öa[ "_da[P
+nnoremap öa] "_da]P
+nnoremap öi{ "_di{P
+nnoremap öi} "_di}P
+nnoremap öa{ "_da{P
+nnoremap öa} "_da}P
+nnoremap öi< "_di<P
+nnoremap öi> "_di>P
+nnoremap öa< "_da<P
+nnoremap öa> "_da>P
+nnoremap öi" "_di"P
+nnoremap öa" "_da"P
+nnoremap öi' "_di'P
+nnoremap öa' "_da'P
+nnoremap öi` "_di`P
+nnoremap öa` "_da`P
+nnoremap öit "_ditP
+nnoremap öat "_datP
+nnoremap Ö "_Dp
+nnoremap öG "_dGp
+nnoremap öö "_ddP
+vnoremap ö "_dP
+
+" change eol comment to line comment and vice versa
+nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
+nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
