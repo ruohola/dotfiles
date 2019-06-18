@@ -426,7 +426,7 @@ augroup EnterMappings
     autocmd BufEnter * if &l:buftype ==# ''
             \| nnoremap <buffer> <CR> :<C-U>call <SID>BlankDown(v:count1)<CR>
             \| nnoremap <buffer> <S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
-            \| nnoremap <buffer> <Leader><CR> o<Esc>0"_D
+            \| nnoremap <buffer> <Leader><CR> o<Esc>0"_D<Esc>
             \| endif
     autocmd BufWinEnter * if &l:buftype ==# 'quickfix'
             \| unmap <buffer> <CR>
@@ -473,7 +473,7 @@ nnoremap <silent> <Leader>c :<C-U>call <SID>AddEOLComment(v:count1)<CR>
 nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 
 " insert contents of command to buffer
-nnoremap <Leader>p i<C-R>=RED('')<Left><Left>
+nnoremap <Leader>d :RED('')<Left><Left>
 
 " change the contents of a register
 nnoremap <Leader>r :call ChangeReg()<cr>
