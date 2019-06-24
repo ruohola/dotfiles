@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
 	name = ruohola
-	email = eero.ruohola@icloud.com
+	email = eero@ruohola.dev
 [core]
 	excludesfile = /Users/eero/.gitignore_global
 [difftool "sourcetree"]
