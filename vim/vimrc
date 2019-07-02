@@ -192,17 +192,9 @@ if !exists('g:notfirstopen')
 endif
 
 if has('win32')
-    " Windows settings
-
     " use git bash as shell
-    let $CHERE_INVOKING=1
-    set shell=C:/Program\ Files/Git/bin/bash.exe
-    set shellcmdflag=--login\ -c
-    set shellxquote=\"
-    set noshellslash
+    set shell=C:/Program\ Files/Git/bin/bash.exe\ --login
 else
-    " *nix settings
-
     " use the bash installed with homebrew as shell
     set shell=/usr/local/bin/bash\ --login
 endif
