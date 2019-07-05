@@ -393,6 +393,9 @@ nnoremap S ciw
 " make K the logical opposite of J
 nnoremap K a<CR><Esc>k$
 
+" makes using marks a lot better
+nnoremap ' `
+
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 
