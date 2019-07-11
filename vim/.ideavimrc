@@ -15,7 +15,7 @@ set multiple-cursors
 nnoremap <Leader>f :action KJumpAction<CR>
 
 " emulates tommcdo/vim-exchange
-" TODO: contine with more text objects
+" TODO: add with more text objects
 nnoremap cxiw "jyiwma
 nnoremap criw "kdiw"jPmb`a"_diw"kP
 
@@ -37,6 +37,19 @@ nnoremap ci> f>ci>
 nnoremap ca> f>ca>
 nnoremap ci< f<ci<
 nnoremap ca< f<ca<
+nnoremap ci/ T/ct/
+nnoremap ca/ F/cf/
+nnoremap ci, T,ct,
+nnoremap ca, F,cf,
+nnoremap ci. T.ct.
+nnoremap ca. F.cf.
+" these don't clash with surround
+nnoremap di/ T/dt/
+nnoremap da/ F/df/
+nnoremap di, T,dt,
+nnoremap da, F,df,
+nnoremap di. T.dt.
+nnoremap da. F.df.
 
 " emulates vim-scripts/ReplaceWithRegister
 nnoremap öiw "_diwP

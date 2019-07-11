@@ -132,3 +132,5 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --no-ignore -g "!{$fzf_exclude}" 2> /dev/null'
     export FZF_ALT_C_COMMAND='fd -t d --hidden --no-ignore --exclude "{$fzf_exclude}" .'
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
