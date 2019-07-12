@@ -107,6 +107,7 @@ if has('win32')
             \ 'dir': ['.git'],
             \ 'file': []
             \}
+    let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
     let g:Lf_ShortcutF='<Leader>k'
     nnoremap <Leader>l :LeaderfLineAll<CR>
     nnoremap <Leader>h :LeaderfHelp<CR>
@@ -457,7 +458,8 @@ else
 endif
 
 " open vimrc
-nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
+" nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
+nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
 
 " make mappings work by visual lines
 noremap <silent> <Leader>w :<C-U>call WrapMappingsOn()<CR>
