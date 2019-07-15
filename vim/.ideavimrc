@@ -43,6 +43,20 @@ nnoremap ci, T,ct,
 nnoremap ca, F,cf,
 nnoremap ci. T.ct.
 nnoremap ca. F.cf.
+nnoremap ci_ T_ct_
+nnoremap ca_ F_cf_
+nnoremap ci- T-ct-
+nnoremap ca- F-cf-
+nnoremap ci% T%ct%
+nnoremap ca% F%cf%
+nnoremap ci= T=ct=
+nnoremap ca= F=cf=
+nnoremap ci? T?ct?
+nnoremap ca? F?cf?
+nnoremap ci! T!ct!
+nnoremap ca! F!cf!
+nnoremap ci& T&ct&
+nnoremap ca& F&cf&
 " these don't clash with surround
 nnoremap di/ T/dt/
 nnoremap da/ F/df/
@@ -50,6 +64,20 @@ nnoremap di, T,dt,
 nnoremap da, F,df,
 nnoremap di. T.dt.
 nnoremap da. F.df.
+nnoremap di_ T_dt_
+nnoremap da_ F_df_
+nnoremap di- T-dt-
+nnoremap da- F-df-
+nnoremap di% T%dt%
+nnoremap da% F%df%
+nnoremap di= T=dt=
+nnoremap da= F=df=
+nnoremap di? T?dt?
+nnoremap da? F?df?
+nnoremap di! T!dt!
+nnoremap da! F!df!
+nnoremap di& T&dt&
+nnoremap da& F&df&
 
 " emulates vim-scripts/ReplaceWithRegister
 nnoremap öiw "_diwP
