@@ -1,4 +1,4 @@
-" This files encoding has to be latin1, for дц mappings to work on windows
+" This file's encoding has to be latin1, for дц mappings to work on windows
 
 source ~\dotfiles\vim\.ideavimrc
 
