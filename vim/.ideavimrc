@@ -11,73 +11,85 @@ nnoremap <F12> :source ~/.ideavimrc<CR>
 set surround
 set multiple-cursors
 
-" emulates easymotion/vim-easymotion
-nnoremap <Leader>f :action KJumpAction<CR>
-
 " emulates tommcdo/vim-exchange
-" TODO: add with more text objects
+" TODO: add more text objects
 nnoremap cxiw "jyiwma
 nnoremap criw "kdiw"jPmb`a"_diw"kP
 
 " emulates wellle/targets.vim
-" no di/da mappings, they clash with surround
-nnoremap ci) %ci)
-nnoremap ca) %ca)
-nnoremap ci( %ci(
-nnoremap ca( %ca(
-nnoremap ci] %ci]
-nnoremap ca] %ca]
-nnoremap ci[ %ci[
-nnoremap ca[ %ca[
-nnoremap ci} %ci}
-nnoremap ca} %ca}
-nnoremap ci{ %ci{
-nnoremap ca{ %ca{
+" (no di/da mappings here, they clash with surround)
+" better text objects for braces
+nnoremap ci) f)ci)
+nnoremap ca) f)ca)
+nnoremap ci( f(ci(
+nnoremap ca( f(ca(
+nnoremap ci] f]ci]
+nnoremap ca] f]ca]
+nnoremap ci[ f[ci[
+nnoremap ca[ f[ca[
+nnoremap ci} f}ci}
+nnoremap ca} f}ca}
+nnoremap ci{ f{ci{
+nnoremap ca{ f{ca{
 nnoremap ci> f>ci>
 nnoremap ca> f>ca>
 nnoremap ci< f<ci<
 nnoremap ca< f<ca<
-nnoremap ci/ T/ct/
-nnoremap ca/ F/cf/
-nnoremap ci, T,ct,
-nnoremap ca, F,cf,
-nnoremap ci. T.ct.
-nnoremap ca. F.cf.
-nnoremap ci_ T_ct_
-nnoremap ca_ F_cf_
-nnoremap ci- T-ct-
-nnoremap ca- F-cf-
-nnoremap ci% T%ct%
-nnoremap ca% F%cf%
-nnoremap ci= T=ct=
-nnoremap ca= F=cf=
-nnoremap ci? T?ct?
-nnoremap ca? F?cf?
-nnoremap ci! T!ct!
-nnoremap ca! F!cf!
-nnoremap ci& T&ct&
-nnoremap ca& F&cf&
-" these don't clash with surround
-nnoremap di/ T/dt/
-nnoremap da/ F/df/
-nnoremap di, T,dt,
-nnoremap da, F,df,
-nnoremap di. T.dt.
-nnoremap da. F.df.
-nnoremap di_ T_dt_
-nnoremap da_ F_df_
-nnoremap di- T-dt-
-nnoremap da- F-df-
-nnoremap di% T%dt%
-nnoremap da% F%df%
-nnoremap di= T=dt=
-nnoremap da= F=df=
-nnoremap di? T?dt?
-nnoremap da? F?df?
-nnoremap di! T!dt!
-nnoremap da! F!df!
-nnoremap di& T&dt&
-nnoremap da& F&df&
+" text objects for delimiters
+nnoremap ci/ f/cT/
+nnoremap ca/ f/vF/c
+nnoremap ci, f,cT,
+nnoremap ca, f,vF,c
+nnoremap ci. f.cT.
+nnoremap ca. f.vF.c
+nnoremap ci_ f_cT_
+nnoremap ca_ f_vF_c
+nnoremap ci- f-cT-
+nnoremap ca- f-vF-c
+nnoremap ci% f%cT%
+nnoremap ca% f%vF%c
+nnoremap ci= f=cT=
+nnoremap ca= f=vF=c
+nnoremap ci? f?cT?
+nnoremap ca? f?vF?c
+nnoremap ci! f!cT!
+nnoremap ca! f!vF!c
+nnoremap ci& f&cT&
+nnoremap ca& f&vF&c
+" (these don't clash with surround)
+nnoremap di/ f/dT/
+nnoremap da/ f/vF/d
+nnoremap di, f,dT,
+nnoremap da, f,vF,d
+nnoremap di. f.dT.
+nnoremap da. f.vF.d
+nnoremap di_ f_dT_
+nnoremap da_ f_vF_d
+nnoremap di- f-dT-
+nnoremap da- f-vF-d
+nnoremap di% f%dT%
+nnoremap da% f%vF%d
+nnoremap di= f=dT=
+nnoremap da= f=vF=d
+nnoremap di? f?dT?
+nnoremap da? f?vF?d
+nnoremap di! f!dT!
+nnoremap da! f!vF!d
+nnoremap di& f&dT&
+nnoremap da& f&vF&d
+" text objects for arguments
+nnoremap cif lT(ct,
+nnoremap cim T,lct,
+nnoremap cil hf)T,lct)
+nnoremap caf lT(vf,lc
+nnoremap cam T,cf,
+nnoremap cal hf)cF,
+nnoremap dif lT(dt,
+nnoremap dim T,ldt,
+nnoremap dil hf)T,ldt)
+nnoremap daf lT(vf,ld
+nnoremap dam T,df,
+nnoremap dal hf)dF,
 
 " emulates vim-scripts/ReplaceWithRegister
 nnoremap öiw "_diwP
@@ -200,10 +212,10 @@ nnoremap gr :action GotoRelated<CR>
 
 nnoremap <Leader>a :action GotoAction<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
-nnoremap <Leader>c :action FileStructurePopup<CR>
+nnoremap <Leader>c :action GotoClass<CR>
 nnoremap <Leader>d :action QuickJavaDoc<CR>
 nnoremap <Leader>e :action Run<CR>
-" kjump          f
+nnoremap <Leader>f :action KJumpAction<CR>
 nnoremap <Leader>g :action Generate<CR>
 nnoremap <Leader>h :action HighlightUsagesInFile<CR>
 nnoremap <Leader>i :action QuickImplementations<CR>
@@ -215,16 +227,17 @@ nnoremap <Leader>n :action ViewBreakpoints<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
 vnoremap <Leader>o :action VimReformatVisual<CR>
 nnoremap <Leader>p :action PasteMultiple<CR>
-noremap <Leader>q :action Unwrap<CR>
+noremap  <Leader>q :action Unwrap<CR>
 nnoremap <Leader>r :action RenameElement<CR>
 nnoremap <Leader>s :action GotoSymbol<CR>
-noremap <Leader>t :action ExpressionTypeInfo<CR>
+noremap  <Leader>t :action ExpressionTypeInfo<CR>
 nnoremap <Leader>u :action ShowUsages<CR>
 nnoremap <Leader>v :action Debug<CR>
-noremap <Leader>w :action SurroundWith<CR>
-noremap <Leader>x :action Refactorings.QuickListPopupAction<CR>
+noremap  <Leader>w :action SurroundWith<CR>
+noremap  <Leader>x :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Leader>y :action ShowErrorDescription<CR>
 nnoremap <Leader>z :action RenameFile<CR>
+nnoremap <Leader>ö :action FileStructurePopup<CR>
 
 nnoremap <Leader>< :action NewFile<CR>
 nnoremap <Leader>[ :action LocalHistory.ShowHistory<CR>

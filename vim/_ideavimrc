@@ -51,3 +51,5 @@ vnoremap ö "_dP
 " change eol comment to line comment and vice versa
 nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
 nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
+
+nnoremap <Leader>ö :action FileStructurePopup<CR>
