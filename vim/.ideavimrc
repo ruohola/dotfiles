@@ -19,22 +19,22 @@ nnoremap criw "kdiw"jPmb`a"_diw"kP
 " emulates wellle/targets.vim
 " (no di/da mappings here, they clash with surround)
 " better text objects for braces
-nnoremap ci) f)ci)
-nnoremap ca) f)ca)
-nnoremap ci( f(ci(
-nnoremap ca( f(ca(
-nnoremap ci] f]ci]
-nnoremap ca] f]ca]
-nnoremap ci[ f[ci[
-nnoremap ca[ f[ca[
-nnoremap ci} f}ci}
-nnoremap ca} f}ca}
-nnoremap ci{ f{ci{
-nnoremap ca{ f{ca{
-nnoremap ci> f>ci>
-nnoremap ca> f>ca>
-nnoremap ci< f<ci<
-nnoremap ca< f<ca<
+nnoremap ci) hf)ci)
+nnoremap ca) hf)ca)
+nnoremap ci( hf)ci)
+nnoremap ca( hf)ca)
+nnoremap ci] hf]ci]
+nnoremap ca] hf]ca]
+nnoremap ci[ hf]ci]
+nnoremap ca[ hf]ca]
+nnoremap ci} hf}ci}
+nnoremap ca} hf}ca}
+nnoremap ci{ hf}ci}
+nnoremap ca{ hf}ca}
+nnoremap ci> hf>ci>
+nnoremap ca> hf>ca>
+nnoremap ci< hf>ci>
+nnoremap ca< hf>ca>
 " text objects for delimiters
 nnoremap ci/ f/cT/
 nnoremap ca/ f/vF/c
