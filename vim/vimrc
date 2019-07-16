@@ -108,7 +108,7 @@ if has('win32')
             \ 'file': []
             \}
     let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
-    let g:Lf_ShortcutF='<Leader>k'
+    let g:Lf_ShortcutF='<Leader>f'
     nnoremap <Leader>l :LeaderfLineAll<CR>
     nnoremap <Leader>h :LeaderfHelp<CR>
     nnoremap <Leader>b :LeaderfBufferAll<CR>
@@ -132,8 +132,7 @@ call yankstack#setup()
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
-map <Leader>f <Plug>(easymotion-bd-f)
-map <Leader>t <Plug>(easymotion-bd-t)
+map <Leader>k <Plug>(easymotion-bd-f)
 
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300

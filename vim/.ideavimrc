@@ -215,12 +215,12 @@ nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
 nnoremap <Leader>c :action GotoClass<CR>
 nnoremap <Leader>d :action QuickJavaDoc<CR>
 nnoremap <Leader>e :action Run<CR>
-nnoremap <Leader>f :action KJumpAction<CR>
+nnoremap <Leader>f :action GotoFile<CR>
 nnoremap <Leader>g :action Generate<CR>
 nnoremap <Leader>h :action HighlightUsagesInFile<CR>
 nnoremap <Leader>i :action QuickImplementations<CR>
 nnoremap <Leader>j :action ShowNavBar<CR>
-nnoremap <Leader>k :action GotoFile<CR>
+nnoremap <Leader>k :action KJumpAction<CR>
 nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>m :action RecentFiles<CR>
 nnoremap <Leader>n :action ViewBreakpoints<CR>
