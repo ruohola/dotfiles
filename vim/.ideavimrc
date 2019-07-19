@@ -405,6 +405,7 @@ noremap  <Leader>x :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Leader>y :action ShowErrorDescription<CR>
 nnoremap <Leader>z :action RenameFile<CR>
 nnoremap <Leader>ö :action FileStructurePopup<CR>
+nnoremap <Leader>ä :action CallHierarchy<CR>
 
 nnoremap <Leader>< :action NewFile<CR>
 nnoremap <Leader>[ :action LocalHistory.ShowHistory<CR>
@@ -430,3 +431,4 @@ nnoremap <C-3> :action ActivateRunToolWindow<CR>
 nnoremap <C-4> :action ActivateDebugToolWindow<CR>
 nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
 nnoremap <C-6> :action ActivatePythonConsoleToolWindow<CR>
+nnoremap <C-7> :action ActivateHierarchyToolWindow<CR>

@@ -220,3 +220,4 @@ nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
 nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 
 nnoremap <Leader>ö :action FileStructurePopup<CR>
+nnoremap <Leader>ä :action CallHierarchy<CR>
