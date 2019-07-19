@@ -425,3 +425,4 @@ nnoremap <C-4> :action ActivateDebugToolWindow<CR>
 nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
 nnoremap <C-6> :action ActivatePythonConsoleToolWindow<CR>
 nnoremap <C-7> :action ActivateHierarchyToolWindow<CR>
+nnoremap <C-0> :action ActivateVersionControlToolWindow<CR>
