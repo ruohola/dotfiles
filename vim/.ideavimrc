@@ -87,8 +87,8 @@ nnoremap dal hf)dF,
 " emulates vim-scripts/ReplaceWithRegister
 nnoremap öiw "_diwP
 nnoremap öaw "_dawP
-nnoremap öiW "_dIwP
-nnoremap öaW "_dAwP
+nnoremap öiW "_diWP
+nnoremap öaW "_daWP
 nnoremap öis "_disP
 nnoremap öas "_dasP
 nnoremap öip "_dipP
