@@ -357,6 +357,9 @@ nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 " navigate to previous function name (kinda hacky coz of ideavim bugs)
 nnoremap <C-T> ?\(\s*def \)\@<=.\+:noh<CR><CR>
 
+" select previously yanked text
+nnoremap gb `[v`]
+
 " makes using marks a lot better, ` mapping clashes with surround
 nnoremap ' :action ShowBookmarks<CR>
 nnoremap m :action ToggleBookmarkWithMnemonic<CR>

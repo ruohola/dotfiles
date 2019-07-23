@@ -397,6 +397,9 @@ nnoremap K a<CR><Esc>k$
 " makes using marks a lot better
 nnoremap ' `
 
+" select previously yanked text
+nnoremap gb `[v`]
+
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 
