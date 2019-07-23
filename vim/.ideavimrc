@@ -383,17 +383,17 @@ nnoremap <Leader>j :action ShowNavBar<CR>
 nnoremap <Leader>k :action KJumpAction<CR>
 nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>m :action RecentFiles<CR>
-nnoremap <Leader>n :action ViewBreakpoints<CR>
+nnoremap <Leader>n :action LocalHistory.ShowHistory<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
 vnoremap <Leader>o :action VimReformatVisual<CR>
 nnoremap <Leader>p :action PasteMultiple<CR>
-noremap  <Leader>q :action Unwrap<CR>
+nnoremap <Leader>q :action ChooseRunConfiguration<CR>
 nnoremap <Leader>r :action RenameElement<CR>
 nnoremap <Leader>s :action GotoSymbol<CR>
 noremap  <Leader>t :action ExpressionTypeInfo<CR>
 nnoremap <Leader>u :action ShowUsages<CR>
-nnoremap <Leader>v :action Debug<CR>
-noremap  <Leader>w :action SurroundWith<CR>
+nnoremap <Leader>v :action ViewBreakpoints<CR>
+nnoremap <Leader>w :action Debug<CR>
 noremap  <Leader>x :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Leader>y :action ShowErrorDescription<CR>
 nnoremap <Leader>z :action RenameFile<CR>
@@ -401,8 +401,8 @@ nnoremap <Leader>ö :action FileStructurePopup<CR>
 nnoremap <Leader>ä :action CallHierarchy<CR>
 
 nnoremap <Leader>< :action NewFile<CR>
-nnoremap <Leader>[ :action LocalHistory.ShowHistory<CR>
-nnoremap <Leader>] :action ChooseRunConfiguration<CR>
+noremap  <Leader>[ :action SurroundWith<CR>
+noremap  <Leader>] :action Unwrap<CR>
 
 nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 
