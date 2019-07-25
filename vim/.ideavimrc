@@ -10,7 +10,6 @@ nnoremap <F12> :source ~/.ideavimrc<CR>
 
 set surround
 set multiple-cursors
-set commentary
 
 " emulates tommcdo/vim-exchange
 " TODO: add more text objects
@@ -303,8 +302,6 @@ set number relativenumber
 " search settings
 set incsearch hlsearch ignorecase smartcase gdefault
 
-set ideamarks=1        " better mark system
-set ideajoin=1         " use the IDE's join/J behavior
 set timeoutlen=2000    " timeout for keymappings
 set clipboard=unnamed  " use system clipboard
 set scrolloff=1        " pad scrolling with one line
@@ -336,7 +333,7 @@ nnoremap S ciw
 " make K the logical opposite of J
 nnoremap K a<CR><Esc>k$
 
-" change enter behavior
+" change enter behaviour
 nnoremap <CR> mqo<Esc>`q
 nnoremap <S-Enter> mqO<Esc>`q
 nnoremap <Leader><CR> o<Esc>
@@ -357,63 +354,22 @@ nnoremap <Esc> <Esc>:noh<CR>
 nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
 nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 
-" navigate to previous function name
-nnoremap <C-T> ?\v(\s*def \|\s*class )@<=
+" navigate to previous function name (kinda hacky coz of ideavim bugs)
+nnoremap <C-T> ?\(\s*def \)\@<=.\+:noh<CR><CR>
 
 " select previously yanked text
 nnoremap gb `[v`]
 
-" makes using marks a lot better
-nnoremap ma mA
-nnoremap mb mB
-nnoremap mc mC
-nnoremap md mD
-nnoremap me mE
-nnoremap mf mF
-nnoremap mg mG
-nnoremap mh mH
-nnoremap mi mI
-nnoremap mj mJ
-nnoremap mk mK
-nnoremap ml mL
-nnoremap mn mN
-nnoremap mo mO
-nnoremap mp mP
-nnoremap mq mQ
-nnoremap mr mR
-nnoremap ms mS
-nnoremap mt mT
-nnoremap mu mU
-nnoremap mv mV
-nnoremap mw mW
-nnoremap mx mX
-nnoremap my mY
-nnoremap 'a 'A
-nnoremap 'b 'B
-nnoremap 'c 'C
-nnoremap 'd 'D
-nnoremap 'e 'E
-nnoremap 'f 'F
-nnoremap 'g 'G
-nnoremap 'h 'H
-nnoremap 'i 'I
-nnoremap 'j 'J
-nnoremap 'k 'K
-nnoremap 'l 'L
-nnoremap 'n 'N
-nnoremap 'o 'O
-nnoremap 'p 'P
-nnoremap 'q 'Q
-nnoremap 'r 'R
-nnoremap 's 'S
-nnoremap 't 'T
-nnoremap 'u 'U
-nnoremap 'v 'V
-nnoremap 'w 'W
-nnoremap 'x 'X
-nnoremap 'y 'Y
-nnoremap mm :action ToggleBookmarkWithMnemonic<CR>
-nnoremap '' :action ShowBookmarks<CR>
+" makes using marks a lot better, ` mapping clashes with surround
+nnoremap ' :action ShowBookmarks<CR>
+nnoremap m :action ToggleBookmarkWithMnemonic<CR>
+
+" comment out lines and paragraphs etc
+nnoremap gcc :action CommentByLineComment<CR>
+nnoremap gcip vip:action CommentByLineComment<CR>
+nnoremap gci} vi}:action CommentByLineComment<CR>
+nnoremap gci{ vi{:action CommentByLineComment<CR>
+vnoremap gc :action CommentByLineComment<CR>
 
 nnoremap gr :action GotoRelated<CR>
 
