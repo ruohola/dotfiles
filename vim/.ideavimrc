@@ -336,7 +336,6 @@ nnoremap K a<CR><Esc>k$
 " change enter behaviour
 nnoremap <CR> mqo<Esc>`q
 nnoremap <S-Enter> mqO<Esc>`q
-nnoremap <Leader><CR> o<Esc>
 
 " better way to indent
 nnoremap <BS> <<
@@ -354,15 +353,18 @@ nnoremap <Esc> <Esc>:noh<CR>
 nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
 nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 
-" navigate to previous function name (kinda hacky coz of ideavim bugs)
-nnoremap <C-T> ?\(\s*def \)\@<=.\+:noh<CR><CR>
+" makes using marks a lot better, ` mapping clashes with surround
+nnoremap ' :action ShowBookmarks<CR>
+nnoremap m :action ToggleBookmarkWithMnemonic<CR>
 
 " select previously yanked text
 nnoremap gb `[v`]
 
-" makes using marks a lot better, ` mapping clashes with surround
-nnoremap ' :action ShowBookmarks<CR>
-nnoremap m :action ToggleBookmarkWithMnemonic<CR>
+nnoremap gk :action EditorCodeBlockStart<CR>
+nnoremap gj :action EditorCodeBlockEnd<CR>
+nnoremap gr :action GotoRelated<CR>
+nnoremap gt :action GotoTest<CR>
+nnoremap gp o<Esc>p^
 
 " comment out lines and paragraphs etc
 nnoremap gcc :action CommentByLineComment<CR>
@@ -370,8 +372,6 @@ nnoremap gcip vip:action CommentByLineComment<CR>
 nnoremap gci} vi}:action CommentByLineComment<CR>
 nnoremap gci{ vi{:action CommentByLineComment<CR>
 vnoremap gc :action CommentByLineComment<CR>
-
-nnoremap gr :action GotoRelated<CR>
 
 nnoremap <Leader>a :action GotoAction<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>

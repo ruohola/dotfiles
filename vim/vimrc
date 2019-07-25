@@ -116,7 +116,7 @@ if has('win32')
     nnoremap <Leader>m :LeaderfMru<CR>
 else
     " junegunn/fzf.vim
-    nnoremap <Leader>k :Files<CR>
+    nnoremap <Leader>f :Files<CR>
     nnoremap <Leader>l :Lines<CR>
     nnoremap <Leader>h :Helptags<CR>
     nnoremap <Leader>b :Buffers<CR>
@@ -144,7 +144,7 @@ let g:mundo_tree_statusline='History'
 let g:mundo_mirror_graph=0
 let g:mundo_return_on_revert=0
 let g:mundo_verbose_graph=0
-nnoremap <silent> <Leader>[ :MundoToggle<CR>
+nnoremap <silent> <Leader>n :MundoToggle<CR>
 
 " junegunn/vim-easy-align
 nmap gl <Plug>(EasyAlign)
@@ -428,7 +428,6 @@ augroup EnterMappings
     autocmd BufEnter * if &l:buftype ==# ''
             \| nnoremap <buffer> <CR> :<C-U>call <SID>BlankDown(v:count1)<CR>
             \| nnoremap <buffer> <S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
-            \| nnoremap <buffer> <Leader><CR> o<Esc>0"_D<Esc>
             \| endif
     autocmd BufWinEnter * if &l:buftype ==# 'quickfix'
             \| unmap <buffer> <CR>
@@ -449,6 +448,9 @@ xnoremap > >gv
 xnoremap < <gv
 xnoremap <C-X> <C-X>gv
 xnoremap <C-A> <C-A>gv
+
+" paste to the next line
+nnoremap gp o<Esc>p^
 
 " Q plays back q macro
 nnoremap Q @q
