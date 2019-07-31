@@ -392,6 +392,9 @@ nnoremap V <C-V>$
 " makes these more useful
 nnoremap S ciw
 
+" cleaner to use when cursor doesn't move
+nnoremap J Jh
+
 " make K the logical opposite of J
 nnoremap K a<CR><Esc>k$
 
