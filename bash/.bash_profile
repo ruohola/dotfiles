@@ -100,6 +100,7 @@ alias gca='block_cursor && git commit --amend'
 alias gcan='block_cursor && git commit --amend --no-edit'
 alias gpl='git pull'
 alias gps='git push'
+alias gpsf='git push -f'
 alias gds='git diff --staged'
 alias gdh='git diff HEAD'
 
