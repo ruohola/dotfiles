@@ -376,20 +376,21 @@ nnoremap gci} vi}:action CommentByLineComment<CR>
 nnoremap gci{ vi{:action CommentByLineComment<CR>
 vnoremap gc :action CommentByLineComment<CR>
 
-nnoremap <Leader>a :action GotoAction<CR>
+noremap <Leader>a :action GotoAction<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
 nnoremap <Leader>c :action GotoClass<CR>
 nnoremap <Leader>d :action QuickJavaDoc<CR>
 nnoremap <Leader>e :action Run<CR>
 nnoremap <Leader>f :action GotoFile<CR>
-nnoremap <Leader>g :action Generate<CR>
+nnoremap <Leader>g :action Vcs.QuickListPopupAction<CR>
 nnoremap <Leader>h :action HighlightUsagesInFile<CR>
 nnoremap <Leader>i :action QuickImplementations<CR>
 nnoremap <Leader>j :action ShowNavBar<CR>
 nnoremap <Leader>k :action KJumpAction<CR>
 nnoremap <Leader>l :action FindInPath<CR>
-nnoremap <Leader>m :action RecentFiles<CR>
+nnoremap <Leader>m :action RecentChangedFiles<CR>
 nnoremap <Leader>n :action LocalHistory.ShowHistory<CR>
+vnoremap <Leader>n :action LocalHistory.ShowSelectionHistory<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
 vnoremap <Leader>o :action VimReformatVisual<CR>
 nnoremap <Leader>p :action PasteMultiple<CR>
@@ -409,6 +410,7 @@ nnoremap <Leader>ä :action CallHierarchy<CR>
 nnoremap <Leader>< :action NewFile<CR>
 noremap  <Leader>[ :action SurroundWith<CR>
 noremap  <Leader>] :action Unwrap<CR>
+nnoremap <Leader>' :action Generate<CR>
 
 nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 

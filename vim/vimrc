@@ -63,10 +63,13 @@ Plug 'wellle/targets.vim'              " more text objects
 Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'tommcdo/vim-exchange'            " change two objects
 
+Plug 'tpope/vim-eunuch'                " file operations
+
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 Plug 'maralla/completor.vim'           " autocompletion
 Plug 'kyouryuukunn/completor-necovim'  " vimscript support for completor
+Plug 'tpope/vim-sleuth'                " automatic indendation settings
 
 " colorshemes
 Plug 'lifepillar/vim-solarized8'
@@ -477,14 +480,14 @@ noremap <silent> <Leader>w :<C-U>call WrapMappingsOn()<CR>
 noremap <silent> <Leader>q :<C-U>call WrapMappingsOff()<CR>
 
 " add or remove end-of-line comments
-nnoremap <silent> <Leader>c :<C-U>call <SID>AddEOLComment(v:count1)<CR>
-nnoremap <silent> <Leader>x :<C-U>call <SID>NoEOLComment(v:count1)<CR>
+nnoremap <silent> <Leader>[ :<C-U>call <SID>AddEOLComment(v:count1)<CR>
+nnoremap <silent> <Leader>] :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 
 " insert contents of command to buffer
-nnoremap <Leader>d :RED('')<Left><Left>
+nnoremap <Leader>re :call RED('')<Left><Left>
 
 " change the contents of a register
-nnoremap <Leader>r :call ChangeReg()<cr>
+nnoremap <Leader>c :call ChangeReg()<cr>
 
 
 " ============= COMMANDS =============
@@ -492,7 +495,9 @@ nnoremap <Leader>r :call ChangeReg()<cr>
 " vim-plug commands
 command! PI silent! w | PlugInstall
 command! PC silent! w | PlugClean!
-command! PU silent! w | PlugUpgrade | PlugUpdate
+" PlugUpgrade breaks vim-plug on windows atm
+" command! PU silent! w | PlugUpgrade | PlugUpdate
+command! PU silent! w | PlugUpdate
 command! PS silent! exec ':w | PlugSnapshot! ' . PathToPluginsFolder . '/plugins.lock'
 
 " source vimrc
