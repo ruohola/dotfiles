@@ -68,7 +68,6 @@ Plug 'tpope/vim-eunuch'                " file operations
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 Plug 'maralla/completor.vim'           " autocompletion
-Plug 'kyouryuukunn/completor-necovim'  " vimscript support for completor
 Plug 'tpope/vim-sleuth'                " automatic indendation settings
 
 " colorshemes
@@ -82,8 +81,6 @@ let g:livepreview_previewer = 'open -a Skim'
 
 " maralla/completor.vim
 inoremap <expr> <Tab> pumvisible() ? "\<C-Y>" : "\<Tab>"
-inoremap <expr> <C-J> pumvisible() ? "\<Down>" : "\<C-J>"
-inoremap <expr> <C-K> pumvisible() ? "\<Up>" : "\<C-K>"
 let g:completor_complete_options='menuone,noinsert'
 let g:completor_completion_delay=0
 if has ('win32')
@@ -255,10 +252,6 @@ set statusline+=%<                                         " start to truncate h
 
 " line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0
-
-" indentation settings
-set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
-set smarttab  autoindent    breakindent
 
 " show unwanted whitespace on 'set list'
 set nolist listchars=tab:>-,trail:.,nbsp:.

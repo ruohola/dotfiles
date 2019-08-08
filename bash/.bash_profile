@@ -81,6 +81,7 @@ fi
 
 alias fg='block_cursor && fg'
 alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
+alias sbrc='source ~/.bash_profile'
 alias virc='vim ~/.vim/.ideavimrc'
 alias vvrc='vim ~/.vim/vimrc'
 alias vset='vim ~/.dotfiles/setup.sh'
@@ -102,6 +103,8 @@ alias gpl='git pull'
 alias gps='git push'
 alias gds='git diff --staged'
 alias gdh='git diff HEAD'
+alias gl='git log'
+alias glf='git log --name-status'
 
 alias bkandi='
 cd ~/Documents/yliopisto/kandi
