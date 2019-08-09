@@ -412,6 +412,8 @@ noremap  <Leader>[ :action SurroundWith<CR>
 noremap  <Leader>] :action Unwrap<CR>
 nnoremap <Leader>' :action Generate<CR>
 
+nnoremap <Leader>" o""""""<Left><Left><Left>
+
 nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 
 nnoremap <C-H> :action ParameterInfo<CR>
