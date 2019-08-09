@@ -133,6 +133,7 @@ call yankstack#setup()
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
+let g:EasyMotion_smartcase=1
 map <Leader>k <Plug>(easymotion-bd-f)
 
 " machakann/vim-highlightedyank

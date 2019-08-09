@@ -376,7 +376,7 @@ nnoremap gci} vi}:action CommentByLineComment<CR>
 nnoremap gci{ vi{:action CommentByLineComment<CR>
 vnoremap gc :action CommentByLineComment<CR>
 
-noremap <Leader>a :action GotoAction<CR>
+noremap  <Leader>a :action GotoAction<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
 nnoremap <Leader>c :action GotoClass<CR>
 nnoremap <Leader>d :action QuickJavaDoc<CR>
@@ -404,8 +404,8 @@ nnoremap <Leader>w :action Debug<CR>
 noremap  <Leader>x :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Leader>y :action ShowErrorDescription<CR>
 nnoremap <Leader>z :action RenameFile<CR>
-nnoremap <Leader>ö :action FileStructurePopup<CR>
 nnoremap <Leader>ä :action CallHierarchy<CR>
+nnoremap <Leader>ö :action FileStructurePopup<CR>
 
 nnoremap <Leader>< :action NewFile<CR>
 noremap  <Leader>[ :action SurroundWith<CR>
