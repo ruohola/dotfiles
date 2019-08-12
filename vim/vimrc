@@ -67,7 +67,9 @@ Plug 'tpope/vim-eunuch'                " file operations
 
 Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
-Plug 'maralla/completor.vim'           " autocompletion
+if has ('python3')
+    Plug 'maralla/completor.vim'           " autocompletion
+endif
 Plug 'tpope/vim-sleuth'                " automatic indendation settings
 
 " colorshemes
@@ -80,13 +82,15 @@ call plug#end()
 let g:livepreview_previewer = 'open -a Skim'
 
 " maralla/completor.vim
-inoremap <expr> <Tab> pumvisible() ? "\<C-Y>" : "\<Tab>"
-let g:completor_complete_options='menuone,noinsert'
-let g:completor_completion_delay=0
-if has ('win32')
-    let g:completor_python_binary = 'C:\Users\eero.ruohola\AppData\Local\Programs\Python\Python37-32\python.exe'
-else
-    let g:completor_python_binary = '/usr/local/bin/python3'
+if has ('python3')
+    inoremap <expr> <Tab> pumvisible() ? "\<C-Y>" : "\<Tab>"
+    let g:completor_complete_options='menuone,noinsert'
+    let g:completor_completion_delay=0
+    if has ('win32')
+        let g:completor_python_binary = 'C:\Users\eero.ruohola\AppData\Local\Programs\Python\Python37-32\python.exe'
+    else
+        let g:completor_python_binary = '/usr/local/bin/python3'
+    endif
 endif
 
 if has('win32')
