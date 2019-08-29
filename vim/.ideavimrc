@@ -386,7 +386,7 @@ nnoremap <Leader>d :action QuickJavaDoc<CR>
 nnoremap <Leader>e :action Run<CR>
 nnoremap <Leader>f :action GotoFile<CR>
 nnoremap <Leader>g :action Vcs.QuickListPopupAction<CR>
-nnoremap <Leader>h :action HighlightUsagesInFile<CR>
+nnoremap <Leader>h :action FileStructurePopup<CR>
 nnoremap <Leader>i :action QuickImplementations<CR>
 nnoremap <Leader>j :action ShowNavBar<CR>
 nnoremap <Leader>k :action KJumpAction<CR>
@@ -408,7 +408,7 @@ noremap  <Leader>x :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Leader>y :action ShowErrorDescription<CR>
 nnoremap <Leader>z :action RenameFile<CR>
 nnoremap <Leader>ä :action CallHierarchy<CR>
-nnoremap <Leader>ö :action FileStructurePopup<CR>
+nnoremap <Leader>ö :action HighlightUsagesInFile<CR>
 
 nnoremap <Leader>< :action NewFile<CR>
 noremap  <Leader>[ :action SurroundWith<CR>
