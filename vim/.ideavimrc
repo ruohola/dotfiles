@@ -414,6 +414,7 @@ nnoremap <Leader>< :action NewFile<CR>
 noremap  <Leader>[ :action SurroundWith<CR>
 noremap  <Leader>] :action Unwrap<CR>
 nnoremap <Leader>' :action Generate<CR>
+nnoremap <Leader>- :action Django.RunManageTaskAction<CR>
 
 nnoremap <Leader>" o"""
 
@@ -433,7 +434,7 @@ nnoremap <C-O> :action Back<CR>
 nnoremap <C-I> :action Forward<CR>
 
 nnoremap <C-2> :action ActivateProjectToolWindow<CR>
-nnoremap <C-3> :action ActivateRunToolWindow<CR>
+nnoremap <C-3> :action ActivateRunToolWindow<CR>:action ActivateServicesToolWindow<CR>
 nnoremap <C-4> :action ActivateDebugToolWindow<CR>
 nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
 nnoremap <C-6> :action ActivatePythonConsoleToolWindow<CR>

@@ -459,15 +459,28 @@ nnoremap gp o<Esc>p^
 " Q plays back q macro
 nnoremap Q @q
 
+augroup escape_mapping
+  autocmd!
+  autocmd InsertEnter * call s:setupEscapeMap()
+augroup END
+
+function! s:setupEscapeMap()
+    nnoremap <Esc> :noh<CR><Esc>
+endfunction
+
+" nnoremap <silent><esc> :noh<CR><esc>
+" nnoremap <esc> <esc>
 " clear highlights
-if has('gui_running')
-    nnoremap <silent> <Esc> <Esc>:noh<CR>
-else
-    augroup ClearHighlights
-        autocmd!
-        autocmd TermResponse * nnoremap <silent> <Esc> <Esc>:noh<CR>|nnoremap <Esc>[ <Esc>[
-    augroup END
-endif
+" if has('gui_running')
+"     nnoremap <silent> <Esc> <Esc>:noh<CR>
+" else
+"     nnoremap <Leader><Esc> :noh<Esc>
+" "     augroup ClearHighlights
+" "         autocmd!
+" "         autocmd TermResponse * nnoremap <esc> :noh<return><esc>
+
+" "     augroup END
+" endif
 
 " open vimrc
 " nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
