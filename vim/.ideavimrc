@@ -10,6 +10,7 @@ nnoremap <F12> :source ~/.ideavimrc<CR>
 
 set surround
 set multiple-cursors
+set commentary
 
 " emulates tommcdo/vim-exchange
 " TODO: add more text objects
@@ -302,11 +303,12 @@ set number relativenumber
 " search settings
 set incsearch hlsearch ignorecase smartcase gdefault
 
-set timeoutlen=2000    " timeout for keymappings
-set clipboard=unnamed  " use system clipboard
-set scrolloff=1        " pad scrolling with one line
-set showmode           " show current mode in statusbar
-set visualbell         " removes errorbells
+set ideajoin=1                " use the IDE's join/J behavior
+set timeoutlen=2000           " timeout for keymappings
+set clipboard=unnamed,ideaput " use system clipboard with idea's pasting logic
+set scrolloff=1               " pad scrolling with one line
+set showmode                  " show current mode in statusbar
+set visualbell                " removes errorbells
 
 
 " ============= MAPPINGS =============
@@ -336,7 +338,7 @@ nnoremap J Jh
 " make K the logical opposite of J
 nnoremap K a<CR><Esc>k$
 
-" change enter behaviour
+" change enter behavior
 nnoremap <CR> mqo<Esc>`q
 nnoremap <S-Enter> mqO<Esc>`q
 
@@ -371,13 +373,6 @@ nnoremap gj :action EditorCodeBlockEnd<CR>
 nnoremap gr :action GotoRelated<CR>
 nnoremap gt :action GotoTest<CR>
 nnoremap gp o<Esc>p^
-
-" comment out lines and paragraphs etc
-nnoremap gcc :action CommentByLineComment<CR>
-nnoremap gcip vip:action CommentByLineComment<CR>
-nnoremap gci} vi}:action CommentByLineComment<CR>
-nnoremap gci{ vi{:action CommentByLineComment<CR>
-vnoremap gc :action CommentByLineComment<CR>
 
 noremap  <Leader>a :action GotoAction<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
