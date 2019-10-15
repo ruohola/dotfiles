@@ -390,8 +390,8 @@ nnoremap Y y$
 nnoremap vv V
 nnoremap V <C-V>$
 
-" makes these more useful
-nnoremap S ciw
+" makes this more consistent
+nnoremap S hs
 
 " cleaner to use when cursor doesn't move
 nnoremap J Jh
