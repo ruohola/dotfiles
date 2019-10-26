@@ -390,7 +390,7 @@ nnoremap <Leader>m :action RecentChangedFiles<CR>
 nnoremap <Leader>n :action LocalHistory.ShowHistory<CR>
 vnoremap <Leader>n :action LocalHistory.ShowSelectionHistory<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
-vnoremap <Leader>o :action VimReformatVisual<CR>
+vnoremap <Leader>o :action ReformatCode<CR>
 nnoremap <Leader>p :action PasteMultiple<CR>
 nnoremap <Leader>q :action ChooseRunConfiguration<CR>
 nnoremap <Leader>r :action RenameElement<CR>
