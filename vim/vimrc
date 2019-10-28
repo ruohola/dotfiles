@@ -376,10 +376,10 @@ endif
 noremap : ;
 noremap ; ,
 noremap @, @:
+nnoremap q, q:
+xnoremap q, q:
 augroup QMappings
     autocmd!
-    autocmd FileType * if &l:buftype !=# 'nofile' |nnoremap <buffer> <silent> q, q:| endif
-    autocmd FileType * if &l:buftype !=# 'nofile' |xnoremap <buffer> <silent> q, q:| endif
     autocmd FileType * if &l:buftype ==# 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
 augroup END
 
