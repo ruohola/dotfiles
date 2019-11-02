@@ -429,7 +429,7 @@ nnoremap <C-O> :action Back<CR>
 nnoremap <C-I> :action Forward<CR>
 
 nnoremap <C-2> :action ActivateProjectToolWindow<CR>
-nnoremap <C-3> :action ActivateRunToolWindow<CR>:action ActivateServicesToolWindow<CR>
+nnoremap <C-3> :action ActivateRunToolWindow<CR>
 nnoremap <C-4> :action ActivateDebugToolWindow<CR>
 nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
 nnoremap <C-6> :action ActivatePythonConsoleToolWindow<CR>
