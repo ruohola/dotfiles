@@ -303,7 +303,7 @@ set number relativenumber
 " search settings
 set incsearch hlsearch ignorecase smartcase gdefault
 
-set ideajoin=1                " use the IDE's join/J behavior
+set ideajoin                  " use the IDE's join/J behavior
 set timeoutlen=2000           " timeout for keymappings
 set clipboard=unnamed,ideaput " use system clipboard with idea's pasting logic
 set scrolloff=1               " pad scrolling with one line
@@ -409,7 +409,6 @@ nnoremap <Leader>< :action NewFile<CR>
 noremap  <Leader>[ :action SurroundWith<CR>
 noremap  <Leader>] :action Unwrap<CR>
 nnoremap <Leader>' :action Generate<CR>
-nnoremap <Leader>- :action Django.RunManageTaskAction<CR>
 
 nnoremap <Leader>" o"""
 
@@ -433,5 +432,5 @@ nnoremap <C-3> :action ActivateRunToolWindow<CR>
 nnoremap <C-4> :action ActivateDebugToolWindow<CR>
 nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
 nnoremap <C-6> :action ActivatePythonConsoleToolWindow<CR>
-nnoremap <C-7> :action ActivateHierarchyToolWindow<CR>
+nnoremap <C-7> :action Django.RunManageTaskAction<CR>
 nnoremap <C-0> :action ActivateVersionControlToolWindow<CR>
