@@ -494,9 +494,9 @@ nnoremap <Leader>c :call ChangeReg()<cr>
 command! PI silent! w | PlugInstall
 command! PC silent! w | PlugClean!
 " PlugUpgrade breaks vim-plug on windows atm
-" command! PU silent! w | PlugUpgrade | PlugUpdate
-command! PU silent! w | PlugUpdate
-command! PS silent! exec ':w | PlugSnapshot! ' . PathToPluginsFolder . '/plugins.lock'
+command! PU silent! exec ':w | PlugSnapshot! ' . PathToPluginsFolder . '/plugins_old.lock'
+                    \| PlugUpdate
+                    \| exec 'PlugSnapshot! ' . PathToPluginsFolder . '/plugins.lock'
 
 " source vimrc
 command! SO so $MYVIMRC
