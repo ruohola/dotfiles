@@ -488,6 +488,10 @@ nnoremap <Leader>re :call RED('')<Left><Left>
 nnoremap <Leader>c :call ChangeReg()<cr>
 
 
+" navigate to previous Python function or class name
+nnoremap <C-T> ?\(^\s*\(def\<BAR>class\) \)\@<=.<CR>:noh<CR>
+
+
 " ============= COMMANDS =============
 
 " vim-plug commands

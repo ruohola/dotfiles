@@ -358,8 +358,8 @@ nnoremap <Esc> <Esc>:noh<CR>
 nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
 nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 
-" navigate to previous function or class name (kinda hacky coz of ideavim bugs)
-nnoremap <C-S-F12> ?\(^\s*\%(def\\<BAR>class\) \)\@<=.\+
+" navigate to previous Python function or class name
+nnoremap <C-S-F12> ?\(^\s*\(def\\<BAR>class\) \)\@<=.
 nmap <C-T> <C-S-F12><CR>,noh<CR>
 
 " makes using marks a lot better, ` mapping clashes with surround
