@@ -121,6 +121,12 @@ rm kandi.blg
 rm kandi.log
 rm kandi.toc'
 
+alias killskole='find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
+docker rm $(docker ps -a -q) -f
+docker volume prune -f
+docker-compose run --rm backend sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata sample.yaml"'
+
 alias clamshell='sudo pmset -a disablesleep 1'
 alias noclamshell='sudo pmset -a disablesleep 0'
 
