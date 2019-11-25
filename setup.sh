@@ -53,3 +53,6 @@ vim -c "PlugClean!" -c "PlugInstall" -c "qa!"
 # install homebrew-bundle and all brew packages with it
 brew tap homebrew/bundle
 brew bundle --file=~/dotfiles/brew/Brewfile
+
+# install fzf shell extensions
+/usr/local/opt/fzf/install
