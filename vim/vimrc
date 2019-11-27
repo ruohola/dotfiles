@@ -70,7 +70,6 @@ Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 if has ('python3')
     Plug 'maralla/completor.vim'           " autocompletion
 endif
-Plug 'tpope/vim-sleuth'                " automatic indendation settings
 
 " colorshemes
 Plug 'lifepillar/vim-solarized8'
@@ -257,6 +256,10 @@ set statusline+=%<                                         " start to truncate h
 
 " line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0
+
+" indentation settings
+set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
+set smarttab  autoindent    breakindent
 
 " show unwanted whitespace on 'set list'
 set nolist listchars=tab:>-,trail:.,nbsp:.
