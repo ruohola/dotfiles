@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 
 
-# change the name of the folder with the git repo to $dotfiles
-current_dirname="$(cd "$(dirname "$0")" && basename "$PWD")"
-if [ "$current_dirname" != dotfiles ]; then
-    cd "$(dirname "$0")" && mv -v ../"$current_dirname" ../dotfiles
-fi
-
-
 # make the needed symlinks if they don't exist
 cd ~  # makes sure that the symlinks are shown as relative to ~ with ls -la
 
@@ -55,3 +48,11 @@ fi
 
 # install all vim plugins (cannot be done in background with &)
 vim -c "PlugClean!" -c "PlugInstall" -c "qa!"
+
+
+# install homebrew-bundle and all brew packages with it
+brew tap homebrew/bundle
+brew bundle --file=~/dotfiles/brew/Brewfile
+
+# install fzf shell extensions
+/usr/local/opt/fzf/install
