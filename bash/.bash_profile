@@ -121,10 +121,11 @@ rm kandi.blg
 rm kandi.log
 rm kandi.toc'
 
-alias killskole='find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
-find . -path "*/migrations/*.pyc"  -delete
-docker rm $(docker ps -a -q) -f
-docker volume prune -f
+alias skolekill='find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc" -delete
+docker container rm -f backend
+docker container rm -f db
+docker volume rm skole_postgres_data
 docker-compose run --rm backend sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata sample.yaml"'
 
 alias act='source venv/bin/activate'
