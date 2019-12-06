@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.sirshanksalot.dark-mode-toggle</string>
+	<key>connections</key>
+	<dict>
+		<key>887A5B23-A6E8-47FC-BCF4-09569787C41A</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8BC396F3-80B7-4E93-8FE8-0285BD25B53A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Jason Shanks</string>
+	<key>description</key>
+	<string>Toggles Dark Mode/Light Mode in MacOS 10.10+</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Dark Mode Toggle</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>darkmode</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>Toggle Dark Mode</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>887A5B23-A6E8-47FC-BCF4-09569787C41A</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+	tell application "System Events"
+		tell appearance preferences to set dark mode to not dark mode
+	end tell
+end alfred_script</string>
+				<key>cachescript</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>8BC396F3-80B7-4E93-8FE8-0285BD25B53A</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>A simple one-liner terminal script that toggles Dark Mode on/off if you are using MacOS 10.14 (Mojave) and beyond.
+
+Thanks goes out to script wrangler extraordinaire Brett Terpstra for [crafting and condensing the script](brettterpstra.com/2018/09/26/shell-tricks-toggling-dark-mode-from-terminal/)!</string>
+	<key>uidata</key>
+	<dict>
+		<key>887A5B23-A6E8-47FC-BCF4-09569787C41A</key>
+		<dict>
+			<key>xpos</key>
+			<integer>260</integer>
+			<key>ypos</key>
+			<integer>120</integer>
+		</dict>
+		<key>8BC396F3-80B7-4E93-8FE8-0285BD25B53A</key>
+		<dict>
+			<key>xpos</key>
+			<integer>440</integer>
+			<key>ypos</key>
+			<integer>180</integer>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>1.0</string>
+	<key>webaddress</key>
+	<string>https://github.com/jasonshanks/alfred-darkmode</string>
+</dict>
+</plist>

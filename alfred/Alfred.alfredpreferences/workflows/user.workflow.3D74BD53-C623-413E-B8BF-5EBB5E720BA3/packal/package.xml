@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<workflow>
+  <name>Dark Mode Toggle</name>
+  <version>1.1</version>
+  <bundle>com.sirshanksalot.dark-mode-toggle</bundle>
+  <updated>1538836996</updated>
+  <file>darkmode.alfredworkflow</file>
+</workflow>
