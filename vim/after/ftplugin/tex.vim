@@ -15,4 +15,5 @@ setlocal smarttab  autoindent    breakindent
 setlocal updatetime=1
 
 nnoremap <Leader>p :LLPStartPreview<CR>
+nnoremap <Leader>re Go<Esc>o@misc{,<CR>title = {{}},<CR>note = {<CR>}<CR>}<Esc>4k$h
 command! SOT so ~/.vim/after/ftplugin/tex.vim

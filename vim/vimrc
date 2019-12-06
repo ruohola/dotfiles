@@ -433,8 +433,8 @@ inoremap <CR> <C-G>u<CR>
 augroup EnterMappings
     autocmd!
     autocmd BufEnter * if &l:buftype ==# ''
-            \| nnoremap <buffer> <CR> :<C-U>call <SID>BlankDown(v:count1)<CR>
-            \| nnoremap <buffer> <S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
+            \| nnoremap <buffer> <silent> <CR> :<C-U>call <SID>BlankDown(v:count1)<CR>
+            \| nnoremap <buffer> <silent> <S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
             \| endif
     autocmd BufWinEnter * if &l:buftype ==# 'quickfix'
             \| unmap <buffer> <CR>
