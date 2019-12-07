@@ -3,14 +3,24 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>com.enzosv.nightshifttoggle</string>
+	<string></string>
 	<key>connections</key>
 	<dict>
-		<key>DF9D5C63-3CBF-4358-974B-6FF97A1A7A15</key>
+		<key>0C65B73B-68D5-4822-935B-E916BFD74C5D</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>A54B1A35-B485-4FBF-A238-EA1C25FCE75F</string>
+				<string>95449C7A-A31A-4974-828F-A3A37C6959F7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>839FF053-9CDC-40C5-8574-835596BCF1EB</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -21,13 +31,13 @@
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string>enzosv</string>
+	<string></string>
 	<key>description</key>
-	<string>Alfred workflow to quickly toggle night shift</string>
+	<string></string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>NightShiftToggle</string>
+	<string>DarkAndNight</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -59,7 +69,7 @@ echo $query &gt; warmth
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>A54B1A35-B485-4FBF-A238-EA1C25FCE75F</string>
+			<string>95449C7A-A31A-4974-828F-A3A37C6959F7</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -69,18 +79,37 @@ echo $query &gt; warmth
 				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>keyword</key>
-				<string>nightshift</string>
+				<string>both</string>
 				<key>subtext</key>
 				<string></string>
 				<key>text</key>
-				<string>Toggle NightShift</string>
+				<string>Toggle Dark Mode and Nightshift</string>
 				<key>withspace</key>
 				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
-			<string>DF9D5C63-3CBF-4358-974B-6FF97A1A7A15</string>
+			<string>0C65B73B-68D5-4822-935B-E916BFD74C5D</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+	tell application "System Events"
+		tell appearance preferences to set dark mode to not dark mode
+	end tell
+end alfred_script</string>
+				<key>cachescript</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>839FF053-9CDC-40C5-8574-835596BCF1EB</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -89,22 +118,29 @@ echo $query &gt; warmth
 	<string></string>
 	<key>uidata</key>
 	<dict>
-		<key>A54B1A35-B485-4FBF-A238-EA1C25FCE75F</key>
+		<key>0C65B73B-68D5-4822-935B-E916BFD74C5D</key>
 		<dict>
 			<key>xpos</key>
-			<integer>390</integer>
+			<integer>15</integer>
 			<key>ypos</key>
-			<integer>190</integer>
+			<integer>150</integer>
 		</dict>
-		<key>DF9D5C63-3CBF-4358-974B-6FF97A1A7A15</key>
+		<key>839FF053-9CDC-40C5-8574-835596BCF1EB</key>
 		<dict>
 			<key>xpos</key>
-			<integer>35</integer>
+			<integer>340</integer>
 			<key>ypos</key>
-			<integer>210</integer>
+			<integer>335</integer>
+		</dict>
+		<key>95449C7A-A31A-4974-828F-A3A37C6959F7</key>
+		<dict>
+			<key>xpos</key>
+			<integer>355</integer>
+			<key>ypos</key>
+			<integer>95</integer>
 		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string>github.com/enzosv/alfred-nightshift-toggle</string>
+	<string></string>
 </dict>
 </plist>
