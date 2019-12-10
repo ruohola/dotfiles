@@ -37,7 +37,7 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>DarkAndNight</string>
+	<string>Toggle Dark Mode &amp; Night Shift</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -79,7 +79,7 @@ echo $query &gt; warmth
 				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>keyword</key>
-				<string>both</string>
+				<string>toggle</string>
 				<key>subtext</key>
 				<string></string>
 				<key>text</key>
