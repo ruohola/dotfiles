@@ -386,15 +386,11 @@ augroup QMappings
     autocmd FileType * if &l:buftype ==# 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
 augroup END
 
-" make Y behave the same way as D and C
+" makes these more consistent with other commands
 nnoremap Y y$
-
-" makes v and V more consistent with other commands
 nnoremap vv V
 nnoremap V <C-V>$
-
-" makes these more useful
-nnoremap S ciw
+nnoremap S hs
 
 " cleaner to use when cursor doesn't move
 nnoremap J Jh
