@@ -1,3 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
-let g:netrw_dirhist_1='/Users/eero/Library/Application Support/JetBrains/Toolbox/apps/PyCharm-P/ch-0/192.7142.56/PyCharm.app'
