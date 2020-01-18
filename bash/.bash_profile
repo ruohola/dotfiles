@@ -154,3 +154,6 @@ fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
