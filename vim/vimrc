@@ -463,27 +463,25 @@ function! s:EscMapping() abort
     nnoremap <silent> <Esc> <Esc>:noh<CR>
 endfunction
 
-function! s:nEscMapping() abort
+function! s:SearchMapping() abort
     call <SID>EscMapping()
     nnoremap n n
     nnoremap N N
     nnoremap / /
-endfunction
-
-function! s:SearchEscMapping() abort
-    call <SID>EscMapping()
-    nnoremap n n
-    nnoremap N N
-    nnoremap / /
-    norm! /
+    nnoremap ? ?
+    nnoremap * *
+    nnoremap # #
 endfunction
 
 if has('gui_running')
     call <SID>EscMapping()
 else
-    nnoremap <silent> n n:call <SID>nEscMapping()<CR>
-    nnoremap <silent> N N:call <SID>nEscMapping()<CR>
-    nnoremap <silent> / :call <SID>SearchEscMapping()<CR>
+    nnoremap <silent> n :call <SID>SearchMapping()<CR>n
+    nnoremap <silent> N :call <SID>SearchMapping()<CR>N
+    nnoremap <silent> * :call <SID>SearchMapping()<CR>*
+    nnoremap <silent> # :call <SID>SearchMapping()<CR>#
+    nnoremap / :call <SID>SearchMapping()<CR>/
+    nnoremap ? :call <SID>SearchMapping()<CR>?
     augroup esc_mapping
       autocmd!
       autocmd InsertEnter * call <SID>EscMapping()
@@ -492,7 +490,6 @@ endif
 
 
 " open vimrc
-" nnoremap <silent> <Leader>vr :tabe<BAR>tabm<BAR>e $MYVIMRC<CR>
 nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
 
 " make mappings work by visual lines
