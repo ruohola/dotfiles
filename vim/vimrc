@@ -229,6 +229,7 @@ set number relativenumber
 set showmode showcmd
 set report=1
 set cmdheight=2
+set hlsearch
 
 " statusline
 set laststatus=2                                           " always show statusline
@@ -458,12 +459,34 @@ nnoremap gp o<Esc>p^
 " Q plays back q macro
 nnoremap Q @q
 
-if has('gui_running')
+function! s:EscMapping() abort
     nnoremap <silent> <Esc> <Esc>:noh<CR>
+endfunction
+
+function! s:nEscMapping() abort
+    call <SID>EscMapping()
+    nnoremap n n
+    nnoremap N N
+    nnoremap / /
+endfunction
+
+function! s:SearchEscMapping() abort
+    call <SID>EscMapping()
+    nnoremap n n
+    nnoremap N N
+    nnoremap / /
+    norm! /
+endfunction
+
+if has('gui_running')
+    call <SID>EscMapping()
 else
-    augroup escape_mapping
+    nnoremap <silent> n n:call <SID>nEscMapping()<CR>
+    nnoremap <silent> N N:call <SID>nEscMapping()<CR>
+    nnoremap <silent> / :call <SID>SearchEscMapping()<CR>
+    augroup esc_mapping
       autocmd!
-      autocmd InsertEnter * nnoremap <silent> <Esc> :noh<CR><Esc>
+      autocmd InsertEnter * call <SID>EscMapping()
     augroup END
 endif
 
@@ -473,18 +496,18 @@ endif
 nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
 
 " make mappings work by visual lines
-noremap <silent> <Leader>w :<C-U>call WrapMappingsOn()<CR>
-noremap <silent> <Leader>q :<C-U>call WrapMappingsOff()<CR>
+noremap <silent> <Leader>w :<C-U>call <SID>WrapMappingsOn()<CR>
+noremap <silent> <Leader>q :<C-U>call <SID>WrapMappingsOff()<CR>
 
 " add or remove end-of-line comments
 nnoremap <silent> <Leader>[ :<C-U>call <SID>AddEOLComment(v:count1)<CR>
 nnoremap <silent> <Leader>] :<C-U>call <SID>NoEOLComment(v:count1)<CR>
 
 " insert contents of command to buffer
-nnoremap <Leader>re :call RED('')<Left><Left>
+nnoremap <Leader>re :call <SID>RED('')<Left><Left>
 
 " change the contents of a register
-nnoremap <Leader>c :call ChangeReg()<cr>
+nnoremap <Leader>c :call <SID>ChangeReg()<cr>
 
 
 " navigate to previous Python function or class name
@@ -518,7 +541,7 @@ command! CD cd %:p:h|pwd
 " ============= FUNCTIONS =============
 
 " https://github.com/dhleong/dots/blob/master/.vim/init/terminal.vim
-function! RunCommandInSplitTerm(command) abort
+function! s:RunCommandInSplitTerm(command) abort
     write
     let winSize = float2nr(0.3 * winheight('$'))
     let mainBuf = bufnr('%')
@@ -593,7 +616,7 @@ function! s:NoEOLComment(count) abort
 endfunction
 
 
-function! WrapMappingsOn()
+function! s:WrapMappingsOn()
     noremap <buffer> <silent> j gj
     noremap <buffer> <silent> k gk
     noremap <buffer> <silent> $ g$
@@ -601,7 +624,7 @@ function! WrapMappingsOn()
     noremap <buffer> <silent> 0 g0
 endfunction
 
-function! WrapMappingsOff()
+function! s:WrapMappingsOff()
     noremap <buffer> <silent> j j
     noremap <buffer> <silent> k k
     noremap <buffer> <silent> $ $
@@ -611,7 +634,7 @@ endfunction
 
 
 " redir command's output to the current line
-function! RED(command)
+function! s:RED(command)
     redir => output
     silent exec a:command
     redir END
@@ -621,10 +644,10 @@ function! RED(command)
 endfunction
 
 
-fun! ChangeReg() abort
+function! s:ChangeReg() abort
   let x = nr2char(getchar())
   call feedkeys("q:ilet @" . x . " = \<c-r>\<c-r>=string(@" . x . ")\<cr>\<esc>0f'", 'n')
-endfun
+endfunction
 
 
 
@@ -666,7 +689,5 @@ augroup END
 
 " ============= REGISTERS =============
 
-" clear the search register for no highlighting on startup
-let @/=''
 " macro to add a plugin
 let @p='gg/call plug#end()OPlug ''+'''
