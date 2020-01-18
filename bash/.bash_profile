@@ -123,12 +123,18 @@ rm kandi.blg
 rm kandi.log
 rm kandi.toc'
 
-alias skolekill='find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+alias killskole='
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
 find . -path "*/migrations/*.pyc" -delete
 docker container rm -f backend
 docker container rm -f db
 docker volume rm skole_postgres_data
-docker-compose run --rm backend sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata sample.yaml"'
+docker-compose run --rm backend sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata sample.yaml"
+'
+
+alias lintskole='
+docker-compose run --rm backend sh -c "autoflake -ir --remove-all-unused-imports --exclude __init__.py src && isort -rc src && black --exclude migrations/* src && mypy src"
+'
 
 alias act='source venv/bin/activate'
 
