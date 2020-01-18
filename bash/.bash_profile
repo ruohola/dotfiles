@@ -109,6 +109,7 @@ alias gds='git diff --staged'
 alias gdh='git diff HEAD'
 alias gl='git log --graph --date-order'
 alias glf='git log --graph --date-order --name-status'
+alias gls='git log --graph --date-order --numstat'
 
 alias bkandi='
 cd ~/Documents/yliopisto/kandi
