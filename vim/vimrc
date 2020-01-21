@@ -346,11 +346,11 @@ else
     nnoremap ′ g,
     nnoremap … g;
 
-    " split navigations (alt+hjkl)
-    nnoremap ← <C-W><C-H>
-    nnoremap ↓ <C-W><C-J>
-    nnoremap ↑ <C-W><C-K>
-    nnoremap → <C-W><C-L>
+    " move between splits (alt+hjkl)
+    nnoremap ← <C-W>h
+    nnoremap ↓ <C-W>j
+    nnoremap ↑ <C-W>k
+    nnoremap → <C-W>l
 
     " cycle buffers (alt+nm)
     nnoremap <silent> № :bprev<CR>
