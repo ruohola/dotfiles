@@ -123,6 +123,7 @@ rm kandi.blg
 rm kandi.log
 rm kandi.toc'
 
+# alises for skole dev
 alias killskole='
 find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
 find . -path "*/migrations/*.pyc" -delete
@@ -135,7 +136,6 @@ docker-compose run --rm backend sh -c "
     python src/manage.py loaddata sample.yaml
 "
 '
-
 alias lintskole='
 docker-compose run --rm backend sh -c "
     autoflake -ir --remove-all-unused-imports --exclude __init__.py src &&
@@ -143,8 +143,19 @@ docker-compose run --rm backend sh -c "
     black --exclude migrations/* src
 "
 '
-
+alias allskole='
+docker-compose run --rm backend sh -c "
+    autoflake -ir --remove-all-unused-imports --exclude __init__.py src &&
+    isort -rc src &&
+    black --exclude migrations/* src
+    mypy src
+    pytest --cov-report html --cov=src src/tests/
+"
+'
 alias mypyskole='docker-compose run --rm backend sh -c "mypy src"'
+alias testskole='docker-compose run --rm backend pytest --cov-report html --cov=src src/tests/'
+alias runskole='docker-compose run --rm backend'
+
 
 alias act='source venv/bin/activate'
 
