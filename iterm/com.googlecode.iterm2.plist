@@ -1986,9 +1986,11 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>496 486 799 448 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1792 1097 0 0 1792 1097 </string>
+	<string>271 165 1250 768 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>228 115 810 502 0 0 1792 1097 </string>
+	<string>460 118 810 502 0 0 1792 1097 </string>
+	<key>NSWindow Frame iTerm Window 2</key>
+	<string>249 92 1030 502 0 0 1792 1097 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2685,12 +2687,12 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1792, 1120}}</string>
 		<key>topLeft</key>
-		<string>{466, 896}</string>
+		<string>{466, 878}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>9326E0B5-2DA9-4957-9E1F-36F78759275E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>76</integer>
+	<integer>160</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3402,7 +3404,7 @@
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
 	<real>596396825.79521501</real>
 	<key>OnlyWhenMoreTabs</key>
-	<false/>
+	<true/>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
 	<key>OpenBookmark</key>
@@ -3463,7 +3465,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-12-06T13:59:19Z</date>
+	<date>2020-01-21T10:39:47Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
