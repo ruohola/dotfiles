@@ -168,7 +168,7 @@ alias noclamshell='sudo pmset -a disablesleep 0'
 
 # fzf config
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    fzf_exclude='.git,Library,Qt,.DS_Store,.Trash,.temp'
+    fzf_exclude='.git,Library,Qt,.DS_Store,.Trash,.temp,__pycache__'
 
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
