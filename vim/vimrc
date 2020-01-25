@@ -46,26 +46,23 @@ else
     Plug '/usr/local/opt/fzf'
     Plug 'junegunn/fzf.vim'
 endif
-Plug 'google/vim-searchindex'          " show [x/y] when searching
 Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
 Plug 'markonm/traces.vim'              " live substitution
 
 Plug 'easymotion/vim-easymotion'       " jump to any position
 Plug 'simnalamburt/vim-mundo'          " graphical undotree
-Plug 'maxbrunsfeld/vim-yankstack'      " remember past yanks
 
 Plug 'tpope/vim-surround'              " edit braces easily
 Plug 'tpope/vim-commentary'            " comment out lines
 Plug 'tpope/vim-repeat'                " repeat plugin commands
 Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
 Plug 'wellle/targets.vim'              " more text objects
-Plug 'junegunn/vim-easy-align'         " align text with motion
 Plug 'tommcdo/vim-exchange'            " change two objects
+Plug 'tpope/vim-abolish'               " more advanced substitute etc
 
-Plug 'tpope/vim-eunuch'                " file operations
+Plug 'tpope/vim-eunuch'                " easy unix file operations
 
-Plug 'sheerun/vim-polyglot'            " better syntax highlighting
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 if has ('python3')
     Plug 'maralla/completor.vim'           " autocompletion
@@ -73,7 +70,6 @@ endif
 
 " colorshemes
 Plug 'lifepillar/vim-solarized8'
-Plug 'pgdouyon/vim-yin-yang'
 call plug#end()
 
 
@@ -86,7 +82,7 @@ if has ('python3')
     let g:completor_complete_options='menuone,noinsert'
     let g:completor_completion_delay=0
     if has ('win32')
-        let g:completor_python_binary = 'C:\Users\eero.ruohola\AppData\Local\Programs\Python\Python37-32\python.exe'
+        let g:completor_python_binary = 'C:\Users\eero.ruohola\AppData\Local\Programs\Python\Python38-32\python.exe'
     else
         let g:completor_python_binary = '/usr/local/bin/python3'
     endif
@@ -126,12 +122,6 @@ else
     nnoremap <Leader>m :History<CR>
 endif
 
-" maxbrunsfeld/vim-yankstack
-let g:yankstack_map_keys = 0
-nmap <C-P> <Plug>yankstack_substitute_older_paste
-nmap <C-N> <Plug>yankstack_substitute_newer_paste
-call yankstack#setup()
-
 " easymotion/vim-easymotion
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
@@ -149,10 +139,6 @@ let g:mundo_mirror_graph=0
 let g:mundo_return_on_revert=0
 let g:mundo_verbose_graph=0
 nnoremap <silent> <Leader>n :MundoToggle<CR>
-
-" junegunn/vim-easy-align
-nmap gl <Plug>(EasyAlign)
-xmap gl <Plug>(EasyAlign)
 
 " vim-scripts/ReplaceWithRegister
 nmap ö <Plug>ReplaceWithRegisterOperator
@@ -262,7 +248,7 @@ set wrap linebreak textwidth=0 wrapmargin=0
 set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
 set smarttab  autoindent    breakindent
 
-" show unwanted whitespace on 'set list'
+" show unwanted whitesace on 'set list'
 set nolist listchars=tab:>-,trail:.,nbsp:.
 
 " search settings
@@ -382,10 +368,6 @@ noremap ; ,
 noremap @, @:
 nnoremap q, q:
 xnoremap q, q:
-augroup QMappings
-    autocmd!
-    autocmd FileType * if &l:buftype ==# 'nofile' |nnoremap <buffer> <silent> q :q<CR>| endif
-augroup END
 
 " makes these more consistent with other commands
 nnoremap Y y$
@@ -433,9 +415,8 @@ augroup EnterMappings
             \| nnoremap <buffer> <silent> <CR> :<C-U>call <SID>BlankDown(v:count1)<CR>
             \| nnoremap <buffer> <silent> <S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
             \| endif
-    autocmd BufWinEnter * if &l:buftype ==# 'quickfix'
-            \| unmap <buffer> <CR>
-            \| endif
+    " FIXME: enter doesn't work with q:
+    autocmd CmdwinEnter * silent! unmap <CR>
 augroup END
 
 " move CTRL-I, since tab is taken
