@@ -138,7 +138,7 @@ docker-compose run --rm backend sh -c "
     python src/manage.py wait_for_db &&
     python src/manage.py makemigrations &&
     python src/manage.py migrate &&
-    python src/manage.py loaddata sample.yaml
+    python src/manage.py loaddata test-data.yaml
 "
 '
 alias lintskole='
