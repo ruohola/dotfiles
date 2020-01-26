@@ -110,14 +110,14 @@ if has('win32')
     let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
     let g:Lf_ShortcutF='<Leader>f'
     nnoremap <Leader>l :LeaderfLineAll<CR>
-    nnoremap <Leader>h :LeaderfHelp<CR>
+    nnoremap <Leader>g :LeaderfHelp<CR>
     nnoremap <Leader>b :LeaderfBufferAll<CR>
     nnoremap <Leader>m :LeaderfMru<CR>
 else
     " junegunn/fzf.vim
     nnoremap <Leader>f :Files<CR>
     nnoremap <Leader>l :Lines<CR>
-    nnoremap <Leader>h :Helptags<CR>
+    nnoremap <Leader>g :Helptags<CR>
     nnoremap <Leader>b :Buffers<CR>
     nnoremap <Leader>m :History<CR>
 endif
@@ -199,7 +199,7 @@ if has('gui_running')
     set guicursor+=a:blinkon0
     set guicursor+=i-ci:ver20-blinkon0
 else
-    " Terminal specific settings
+    " terminal specific settings
     set mouse=a
     if $TERM_PROGRAM =~ "iTerm"
         set ttymouse=sgr
@@ -280,7 +280,7 @@ set undolevels=10000           " remember more undo history
 set history=1000               " remember more command history
 set updatecount=10             " update swap file more often
 set matchpairs=(:),{:},[:]     " configure which braces to match
-set shortmess=a                " shorter prompt messages
+set shortmess=ac               " shorter prompt messages, no ins completion messages
 filetype plugin indent on      " auto detect filetype
 
 
@@ -397,12 +397,6 @@ nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 
 xnoremap <Leader>, q:<UP>I'<,'><Esc>$
 
-" navigate quickfix list and vimgrep
-nnoremap <silent> <Down> :cnext<CR>
-nnoremap <silent> <Up> :cprev<CR>
-nnoremap <silent> <C-Down> :cnfile<CR><C-G>
-nnoremap <silent> <C-Up> :cpfile<CR><C-G>
-
 " make C-U and C-W and CR undoable
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
@@ -469,27 +463,10 @@ else
     augroup END
 endif
 
-
 " open vimrc
 nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
+nnoremap <silent> <Leader>cr :CocConfig<CR>
 
-" make mappings work by visual lines
-noremap <silent> <Leader>w :<C-U>call <SID>WrapMappingsOn()<CR>
-noremap <silent> <Leader>q :<C-U>call <SID>WrapMappingsOff()<CR>
-
-" add or remove end-of-line comments
-nnoremap <silent> <Leader>[ :<C-U>call <SID>AddEOLComment(v:count1)<CR>
-nnoremap <silent> <Leader>] :<C-U>call <SID>NoEOLComment(v:count1)<CR>
-
-" insert contents of command to buffer
-nnoremap <Leader>re :call <SID>RED('')<Left><Left>
-
-" change the contents of a register
-nnoremap <Leader>c :call <SID>ChangeReg()<cr>
-
-
-" navigate to previous Python function or class name
-nnoremap <C-T> ?\(^\s*\(def\<BAR>class\) \)\@<=.<CR>:noh<CR>
 
 
 " ============= COMMANDS =============
@@ -504,6 +481,12 @@ command! PU silent! exec ':w | PlugSnapshot! ' . PathToPluginsFolder . '/plugins
 
 " source vimrc
 command! SO so $MYVIMRC
+
+" insert contents of command to buffer
+command! -nargs=1 RE call RED('<args>')
+
+" change the contents of a register
+command! -nargs=1 CR call ChangeReg('<args>')
 
 " count lines in file
 command! WC %s/^\s*\w\+//n | noh
@@ -565,54 +548,8 @@ function! s:BlankDown(count) abort
 endfunction
 
 
-" insert an EOL comment to the end of N lines
-function! s:AddEOLComment(count) abort
-    let char = strpart(&commentstring, 0, 1)
-    if char == strpart(&commentstring, 1, 1)
-        " Knows to insert two chars for commenting if 'commentstring'
-        " is for example //%s (in java) vs only one char e.g. #%s in python.
-        let char = char . char
-    endif
-    for i in range(a:count)
-        execute 'norm! A  '.char.' j'
-    endfor
-    norm! k
-    startinsert!
-endfunction
-
-
-" remove an EOL comment from the end of N lines
-function! s:NoEOLComment(count) abort
-    norm! mq
-    let char = strpart(&commentstring, 0, 1)
-    for i in range(a:count)
-        execute 'norm! 0f'.char.'gEl"_D'
-        " j command is separated so that if the above failes, it still continues the loop
-        norm! j
-    endfor
-    norm! `q
-endfunction
-
-
-function! s:WrapMappingsOn()
-    noremap <buffer> <silent> j gj
-    noremap <buffer> <silent> k gk
-    noremap <buffer> <silent> $ g$
-    noremap <buffer> <silent> ^ g^
-    noremap <buffer> <silent> 0 g0
-endfunction
-
-function! s:WrapMappingsOff()
-    noremap <buffer> <silent> j j
-    noremap <buffer> <silent> k k
-    noremap <buffer> <silent> $ $
-    noremap <buffer> <silent> ^ ^
-    noremap <buffer> <silent> 0 0
-endfunction
-
-
 " redir command's output to the current line
-function! s:RED(command)
+function! RED(command)
     redir => output
     silent exec a:command
     redir END
@@ -622,9 +559,8 @@ function! s:RED(command)
 endfunction
 
 
-function! s:ChangeReg() abort
-  let x = nr2char(getchar())
-  call feedkeys("q:ilet @" . x . " = \<c-r>\<c-r>=string(@" . x . ")\<cr>\<esc>0f'", 'n')
+function! ChangeReg(x) abort
+  call feedkeys("q:ilet @" . a:x . " = \<c-r>\<c-r>=string(@" . a:x . ")\<cr>\<esc>0f'", 'n')
 endfunction
 
 
@@ -657,15 +593,8 @@ augroup HelpOpen
 augroup END
 
 
-" clear trailing whitespace on save
+" clear trailing whitespace when saving vimrc
 augroup TrimWhitespace
     autocmd!
     autocmd BufWritePre *vimrc :%s/\s\+$//e
 augroup END
-
-
-
-" ============= REGISTERS =============
-
-" macro to add a plugin
-let @p='gg/call plug#end()OPlug ''+'''
