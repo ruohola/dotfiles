@@ -360,10 +360,6 @@ nnoremap <Esc> <Esc>:noh<CR>
 nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
 nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 
-" navigate to previous Python function or class name
-nnoremap <C-S-F12> ?\(^\s*\(def\\<BAR>class\) \)\@<=.
-nmap <C-T> <C-S-F12><CR>,noh<CR>
-
 " makes using marks a lot better, ` mapping clashes with surround
 nnoremap ' :action ShowBookmarks<CR>
 nnoremap m :action ToggleBookmarkWithMnemonic<CR>
@@ -371,11 +367,12 @@ nnoremap m :action ToggleBookmarkWithMnemonic<CR>
 " select previously yanked text
 nnoremap gb `[v`]
 
-nnoremap gk :action EditorCodeBlockStart<CR>
-nnoremap gj :action EditorCodeBlockEnd<CR>
+nnoremap gp o<Esc>p^
+nnoremap gk :action MethodUp<CR>
+nnoremap gj :action MethodDown<CR>
 nnoremap gr :action GotoRelated<CR>
 nnoremap gt :action GotoTest<CR>
-nnoremap gp o<Esc>p^
+nnoremap gs :action GotoSuperMethod<CR>
 
 noremap  <Leader>a :action GotoAction<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
@@ -392,8 +389,7 @@ nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>m :action RecentChangedFiles<CR>
 nnoremap <Leader>n :action LocalHistory.ShowHistory<CR>
 vnoremap <Leader>n :action LocalHistory.ShowSelectionHistory<CR>
-nnoremap <Leader>o :action ShowReformatFileDialog<CR>
-vnoremap <Leader>o :action ReformatCode<CR>
+nnoremap <Leader>o :action InspectCode<CR>
 nnoremap <Leader>p :action PasteMultiple<CR>
 nnoremap <Leader>q :action ChooseRunConfiguration<CR>
 nnoremap <Leader>r :action RenameElement<CR>
@@ -420,9 +416,11 @@ nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 nnoremap <C-H> :action ParameterInfo<CR>
 nnoremap <C-J> :action EditorCloneCaretBelow<CR>
 nnoremap <C-K> :action EditorCloneCaretAbove<CR>
+nnoremap <C-T> :action JumpToLastWindow<CR>
 inoremap <C-H> <C-O>:action ParameterInfo<CR>
 inoremap <C-J> <C-O>:action EditorCloneCaretBelow<CR>
 inoremap <C-K> <C-O>:action EditorCloneCaretAbove<CR>
+inoremap <C-L> <C-O>:action EditorCompleteStatement<CR>
 
 nnoremap <C-P> :action GotoPreviousError<CR>
 nnoremap <C-N> :action GotoNextError<CR>
