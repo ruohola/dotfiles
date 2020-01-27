@@ -78,7 +78,7 @@ call plug#end()
 
 " neoclide/coc.nvim
 set updatetime=300
-set signcolumn=yes
+set signcolumn=auto
 
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
