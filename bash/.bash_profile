@@ -184,9 +184,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export FZF_ALT_C_COMMAND='fd -t d --hidden --no-ignore --exclude "{$fzf_exclude}" .'
 fi
 
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
+export PATH="$HOME/.cargo/bin:${PATH}"
 export PATH="$HOME/dotfiles/bash/exported:${PATH}"
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
