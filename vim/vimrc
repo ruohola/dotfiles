@@ -231,7 +231,7 @@ endif
 
 if has('win32')
     " use git bash as shell
-    set shell=C:/Program\ Files/Git/bin/bash.exe\ --login
+    set shell=C:/Program\ Files/Git/usr/bin/bash.exe\ --login
 else
     " use the bash installed with homebrew as shell
     set shell=/usr/local/bin/bash\ --login
@@ -539,7 +539,7 @@ command! -nargs=1 CR call ChangeReg('<args>')
 command! WC %s/^\s*\w\+//n | noh
 
 " count all .py files lines, have to have terminal open in tab 1 for this to work.
-command! PL write|tabn 1|call <SID>RunCommandInSplitTerm("grep -vc '^\\s*$' *.py && echo -n 'total:' && grep -v '^\\s*$' *.py | wc -l")
+command! PL write|tabn 1|call RunCommandInSplitTerm("grep -vc '^\\s*$' *.py && echo -n 'total:' && grep -v '^\\s*$' *.py | wc -l")
 
 " change working directory to current file's directory
 command! CD cd %:p:h|pwd
@@ -549,7 +549,7 @@ command! CD cd %:p:h|pwd
 " ============= FUNCTIONS =============
 
 " https://github.com/dhleong/dots/blob/master/.vim/init/terminal.vim
-function! s:RunCommandInSplitTerm(command) abort
+function! RunCommandInSplitTerm(command) abort
     write
     let winSize = float2nr(0.3 * winheight('$'))
     let mainBuf = bufnr('%')
@@ -558,7 +558,7 @@ function! s:RunCommandInSplitTerm(command) abort
 
     if termWinNr == -1
         exe 'below split | resize ' . winSize
-        let termBufNr = term_start('bash -l', {
+        let termBufNr = term_start(&shell, {
                     \ 'curwin': 1,
                     \ 'term_finish': 'close',
                     \ })
