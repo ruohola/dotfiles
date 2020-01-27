@@ -368,11 +368,14 @@ nnoremap m :action ToggleBookmarkWithMnemonic<CR>
 nnoremap gb `[v`]
 
 nnoremap gp o<Esc>p^
-nnoremap gk :action MethodUp<CR>
-nnoremap gj :action MethodDown<CR>
 nnoremap gr :action GotoRelated<CR>
 nnoremap gt :action GotoTest<CR>
 nnoremap gs :action GotoSuperMethod<CR>
+
+" these only make sense as ideavim mappings,
+" since vim defines so many ]x mappings
+nnoremap [ :action MethodUp<CR>
+nnoremap ] :action MethodDown<CR>
 
 noremap  <Leader>a :action GotoAction<CR>
 nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
