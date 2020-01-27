@@ -442,6 +442,7 @@ xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 nnoremap ä :set nohlsearch<CR>$?\v//<CR>gEl"_d/\v\//<CR>"qDO<C-R>q<Esc>^:set hlsearch<BAR>noh<CR>
 nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 
+" easy way to run : command again for a visual selection
 xnoremap <Leader>, q:<UP>I'<,'><Esc>$
 
 " make C-U and C-W and CR undoable
@@ -484,7 +485,6 @@ nnoremap Q @q
 function! s:EscMapping() abort
     nnoremap <silent> <Esc> <Esc>:noh<CR>
 endfunction
-
 function! s:SearchMapping() abort
     call <SID>EscMapping()
     nnoremap n n
@@ -494,7 +494,6 @@ function! s:SearchMapping() abort
     nnoremap * *
     nnoremap # #
 endfunction
-
 if has('gui_running')
     call <SID>EscMapping()
 else
