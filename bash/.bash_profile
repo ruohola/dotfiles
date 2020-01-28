@@ -1,10 +1,8 @@
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # SGR - SELECT GRAPHIC RENDITION
-    # 0 => default rendition (implementation-defined), cancels the effect
-    # of any preceding occurrence of SGR in the data stream regardless
-    # of the setting of the GRAPHIC RENDITION COMBINATION MODE (GRCM)
-    tput sgr0
+    # macOS specific settings
+
     # solarized colors for coloring prompt
+    tput sgr0
     BASE03=$(tput setaf 234)
     BASE02=$(tput setaf 235)
     BASE01=$(tput setaf 240)
@@ -23,7 +21,34 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     GREEN=$(tput setaf 64)
     BOLD=$(tput bold)
     RESET=$(tput sgr0)
+
+    # autocompletion settings
+    source $(brew --prefix)/etc/bash_completion 2> /dev/null
+
+    alias vim='block_cursor && mvim -v'
+    alias vimdiff='block_cursor && mvimdiff -v'
+
+    # fzf config
+    fzf_exclude='.git,Library,Qt,.DS_Store,.Trash,.temp,__pycache__'
+
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+    # remap cd to dir from ALT-C to CTRL-F
+    bind '"\C-f": "\C-x\C-addi`__fzf_cd__`\C-x\C-e\C-x\C-r\C-m"'
+
+    # open file from fzf in vim
+    bind '"\C-v": "vim \C-t\C-m"'
+
+    # -g is the opposite of --exclude, that's why the ! on the first one
+    export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --no-ignore -g "!{$fzf_exclude}" 2> /dev/null'
+    export FZF_ALT_C_COMMAND='fd -t d --hidden --no-ignore --exclude "{$fzf_exclude}" .'
+
+    export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
+else
+    alias vim='block_cursor && vim'
+    alias vimdiff='block_cursor && vim'
 fi
+
 
 # function to show git branch on the prompt, last -e flag add one space to the end
 parse_git_branch () {
@@ -54,11 +79,6 @@ HISTFILESIZE=
 # ** expands to any number of directories
 shopt -s globstar
 
-# autocompletion settings
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    source $(brew --prefix)/etc/bash_completion 2> /dev/null
-fi
-
 # FIXME:
 # gives this error when running LeaderF C extionsion install.sh
 # /Users/eero/.bash_profile: line 61: bind: warning: line editing not enabled
@@ -70,14 +90,6 @@ bind "set menu-complete-display-prefix on"
 block_cursor () {
     echo -e -n "\x1b[\x32 q"
 }
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    alias vim='block_cursor && mvim -v'
-    alias vimdiff='block_cursor && mvimdiff -v'
-else
-    alias vim='block_cursor && vim'
-    alias vimdiff='block_cursor && vim'
-fi
 
 alias fg='block_cursor && fg'
 alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
@@ -168,28 +180,5 @@ alias act='source venv/bin/activate'
 alias clamshell='sudo pmset -a disablesleep 1'
 alias noclamshell='sudo pmset -a disablesleep 0'
 
-# fzf config
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    fzf_exclude='.git,Library,Qt,.DS_Store,.Trash,.temp,__pycache__'
-
-    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-    # remap cd to dir from ALT-C to CTRL-F
-    bind '"\C-f": "\C-x\C-addi`__fzf_cd__`\C-x\C-e\C-x\C-r\C-m"'
-
-    # open file from fzf in vim
-    bind '"\C-v": "vim \C-t\C-m"'
-
-    # -g is the opposite of --exclude, that's why the ! on the first one
-    export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --no-ignore -g "!{$fzf_exclude}" 2> /dev/null'
-    export FZF_ALT_C_COMMAND='fd -t d --hidden --no-ignore --exclude "{$fzf_exclude}" .'
-fi
-
 export PATH="$HOME/.cargo/bin:${PATH}"
 export PATH="$HOME/dotfiles/bash/exported:${PATH}"
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
