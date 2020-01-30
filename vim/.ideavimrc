@@ -423,7 +423,6 @@ nnoremap <C-T> :action JumpToLastWindow<CR>
 inoremap <C-H> <C-O>:action ParameterInfo<CR>
 inoremap <C-J> <C-O>:action EditorCloneCaretBelow<CR>
 inoremap <C-K> <C-O>:action EditorCloneCaretAbove<CR>
-inoremap <C-L> <C-O>:action EditorCompleteStatement<CR>
 
 nnoremap <C-P> :action GotoPreviousError<CR>
 nnoremap <C-N> :action GotoNextError<CR>
