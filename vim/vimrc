@@ -415,6 +415,11 @@ noremap ; ,
 noremap @, @:
 nnoremap q, q:
 xnoremap q, q:
+augroup QMappings
+    autocmd!
+    autocmd FileType * if &buftype ==# 'nofile'|silent! unmap q,|endif
+    autocmd BufEnter * if &buftype !=# 'nofile'|nnoremap q, q:|endif
+augroup END
 
 " makes these more consistent with other commands
 nnoremap Y y$
@@ -453,12 +458,11 @@ inoremap <CR> <C-G>u<CR>
 " change enter behaviour
 augroup EnterMappings
     autocmd!
-    autocmd BufEnter * if &l:buftype ==# ''
+    autocmd BufEnter * if &buftype !=# 'nofile'
             \| nnoremap <buffer> <silent> <CR> :<C-U>call <SID>BlankDown(v:count1)<CR>
             \| nnoremap <buffer> <silent> <S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
             \| endif
-    " FIXME: enter doesn't work with q:
-    autocmd CmdwinEnter * silent! unmap <CR>
+    autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 augroup END
 
 " move CTRL-I, since tab is taken
