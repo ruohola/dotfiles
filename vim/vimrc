@@ -81,7 +81,7 @@ set updatetime=300
 set signcolumn=auto
 
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "<TAB>"
 
 nmap <silent> <C-P> <Plug>(coc-diagnostic-prev)
 nmap <silent> <C-N> <Plug>(coc-diagnostic-next)
@@ -450,10 +450,10 @@ nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
 " easy way to run : command again for a visual selection
 xnoremap <Leader>, q:<UP>I'<,'><Esc>$
 
-" make C-U and C-W and CR undoable
+" make C-U and C-W undoable
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
-inoremap <CR> <C-G>u<CR>
+
 
 " change enter behaviour
 augroup EnterMappings
@@ -561,11 +561,15 @@ function! RunCommandInSplitTerm(command) abort
 
     if termWinNr == -1
         exe 'below split | resize ' . winSize
-        let termBufNr = term_start(&shell, {
-                    \ 'curwin': 1,
-                    \ 'term_finish': 'close',
-                    \ })
-        call setbufvar(mainBuf, '_run_term', termBufNr)
+        if termBufNr == -1 || bufexists(termBufNr) == 0
+            let termBufNr = term_start(&shell, {
+                        \ 'curwin': 1,
+                        \ 'term_finish': 'close',
+                        \ })
+            call setbufvar(mainBuf, '_run_term', termBufNr)
+        else
+            exe 'buffer' . termBufNr
+        endif
     else
         exe termWinNr . 'wincmd w'
     endif
@@ -620,8 +624,8 @@ endfunction
 " toggle relative numbers between modes
 augroup LineNumbers
     autocmd!
-    autocmd WinEnter,FocusGained,InsertLeave * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' |set relativenumber|endif
-    autocmd WinLeave,FocusLost,InsertEnter * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' |set norelativenumber|endif
+    autocmd WinEnter,FocusGained,InsertLeave * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' && &l:buftype !=? 'help'|set relativenumber|endif
+    autocmd WinLeave,FocusLost,InsertEnter * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' && &l:buftype !=? 'help'|set norelativenumber|endif
 augroup END
 
 
@@ -636,8 +640,6 @@ augroup END
 augroup HelpOpen
     autocmd!
     autocmd BufRead *.txt if &buftype ==? 'help'
-                    \|set number
-                    \|set relativenumber
                     \|exe "normal \<C-W>T"
                 \|endif
 augroup END
