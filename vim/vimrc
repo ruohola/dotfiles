@@ -65,11 +65,7 @@ Plug 'tpope/vim-abolish'               " more advanced substitute etc
 Plug 'tpope/vim-eunuch'                " easy unix file operations
 
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
-" if has ('python3')
-"     Plug 'maralla/completor.vim'           " autocompletion
-" endif
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " language-server plugin
 
 " colorshemes
 Plug 'lifepillar/vim-solarized8'
@@ -81,7 +77,7 @@ set updatetime=300
 set signcolumn=auto
 
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "<TAB>"
+inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 
 nmap <silent> <C-P> <Plug>(coc-diagnostic-prev)
 nmap <silent> <C-N> <Plug>(coc-diagnostic-next)
@@ -122,18 +118,6 @@ endfunction
 
 " xuhdev/vim-latex-live-preview
 let g:livepreview_previewer = 'open -a Skim'
-
-" maralla/completor.vim
-if has ('python3')
-    inoremap <expr> <Tab> pumvisible() ? "\<C-Y>" : "\<Tab>"
-    let g:completor_complete_options='menuone,noinsert'
-    let g:completor_completion_delay=0
-    if has ('win32')
-        let g:completor_python_binary = 'C:\Users\eero.ruohola\AppData\Local\Programs\Python\Python38-32\python.exe'
-    else
-        let g:completor_python_binary = '/usr/local/bin/python3'
-    endif
-endif
 
 if has('win32')
     " Yggdroot/LeaderF
@@ -525,9 +509,8 @@ nnoremap <silent> <Leader>cr :CocConfig<CR>
 command! PI silent! w | PlugInstall
 command! PC silent! w | PlugClean!
 " PlugUpgrade breaks vim-plug on windows atm
-command! PU silent! exec ':w | PlugSnapshot! ' . PathToPluginsFolder . '/plugins_old.lock'
-                    \| PlugUpdate
-                    \| exec 'PlugSnapshot! ' . PathToPluginsFolder . '/plugins.lock'
+command! PU w | PlugUpdate
+command! PS exec 'PlugSnapshot! ' . PathToPluginsFolder . '/plugins.lock'
 
 " source vimrc
 command! SO so $MYVIMRC
