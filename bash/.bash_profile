@@ -155,7 +155,7 @@ docker-compose run --rm backend sh -c "
 "
 '
 alias lintskole='
-docker-compose run --rm backend sh -c "
+docker-compose run --no-deps --rm backend sh -c "
     autoflake -ir --remove-all-unused-imports --exclude __init__.py src &&
     isort -rc src &&
     black --exclude migrations/* src
@@ -170,7 +170,7 @@ docker-compose run --rm backend sh -c "
     pytest --cov-report html --cov=src src/tests/
 "
 '
-alias mypyskole='docker-compose run --rm backend sh -c "mypy src"'
+alias mypyskole='docker-compose run --no-deps --rm backend sh -c "mypy src"'
 alias testskole='docker-compose run --rm backend pytest --cov-report html --cov=src src/tests/'
 alias runskole='docker-compose run --rm backend'
 
