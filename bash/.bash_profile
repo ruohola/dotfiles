@@ -177,6 +177,8 @@ alias runskole='docker-compose run --rm backend'
 
 alias act='source venv/bin/activate'
 
+alias lg='lazygit'
+
 alias clamshell='sudo pmset -a disablesleep 1'
 alias noclamshell='sudo pmset -a disablesleep 0'
 
