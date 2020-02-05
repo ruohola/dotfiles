@@ -116,6 +116,9 @@ function! s:show_documentation()
 endfunction
 
 
+" tpope/vim-surround
+nmap S ysiw
+
 " xuhdev/vim-latex-live-preview
 let g:livepreview_previewer = 'open -a Skim'
 
@@ -409,7 +412,6 @@ augroup END
 nnoremap Y y$
 nnoremap vv V
 nnoremap V <C-V>$
-nnoremap S hs
 
 " cleaner to use when cursor doesn't move
 nnoremap J Jh
