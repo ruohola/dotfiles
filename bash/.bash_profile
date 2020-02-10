@@ -155,7 +155,7 @@ docker-compose run --rm backend sh -c "
     python src/manage.py loaddata test-data.yaml
 "
 '
-alias lintskole='
+alias formatskole='
 docker-compose run --no-deps --rm backend sh -c "
     autoflake -ir --remove-all-unused-imports --exclude __init__.py src &&
     isort -rc src &&
