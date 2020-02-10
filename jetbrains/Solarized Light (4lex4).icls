@@ -1,9 +1,9 @@
 <scheme name="Solarized Light (4lex4)" version="142" parent_scheme="Default">
   <metaInfo>
-    <property name="created">2020-02-05T01:33:21</property>
+    <property name="created">2020-02-10T13:54:42</property>
     <property name="ide">Python</property>
     <property name="ideVersion">2019.3.1.0.0</property>
-    <property name="modified">2020-02-05T01:33:34</property>
+    <property name="modified">2020-02-10T13:55:02</property>
     <property name="originalScheme">_@user_Solarized Light (4lex4)</property>
   </metaInfo>
   <colors>
@@ -1128,6 +1128,11 @@
     </option>
     <option name="JS.INTERFACE">
       <value />
+    </option>
+    <option name="JS.PARAMETER">
+      <value>
+        <option name="EFFECT_TYPE" value="1" />
+      </value>
     </option>
     <option name="JS.STATIC_MEMBER_FUNCTION">
       <value>
@@ -2490,9 +2495,8 @@
     </option>
     <option name="TODO_DEFAULT_ATTRIBUTES">
       <value>
-        <option name="FOREGROUND" value="2aa198" />
-        <option name="FONT_TYPE" value="2" />
-        <option name="ERROR_STRIPE_COLOR" value="2aa198" />
+        <option name="FOREGROUND" value="d33682" />
+        <option name="FONT_TYPE" value="1" />
       </value>
     </option>
     <option name="TS.MODULE_NAME">

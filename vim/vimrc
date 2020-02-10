@@ -466,8 +466,9 @@ xnoremap < <gv
 xnoremap <C-X> <C-X>gv
 xnoremap <C-A> <C-A>gv
 
-" paste to the next line
+" paste to the next or previous line
 nnoremap gp o<Esc>p^
+nnoremap gP O<Esc>p^
 
 " Q plays back q macro
 nnoremap Q @q

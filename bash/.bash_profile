@@ -29,7 +29,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias vimdiff='block_cursor && mvimdiff -v'
 
     # fzf config
-    fzf_exclude='.git,Library,Qt,.DS_Store,.Trash,.temp,__pycache__'
+    fzf_exclude='.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules'
 
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -40,7 +40,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     bind '"\C-v": "vim \C-t\C-m"'
 
     # -g is the opposite of --exclude, that's why the ! on the first one
-    export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --no-ignore -g "!{$fzf_exclude}" 2> /dev/null'
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore -g "!{$fzf_exclude}" 2> /dev/null'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND='fd -t d --hidden --no-ignore --exclude "{$fzf_exclude}" .'
 
     export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"

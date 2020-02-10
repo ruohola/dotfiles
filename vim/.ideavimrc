@@ -366,7 +366,10 @@ nnoremap m :action ToggleBookmarkWithMnemonic<CR>
 " select previously yanked text
 nnoremap gb `[v`]
 
+" paste to the next or previous line
 nnoremap gp o<Esc>p^
+nnoremap gP O<Esc>p^
+
 nnoremap gr :action GotoRelated<CR>
 nnoremap gt :action GotoTest<CR>
 nnoremap gs :action GotoSuperMethod<CR>
@@ -413,6 +416,7 @@ noremap  <Leader>] :action Unwrap<CR>
 nnoremap <Leader>' :action Generate<CR>
 
 nnoremap <Leader>1 :action InspectCode<CR>
+nnoremap <Leader>7 :action ReplaceInPath<CR>
 
 nnoremap <Leader>" o"""
 
