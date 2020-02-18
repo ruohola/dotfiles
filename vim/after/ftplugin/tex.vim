@@ -14,7 +14,6 @@ nnoremap <nowait> <buffer> <Leader>b o\begin{verbatim}<Enter>\end{verbatim}<Esc>
 setlocal tabstop=8 softtabstop=4 shiftwidth=4 expandtab
 setlocal smarttab  autoindent    breakindent
 
-nnoremap <nowait> <buffer> <Leader>p :LLPStartPreview<CR>
 nnoremap <nowait> <buffer> <Leader>re Go<Esc>o@misc{,<CR>title = {{}},<CR>note = {<CR>}<CR>}<Esc>4k$h
 command! SOT so ~/.vim/after/ftplugin/tex.vim
 
