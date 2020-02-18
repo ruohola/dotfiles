@@ -64,6 +64,7 @@ Plug 'tpope/vim-abolish'               " more advanced substitute etc
 
 Plug 'tpope/vim-eunuch'                " easy unix file operations
 
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " language-server plugin
 
 " colorshemes
@@ -117,6 +118,9 @@ endfunction
 
 " tpope/vim-surround
 nmap S ysiw
+
+" xuhdev/vim-latex-live-preview
+let g:livepreview_previewer = 'open -a Skim'
 
 if has('win32')
     " Yggdroot/LeaderF
