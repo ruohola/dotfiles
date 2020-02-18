@@ -21,5 +21,5 @@ command! SOT so ~/.vim/after/ftplugin/tex.vim
 
 augroup MakeKandi
     autocmd!
-    autocmd BufWritePost kandi.tex :silent make
+    autocmd BufWritePost kandi.tex silent make -C ~/yliopisto/kandi
 augroup END
