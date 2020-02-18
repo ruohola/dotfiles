@@ -4,7 +4,7 @@ setlocal nowrap
 
 " change eol comment to line comment and vice versa
 nnoremap <buffer> ä :set nohlsearch<CR>$?\v%<CR>gEl"_d/\v\%<CR>"qDO<C-R>q<Esc>^:set hlsearch<BAR>noh<CR>
-nnoremap <buffer> <Leader>c a\cite{}<Left>
+nnoremap <nowait> <buffer> <Leader>c a\cite{}<Left>
 nnoremap <buffer> <Leader>s a\cite[s.~]{}<Left><Left><Left>
 nnoremap <buffer> <Leader>i a\textit{}<Left>
 nnoremap <buffer> <Leader>e a (engl. \textit{})<Left><Left>
