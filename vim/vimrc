@@ -121,6 +121,7 @@ nmap S ysiw
 
 " xuhdev/vim-latex-live-preview
 let g:livepreview_previewer = 'open -a Skim'
+let g:livepreview_cursorhold_recompile = 0
 
 if has('win32')
     " Yggdroot/LeaderF
