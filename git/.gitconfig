@@ -9,8 +9,6 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
 	trustExitCode = true
-[commit]
-	template = /Users/eero/.stCommitMsg
 [credential]
 	helper = osxkeychain
 [gc]
@@ -20,7 +18,7 @@
 [format]
 	pretty = format:%C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%cd %C(auto,green)%<(7,trunc)%aN%C(auto,reset)% s%C(auto,red)% gD% D
 [push]
-	default = current
+	default = upstream
 [pager]
 	log = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
 	show = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
