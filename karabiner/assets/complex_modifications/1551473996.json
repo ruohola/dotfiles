@@ -6,6 +6,29 @@
             "manipulators": [
                 {
                     "from": {
+                        "key_code": "tab",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ],
+                            "optional": [
+                                "caps_lock",
+                                "command",
+                                "option",
+                                "shift",
+                                "control"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "tab"
+                        }
+                    ],
+                    "type": "basic"
+                },
+                {
+                    "from": {
                         "key_code": "h",
                         "modifiers": {
                             "mandatory": [
