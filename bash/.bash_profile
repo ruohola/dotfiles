@@ -106,6 +106,14 @@ alias lsla='ls -la'
 alias ls1='ls -1'
 alias lsa1='ls -a1'
 
+alias F='open .'
+
+alias act='source venv/bin/activate'
+alias lg='lazygit'
+
+alias clamshell='sudo pmset -a disablesleep 1'
+alias noclamshell='sudo pmset -a disablesleep 0'
+
 alias gs='git status'
 alias ga='git add'
 alias gaa='git add .'
@@ -129,17 +137,6 @@ alias gls='git log --graph --date-order --numstat'
 alias gb='git checkout -b'
 alias gco='git checkout'
 
-alias bkandi='
-cd ~/Documents/yliopisto/kandi
-pdflatex kandi.tex
-bibtex kandi
-pdflatex kandi.tex
-pdflatex kandi.tex
-rm kandi.aux
-rm kandi.bbl
-rm kandi.blg
-rm kandi.log
-rm kandi.toc'
 
 # alises for skole dev
 alias killskole='
@@ -165,15 +162,6 @@ alias mypyskole='docker-compose run --no-deps --rm backend sh -c "mypy src"'
 alias testskole='docker-compose run --rm backend pytest --cov-report html --cov=src src/tests/'
 alias runskole='docker-compose run --rm backend'
 
-
-alias act='source venv/bin/activate'
-
-alias F='open .'
-
-alias lg='lazygit'
-
-alias clamshell='sudo pmset -a disablesleep 1'
-alias noclamshell='sudo pmset -a disablesleep 0'
 
 export PATH="$HOME/.cargo/bin:${PATH}"
 export PATH="$HOME/dotfiles/bash/exported:${PATH}"
