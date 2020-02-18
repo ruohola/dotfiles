@@ -42,31 +42,8 @@
                         ]
                     },
                     {
-                        "description": "Change right_command + h/j/k/l to Arrows",
+                        "description": "Change right_command+hjkl to arrow keys",
                         "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "tab",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "right_command"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "command",
-                                            "option",
-                                            "shift",
-                                            "control"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "tab"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
                             {
                                 "from": {
                                     "key_code": "h",
@@ -75,11 +52,7 @@
                                             "right_command"
                                         ],
                                         "optional": [
-                                            "caps_lock",
-                                            "command",
-                                            "option",
-                                            "shift",
-                                            "control"
+                                            "any"
                                         ]
                                     }
                                 },
@@ -98,11 +71,7 @@
                                             "right_command"
                                         ],
                                         "optional": [
-                                            "caps_lock",
-                                            "command",
-                                            "option",
-                                            "shift",
-                                            "control"
+                                            "any"
                                         ]
                                     }
                                 },
@@ -121,11 +90,7 @@
                                             "right_command"
                                         ],
                                         "optional": [
-                                            "caps_lock",
-                                            "command",
-                                            "option",
-                                            "shift",
-                                            "control"
+                                            "any"
                                         ]
                                     }
                                 },
@@ -144,11 +109,7 @@
                                             "right_command"
                                         ],
                                         "optional": [
-                                            "caps_lock",
-                                            "command",
-                                            "option",
-                                            "shift",
-                                            "right_command"
+                                            "any"
                                         ]
                                     }
                                 },
@@ -242,6 +203,30 @@
                                         "modifiers": [
                                             "right_command"
                                         ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Change right_command + tab to tab",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "right_command"
+                                        ],
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab"
                                     }
                                 ],
                                 "type": "basic"
