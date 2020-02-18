@@ -155,18 +155,8 @@ docker-compose run --rm backend sh -c "
     python src/manage.py loaddata test-data.yaml
 "
 '
-alias formatskole='
-docker-compose run --no-deps --rm backend sh -c "
-    autoflake -ir --remove-all-unused-imports --exclude __init__.py src &&
-    isort -rc src &&
-    black --exclude migrations/* src
-"
-'
 alias allskole='
 docker-compose run --rm backend sh -c "
-    autoflake -ir --remove-all-unused-imports --exclude __init__.py src &&
-    isort -rc src &&
-    black --exclude migrations/* src
     mypy src
     pytest --cov-report html --cov=src src/tests/
 "
