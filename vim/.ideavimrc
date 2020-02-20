@@ -349,6 +349,12 @@ nnoremap <TAB> >>
 vnoremap <BS> <gv
 vnoremap <TAB> >gv
 
+" persistent visuals
+vnoremap > >gv
+vnoremap < <gv
+vnoremap <C-X> <C-X>gv
+vnoremap <C-A> <C-A>gv
+
 " Q plays back q macro
 nnoremap Q @q
 
