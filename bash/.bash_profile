@@ -80,9 +80,6 @@ HISTFILESIZE=
 # ** expands to any number of directories
 shopt -s globstar
 
-# FIXME:
-# gives this error when running LeaderF C extionsion install.sh
-# /Users/eero/.bash_profile: line 61: bind: warning: line editing not enabled
 bind "TAB:menu-complete"
 bind "set show-all-if-ambiguous on"
 bind "set menu-complete-display-prefix on"

@@ -1992,9 +1992,9 @@
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1792 1097 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>271 186 1250 749 0 0 1792 1097 </string>
+	<string>271 165 1250 768 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>228 191 810 502 0 0 1792 1097 </string>
+	<string>896 0 890 1097 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>270 69 810 502 0 0 1792 1097 </string>
 	<key>NeverWarnAboutShortLivedSessions_03C1E3F1-1F6F-4249-8FE0-FEF988A5EEB7</key>
@@ -2692,6 +2692,7 @@
 	<array>
 		<string>3.3.7</string>
 		<string>3.3.8</string>
+		<string>3.3.9</string>
 	</array>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
@@ -2703,7 +2704,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>9326E0B5-2DA9-4957-9E1F-36F78759275E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>272</integer>
+	<integer>362</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3478,7 +3479,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-02-03T20:06:27Z</date>
+	<date>2020-02-21T16:35:09Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -3499,6 +3500,8 @@
 	<integer>6</integer>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>4</integer>
+	<key>UseMetal</key>
+	<true/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>WindowNumber</key>
@@ -3510,7 +3513,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.8</string>
+	<string>3.3.9</string>
 	<key>preferIntegratedGPU</key>
 	<false/>
 </dict>

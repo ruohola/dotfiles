@@ -12,7 +12,7 @@ set surround
 set multiple-cursors
 set commentary
 
-nmap S ysiw
+nmap S ysiW
 
 " emulates tommcdo/vim-exchange
 " TODO: add more text objects
