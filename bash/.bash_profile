@@ -134,30 +134,21 @@ alias gls='git log --graph --date-order --numstat'
 alias gb='git checkout -b'
 alias gco='git checkout'
 
+alias dcu='docker-compose up'
+alias dcb='docker-compose build'
+alias dcub='docker-compose up --build'
 
-# alises for skole dev
-alias killskole='
-find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
-find . -path "*/migrations/*.pyc" -delete
-docker container rm -f backend
-docker container rm -f db
-docker volume rm skole_postgres_data
-docker-compose run --rm backend sh -c "
-    python src/manage.py wait_for_db &&
-    python src/manage.py makemigrations &&
-    python src/manage.py migrate &&
-    python src/manage.py loaddata test-data.yaml
-"
-'
+
 alias allskole='
 docker-compose run --rm backend sh -c "
-    mypy src
-    pytest --cov-report html --cov=src src/tests/
+    mypy .
+    pytest --cov-report html --cov=. tests
 "
 '
-alias mypyskole='docker-compose run --no-deps --rm backend sh -c "mypy src"'
-alias testskole='docker-compose run --rm backend pytest --cov-report html --cov=src src/tests/'
+alias mypyskole='docker-compose run --no-deps --rm backend sh -c "mypy ."'
+alias testskole='docker-compose run --rm backend pytest --cov-report html --cov=. tests'
 alias runskole='docker-compose run --rm backend'
+alias manageskole='docker-compose run --rm backend python manage.py'
 
 
 export PATH="$HOME/.cargo/bin:${PATH}"
