@@ -104,6 +104,7 @@ alias ls1='ls -1'
 alias lsa1='ls -a1'
 
 alias F='open .'
+alias preview='open -a Preview'
 
 alias act='source venv/bin/activate'
 alias lg='lazygit'
