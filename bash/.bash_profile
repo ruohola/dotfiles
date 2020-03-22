@@ -25,9 +25,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # autocompletion settings
     source $(brew --prefix)/etc/bash_completion 2> /dev/null
 
-    alias vim='block_cursor && mvim -v'
-    alias vimdiff='block_cursor && mvimdiff -v'
-
     # fzf config
     fzf_exclude='.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules'
 
@@ -45,11 +42,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export FZF_ALT_C_COMMAND='fd -t d --hidden --no-ignore --exclude "{$fzf_exclude}" .'
 
     export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
-else
-    alias vim='block_cursor && vim'
-    alias vimdiff='block_cursor && vim'
 fi
-
 
 # function to show git branch on the prompt, last -e flag add one space to the end
 parse_git_branch () {
@@ -84,19 +77,11 @@ bind "TAB:menu-complete"
 bind "set show-all-if-ambiguous on"
 bind "set menu-complete-display-prefix on"
 
-# Changes to a block cursor when called, used to make vim always start with a block cursor
-block_cursor () {
-    echo -e -n "\x1b[\x32 q"
-}
-
-alias fg='block_cursor && fg'
 alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
 alias sbrc='source ~/.bash_profile'
 alias virc='vim ~/.vim/.ideavimrc'
 alias vvrc='vim ~/.vim/vimrc'
 alias vset='vim ~/dotfiles/setup.sh'
-
-alias ranger='block_cursor && ranger'
 
 alias lsa='ls -a'
 alias lsla='ls -la'
@@ -116,12 +101,12 @@ alias gs='git status'
 alias ga='git add'
 alias gaa='git add .'
 alias gcl='git clone'
-alias gc='block_cursor && git commit'
+alias gc='git commit'
 alias gcm='git commit -m'
-alias gca='block_cursor && git commit --amend'
-alias gcan='block_cursor && git commit --amend --no-edit'
-alias gcae='block_cursor && git commit --allow-empty'
-alias gcaem='block_cursor && git commit --allow-empty -m'
+alias gca='git commit --amend'
+alias gcan='git commit --amend --no-edit'
+alias gcae='git commit --allow-empty'
+alias gcaem='git commit --allow-empty -m'
 alias gpl='git pull --rebase'
 alias gps='git push'
 alias gpsf='git push -f'
