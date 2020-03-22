@@ -31,7 +31,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
     # remap cd to dir from ALT-C to CTRL-F
-    bind '"\C-f": "\C-x\C-addi`__fzf_cd__`\C-x\C-e\C-x\C-r\C-m"'
+    bind '"\C-f": "c"'
 
     # open file from fzf in vim
     bind '"\C-v": "vim \C-t\C-m"'

@@ -362,33 +362,64 @@ if has('win32')
     map <F13> <Nop>
     map! <F13> <Nop>
 else
-    " traverse history with alt+,.
-    nnoremap ′ g,
-    nnoremap … g;
+    if has('gui_running')
+        " traverse history with alt+,.
+        nnoremap ′ g,
+        nnoremap … g;
 
-    " move between splits (alt+hjkl)
-    nnoremap ← <C-W>h
-    nnoremap ↓ <C-W>j
-    nnoremap ↑ <C-W>k
-    nnoremap → <C-W>l
+        " move between splits (alt+hjkl)
+        nnoremap ← <C-W>h
+        nnoremap ↓ <C-W>j
+        nnoremap ↑ <C-W>k
+        nnoremap → <C-W>l
 
-    " cycle buffers (alt+nm)
-    nnoremap <silent> № :bprev<CR>
-    nnoremap <silent> µ :bnext<CR>
+        " cycle buffers (alt+nm)
+        nnoremap <silent> № :bprev<CR>
+        nnoremap <silent> µ :bnext<CR>
 
-    " cycle tabs (alt+ui)
-    nnoremap <silent>ü :tabprevious<CR>
-    nnoremap <silent>↔︎ :tabnext<CR>
+        " cycle tabs (alt+ui)
+        nnoremap <silent>ü :tabprevious<CR>
+        nnoremap <silent>↔︎ :tabnext<CR>
 
-    if has('terminal')
-        tnoremap ← <C-W><C-H>
-        tnoremap ↓ <C-W><C-J>
-        tnoremap ↑ <C-W><C-K>
-        tnoremap → <C-W><C-L>
-        tnoremap <silent> № <C-W>:bprev<CR>
-        tnoremap <silent> µ <C-W>:bnext<CR>
-        tnoremap <silent>ü <C-W>:tabprevious<CR>
-        tnoremap <silent>↔︎ <C-W>:tabnext<CR>
+        if has('terminal')
+            tnoremap ← <C-W><C-H>
+            tnoremap ↓ <C-W><C-J>
+            tnoremap ↑ <C-W><C-K>
+            tnoremap → <C-W><C-L>
+            tnoremap <silent> № <C-W>:bprev<CR>
+            tnoremap <silent> µ <C-W>:bnext<CR>
+            tnoremap <silent>ü <C-W>:tabprevious<CR>
+            tnoremap <silent>↔︎ <C-W>:tabnext<CR>
+        endif
+    else
+        " traverse history with alt+,.
+        nnoremap <Esc>, g,
+        nnoremap <Esc>. g;
+
+        " move between splits (alt+hjkl)
+        nnoremap <Esc>h <C-W>h
+        nnoremap <Esc>j <C-W>j
+        nnoremap <Esc>k <C-W>k
+        nnoremap <Esc>l <C-W>l
+
+        " cycle buffers (alt+nm)
+        nnoremap <silent> <Esc>n :bprev<CR>
+        nnoremap <silent> <Esc>m :bnext<CR>
+
+        " cycle tabs (alt+ui)
+        nnoremap <silent> <Esc>u :tabprevious<CR>
+        nnoremap <silent> <Esc>i :tabnext<CR>
+
+        if has('terminal')
+            tnoremap <Esc>h <C-W><C-H>
+            tnoremap <Esc>j <C-W><C-J>
+            tnoremap <Esc>k <C-W><C-K>
+            tnoremap <Esc>l <C-W><C-L>
+            tnoremap <silent> <Esc>n <C-W>:bprev<CR>
+            tnoremap <silent> <Esc>m <C-W>:bnext<CR>
+            tnoremap <silent> <Esc>u <C-W>:tabprevious<CR>
+            tnoremap <silent> <Esc>i <C-W>:tabnext<CR>
+        endif
     endif
 endif
 
