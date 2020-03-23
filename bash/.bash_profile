@@ -110,15 +110,23 @@ alias gcaem='git commit --allow-empty -m'
 alias gpl='git pull --rebase'
 alias gps='git push'
 alias gpsf='git push -f'
-alias gpsu='git push -u'
-alias gsu='git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`'
+alias gpsu='git push -u origin `git branch --show-current`'
 alias gds='git diff --staged'
 alias gdh='git diff HEAD'
 alias gl='git log --graph --date-order'
 alias glf='git log --graph --date-order --name-status'
 alias gls='git log --graph --date-order --numstat'
-alias gb='git checkout -b'
-alias gco='git checkout'
+alias gb='git branch'
+alias gba='git branch -a'
+gbd () { git branch --delete "$1" && git push --delete origin "$1"; }
+gch () {
+    if [[ "$@" == "dev" ]]; then
+        git checkout develop
+    else
+        git checkout "$@"
+    fi
+}
+gchb () { git checkout -b "$1" || git checkout "$1"; }
 
 alias dcu='docker-compose up'
 alias dcb='docker-compose build'
