@@ -592,7 +592,7 @@ function! RunCommandInSplitTerm(command) abort
     endif
 
     let mainWin = bufwinnr(mainBuf)
-    call term_sendkeys(termBufNr, a:command . '')  " should be literal ^M
+    call term_sendkeys(termBufNr, a:command . "\<CR>")
     exe "normal \<C-W>p"
 endfunction
 
@@ -601,8 +601,7 @@ endfunction
 function! s:BlankUp(count) abort
     norm! mq
     for i in range(a:count)
-        " should be literal ^[
-        norm! O0"_D
+        exec "norm! O\<Esc>0\"_D"
     endfor
     norm! `q
 endfunction
@@ -612,8 +611,7 @@ endfunction
 function! s:BlankDown(count) abort
     norm! mq
     for i in range(a:count)
-        " should be literal ^[
-        norm! o0"_D
+        exec "norm! o\<Esc>0\"_D"
     endfor
     norm! `q
 endfunction
