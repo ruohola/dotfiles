@@ -28,46 +28,8 @@
       ]
     },
     {
-      "description":"Change right_command + u/i/y/n to cmd←/cmd→/pgup/pgdn keys",
+      "description":"Change right_command + u/i to Ctrl-a/Ctrl-e",
       "manipulators":[
-        {
-          "type":"basic",
-          "from":{
-            "key_code":"y",
-            "modifiers":{
-              "mandatory":[
-                "right_command"
-              ],
-              "optional":[
-                "any"
-              ]
-            }
-          },
-          "to":[
-            {
-              "key_code":"page_up"
-            }
-          ]
-        },
-        {
-          "type":"basic",
-          "from":{
-            "key_code":"n",
-            "modifiers":{
-              "mandatory":[
-                "right_command"
-              ],
-              "optional":[
-                "any"
-              ]
-            }
-          },
-          "to":[
-            {
-              "key_code":"page_down"
-            }
-          ]
-        },
         {
           "type":"basic",
           "from":{
@@ -83,9 +45,9 @@
           },
           "to":[
             {
-              "key_code":"left_arrow",
+              "key_code":"a",
               "modifiers":[
-                "left_command"
+                "left_control"
               ]
             }
           ]
@@ -105,9 +67,9 @@
           },
           "to":[
             {
-              "key_code":"right_arrow",
+              "key_code":"e",
               "modifiers":[
-                "right_command"
+                "left_control"
               ]
             }
           ]
