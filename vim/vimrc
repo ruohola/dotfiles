@@ -95,8 +95,6 @@ nnoremap <silent> <Leader>o :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <Leader>a :<C-u>CocList commands<cr>
 nnoremap <silent> <Leader>h :<C-u>CocList outline<cr>
 nnoremap <silent> <Leader>s :<C-u>CocList -I symbols<cr>
-" xmap <leader>a <Plug>(coc-codeaction-selected)
-" nmap <leader>a <Plug>(coc-codeaction-selected)
 
 " mappings for function text objects
 xmap if <Plug>(coc-funcobj-i)
@@ -326,10 +324,6 @@ nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 
 if has('win32')
-    " traverse history with alt+,.
-    nnoremap ® g,
-    nnoremap ¬ g;
-
     " split navigations (alt+hjkl)
     nnoremap è <C-W><C-H>
     nnoremap ê <C-W><C-J>
@@ -363,10 +357,6 @@ if has('win32')
     map! <F13> <Nop>
 else
     if has('gui_running')
-        " traverse history with alt+,.
-        nnoremap ′ g,
-        nnoremap … g;
-
         " move between splits (alt+hjkl)
         nnoremap ← <C-W>h
         nnoremap ↓ <C-W>j
@@ -392,10 +382,6 @@ else
             tnoremap <silent>↔︎ <C-W>:tabnext<CR>
         endif
     else
-        " traverse history with alt+,.
-        nnoremap <Esc>, g,
-        nnoremap <Esc>. g;
-
         " move between splits (alt+hjkl)
         nnoremap <Esc>h <C-W>h
         nnoremap <Esc>j <C-W>j
@@ -431,6 +417,8 @@ endif
 noremap : ;
 noremap ; ,
 noremap @, @:
+noremap g, g;
+noremap g. g,
 nnoremap q, q:
 xnoremap q, q:
 augroup QMappings
@@ -651,7 +639,7 @@ augroup ReloadVimrc
 augroup END
 
 
-" configure opening of help windows
+" open help windows in a new tab
 augroup HelpOpen
     autocmd!
     autocmd BufRead *.txt if &buftype ==? 'help'
