@@ -46,7 +46,6 @@ else
     Plug '/usr/local/opt/fzf'
     Plug 'junegunn/fzf.vim'
 endif
-Plug 'google/vim-searchindex'          " better search [x/y]
 Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
 Plug 'markonm/traces.vim'              " live substitution
@@ -312,7 +311,7 @@ set undolevels=10000           " remember more undo history
 set history=1000               " remember more command history
 set updatecount=10             " update swap file more often
 set matchpairs=(:),{:},[:]     " configure which braces to match
-set shortmess=Sac              " shorter prompt messages, no ins completion messages
+set shortmess=ac               " shorter prompt messages, no ins completion messages
 filetype plugin indent on      " auto detect filetype
 
 
@@ -497,12 +496,12 @@ function! s:EscMapping() abort
 endfunction
 function! s:SearchMapping() abort
     call <SID>EscMapping()
-    nnoremap n n
-    nnoremap N N
-    nnoremap / /
-    nnoremap ? ?
-    nnoremap * *
-    nnoremap # #
+    unmap n
+    unmap N
+    unmap /
+    unmap ?
+    unmap *
+    unmap #
 endfunction
 if has('gui_running')
     call <SID>EscMapping()
