@@ -28,6 +28,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export FZF_ALT_C_COMMAND='fd -t d --hidden --no-ignore --exclude "{$fzf_exclude}" .'
 
     export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
+
+    source /Users/eero/Library/Preferences/org.dystroy.broot/launcher/bash/br
 fi
 
 # function to show git branch on the prompt
