@@ -98,6 +98,7 @@ alias clamshell='sudo pmset -a disablesleep 1'
 alias noclamshell='sudo pmset -a disablesleep 0'
 
 alias gs='git status'
+alias gf='git fetch --all --tags'
 alias ga='git add'
 alias gaa='git add .'
 alias gcl='git clone'
