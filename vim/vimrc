@@ -297,7 +297,7 @@ augroup NoVisualBells
 augroup END
 
 " mixed settings
-set timeoutlen=2000            " timeout for keymappings
+set timeoutlen=1000            " timeout for keymappings
 set formatoptions=qlj          " don't autocontinue comment lines, remove comment when joining
 set pumheight=12               " max height for the autocompletion popup
 set nomodeline                 " don't try to parse commands from opened file

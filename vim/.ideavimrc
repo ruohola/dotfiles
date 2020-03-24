@@ -460,7 +460,7 @@ set number relativenumber
 set incsearch hlsearch ignorecase smartcase gdefault
 
 set ideajoin                  " use the IDE's join/J behavior
-set timeoutlen=2000           " timeout for keymappings
+set timeoutlen=1000           " timeout for keymappings
 set clipboard=unnamed,ideaput " use system clipboard with idea's pasting logic
 set scrolloff=1               " pad scrolling with one line
 set showmode                  " show current mode in statusbar
