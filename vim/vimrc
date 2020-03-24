@@ -21,7 +21,7 @@ else
 endif
 let PathToTempFolder = $HOME . VimFolder . TempFolder
 let PathToPluginsFolder = $HOME . VimFolder . PluginsFolder
-
+let g:netrw_dirhistmax=0
 
 " make sure that the temp file locations exists
 for folder in ['/undo', '/backup', '/swap']
