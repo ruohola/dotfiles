@@ -446,6 +446,9 @@ nnoremap gb `[v`]
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 
+" substitute selected text
+xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
+
 " change eol comment to line comment and vice versa
 " this // is the default version for unspecified filetypes
 nnoremap ä :set nohlsearch<CR>$?\v//<CR>gEl"_d/\v\//<CR>"qDO<C-R>q<Esc>^:set hlsearch<BAR>noh<CR>
