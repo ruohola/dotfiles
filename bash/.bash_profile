@@ -1,26 +1,12 @@
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS specific settings
 
-    # solarized colors for coloring prompt
-    tput sgr0
-    BASE03=$(tput setaf 234)
-    BASE02=$(tput setaf 235)
-    BASE01=$(tput setaf 240)
-    BASE00=$(tput setaf 241)
-    BASE0=$(tput setaf 244)
-    BASE1=$(tput setaf 245)
-    BASE2=$(tput setaf 254)
-    BASE3=$(tput setaf 230)
-    YELLOW=$(tput setaf 136)
-    ORANGE=$(tput setaf 166)
-    RED=$(tput setaf 160)
-    MAGENTA=$(tput setaf 125)
-    VIOLET=$(tput setaf 61)
-    BLUE=$(tput setaf 33)
-    CYAN=$(tput setaf 37)
-    GREEN=$(tput setaf 64)
-    BOLD=$(tput bold)
-    RESET=$(tput sgr0)
+    # solarized colors for coloring the prompt
+    tput sgr0;                BASE03=$(tput setaf 234);  BASE02=$(tput setaf 235)
+    BASE01=$(tput setaf 240); BASE00=$(tput setaf 241);  BASE0=$(tput setaf 244);  BASE1=$(tput setaf 245)
+    BASE2=$(tput setaf 254);  BASE3=$(tput setaf 230);   YELLOW=$(tput setaf 136); ORANGE=$(tput setaf 166)
+    RED=$(tput setaf 160);    MAGENTA=$(tput setaf 125); VIOLET=$(tput setaf 61);  BLUE=$(tput setaf 33)
+    CYAN=$(tput setaf 37);    GREEN=$(tput setaf 64);    BOLD=$(tput bold);        RESET=$(tput sgr0)
 
     # autocompletion settings
     source $(brew --prefix)/etc/bash_completion 2> /dev/null
@@ -44,17 +30,16 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
 fi
 
-# function to show git branch on the prompt, last -e flag add one space to the end
+# function to show git branch on the prompt
 parse_git_branch () {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/' -e 's/$/ /'
+    git branch --show-current 2> /dev/null | sed -e 's/\(.*\)/(\1) /'
 }
 
-# make prompt looks like this: path/to/dir (branch_if_on_git_repo) $
-# export PS1="\w \$(parse_git_branch)\$ "
-export PS1="\[$CYAN\]\w \[$MAGENTA\]\$(parse_git_branch)\[$CYAN\]\$ \[$RESET\]"  # solarized colored prompt
+# solarized colored prompt that looks like: path/to/dir (branch_if_on_git_repo) $
+export PS1="\[$CYAN\]\w \[$MAGENTA\]\$(parse_git_branch)\[$CYAN\]\$ \[$RESET\]"
 PROMPT_DIRTRIM=3  # show only last 3 dirs in prompt
 
-export EDITOR=vim  # vim as $EDITOR
+export EDITOR=vim
 
 export CLICOLOR=1  # enable syntax highlighting
 
@@ -67,8 +52,8 @@ shopt -s histappend
 PROMPT_COMMAND='history -a;history -n'
 
 # unlimited bash history
-HISTSIZE= 
-HISTFILESIZE=
+export HISTSIZE=
+export HISTFILESIZE=
 
 # ** expands to any number of directories
 shopt -s globstar
