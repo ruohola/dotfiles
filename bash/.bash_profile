@@ -12,7 +12,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     source $(brew --prefix)/etc/bash_completion 2> /dev/null
 
     # fzf config
-    fzf_exclude='.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules'
 
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -22,10 +21,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # open file from fzf in vim
     bind '"\C-v": "vim \C-t\C-m"'
 
+    # Can't use variables for the excludable files because those won't get evaluated when using fzf.vim
     # -g is the opposite of --exclude, that's why the ! on the first one
-    export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore -g "!{$fzf_exclude}" 2> /dev/null'
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore -g \
+        "!{.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules}" 2> /dev/null'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-    export FZF_ALT_C_COMMAND='fd -t d --hidden --no-ignore --exclude "{$fzf_exclude}" .'
+    export FZF_ALT_C_COMMAND='fd -t d --hidden --no-ignore --exclude \
+        "{.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules}" .'
 
     export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
 
