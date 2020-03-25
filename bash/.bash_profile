@@ -111,9 +111,9 @@ alias gba='git branch -a'
 gbd () { git branch --delete "$1" && git push --delete origin "$1"; }
 gch () {
     if [[ "$@" == "dev" ]]; then
-        git checkout develop
+        command git checkout develop
     else
-        git checkout "$@"
+        command git checkout "$@"
     fi
 }
 gchb () { git checkout -b "$1" || git checkout "$1"; }
@@ -121,6 +121,14 @@ gchb () { git checkout -b "$1" || git checkout "$1"; }
 alias dcu='docker-compose up'
 alias dcb='docker-compose build'
 alias dcub='docker-compose up --build'
+
+brew () {
+    if [[ "$@" == "up" ]]; then
+        command brew update && brew upgrade
+    else
+        command brew "$@"
+    fi
+}
 
 
 alias allskole='
