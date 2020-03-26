@@ -12,5 +12,6 @@
         }
       }
     }
-  }
+  },
+  "coc.preferences.extensionUpdateCheck": "weekly"
 }
