@@ -39,6 +39,8 @@ let &directory = PathToTempFolder . '/swap'
 
 " ============= PLUGINS =============
 
+packadd! matchit  " enable the built-in plugin
+
 call plug#begin(PathToPluginsFolder)
 if has('win32')
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
