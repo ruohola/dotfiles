@@ -18,3 +18,6 @@ setlocal smarttab  autoindent    breakindent
 
 nnoremap <nowait> <buffer> <Leader>r Go<Esc>o@misc{,<CR>title = {{}},<CR>note = {<CR>\url{}<CR>}<CR>}<Esc>4k$h
 command! SOT so ~/.vim/after/ftplugin/tex.vim
+
+" remove doubled spaces after formatting
+vnoremap gq gqgv:s/  / /e<CR>:noh<CR><C-L>
