@@ -68,6 +68,8 @@ Plug 'tpope/vim-eunuch'                " easy unix file operations
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " language-server plugin
 
+Plug 'gioele/vim-autoswap'             " automatically change to vim with the file open
+
 " colorshemes
 Plug 'lifepillar/vim-solarized8'
 call plug#end()
@@ -314,6 +316,7 @@ set history=1000               " remember more command history
 set updatecount=10             " update swap file more often
 set matchpairs=(:),{:},[:]     " configure which braces to match
 set shortmess=ac               " shorter prompt messages, no ins completion messages
+set title                      " show the current file in the window title
 filetype plugin indent on      " auto detect filetype
 
 
