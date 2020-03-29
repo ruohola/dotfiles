@@ -118,9 +118,9 @@ gch () {
 }
 gchb () { git checkout -b "$1" || git checkout "$1"; }
 
+alias dcb='docker-compose build --parallel'
 alias dcu='docker-compose up'
-alias dcb='docker-compose build'
-alias dcub='docker-compose up --build'
+alias dcub='docker-compose build --parallel && docker-compose up'
 
 brew () {
     if [[ "$@" == "up" ]]; then
