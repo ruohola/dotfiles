@@ -68,8 +68,6 @@ Plug 'tpope/vim-eunuch'                " easy unix file operations
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " language-server plugin
 
-Plug 'gioele/vim-autoswap'             " automatically change to vim with the file open
-
 " colorshemes
 Plug 'lifepillar/vim-solarized8'
 call plug#end()
