@@ -1992,7 +1992,7 @@
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1792 1097 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>271 165 1250 768 0 0 1792 1097 </string>
+	<string>377 274 810 502 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>896 0 890 1097 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -2712,12 +2712,12 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1792, 1120}}</string>
 		<key>topLeft</key>
-		<string>{418, 830}</string>
+		<string>{417, 831}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>9326E0B5-2DA9-4957-9E1F-36F78759275E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>432</integer>
+	<integer>518</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3500,7 +3500,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-03-23T16:29:56Z</date>
+	<date>2020-03-29T11:10:43Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -3522,7 +3522,7 @@
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>4</integer>
 	<key>UseMetal</key>
-	<true/>
+	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>WindowNumber</key>
@@ -3535,6 +3535,8 @@
 	<integer>0</integer>
 	<key>iTerm Version</key>
 	<string>3.3.9</string>
+	<key>metalMaximizeThroughput</key>
+	<false/>
 	<key>preferIntegratedGPU</key>
 	<false/>
 </dict>
