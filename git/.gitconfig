@@ -5,14 +5,11 @@
 	excludesfile = /Users/eero/.gitignore_global
 [difftool "sourcetree"]
 	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
-	path = 
 [mergetool "sourcetree"]
 	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
 	trustExitCode = true
 [credential]
 	helper = osxkeychain
-[gc]
-	autoDetach = false
 [log]
 	date = relative
 [format]
@@ -23,5 +20,3 @@
 	log = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
 	show = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
 	diff = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
-[commit]
-	template = /Users/eero/.stCommitMsg
