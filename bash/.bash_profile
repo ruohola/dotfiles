@@ -34,13 +34,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     source /Users/eero/Library/Preferences/org.dystroy.broot/launcher/bash/br
 fi
 
-# function to show git branch on the prompt
-parse_git_branch () {
-    git branch --show-current 2> /dev/null | sed -e 's/\(.*\)/(\1) /'
-}
-
 # solarized colored prompt that looks like: path/to/dir (branch_if_on_git_repo) $
-export PS1="\[$CYAN\]\w \[$MAGENTA\]\$(parse_git_branch)\[$CYAN\]\$ \[$RESET\]"
+export PS1="\[$CYAN\]\w \[$MAGENTA\]\$(git branch --show-current 2> /dev/null | sed -e 's/\(.*\)/(\1) /')\[$CYAN\]\$ \[$RESET\]"
 PROMPT_DIRTRIM=3  # show only last 3 dirs in prompt
 
 export EDITOR=vim
