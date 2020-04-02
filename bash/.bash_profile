@@ -104,18 +104,20 @@ alias gls='git log --graph --date-order --numstat'
 alias gb='git branch'
 alias gba='git branch -a'
 gbd () { git branch --delete "$1" && git push --delete origin "$1"; }
-gch () {
-    if [[ "$@" == "dev" ]]; then
-        command git checkout develop
-    else
-        command git checkout "$@"
-    fi
-}
+alias gch='git checkout'
 gchb () { git checkout -b "$1" || git checkout "$1"; }
 
 alias dcb='docker-compose build --parallel'
 alias dcu='docker-compose up'
 alias dcub='docker-compose build --parallel && docker-compose up'
+
+git () {
+    if [[ "${@: -1}" == "dev" ]]; then
+        command git ${@:1:$#-1} develop
+    else
+        command git "$@"
+    fi
+}
 
 brew () {
     if [[ "$@" == "up" ]]; then
