@@ -120,8 +120,8 @@ alias dcub='docker-compose build --parallel && docker-compose up'
 brew () {
     if [[ "$@" == "up" ]]; then
         command brew update && brew upgrade
-    elif [[ "$@" == "install"* ]]; then
-        command brew "$@"; brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
+    elif [[ "$@" == "dump" ]]; then
+        command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
     else
         command brew "$@"
     fi
