@@ -1,0 +1,71 @@
+
+/* Class = "NSTextFieldCell"; title = "Double click to edit the text, drag to reorder the items"; ObjectID = "9QL-st-bnt"; */
+"9QL-st-bnt.title" = "双击可编辑文字，拖放可重新排序";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "CYe-Bt-aLB"; */
+"CYe-Bt-aLB.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Suffix"; ObjectID = "Ctf-K1-l97"; */
+"Ctf-K1-l97.headerCell.title" = "后缀";
+
+/* Class = "NSTableColumn"; headerToolTip = "The path extension"; ObjectID = "Ctf-K1-l97"; */
+"Ctf-K1-l97.headerToolTip" = "文件扩展名";
+
+/* Class = "NSTextFieldCell"; title = "Templates for new file:"; ObjectID = "DEa-Dn-eHi"; */
+"DEa-Dn-eHi.title" = "新建文件使用的模板：";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "FvO-HA-e8a"; */
+"FvO-HA-e8a.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Remove"; ObjectID = "K8c-jd-7Yd"; */
+"K8c-jd-7Yd.title" = "移除";
+
+/* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "OvF-QS-fSx"; */
+"OvF-QS-fSx.headerCell.title" = "名称";
+
+/* Class = "NSTableColumn"; headerToolTip = "The template name"; ObjectID = "OvF-QS-fSx"; */
+"OvF-QS-fSx.headerToolTip" = "模板名称";
+
+/* Class = "NSMenuItem"; title = "Open"; ObjectID = "SAG-iu-A5E"; */
+"SAG-iu-A5E.title" = "打开";
+"7Nk-Xw-1PA.title" = "编辑方式";
+"uV4-Ii-JqM.title" = "无适用的应用软件";
+
+/* Class = "NSSegmentedCell"; Tcn-id-TZr.ibShadowedToolTips[0] = "Add templates"; ObjectID = "Tcn-id-TZr"; */
+"Tcn-id-TZr.ibShadowedToolTips[0]" = "添加模板";
+
+/* Class = "NSSegmentedCell"; Tcn-id-TZr.ibShadowedToolTips[1] = "Remove selected templates"; ObjectID = "Tcn-id-TZr"; */
+"Tcn-id-TZr.ibShadowedToolTips[1]" = "移除所选项";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "XF8-9r-FHl"; */
+"XF8-9r-FHl.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Reveal"; ObjectID = "c68-6I-PR7"; */
+"c68-6I-PR7.title" = "在访达中展示";
+
+/* Class = "NSTableColumn"; headerCell.title = "Prefix"; ObjectID = "dvM-hj-z8g"; */
+"dvM-hj-z8g.headerCell.title" = "前缀";
+
+/* Class = "NSTableColumn"; headerToolTip = "The default file name"; ObjectID = "dvM-hj-z8g"; */
+"dvM-hj-z8g.headerToolTip" = "默认的文件名";
+
+/* Class = "NSTableColumn"; headerCell.title = "Executable"; ObjectID = "htB-ve-BZR"; */
+"htB-ve-BZR.headerCell.title" = "可执行";
+
+/* Class = "NSTableColumn"; headerToolTip = "Whether the new file is executable"; ObjectID = "htB-ve-BZR"; */
+"htB-ve-BZR.headerToolTip" = "新建的文件是否为可执行文件";
+
+/* Class = "NSTableColumn"; headerCell.title = "Enabled"; ObjectID = "mOX-Lv-DkI"; */
+"mOX-Lv-DkI.headerCell.title" = "启用";
+
+/* Class = "NSTableColumn"; headerToolTip = "Whether to show this item in the file format list"; ObjectID = "mOX-Lv-DkI"; */
+"mOX-Lv-DkI.headerToolTip" = "是否在文件格式列表中显示此项";
+
+/* Class = "NSTableView"; ibShadowedToolTip = "Drop files here to add them as templates"; ObjectID = "rri-l0-SjP"; */
+"rri-l0-SjP.ibShadowedToolTip" = "拖放文件至此处添加为模板";
+
+/* Class = "NSTextFieldCell"; title = "You can add new templates to extend the format list"; ObjectID = "tEi-AW-4td"; */
+"tEi-AW-4td.title" = "你可以添加新模板以扩充模板列表";
+
+"faM-yb-hW7.headerCell.title" = "快捷键";
+"lWW-mu-wxt.title" = "设置快捷键";

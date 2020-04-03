@@ -1,0 +1,15 @@
+
+/* Class = "NSTextFieldCell"; title = "script.sh"; ObjectID = "5dk-Ah-Imm"; */
+"5dk-Ah-Imm.title" = "script.sh";
+
+/* Class = "NSMenuItem"; title = "Copy Path"; ObjectID = "62Z-3Y-aiG"; */
+"62Z-3Y-aiG.title" = "拷贝路径";
+
+/* Class = "NSWindow"; title = "Install Helper Script"; ObjectID = "F0z-JX-Cv5"; */
+"F0z-JX-Cv5.title" = "安装辅助脚本";
+
+/* Class = "NSButtonCell"; title = "Open Destination"; ObjectID = "UO9-z0-vTw"; */
+"UO9-z0-vTw.title" = "打开目标文件夹";
+
+/* Class = "NSTextFieldCell"; title = "Please drag and drop the above script into the scripts directory."; ObjectID = "v6C-E3-LUq"; */
+"v6C-E3-LUq.title" = "请将上面的脚本文件拖放至脚本目录";

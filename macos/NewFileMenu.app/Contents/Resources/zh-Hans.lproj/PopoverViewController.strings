@@ -1,0 +1,12 @@
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Fjd-9H-am4"; */
+"Fjd-9H-am4.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "Yxb-JR-Dah"; */
+"Yxb-JR-Dah.title" = "Table View Cell";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Options"; ObjectID = "jdl-CY-sC5"; */
+"jdl-CY-sC5.ibShadowedToolTip" = "选项";
+
+/* Class = "NSTextFieldCell"; title = "New File Menu"; ObjectID = "pie-ox-sNP"; */
+"pie-ox-sNP.title" = "新建文件菜单";

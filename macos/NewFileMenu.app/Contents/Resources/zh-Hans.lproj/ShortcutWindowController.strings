@@ -1,0 +1,18 @@
+
+/* Class = "NSTextFieldCell"; title = "Template:"; ObjectID = "4iC-0G-mRz"; */
+"4iC-0G-mRz.title" = "模板：";
+
+/* Class = "NSTextFieldCell"; title = "Shortcut:"; ObjectID = "9eM-Ml-H5s"; */
+"9eM-Ml-H5s.title" = "快捷键：";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "F0z-JX-Cv5"; */
+"F0z-JX-Cv5.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "iSy-v9-f1X"; */
+"iSy-v9-f1X.title" = "取消";
+
+/* Class = "NSTextFieldCell"; placeholderString = "N/A"; ObjectID = "kNh-Mv-T8k"; */
+"kNh-Mv-T8k.placeholderString" = "N/A";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "u15-XY-Xz6"; */
+"u15-XY-Xz6.title" = "确定";

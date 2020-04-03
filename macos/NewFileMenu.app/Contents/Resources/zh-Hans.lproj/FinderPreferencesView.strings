@@ -1,0 +1,39 @@
+
+/* Class = "NSTextFieldCell"; title = "Add context menu to the following locations:"; ObjectID = "DEa-Dn-eHi"; */
+"DEa-Dn-eHi.title" = "为以下位置添加上下文菜单：";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "FvO-HA-e8a"; */
+"FvO-HA-e8a.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Remove"; ObjectID = "K8c-jd-7Yd"; */
+"K8c-jd-7Yd.title" = "移除";
+
+/* Class = "NSTableColumn"; headerCell.title = "Path"; ObjectID = "OvF-QS-fSx"; */
+"OvF-QS-fSx.headerCell.title" = "路径";
+
+/* Class = "NSTableColumn"; headerToolTip = "Location full path"; ObjectID = "OvF-QS-fSx"; */
+"OvF-QS-fSx.headerToolTip" = "位置的全路径";
+
+/* Class = "NSMenuItem"; title = "Open"; ObjectID = "SAG-iu-A5E"; */
+"SAG-iu-A5E.title" = "打开";
+
+/* Class = "NSSegmentedCell"; Tcn-id-TZr.ibShadowedToolTips[0] = "Add locations"; ObjectID = "Tcn-id-TZr"; */
+"Tcn-id-TZr.ibShadowedToolTips[0]" = "添加位置";
+
+/* Class = "NSSegmentedCell"; Tcn-id-TZr.ibShadowedToolTips[1] = "Remove selected locations"; ObjectID = "Tcn-id-TZr"; */
+"Tcn-id-TZr.ibShadowedToolTips[1]" = "移除所选位置";
+
+/* Class = "NSMenuItem"; title = "Show in Finder"; ObjectID = "c68-6I-PR7"; */
+"c68-6I-PR7.title" = "在 Finder 中显示";
+
+/* Class = "NSTextFieldCell"; title = "The subdirs are added automatically for each location."; ObjectID = "emg-OD-DdY"; */
+"emg-OD-DdY.title" = "每个位置下的子目录也将被自动添加";
+
+/* Class = "NSTableColumn"; headerCell.title = "Enabled"; ObjectID = "mOX-Lv-DkI"; */
+"mOX-Lv-DkI.headerCell.title" = "启用";
+
+/* Class = "NSTableColumn"; headerToolTip = "Whether to add menu to this location"; ObjectID = "mOX-Lv-DkI"; */
+"mOX-Lv-DkI.headerToolTip" = "是否为此位置添加上下文菜单";
+
+/* Class = "NSTableView"; ibShadowedToolTip = "Drop folders here"; ObjectID = "rri-l0-SjP"; */
+"rri-l0-SjP.ibShadowedToolTip" = "将文件夹拖放至此处";
