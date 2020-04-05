@@ -112,6 +112,7 @@ gchb () { git checkout -b "$1" || git checkout "$1"; }
 alias dcb='docker-compose build --parallel'
 alias dcu='docker-compose up'
 alias dcub='docker-compose build --parallel && docker-compose up'
+dsh () { docker exec -it "$1" sh; }
 
 git () {
     if [[ "${@: -1}" == "dev" ]]; then
