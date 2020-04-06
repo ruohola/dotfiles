@@ -551,7 +551,7 @@ nnoremap <Leader>i :action QuickImplementations<CR>
 nnoremap <Leader>j :action ShowNavBar<CR>
 nnoremap <Leader>k :action KJumpAction<CR>
 nnoremap <Leader>l :action FindInPath<CR>
-nnoremap <Leader>m :action RecentChangedFiles<CR>
+nnoremap <Leader>m :action RecentFiles<CR>
 nnoremap <Leader>n :action LocalHistory.ShowHistory<CR>
 vnoremap <Leader>n :action LocalHistory.ShowSelectionHistory<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
