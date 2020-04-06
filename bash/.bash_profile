@@ -147,3 +147,6 @@ alias manageskole='docker-compose run --rm backend python manage.py'
 
 export PATH="$HOME/.cargo/bin:${PATH}"
 export PATH="$HOME/dotfiles/bash/exported:${PATH}"
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
