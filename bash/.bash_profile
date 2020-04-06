@@ -54,6 +54,8 @@ PROMPT_COMMAND='history -a;history -n'
 export HISTSIZE=
 export HISTFILESIZE=
 
+export RIPGREP_CONFIG_PATH=~/dotfiles/ripgrep/.ripgreprc
+
 # ** expands to any number of directories
 shopt -s globstar
 
