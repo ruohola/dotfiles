@@ -35,7 +35,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # solarized colored prompt that looks like: path/to/dir (branch_if_on_git_repo) $
-export PS1="\[$CYAN\]\w \[$MAGENTA\]\$(git branch --show-current 2> /dev/null | sed -e 's/\(.*\)/(\1) /')\[$CYAN\]\$ \[$RESET\]"
+export PS1="\[$CYAN\]\w \[$MAGENTA\]\$(git branch 2> /dev/null | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\) /')\[$CYAN\]\$ \[$RESET\]"
 PROMPT_DIRTRIM=3  # show only last 3 dirs in prompt
 
 export EDITOR=vim
@@ -111,10 +111,12 @@ gbd () { git branch --delete "$1" && git push --delete origin "$1"; }
 alias gch='git checkout'
 gchb () { git checkout -b "$1" || git checkout "$1"; }
 
+alias dc='docker-compose'
 alias dcb='docker-compose build --parallel'
 alias dcu='docker-compose up'
 alias dcub='docker-compose build --parallel && docker-compose up'
-dsh () { docker exec -it "$1" sh; }
+alias dcd='docker-compose down'
+dsh () { docker exec -it "$1" sh ; }
 
 git () {
     if [[ "${@: -1}" == "dev" ]]; then
@@ -141,7 +143,7 @@ docker-compose run --rm backend sh -c "
     pytest --cov-report html --cov=. tests
 "
 '
-alias mypyskole='docker-compose run --no-deps --rm backend sh -c "mypy ."'
+alias mypyskole='docker-compose run --no-deps --rm backend mypy .'
 alias testskole='docker-compose run --rm backend pytest --cov-report html --cov=. tests'
 alias runskole='docker-compose run --rm backend'
 alias manageskole='docker-compose run --rm backend python manage.py'
