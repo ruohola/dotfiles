@@ -24,10 +24,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # Can't use variables for the excludable files because those won't get evaluated when using fzf.vim
     # -g is the opposite of --exclude, that's why the ! on the first one
     export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore -g \
-        "!{.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules}" 2> /dev/null'
+        "!{.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm}" 2> /dev/null'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND='fd -t d --hidden --no-ignore --exclude \
-        "{.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules}" .'
+        "{.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm}" .'
 
     export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
 
