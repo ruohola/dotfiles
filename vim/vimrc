@@ -12,13 +12,8 @@ scriptencoding utf-8
 
 let TempFolder = '/.temp'
 let PluginsFolder = '/plugins'
-if has('win32')
-    let VimFolder = '/vimfiles'
-    exe 'set viminfo+=n~' . VimFolder . TempFolder . '/_viminfo'
-else
-    let VimFolder = '/.vim'
-    exe 'set viminfo+=n~' . VimFolder . TempFolder . '/.viminfo'
-endif
+let VimFolder = '/.vim'
+exe 'set viminfo+=n~' . VimFolder . TempFolder . '/.viminfo'
 let PathToTempFolder = $HOME . VimFolder . TempFolder
 let PathToPluginsFolder = $HOME . VimFolder . PluginsFolder
 let g:netrw_dirhistmax=0
@@ -42,12 +37,10 @@ let &directory = PathToTempFolder . '/swap'
 packadd! matchit  " enable the built-in plugin
 
 call plug#begin(PathToPluginsFolder)
-if has('win32')
-    Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
-else
-    Plug '/usr/local/opt/fzf'
-    Plug 'junegunn/fzf.vim'
-endif
+
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'                " fuzzy file finding
+
 Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
 Plug 'machakann/vim-highlightedyank'   " highlight yanks
 Plug 'markonm/traces.vim'              " live substitution
@@ -123,39 +116,12 @@ nmap S ysiW
 let g:livepreview_previewer = 'open -a Skim'
 let g:livepreview_cursorhold_recompile = 0
 
-if has('win32')
-    " Yggdroot/LeaderF
-    " Requires ripgrep: https://github.com/BurntSushi/ripgrep
-    " A lot faster if the C extension is installed with the install script
-    let g:Lf_StlColorscheme='default'
-    let g:Lf_CursorBlink=0
-    let g:Lf_UseVersionControlTool=0
-    let g:Lf_DefaultExternalTool='rg'
-    let g:Lf_ShowHidden=1
-    let g:Lf_CacheDirectory=PathToTempFolder
-    let g:Lf_IndexTimeLimit=600
-    let g:Lf_UseCache=1
-    let g:Lf_HighlightIndividual=1
-    let g:Lf_NumberOfHighlight=100
-    let g:Lf_UseMemoryCache=1
-    let g:Lf_WildIgnore = {
-            \ 'dir': ['.git'],
-            \ 'file': []
-            \}
-    let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
-    let g:Lf_ShortcutF='<Leader>f'
-    nnoremap <Leader>l :LeaderfLineAll<CR>
-    nnoremap <Leader>g :LeaderfHelp<CR>
-    nnoremap <Leader>b :LeaderfBufferAll<CR>
-    nnoremap <Leader>m :LeaderfMru<CR>
-else
-    " junegunn/fzf.vim
-    nnoremap <Leader>f :Files<CR>
-    nnoremap <Leader>l :Lines<CR>
-    nnoremap <Leader>g :Helptags<CR>
-    nnoremap <Leader>b :Buffers<CR>
-    nnoremap <Leader>m :History<CR>
-endif
+" junegunn/fzf.vim
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>l :Lines<CR>
+nnoremap <Leader>g :Helptags<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>m :History<CR>
 
 " easymotion/vim-easymotion
 let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
@@ -202,12 +168,8 @@ if !exists('g:notfirstopen')
 
     if has('gui_running')
         set lines=40 columns=120  " initial window size
-        if has ('win32')
-            " changing font moves the window
-            set guifont=Consolas:h12
-        else
-            set guifont=Menlo:h16
-        endif
+        " changing font moves the window
+        set guifont=Menlo:h16
     endif
 
     syntax enable
@@ -217,13 +179,8 @@ if !exists('g:notfirstopen')
     highlight Cursor ctermfg=15 ctermbg=4 guifg=#073642 guibg=#839496
 endif
 
-if has('win32')
-    " use git bash as shell
-    set shell=C:/Program\ Files/Git/usr/bin/bash.exe\ --login
-else
-    " use the bash installed with homebrew as shell
-    set shell=/usr/local/bin/bash\ --login
-endif
+" use the bash installed with homebrew as shell
+set shell=/usr/local/bin/bash\ --login
 
 set clipboard=unnamed  " use system clipboard, unnamedplus doesn't work with gvim
 
@@ -260,13 +217,7 @@ set statusline+=/%L                                        " total lines
 set statusline+=(%p%%)                                     " percentage through the file
 set statusline+=%4c                                        " cursor column
 set statusline+=\|%-4{strwidth(getline('.'))}              " line length
-if has('win32')
-    " different separator between current filename and folder for Windows: \ vs *nix: /
-    " could maybe be cleaner, but this does the job
-    set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'\\'.expand('%:t'):expand('%')} " dir\filename.ext
-else
-    set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'/'.expand('%:t'):expand('%')}  " dir/filename.ext
-endif
+set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'/'.expand('%:t'):expand('%')}  " dir/filename.ext
 set statusline+=%m                                         " modified flag
 set statusline+=%r                                         " read only flag
 set statusline+=%=                                         " left/right separator
@@ -326,89 +277,55 @@ filetype plugin indent on      " auto detect filetype
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 
-if has('win32')
-    " split navigations (alt+hjkl)
-    nnoremap è <C-W><C-H>
-    nnoremap ê <C-W><C-J>
-    nnoremap ë <C-W><C-K>
-    nnoremap ì <C-W><C-L>
+if has('gui_running')
+    " move between splits (alt+hjkl)
+    nnoremap ← <C-W>h
+    nnoremap ↓ <C-W>j
+    nnoremap ↑ <C-W>k
+    nnoremap → <C-W>l
 
     " cycle buffers (alt+nm)
-    nnoremap <silent> î :bprev<CR>
-    nnoremap <silent> í :bnext<CR>
+    nnoremap <silent> № :bprev<CR>
+    nnoremap <silent> µ :bnext<CR>
 
     " cycle tabs (alt+ui)
-    nnoremap <silent>õ :tabprevious<CR>
-    nnoremap <silent>é :tabnext<CR>
-
-    " toggle fullscreen
-    nnoremap <silent> <Leader>0 :<C-U>call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+    nnoremap <silent>ü :tabprevious<CR>
+    nnoremap <silent>↔︎ :tabnext<CR>
 
     if has('terminal')
-        tnoremap è <C-W><C-H>
-        tnoremap ê <C-W><C-J>
-        tnoremap ë <C-W><C-K>
-        tnoremap ì <C-W><C-L>
-        tnoremap <silent> î <C-W>:bprev<CR>
-        tnoremap <silent> í <C-W>:bnext<CR>
-        tnoremap <silent>õ <C-W>:tabprevious<CR>
-        tnoremap <silent>é <C-W>:tabnext<CR>
+        tnoremap ← <C-W><C-H>
+        tnoremap ↓ <C-W><C-J>
+        tnoremap ↑ <C-W><C-K>
+        tnoremap → <C-W><C-L>
+        tnoremap <silent> № <C-W>:bprev<CR>
+        tnoremap <silent> µ <C-W>:bnext<CR>
+        tnoremap <silent>ü <C-W>:tabprevious<CR>
+        tnoremap <silent>↔︎ <C-W>:tabnext<CR>
     endif
-
-    " unmap push-to-talk key
-    map <F13> <Nop>
-    map! <F13> <Nop>
 else
-    if has('gui_running')
-        " move between splits (alt+hjkl)
-        nnoremap ← <C-W>h
-        nnoremap ↓ <C-W>j
-        nnoremap ↑ <C-W>k
-        nnoremap → <C-W>l
+    " move between splits (alt+hjkl)
+    nnoremap <Esc>h <C-W>h
+    nnoremap <Esc>j <C-W>j
+    nnoremap <Esc>k <C-W>k
+    nnoremap <Esc>l <C-W>l
 
-        " cycle buffers (alt+nm)
-        nnoremap <silent> № :bprev<CR>
-        nnoremap <silent> µ :bnext<CR>
+    " cycle buffers (alt+nm)
+    nnoremap <silent> <Esc>n :bprev<CR>
+    nnoremap <silent> <Esc>m :bnext<CR>
 
-        " cycle tabs (alt+ui)
-        nnoremap <silent>ü :tabprevious<CR>
-        nnoremap <silent>↔︎ :tabnext<CR>
+    " cycle tabs (alt+ui)
+    nnoremap <silent> <Esc>u :tabprevious<CR>
+    nnoremap <silent> <Esc>i :tabnext<CR>
 
-        if has('terminal')
-            tnoremap ← <C-W><C-H>
-            tnoremap ↓ <C-W><C-J>
-            tnoremap ↑ <C-W><C-K>
-            tnoremap → <C-W><C-L>
-            tnoremap <silent> № <C-W>:bprev<CR>
-            tnoremap <silent> µ <C-W>:bnext<CR>
-            tnoremap <silent>ü <C-W>:tabprevious<CR>
-            tnoremap <silent>↔︎ <C-W>:tabnext<CR>
-        endif
-    else
-        " move between splits (alt+hjkl)
-        nnoremap <Esc>h <C-W>h
-        nnoremap <Esc>j <C-W>j
-        nnoremap <Esc>k <C-W>k
-        nnoremap <Esc>l <C-W>l
-
-        " cycle buffers (alt+nm)
-        nnoremap <silent> <Esc>n :bprev<CR>
-        nnoremap <silent> <Esc>m :bnext<CR>
-
-        " cycle tabs (alt+ui)
-        nnoremap <silent> <Esc>u :tabprevious<CR>
-        nnoremap <silent> <Esc>i :tabnext<CR>
-
-        if has('terminal')
-            tnoremap <Esc>h <C-W><C-H>
-            tnoremap <Esc>j <C-W><C-J>
-            tnoremap <Esc>k <C-W><C-K>
-            tnoremap <Esc>l <C-W><C-L>
-            tnoremap <silent> <Esc>n <C-W>:bprev<CR>
-            tnoremap <silent> <Esc>m <C-W>:bnext<CR>
-            tnoremap <silent> <Esc>u <C-W>:tabprevious<CR>
-            tnoremap <silent> <Esc>i <C-W>:tabnext<CR>
-        endif
+    if has('terminal')
+        tnoremap <Esc>h <C-W><C-H>
+        tnoremap <Esc>j <C-W><C-J>
+        tnoremap <Esc>k <C-W><C-K>
+        tnoremap <Esc>l <C-W><C-L>
+        tnoremap <silent> <Esc>n <C-W>:bprev<CR>
+        tnoremap <silent> <Esc>m <C-W>:bnext<CR>
+        tnoremap <silent> <Esc>u <C-W>:tabprevious<CR>
+        tnoremap <silent> <Esc>i <C-W>:tabnext<CR>
     endif
 endif
 
