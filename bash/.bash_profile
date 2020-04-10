@@ -86,7 +86,8 @@ alias dcb='docker-compose build --parallel'
 alias dcu='docker-compose up'
 alias dcub='docker-compose build --parallel && docker-compose up'
 alias dcd='docker-compose down'
-dsh () { docker exec -it "$1" sh ; }
+alias dcr='docker-compose run --rm'
+dcsh () { docker-compose run --rm "$1" sh ; }
 
 git () {
     if [[ "${@: -1}" == "dev" ]]; then
@@ -110,8 +111,7 @@ alias allskole='
 docker-compose run --rm backend sh -c "
     mypy .
     pytest --cov-report html --cov=. tests
-"
-'
+"'
 alias mypyskole='docker-compose run --no-deps --rm backend mypy .'
 alias testskole='docker-compose run --rm backend pytest --cov-report html --cov=. tests'
 alias runskole='docker-compose run --rm backend'
