@@ -118,21 +118,21 @@ alias runskole='docker-compose run --rm backend'
 alias manageskole='docker-compose run --rm backend python manage.py'
 
 # fzf config
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+source ~/.fzf.bash
 
 # remap cd to dir from ALT-C to CTRL-F
 bind '"\C-f": "\ec"'
 
-# __fzf_vim__ () {
-#     local file=$(__fzf_select__)
-#     local file_no_whitespace="$(echo -e "${file}" | tr -d '[:space:]')"
-#     if [ -f "${file_no_whitespace}" ]; then
-#         < /dev/tty vim -o "${file_no_whitespace}"
-#     fi
-# }
-# open file from fzf in vim
-# bind '"\C-v": "__fzf_vim__\C-m"'
-bind '"\C-v": "vim \C-t\C-m"'
+__fzf_vim__ () {
+    local file=$(__fzf_select__)
+    local file="$(echo "${file}" | sed 's/ $//')"
+    if [ -f "${file}" ]; then
+        vim "${file}"
+    fi
+}
+
+stty lnext ^-
+bind -x '"\C-v": "__fzf_vim__"'
 
 # Can't use variables for the excludable files because those won't get evaluated when using fzf.vim
 # -g is the opposite of --exclude, that's why the ! on the first one
@@ -146,7 +146,7 @@ export RIPGREP_CONFIG_PATH=~/dotfiles/ripgrep/.ripgreprc
 
 source /Users/eero/Library/Preferences/org.dystroy.broot/launcher/bash/br
 
-source $(brew --prefix)/etc/bash_completion
+source /usr/local/etc/bash_completion
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
