@@ -122,8 +122,15 @@ alias manageskole='docker-compose run --rm backend python manage.py'
 # remap cd to dir from ALT-C to CTRL-F
 bind '"\C-f": "\ec"'
 
+__fzf_vim__ () {
+    local file=$(__fzf_select__)
+    local file_no_whitespace="$(echo -e "${file}" | tr -d '[:space:]')"
+    if [ -f "${file_no_whitespace}" ]; then
+        < /dev/tty vim -o "${file_no_whitespace}"
+    fi
+}
 # open file from fzf in vim
-bind '"\C-v": "vim \C-t\C-m"'
+bind '"\C-v": "__fzf_vim__\C-m"'
 
 # Can't use variables for the excludable files because those won't get evaluated when using fzf.vim
 # -g is the opposite of --exclude, that's why the ! on the first one
