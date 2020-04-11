@@ -338,16 +338,8 @@ if has('terminal')
 endif
 noremap : ;
 noremap ; ,
-noremap @, @:
 noremap g, g;
 noremap g. g,
-nnoremap q, q:
-xnoremap q, q:
-augroup QMappings
-    autocmd!
-    autocmd FileType * if &buftype ==# 'nofile'|silent! unmap q,|endif
-    autocmd BufEnter * if &buftype !=# 'nofile'|nnoremap q, q:|endif
-augroup END
 
 " makes these more consistent with other commands
 nnoremap Y y$
