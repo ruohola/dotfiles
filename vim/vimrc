@@ -417,6 +417,12 @@ nnoremap gP O<Esc>p^
 " Q plays back q macro
 nnoremap Q @q
 
+nnoremap - :%s/
+xnoremap - :s/
+
+nnoremap + :s/, */,\r/<CR>:noh<CR>
+xnoremap + :s/, */,\r/<CR>:noh<CR>
+
 function! s:EscMapping() abort
     nnoremap <silent> <Esc> <Esc>:noh<CR>
 endfunction

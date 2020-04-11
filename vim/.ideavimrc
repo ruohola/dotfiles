@@ -513,6 +513,12 @@ vnoremap <C-A> <C-A>gv
 " Q plays back q macro
 nnoremap Q @q
 
+nnoremap - :%s/
+vnoremap - :s/
+
+nnoremap + :s/, */,\r/<CR>:noh<CR>
+vnoremap + :s/, */,\r/<CR>:noh<CR>
+
 " clear highlights
 nnoremap <Esc> <Esc>:noh<CR>
 
