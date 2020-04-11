@@ -1779,6 +1779,8 @@
 	<string>03C1E3F1-1F6F-4249-8FE0-FEF988A5EEB7</string>
 	<key>DimOnlyText</key>
 	<true/>
+	<key>EnableDivisionView</key>
+	<false/>
 	<key>GlobalKeyMap</key>
 	<dict>
 		<key>0x19-0x60000</key>
@@ -1990,13 +1992,13 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>586 528 620 392 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1792 1097 0 0 1792 1097 </string>
+	<string>270 166 1250 767 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>377 274 810 502 0 0 1792 1097 </string>
+	<string>271 165 1250 768 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>896 0 890 1097 0 0 1792 1097 </string>
+	<string>271 165 1250 768 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>270 69 810 502 0 0 1792 1097 </string>
+	<string>511 474 700 312 0 0 1792 1097 </string>
 	<key>NeverWarnAboutMeta</key>
 	<true/>
 	<key>NeverWarnAboutMeta_selection</key>
@@ -2665,6 +2667,15 @@
 				<key>Red Component</key>
 				<real>0.027450980392156862</real>
 			</dict>
+			<key>Semantic History</key>
+			<dict>
+				<key>action</key>
+				<string>best editor</string>
+				<key>editor</key>
+				<string>com.github.atom</string>
+				<key>text</key>
+				<string></string>
+			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
 			<key>Shortcut</key>
@@ -2712,12 +2723,12 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1792, 1120}}</string>
 		<key>topLeft</key>
-		<string>{417, 831}</string>
+		<string>{509, 648}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>9326E0B5-2DA9-4957-9E1F-36F78759275E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>518</integer>
+	<integer>708</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3500,19 +3511,25 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-03-29T11:10:43Z</date>
+	<date>2020-04-10T21:20:45Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
+	<false/>
+	<key>SeparateWindowTitlePerTab</key>
 	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowPaneTitles</key>
 	<false/>
+	<key>SmartPlacement</key>
+	<true/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.3856896033653846</real>
+	<key>StatusBarPosition</key>
+	<integer>0</integer>
 	<key>SwitchPaneModifier</key>
 	<integer>9</integer>
 	<key>SwitchTabModifier</key>
@@ -3521,6 +3538,8 @@
 	<integer>6</integer>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>4</integer>
+	<key>UseBorder</key>
+	<false/>
 	<key>UseMetal</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
