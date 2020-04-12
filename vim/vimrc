@@ -409,11 +409,17 @@ nnoremap gP O<Esc>p^
 " Q plays back q macro
 nnoremap Q @q
 
+nnoremap & g&
+
 nnoremap - :%s/
 xnoremap - :s/
+nnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
+xnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
 
-nnoremap + :s/, */,\r/<CR>:noh<CR>
-xnoremap + :s/, */,\r/<CR>:noh<CR>
+nnoremap + f i<CR><Esc>^
+
+" split function arguments or list members into their own lines
+nnoremap <Leader>+ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:noh<CR>`qv%=`q
 
 function! s:EscMapping() abort
     nnoremap <silent> <Esc> <Esc>:noh<CR>

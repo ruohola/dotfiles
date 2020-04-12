@@ -113,10 +113,12 @@ set number relativenumber
 set incsearch hlsearch ignorecase smartcase gdefault
 
 set ideajoin                  " use the IDE's join/J behavior
+set selectmode=ideaselection
 set timeoutlen=1000           " timeout for keymappings
 set clipboard=unnamed,ideaput " use system clipboard with idea's pasting logic
 set scrolloff=1               " pad scrolling with one line
 set showmode                  " show current mode in statusbar
+set showcmd                   " show partial command in statusbar
 set visualbell                " removes errorbells
 
 
@@ -165,11 +167,17 @@ vnoremap <C-A> <C-A>gv
 " Q plays back q macro
 nnoremap Q @q
 
+nnoremap & g&
+
 nnoremap - :%s/
 vnoremap - :s/
+nnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
+vnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
 
-nnoremap + :s/, */,\r/<CR>:noh<CR>
-vnoremap + :s/, */,\r/<CR>:noh<CR>
+nnoremap + f i<CR><Esc>^
+
+" split function arguments or list members into their own lines
+nnoremap <Leader>+ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:noh<CR>`qv%=`q
 
 " clear highlights
 nnoremap <Esc> <Esc>:noh<CR>
