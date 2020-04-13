@@ -20,8 +20,9 @@ nmap S ysiW
 
 " ReplaceWithRegister
 nmap ö <PLug>ReplaceWithRegisterOperator
+nmap Ö <PLug>ReplaceWithRegisterOperator$
+nmap öö <PLug>ReplaceWithRegisterLine
 vmap ö <PLug>ReplaceWithRegisterVisual
-nmap Ö <PLug>ReplaceWithRegisterLine
 
 " emulates tommcdo/vim-exchange
 " TODO: add more text objects
@@ -61,26 +62,6 @@ nnoremap ci! f!cT!
 nnoremap ca! f!vF!c
 nnoremap ci& f&cT&
 nnoremap ca& f&vF&c
-nmap öi/ f/öT/
-nmap öa/ f/vF/ö
-nmap öi, f,öT,
-nmap öa, f,vF,ö
-nmap öi. f.öT.
-nmap öa. f.vF.ö
-nmap öi_ f_öT_
-nmap öa_ f_vF_ö
-nmap öi- f-öT-
-nmap öa- f-vF-ö
-nmap öi% f%öT%
-nmap öa% f%vF%ö
-nmap öi= f=öT=
-nmap öa= f=vF=ö
-nmap öi? f?öT?
-nmap öa? f?vF?ö
-nmap öi! f!öT!
-nmap öa! f!vF!ö
-nmap öi& f&öT&
-nmap öa& f&vF&ö
 " (these don't clash with surround)
 nnoremap di/ f/dT/
 nnoremap da/ f/vF/d
@@ -218,7 +199,7 @@ nnoremap <Leader>i :action QuickImplementations<CR>
 nnoremap <Leader>j :action ShowNavBar<CR>
 nnoremap <Leader>k :action KJumpAction<CR>
 nnoremap <Leader>l :action FindInPath<CR>
-nnoremap <Leader>m :action RecentFiles<CR>
+nnoremap <Leader>m :action RecentChangedFiles<CR>
 nnoremap <Leader>n :action LocalHistory.ShowHistory<CR>
 vnoremap <Leader>n :action LocalHistory.ShowSelectionHistory<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
