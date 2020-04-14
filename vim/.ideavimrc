@@ -224,6 +224,7 @@ noremap  <Leader>] :action Unwrap<CR>
 nnoremap <Leader>' :action Generate<CR>
 
 nnoremap <Leader>1 :action InspectCode<CR>
+nnoremap <Leader>3 :action RunClass<CR>
 nnoremap <Leader>7 :action ReplaceInPath<CR>
 
 nnoremap <Leader>" o"""
