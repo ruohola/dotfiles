@@ -24,7 +24,6 @@ PROMPT_COMMAND='history -a;history -n'
 # unlimited bash history
 export HISTSIZE=
 export HISTFILESIZE=
-export HISTCONTROL=ignoreboth:erasedups
 
 # ** expands to any number of directories
 shopt -s globstar
