@@ -17,6 +17,19 @@
 			<key>utf8</key>
 			<true/>
 		</dict>
+		<key>C7B06CC4-A2C8-46A9-BF9F-8C2BD8BEF2F3</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>dj</string>
+			<key>text</key>
+			<string>Django docs</string>
+			<key>url</key>
+			<string>https://docs.djangoproject.com/en/1.11/search/?q={query}</string>
+			<key>utf8</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>
