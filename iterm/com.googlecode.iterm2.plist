@@ -1992,7 +1992,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>586 528 620 392 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>270 166 1250 767 0 0 1792 1097 </string>
+	<string>271 177 1250 767 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>271 165 1250 768 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -2690,6 +2690,8 @@
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Title Components</key>
+			<integer>2</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Unlimited Scrollback</key>
@@ -2698,6 +2700,8 @@
 			<true/>
 			<key>Use Bright Bold</key>
 			<true/>
+			<key>Use Custom Window Title</key>
+			<false/>
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
@@ -2723,12 +2727,12 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1792, 1120}}</string>
 		<key>topLeft</key>
-		<string>{509, 648}</string>
+		<string>{469, 725}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>9326E0B5-2DA9-4957-9E1F-36F78759275E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>708</integer>
+	<integer>746</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3511,7 +3515,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-04-10T21:20:45Z</date>
+	<date>2020-04-18T16:18:57Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
