@@ -57,7 +57,7 @@ Plug 'tommcdo/vim-exchange'            " change two objects
 Plug 'tpope/vim-abolish'               " more advanced substitute etc
 Plug 'tommcdo/vim-lion'                " alignment operator
 Plug 'kana/vim-textobj-entire'         " text obj for entire buffer
-Plug 'kana/vim-textobj-user'           " dependency
+Plug 'kana/vim-textobj-user'           " dependency for the previous
 
 Plug 'tpope/vim-eunuch'                " easy unix file operations
 
@@ -449,7 +449,7 @@ else
     augroup END
 endif
 
-" open vimrc
+" open vimrc or cocconfig
 nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>cr :CocConfig<CR>
 
@@ -460,7 +460,6 @@ nnoremap <silent> <Leader>cr :CocConfig<CR>
 " vim-plug commands
 command! PI silent! w | PlugInstall
 command! PC silent! w | PlugClean!
-" PlugUpgrade breaks vim-plug on windows atm
 command! PU w | PlugUpgrade | PlugUpdate
 command! PS exec 'PlugSnapshot! ' . PathToPluginsFolder . '/plugins.lock'
 
@@ -472,12 +471,6 @@ command! -nargs=1 RE call RED('<args>')
 
 " change the contents of a register
 command! -nargs=1 CR call ChangeReg('<args>')
-
-" count lines in file
-command! WC %s/^\s*\w\+//n | noh
-
-" count all .py files lines, have to have terminal open in tab 1 for this to work.
-command! PL write|tabn 1|call RunCommandInSplitTerm("grep -vc '^\\s*$' *.py && echo -n 'total:' && grep -v '^\\s*$' *.py | wc -l")
 
 " change working directory to current file's directory
 command! CD cd %:p:h|pwd

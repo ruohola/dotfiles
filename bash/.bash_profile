@@ -32,11 +32,10 @@ bind "TAB:menu-complete"
 bind "set show-all-if-ambiguous on"
 bind "set menu-complete-display-prefix on"
 
-alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
-alias sbrc='source ~/.bash_profile'
-alias virc='vim ~/.vim/.ideavimrc'
 alias vvrc='vim ~/.vim/vimrc'
-alias vset='vim ~/dotfiles/setup.sh'
+alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
+alias virc='vim ~/.vim/.ideavimrc'
+alias vssh='vim ~/.ssh/config'
 
 alias ..='cd ..'
 
