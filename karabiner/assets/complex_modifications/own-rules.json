@@ -99,6 +99,30 @@
           "type":"basic"
         }
       ]
+    },
+    {
+      "description":"Change right_command + return to return",
+      "manipulators":[
+        {
+          "from":{
+            "key_code":"return_or_enter",
+            "modifiers":{
+              "mandatory":[
+                "right_command"
+              ],
+              "optional":[
+                "any"
+              ]
+            }
+          },
+          "to":[
+            {
+              "key_code":"return_or_enter"
+            }
+          ],
+          "type":"basic"
+        }
+      ]
     }
   ]
 }
