@@ -2644,7 +2644,7 @@
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>1000</integer>
+			<integer>0</integer>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -2695,7 +2695,7 @@
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Unlimited Scrollback</key>
-			<false/>
+			<true/>
 			<key>Use Bold Font</key>
 			<true/>
 			<key>Use Bright Bold</key>
@@ -2727,12 +2727,12 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1792, 1120}}</string>
 		<key>topLeft</key>
-		<string>{469, 725}</string>
+		<string>{419, 780}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>9326E0B5-2DA9-4957-9E1F-36F78759275E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>746</integer>
+	<integer>758</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
