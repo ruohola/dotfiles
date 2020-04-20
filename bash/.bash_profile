@@ -37,12 +37,8 @@ alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
 alias virc='vim ~/.vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
 
-alias ..='cd ..'
-
-alias lsa='ls -a'
-alias lsla='ls -la'
-alias ls1='ls -1'
-alias lsa1='ls -a1'
+alias b='cd ..'
+alias l='ls -la'
 
 alias F='open .'
 alias preview='open -a Preview'
