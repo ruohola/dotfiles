@@ -17,6 +17,19 @@
 			<key>utf8</key>
 			<true/>
 		</dict>
+		<key>6C3DA072-F665-4F83-96EE-034206779755</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>ji</string>
+			<key>text</key>
+			<string>Jinja2 docs</string>
+			<key>url</key>
+			<string>https://jinja.octoprint.org/search.html?q={query}</string>
+			<key>utf8</key>
+			<true/>
+		</dict>
 		<key>849A5394-3279-43F0-B82E-8360C4B48D50</key>
 		<dict>
 			<key>enabled</key>
