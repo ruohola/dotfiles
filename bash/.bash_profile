@@ -81,8 +81,10 @@ gchb () { git checkout -b "$1" || git checkout "$1"; }
 
 alias dc='docker-compose'
 alias dcb='docker-compose build --parallel'
+alias dcbn='docker-compose build --parallel --no-cache'
 alias dcu='docker-compose up'
 alias dcub='docker-compose build --parallel && docker-compose up'
+alias dcubn='docker-compose build --parallel --no-cache && docker-compose up'
 alias dcd='docker-compose down'
 alias dcr='docker-compose run --rm'
 dcsh () { docker-compose run --rm "$1" sh ; }
