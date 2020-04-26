@@ -107,15 +107,11 @@ brew () {
     fi
 }
 
-alias allskole='
-docker-compose run --rm backend sh -c "
-    mypy .
-    pytest --cov-report html --cov=. tests
-"'
-alias mypyskole='docker-compose run --no-deps --rm backend mypy .'
-alias testskole='docker-compose run --rm backend pytest --cov-report html --cov=. tests'
-alias runskole='docker-compose run --rm backend'
-alias manageskole='docker-compose run --rm backend python manage.py'
+alias formatbackend='yarn --cwd ~/skole backend:format'
+alias mypybackend='docker-compose run --no-deps --rm backend mypy .'
+alias testbackend='docker-compose run --rm backend pytest --cov-report html --cov=. tests'
+alias runbackend='docker-compose run --rm backend'
+alias managebackend='docker-compose run --rm backend python manage.py'
 
 # fzf config
 source ~/.fzf.bash
