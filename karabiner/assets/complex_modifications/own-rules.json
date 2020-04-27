@@ -123,28 +123,6 @@
           "type":"basic"
         }
       ]
-    },
-    {
-      "description":"Change eject to cmd+alt+ctrl+shift+h",
-      "manipulators":[
-        {
-          "from":{
-            "key_code":"eject"
-          },
-          "to":[
-            {
-              "key_code":"h",
-              "modifiers":[
-                "left_command",
-                "left_alt",
-                "left_control",
-                "left_shift"
-              ]
-            }
-          ],
-          "type":"basic"
-        }
-      ]
     }
   ]
 }
