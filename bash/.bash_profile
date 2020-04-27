@@ -87,7 +87,7 @@ alias dcub='docker-compose build --parallel && docker-compose up'
 alias dcubn='docker-compose build --parallel --no-cache && docker-compose up'
 alias dcd='docker-compose down'
 alias dcr='docker-compose run --rm'
-dcsh () { docker-compose run --rm "$1" sh ; }
+dcs () { docker-compose run --rm "$1" sh ; }
 
 git () {
     if [[ "${@: -1}" == "dev" ]]; then
@@ -109,7 +109,8 @@ brew () {
 
 alias formatbackend='yarn --cwd ~/skole backend:format'
 alias mypybackend='docker-compose run --no-deps --rm backend mypy .'
-alias testbackend='docker-compose run --rm backend pytest --cov-report html --cov=. tests'
+alias testbackend='docker-compose run --rm backend pytest skole/tests'
+alias covbackend='docker-compose run --rm backend pytest --cov-report=html --cov=. skole/tests'
 alias runbackend='docker-compose run --rm backend'
 alias managebackend='docker-compose run --rm backend python manage.py'
 
