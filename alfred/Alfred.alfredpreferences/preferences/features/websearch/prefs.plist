@@ -17,6 +17,19 @@
 			<key>utf8</key>
 			<true/>
 		</dict>
+		<key>65169870-196E-49CA-A680-BBFE85064E78</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>dj3</string>
+			<key>text</key>
+			<string>Django 3 docs</string>
+			<key>url</key>
+			<string>https://www.google.com/search?q=site:docs.djangoproject.com/en/3.0/+{query}</string>
+			<key>utf8</key>
+			<true/>
+		</dict>
 		<key>6C3DA072-F665-4F83-96EE-034206779755</key>
 		<dict>
 			<key>enabled</key>
@@ -48,9 +61,9 @@
 			<key>enabled</key>
 			<true/>
 			<key>keyword</key>
-			<string>dj</string>
+			<string>dj1</string>
 			<key>text</key>
-			<string>Django docs</string>
+			<string>Django 1 docs</string>
 			<key>url</key>
 			<string>https://docs.djangoproject.com/en/1.11/search/?q={query}</string>
 			<key>utf8</key>
