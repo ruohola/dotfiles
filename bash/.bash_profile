@@ -38,6 +38,8 @@ alias virc='vim ~/.vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
 
 alias b='cd ..'
+alias bb='cd ../..'
+alias bbb='cd ../../..'
 alias l='ls -la'
 
 alias F='open .'

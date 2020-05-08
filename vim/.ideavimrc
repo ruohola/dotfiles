@@ -227,6 +227,7 @@ nnoremap <Leader>1 :action InspectCode<CR>
 nnoremap <Leader>2 :action DebugClass<CR>
 nnoremap <Leader>3 :action RunClass<CR>
 nnoremap <Leader>7 :action ReplaceInPath<CR>
+nnoremap <Leader>9 :action GotoImplementation<CR>
 
 nnoremap <Leader>" o"""
 
