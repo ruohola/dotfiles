@@ -1,10 +1,5 @@
 let mapleader=' '
 
-" =========== OS SPECIFIC ===========
-
-" source ideavimrc
-nnoremap <F12> :source ~/.ideavimrc<CR>
-
 
 " ============= PLUGINS =============
 
@@ -164,8 +159,8 @@ nnoremap <Leader>+ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:no
 nnoremap <Esc> <Esc>:noh<CR>
 
 " change eol comment to line comment and vice versa
-nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"qDO<C-R>q<Esc>^
-nnoremap Ä ^"qD"_ddA  <C-R>q<Esc>^
+nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"zDO<C-R>z<Esc>^
+nnoremap Ä ^"zD"_ddA  <C-R>z<Esc>^
 
 " makes using marks a lot better, ` mapping clashes with surround
 nnoremap ' :action ShowBookmarks<CR>
@@ -178,9 +173,11 @@ nnoremap gb `[v`]
 nnoremap gp o<Esc>p^
 nnoremap gP O<Esc>p^
 
+nnoremap gd :action GotoDeclarationOnly<CR>
+nnoremap gs :action GotoSuperMethod<CR>
 nnoremap gr :action GotoRelated<CR>
 nnoremap gt :action GotoTest<CR>
-nnoremap gs :action GotoSuperMethod<CR>
+nnoremap gf mo"qyiwgg/<C-R>q<CR>:noh<CR>
 
 " these only make sense as ideavim mappings,
 " since vim defines so many ]x mappings
@@ -193,7 +190,7 @@ nnoremap <Leader>c :action GotoClass<CR>
 nnoremap <Leader>d :action QuickJavaDoc<CR>
 nnoremap <Leader>e :action Run<CR>
 nnoremap <Leader>f :action GotoFile<CR>
-nnoremap <Leader>g :action Vcs.QuickListPopupAction<CR>
+nnoremap <Leader>g :action ManageRecentProjects<CR>
 nnoremap <Leader>h :action FileStructurePopup<CR>
 nnoremap <Leader>i :action QuickImplementations<CR>
 nnoremap <Leader>j :action ShowNavBar<CR>
@@ -229,7 +226,7 @@ nnoremap <Leader>3 :action RunClass<CR>
 nnoremap <Leader>4 :action Vcs.ShowTabbedFileHistory<CR>
 vnoremap <Leader>4 :action Vcs.ShowHistoryForBlock<CR>
 nnoremap <Leader>5 :action Annotate<CR>
-" nnoremap <Leader>6 :action <CR>
+nnoremap <Leader>6 :action Compare.SameVersion<CR>
 nnoremap <Leader>7 :action ReplaceInPath<CR>
 nnoremap <Leader>9 :action GotoImplementation<CR>
 
@@ -243,6 +240,7 @@ nnoremap <C-K> :action EditorCloneCaretAbove<CR>
 inoremap <C-H> <C-O>:action ParameterInfo<CR>
 inoremap <C-J> <C-O>:action EditorCloneCaretBelow<CR>
 inoremap <C-K> <C-O>:action EditorCloneCaretAbove<CR>
+inoremap <C-X> <C-O>:action CodeCompletion<CR>
 
 nnoremap <C-P> :action GotoPreviousError<CR>
 nnoremap <C-N> :action GotoNextError<CR>
@@ -257,3 +255,7 @@ nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
 nnoremap <C-6> :action ActivatePythonConsoleToolWindow<CR>
 nnoremap <C-7> :action Django.RunManageTaskAction<CR>
 nnoremap <C-0> :action ActivateVersionControlToolWindow<CR>
+
+nnoremap <F10> :action ExportSettings<CR>
+nnoremap <F11> :action ImportSettings<CR>
+nnoremap <F12> :source ~/.ideavimrc<CR>
