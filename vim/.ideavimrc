@@ -143,7 +143,9 @@ vnoremap <C-A> <C-A>gv
 " Q plays back q macro
 nnoremap Q @q
 
+" repeat the last substitution
 nnoremap & g&
+vnoremap & :s//~/&<CR>:noh<CR>
 
 nnoremap - :%s/
 vnoremap - :s/
