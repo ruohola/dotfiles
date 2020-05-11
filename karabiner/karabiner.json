@@ -123,7 +123,7 @@
                         ]
                     },
                     {
-                        "description": "Change right_command + u/i to Ctrl-a/Ctrl-e",
+                        "description": "Change right_command + u/i to cmd + ←/→",
                         "manipulators": [
                             {
                                 "from": {
@@ -139,9 +139,9 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "a",
+                                        "key_code": "left_arrow",
                                         "modifiers": [
-                                            "left_control"
+                                            "left_command"
                                         ]
                                     }
                                 ],
@@ -161,9 +161,9 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "e",
+                                        "key_code": "right_arrow",
                                         "modifiers": [
-                                            "left_control"
+                                            "left_command"
                                         ]
                                     }
                                 ],
