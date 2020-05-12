@@ -34,6 +34,7 @@ bind "set menu-complete-display-prefix on"
 
 alias vvrc='vim ~/.vim/vimrc'
 alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
+alias sbrc='source ~/.bash_profile'
 alias virc='vim ~/.vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
 
