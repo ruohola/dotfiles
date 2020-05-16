@@ -17,7 +17,7 @@ nmap S ysiW
 nmap ö <PLug>ReplaceWithRegisterOperator
 nmap Ö <PLug>ReplaceWithRegisterOperator$
 nmap öö <PLug>ReplaceWithRegisterLine
-vmap ö <PLug>ReplaceWithRegisterVisual
+xmap ö <PLug>ReplaceWithRegisterVisual
 
 " emulates tommcdo/vim-exchange
 " TODO: add more text objects
@@ -131,27 +131,31 @@ nnoremap <S-Enter> mqO<Esc>`q
 " better way to indent
 nnoremap <BS> <<
 nnoremap <TAB> >>
-vnoremap <BS> <gv
-vnoremap <TAB> >gv
+xnoremap <BS> <gv
+xnoremap <TAB> >gv
 
 " persistent visuals
-vnoremap > >gv
-vnoremap < <gv
-vnoremap <C-X> <C-X>gv
-vnoremap <C-A> <C-A>gv
+xnoremap > >gv
+xnoremap < <gv
+xnoremap <C-X> <C-X>gv
+xnoremap <C-A> <C-A>gv
 
 " Q plays back q macro
 nnoremap Q @q
 
 " repeat the last substitution
 nnoremap & g&
-vnoremap & :s//~/&<CR>:noh<CR>
+xnoremap & :s//~/&<CR>:noh<CR>
 
+" easier substitution
 nnoremap - :%s/
-vnoremap - :s/
-nnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
-vnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
+xnoremap - :s/
 
+" type a delimiter for splitting the line into separate lines
+nnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
+xnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
+
+" split line on whitepace
 nnoremap + f i<CR><Esc>^
 
 " split function arguments or list members into their own lines
@@ -163,6 +167,24 @@ nnoremap <Esc> <Esc>:noh<CR>
 " change eol comment to line comment and vice versa
 nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"zDO<C-R>z<Esc>^
 nnoremap Ä ^"zD"_ddA  <C-R>z<Esc>^
+
+" select previously yanked text
+nnoremap gb `[v`]
+
+" paste to the next or previous line
+nnoremap gp o<Esc>p^
+nnoremap gP O<Esc>p^
+
+
+" =========== IDEAVIM MAPPINGS ===========
+
+nnoremap gd :action GotoDeclarationOnly<CR>
+nnoremap gs :action GotoSuperMethod<CR>
+nnoremap gr :action GotoRelated<CR>
+nnoremap gt :action GotoTest<CR>
+" go to the first occurance of the symbol in the filename
+" this is often the import statement, get back with `o
+nnoremap gf mo"qyiwgg/<C-R>q<CR>:noh<CR>
 
 " motions around jinja tags, DON'T CHANGE, these work
 nnoremap cij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR>
@@ -177,19 +199,6 @@ nmap yaj vajy
 " makes using marks a lot better, ` mapping clashes with surround
 nnoremap ' :action ShowBookmarks<CR>
 nnoremap m :action ToggleBookmarkWithMnemonic<CR>
-
-" select previously yanked text
-nnoremap gb `[v`]
-
-" paste to the next or previous line
-nnoremap gp o<Esc>p^
-nnoremap gP O<Esc>p^
-
-nnoremap gd :action GotoDeclarationOnly<CR>
-nnoremap gs :action GotoSuperMethod<CR>
-nnoremap gr :action GotoRelated<CR>
-nnoremap gt :action GotoTest<CR>
-nnoremap gf mo"qyiwgg/<C-R>q<CR>:noh<CR>
 
 " these only make sense as ideavim mappings,
 " since vim defines so many ]x mappings
@@ -210,9 +219,9 @@ nnoremap <Leader>k :action KJumpAction<CR>
 nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>m :action RecentChangedFiles<CR>
 nnoremap <Leader>n :action LocalHistory.ShowHistory<CR>
-vnoremap <Leader>n :action LocalHistory.ShowSelectionHistory<CR>
+xnoremap <Leader>n :action LocalHistory.ShowSelectionHistory<CR>
 nnoremap <Leader>o :action ShowReformatFileDialog<CR>
-vnoremap <Leader>o :action ReformatCode<CR>
+xnoremap <Leader>o :action ReformatCode<CR>
 nnoremap <Leader>p :action PasteMultiple<CR>
 nnoremap <Leader>q :action ChooseRunConfiguration<CR>
 nnoremap <Leader>r :action RenameElement<CR>
@@ -236,7 +245,7 @@ nnoremap <Leader>1 :action InspectCode<CR>
 nnoremap <Leader>2 :action DebugClass<CR>
 nnoremap <Leader>3 :action RunClass<CR>
 nnoremap <Leader>4 :action Vcs.ShowTabbedFileHistory<CR>
-vnoremap <Leader>4 :action Vcs.ShowHistoryForBlock<CR>
+xnoremap <Leader>4 :action Vcs.ShowHistoryForBlock<CR>
 nnoremap <Leader>5 :action Annotate<CR>
 nnoremap <Leader>6 :action Compare.SameVersion<CR>
 nnoremap <Leader>7 :action ReplaceInPath<CR>
