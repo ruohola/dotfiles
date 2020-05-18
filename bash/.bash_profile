@@ -120,9 +120,6 @@ alias managebackend='docker-compose run --rm backend python manage.py'
 # fzf config
 source ~/.fzf.bash
 
-# remap cd to dir from ALT-C to CTRL-F
-bind '"\C-f": "\ec"'
-
 __fzf_vim__ () {
     local file=$(__fzf_select__)
     local file="$(echo "${file}" | sed 's/ $//')"
@@ -133,6 +130,9 @@ __fzf_vim__ () {
 
 stty lnext ^-
 bind -x '"\C-v": "__fzf_vim__"'
+
+# remap cd to dir from ALT-C to CTRL-F
+bind '"\C-f": "\ec"'
 
 # Can't use variables for the excludable files because those won't get evaluated when using fzf.vim
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --exclude \
