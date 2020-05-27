@@ -49,8 +49,13 @@ alias preview='open -a Preview'
 alias act='source venv/bin/activate'
 alias lg='lazygit'
 
+alias trash="rmtrash"
+alias rm="echo Use \'trash\', or the full path i.e. '/bin/rm'"
+
 alias clamshell='sudo pmset -a disablesleep 1'
 alias noclamshell='sudo pmset -a disablesleep 0'
+
+alias pmr='python manage.py runserver'
 
 alias gs='git status'
 alias gf='git fetch --all --tags --prune'
