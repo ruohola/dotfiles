@@ -107,7 +107,7 @@ git () {
 
 brew () {
     if [[ "$@" == "up" ]]; then
-        command brew update && brew upgrade
+        command brew update && brew upgrade && brew cask upgrade
     elif [[ "$@" == "dump" ]]; then
         command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
     else

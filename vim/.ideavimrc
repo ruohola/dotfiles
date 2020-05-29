@@ -9,6 +9,7 @@ set commentary
 set argtextobj
 set textobj-entire
 set ReplaceWithRegister
+set exchange
 
 " surround
 nmap S ysiW
@@ -18,11 +19,6 @@ nmap ö <PLug>ReplaceWithRegisterOperator
 nmap Ö <PLug>ReplaceWithRegisterOperator$
 nmap öö <PLug>ReplaceWithRegisterLine
 xmap ö <PLug>ReplaceWithRegisterVisual
-
-" emulates tommcdo/vim-exchange
-" TODO: add more text objects
-nnoremap cxiw "jyiwma
-nnoremap criw "kdiw"jPmb`a"_diw"kP
 
 " emulates wellle/targets.vim
 " (no di/da mappings here, they clash with surround)
