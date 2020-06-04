@@ -211,7 +211,7 @@ nnoremap <Leader>g :action ManageRecentProjects<CR>
 nnoremap <Leader>h :action FileStructurePopup<CR>
 nnoremap <Leader>i :action QuickImplementations<CR>
 nnoremap <Leader>j :action ShowNavBar<CR>
-nnoremap <Leader>k :action KJumpAction<CR>
+noremap  <Leader>k :action KJumpAction<CR>
 nnoremap <Leader>l :action FindInPath<CR>
 nnoremap <Leader>m :action RecentChangedFiles<CR>
 nnoremap <Leader>n :action LocalHistory.ShowHistory<CR>

@@ -102,6 +102,7 @@ let g:EasyMotion_keys='asdghklqwertyuiopzxcvbnmfj'
 let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
 let g:EasyMotion_smartcase=1
+hi link EasyMotionTarget2First EasyMotionTarget
 map <Leader>k <Plug>(easymotion-bd-f)
 
 " machakann/vim-highlightedyank
@@ -177,7 +178,8 @@ endif
 
 " visuals
 set cursorline
-set number relativenumber
+set number
+" set relativenumber
 set showmode showcmd
 set report=1
 set cmdheight=2
@@ -450,7 +452,7 @@ command! -nargs=1 RE call RED('<args>')
 command! -nargs=1 CR call ChangeReg('<args>')
 
 " change working directory to current file's directory
-command! CD cd %:p:h|pwd
+command! CD cd %:p:h
 
 
 
@@ -525,11 +527,11 @@ endfunction
 " ============= AUTOCMD =============
 
 " toggle relative numbers between modes
-augroup LineNumbers
-    autocmd!
-    autocmd WinEnter,FocusGained,InsertLeave * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' && &l:buftype !=? 'help'|set relativenumber|endif
-    autocmd WinLeave,FocusLost,InsertEnter * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' && &l:buftype !=? 'help'|set norelativenumber|endif
-augroup END
+" augroup LineNumbers
+"     autocmd!
+"     autocmd WinEnter,FocusGained,InsertLeave * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' && &l:buftype !=? 'help'|set relativenumber|endif
+"     autocmd WinLeave,FocusLost,InsertEnter * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' && &l:buftype !=? 'help'|set norelativenumber|endif
+" augroup END
 
 
 " source vimrc when it's saved
