@@ -79,7 +79,7 @@ nnoremap da& f&vF&d
 " ============= GENERAL =============
 
 " line numbers
-set number relativenumber
+" set number relativenumber
 
 " search settings
 set incsearch hlsearch ignorecase smartcase gdefault
@@ -152,10 +152,10 @@ nnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
 xnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
 
 " split line on whitepace
-nnoremap + f i<CR><Esc>^
+nnoremap \ f i<CR><Esc>^
 
 " split function arguments or list members into their own lines
-nnoremap <Leader>+ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:noh<CR>`qv%=`q
+nnoremap <Leader>\ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:noh<CR>`qv%=`q
 
 " clear highlights
 nnoremap <Esc> <Esc>:noh<CR>
@@ -180,7 +180,7 @@ nnoremap gr :action GotoRelated<CR>
 nnoremap gt :action GotoTest<CR>
 " go to the first occurance of the symbol in the filename
 " this is often the import statement, get back with `o
-nnoremap gf mo"qyiwgg/<C-R>q<CR>:noh<CR>
+nnoremap gf mo"zyiwgg/<C-R>z<CR>:noh<CR>
 
 " motions around jinja tags, DON'T CHANGE, these work
 nnoremap cij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR>
@@ -247,6 +247,9 @@ nnoremap <Leader>6 :action Compare.SameVersion<CR>
 nnoremap <Leader>7 :action ReplaceInPath<CR>
 nnoremap <Leader>8 :action ToggleBreakpointEnabled<CR>
 nnoremap <Leader>9 :action GotoImplementation<CR>
+" for some reason these two cannot be combined into one
+nnoremap <Leader>0 mo:action GenerateCopyright<CR>
+nnoremap <Leader>+ ggvip:s/#  /# /<CR>gg
 
 nnoremap <Leader>" o"""
 
