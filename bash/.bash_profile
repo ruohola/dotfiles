@@ -55,7 +55,7 @@ alias rm="echo Use \'trash\', or the full path i.e. '/bin/rm'"
 alias clamshell='sudo pmset -a disablesleep 1'
 alias noclamshell='sudo pmset -a disablesleep 0'
 
-alias pmr='python manage.py runserver'
+alias runserver='python manage.py runserver'
 
 alias gs='git status'
 alias gf='git fetch --all --tags --prune'
@@ -110,6 +110,8 @@ brew () {
         command brew update && brew upgrade && brew cask upgrade
     elif [[ "$@" == "dump" ]]; then
         command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
+    elif [[ "$@" == "dumpwork" ]]; then
+        command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile-work
     else
         command brew "$@"
     fi
@@ -142,7 +144,7 @@ bind '"\C-f": "\ec"'
 # Can't use variables for the excludable files because those won't get evaluated when using fzf.vim
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --exclude \
     "{.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm}" .'
-export FZF_ALT_C_COMMAND='fd --type d --hidden --no-ignore --exclude \
+export FZF_ALT_C_COMMAND='fd --type d --type l --hidden --no-ignore --exclude \
     "{.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm}" .'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
