@@ -117,10 +117,10 @@ brew () {
     fi
 }
 
-alias formatbackend='yarn --cwd ~/skole backend:format'
+alias fmtbackend='yarn --cwd ~/skole backend:format'
 alias mypybackend='docker-compose run --no-deps --rm backend mypy .'
-alias testbackend='docker-compose run --rm backend pytest skole/tests'
-alias covbackend='docker-compose run --rm backend pytest --cov-report=html --cov=. skole/tests && open ~/skole/backend/htmlcov/index.html'
+alias testbackend='docker-compose run --rm backend pytest --verbose .'
+alias covbackend='docker-compose run --rm backend pytest --verbose --cov-report=html --cov=. . && open ~/skole/backend/htmlcov/index.html'
 alias allbackend='yarn --cwd ~/skole backend:test'
 alias managebackend='docker-compose run --rm backend python manage.py'
 
