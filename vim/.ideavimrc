@@ -147,6 +147,9 @@ xnoremap & :s//~/&<CR>:noh<CR>
 nnoremap - :%s/
 xnoremap - :s/
 
+" use the black hole register
+noremap _ "_
+
 " type a delimiter for splitting the line into separate lines
 nnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
 xnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
