@@ -266,6 +266,12 @@ inoremap <C-J> <C-O>:action EditorCloneCaretBelow<CR>
 inoremap <C-K> <C-O>:action EditorCloneCaretAbove<CR>
 inoremap <C-X> <C-O>:action CodeCompletion<CR>
 
+" mapped in the IDE
+" <C-C> stop execution
+" <C-L> complete current statement
+" <C-M> clone caret to next occurrence
+" <C-,> unclone caret from occurrence
+
 nnoremap <C-P> :action GotoPreviousError<CR>
 nnoremap <C-N> :action GotoNextError<CR>
 
