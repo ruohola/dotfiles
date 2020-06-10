@@ -43,19 +43,6 @@
 			<key>utf8</key>
 			<true/>
 		</dict>
-		<key>849A5394-3279-43F0-B82E-8360C4B48D50</key>
-		<dict>
-			<key>enabled</key>
-			<true/>
-			<key>keyword</key>
-			<string>py</string>
-			<key>text</key>
-			<string>Python docs</string>
-			<key>url</key>
-			<string>https://www.google.com/search?q=site:docs.python.org/3/+{query}</string>
-			<key>utf8</key>
-			<true/>
-		</dict>
 		<key>C7B06CC4-A2C8-46A9-BF9F-8C2BD8BEF2F3</key>
 		<dict>
 			<key>enabled</key>
@@ -66,6 +53,19 @@
 			<string>Django 1 docs</string>
 			<key>url</key>
 			<string>https://docs.djangoproject.com/en/1.11/search/?q={query}</string>
+			<key>utf8</key>
+			<true/>
+		</dict>
+		<key>DCBBAF66-4464-49F9-88CE-59F39E915F27</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>py</string>
+			<key>text</key>
+			<string>Python docs</string>
+			<key>url</key>
+			<string>https://docs.python.org/3.8/search.html?q={query}</string>
 			<key>utf8</key>
 			<true/>
 		</dict>
