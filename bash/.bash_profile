@@ -86,6 +86,8 @@ alias gba='git branch -a'
 gbd () { git branch --delete "$1" && git push --delete origin "$1"; }
 alias gch='git checkout'
 gchb () { git checkout -b "$1" || git checkout "$1"; }
+alias gstash='git stash --include-untracked'
+alias gpop='git stash pop'
 
 alias dc='docker-compose'
 alias dcb='docker-compose build --parallel'
