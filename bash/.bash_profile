@@ -137,7 +137,7 @@ __fzf_vim__ () {
     fi
 }
 
-stty lnext ^-
+stty lnext ''
 bind -x '"\C-v": "__fzf_vim__"'
 
 # remap cd to dir from ALT-C to CTRL-F
