@@ -10,6 +10,7 @@ set encoding=utf-8
 scriptencoding utf-8
 
 
+" temp file locations
 let TempFolder = '/.temp'
 let PluginsFolder = '/plugins'
 let VimFolder = '/.vim'
@@ -28,7 +29,6 @@ for folder in ['/undo', '/backup', '/swap']
     endif
 endfor
 
-" temp file locations
 let &undodir = PathToTempFolder . '/undo'
 let &backupdir = PathToTempFolder . '/backup'
 let &directory = PathToTempFolder . '/swap'
@@ -75,7 +75,7 @@ call plug#end()
 
 " neoclide/coc.nvim
 set updatetime=300
-set signcolumn=auto
+set signcolumn=number
 
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
@@ -549,7 +549,7 @@ function! RED(command)
     silent exec a:command
     redir END
     let @z = substitute(output, '^\n', '', '')
-    execute "put z"
+    put z
     return ''
 endfunction
 
