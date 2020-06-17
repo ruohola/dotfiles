@@ -7,7 +7,6 @@ set surround
 set multiple-cursors
 set commentary
 set argtextobj
-set textobj-entire
 set ReplaceWithRegister
 set exchange
 
