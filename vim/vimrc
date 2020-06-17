@@ -458,6 +458,7 @@ endif
 " open vimrc or cocconfig
 nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>cr :CocConfig<CR>
+nnoremap <silent> <Leader>ir :e $HOME/.ideavimrc<CR>
 
 
 
