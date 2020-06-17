@@ -182,9 +182,6 @@ xnoremap & :s//~/&<CR>:noh<CR>
 nnoremap - :%s/
 xnoremap - :s/
 
-" use the black hole register
-noremap _ "_
-
 " type a delimiter for splitting the line into separate lines
 nnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
 xnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
@@ -285,11 +282,6 @@ nnoremap <Leader>6 :action Compare.SameVersion<CR>
 nnoremap <Leader>7 :action ReplaceInPath<CR>
 nnoremap <Leader>8 :action ToggleBreakpointEnabled<CR>
 nnoremap <Leader>9 :action GotoImplementation<CR>
-" for some reason these two cannot be combined into one
-nnoremap <Leader>0 mo:action GenerateCopyright<CR>
-nnoremap <Leader>+ ggvip:s/#  /# /<CR>gg
-
-nnoremap <Leader>" o"""
 
 nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 

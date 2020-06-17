@@ -356,9 +356,6 @@ nnoremap J Jh
 " make K the logical opposite of J
 nnoremap K a<CR><Esc>k$
 
-" makes using marks a lot better
-nnoremap ' `
-
 " select previously yanked text
 nnoremap gb `[v`]
 
@@ -420,9 +417,6 @@ xnoremap & :s//~/&<CR>:noh<CR>
 " easier substitution
 nnoremap - :%s/
 xnoremap - :s/
-
-" use the black hole register
-noremap _ "_
 
 " type a delimiter for splitting the line into separate lines
 nnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
