@@ -116,14 +116,11 @@ nmap öa& F&<Plug>ReplaceWithRegisterOperatort&
 
 " ============= GENERAL =============
 
-" line numbers
-" set number relativenumber
-
 " search settings
 set incsearch hlsearch ignorecase smartcase gdefault
 
 set ideajoin                  " use the IDE's join/J behavior
-set selectmode=ideaselection
+set selectmode=ideaselection  " use select mode only when IDE sets a selection
 set timeoutlen=1000           " timeout for keymappings
 set clipboard=unnamed,ideaput " use system clipboard with idea's pasting logic
 set scrolloff=1               " pad scrolling with one line
@@ -305,6 +302,7 @@ inoremap <C-K> <C-O>:action EditorCloneCaretAbove<CR>
 inoremap <C-X> <C-O>:action CodeCompletion<CR>
 
 " mapped in the IDE
+" -----------------
 " <C-C> stop execution
 " <C-L> complete current statement
 " <C-M> clone caret to next occurrence

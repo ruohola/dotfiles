@@ -209,7 +209,6 @@ endif
 " visuals
 set cursorline
 set number
-" set relativenumber
 set showmode showcmd
 set report=1
 set cmdheight=2
@@ -559,14 +558,6 @@ endfunction
 
 
 " ============= AUTOCMD =============
-
-" toggle relative numbers between modes
-" augroup LineNumbers
-"     autocmd!
-"     autocmd WinEnter,FocusGained,InsertLeave * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' && &l:buftype !=? 'help'|set relativenumber|endif
-"     autocmd WinLeave,FocusLost,InsertEnter * if &l:buftype !=# 'nofile' && &l:buftype !=# 'nowrite' && &l:buftype !=? 'help'|set norelativenumber|endif
-" augroup END
-
 
 " source vimrc when it's saved
 augroup ReloadVimrc
