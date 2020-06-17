@@ -410,22 +410,22 @@ nnoremap gP O<Esc>p^
 nnoremap Q @q
 
 " repeat the last substitution
-nnoremap & g&
+nnoremap & :&&
 xnoremap & :s//~/&<CR>:noh<CR>
 
 " easier substitution
-nnoremap - :%s/
-xnoremap - :s/
-
-" type a delimiter for splitting the line into separate lines
-nnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
-xnoremap <Leader>- :s//&\r<Left><Left><Left><Left>
+nnoremap <Leader>, :%s/
+xnoremap <Leader>, :s/
 
 " split line on whitepace
 nnoremap \ f i<CR><Esc>^
 
 " split function arguments or list members into their own lines
 nnoremap <Leader>\ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:noh<CR>`qv%=`q
+
+" type a delimiter for splitting the line into separate lines
+nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
+xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 
 function! s:EscMapping() abort
     nnoremap <silent> <Esc> <Esc>:noh<CR>
