@@ -365,18 +365,13 @@ xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 " substitute selected text
 xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
 
+" easy way to run : command again for a visual selection
+xnoremap <Leader>' q:<UP>I'<,'><Esc>$
+
 " change eol comment to line comment and vice versa
 " this // is the default version for unspecified filetypes
 nnoremap ä :set nohlsearch<CR>$?\v//<CR>gEl"_d/\v\//<CR>"zDO<C-R>z<Esc>^:set hlsearch<BAR>noh<CR>
 nnoremap Ä ^"zD"_ddA  <C-R>z<Esc>^
-
-" easy way to run : command again for a visual selection
-xnoremap <Leader>, q:<UP>I'<,'><Esc>$
-
-" make C-U and C-W undoable
-inoremap <C-U> <C-G>u<C-U>
-inoremap <C-W> <C-G>u<C-W>
-
 
 " change enter behaviour
 augroup EnterMappings
@@ -387,6 +382,10 @@ augroup EnterMappings
             \| endif
     autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 augroup END
+
+" make C-U and C-W undoable
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
 
 " " move CTRL-I, since tab is taken
 " nnoremap <C-K> <C-I>
