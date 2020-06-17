@@ -388,14 +388,14 @@ augroup EnterMappings
     autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 augroup END
 
-" move CTRL-I, since tab is taken
-nnoremap <C-K> <C-I>
+" " move CTRL-I, since tab is taken
+" nnoremap <C-K> <C-I>
 
-" better way to indent
-nnoremap <BS> <<
-nnoremap <TAB> >>
-xnoremap <BS> <gv
-xnoremap <TAB> >gv
+" " better way to indent
+" nnoremap <BS> <<
+" nnoremap <TAB> >>
+" xnoremap <BS> <gv
+" xnoremap <TAB> >gv
 
 " persistent visuals
 xnoremap > >gv
