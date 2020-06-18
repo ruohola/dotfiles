@@ -132,12 +132,12 @@ __fzf_vim__ () {
     local file=$(__fzf_select__)
     local file="$(echo "${file}" | sed 's/ $//')"
     if [ -f "${file}" ]; then
-        vim "${file}"
+        echo vim "${file}"
     fi
 }
 
 stty lnext ''
-bind -x '"\C-v": "__fzf_vim__"'
+bind '"\C-v": " \C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
 # remap cd to dir from ALT-C to CTRL-F
 bind '"\C-f": "\ec"'
@@ -160,6 +160,8 @@ export PATH="$HOME/.cargo/bin:${PATH}"
 export PATH="$HOME/.pyenv/bin:${PATH}"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+export PATH="$HOME/.local/bin:${PATH}"
 
 export PATH="/usr/local/bin:${PATH}"
 export PATH="$HOME/dotfiles/bash/exported:${PATH}"
