@@ -184,7 +184,7 @@ nnoremap gr :action GotoRelated<CR>
 nnoremap gt :action GotoTest<CR>
 " go to the first occurance of the symbol in the filename
 " this is often the import statement, get back with `o
-nnoremap gf mo"zyiwgg/<C-R>z<CR>:noh<CR>
+nnoremap gf mo"zyiwgg/\C\\<\\><Left><Left><BS><C-R>z<CR>:noh<CR>
 
 " motions around jinja tags, DON'T CHANGE, these work
 nnoremap cij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR>

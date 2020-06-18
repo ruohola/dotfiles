@@ -359,6 +359,14 @@ nnoremap K a<CR><Esc>k$
 " select previously yanked text
 nnoremap gb `[v`]
 
+" paste to the next or previous line
+nnoremap gp o<Esc>p^
+nnoremap gP O<Esc>p^
+
+" go to the first occurance of the symbol in the filename
+" this is often the import statement, get back with `o
+nnoremap <silent> gf :set nohlsearch<CR>mo"zyiwgg/\C\<<C-R>z\><CR>:set hlsearch<BAR>noh<CR>
+
 " search for selected text
 xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 
@@ -401,10 +409,6 @@ xnoremap > >gv
 xnoremap < <gv
 xnoremap <C-X> <C-X>gv
 xnoremap <C-A> <C-A>gv
-
-" paste to the next or previous line
-nnoremap gp o<Esc>p^
-nnoremap gP O<Esc>p^
 
 " Q plays back q macro
 nnoremap Q @q
