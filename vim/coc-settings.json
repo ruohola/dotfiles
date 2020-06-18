@@ -21,6 +21,27 @@
           "directory": "/tmp/ccls"
         }
       }
+    },
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": [
+        "--lsp"
+      ],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml",
+        ".git/"
+      ],
+      "filetypes": [
+        "hs",
+        "lhs",
+        "haskell"
+      ],
+      "initializationOptions": {
+        "languageServerHaskell": {}
+      }
     }
   },
   "coc.preferences.extensionUpdateCheck": "weekly"
