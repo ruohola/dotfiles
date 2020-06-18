@@ -87,22 +87,18 @@ nmap <silent> <Leader>t <Plug>(coc-type-definition)
 nmap <silent> <Leader>i <Plug>(coc-implementation)
 nmap <silent> <Leader>u <Plug>(coc-references)
 nnoremap <silent> <Leader>d :call <SID>show_documentation()<CR>
-nmap <leader>r <Plug>(coc-rename)
-xmap <leader>o <Plug>(coc-format-selected)
-nmap <leader>o <Plug>(coc-format-selected)
-nnoremap <silent> <Leader>o :<C-u>CocList diagnostics<cr>
+nmap <silent> <leader>r <Plug>(coc-rename)
+xmap <silent> <leader>o <Plug>(coc-format-selected)
+nmap <silent> <leader>o <Plug>(coc-format)
+nnoremap <silent> <Leader>1 :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <Leader>a :<C-u>CocList commands<cr>
 nnoremap <silent> <Leader>h :<C-u>CocList outline<cr>
 nnoremap <silent> <Leader>s :<C-u>CocList -I symbols<cr>
 
-" mappings for function text objects
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
-
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
