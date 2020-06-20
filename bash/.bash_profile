@@ -42,6 +42,7 @@ alias b='cd ..'
 alias bb='cd ../..'
 alias bbb='cd ../../..'
 alias l='ls -la'
+alias ll='ls -la'
 
 alias F='open .'
 alias preview='open -a Preview'
