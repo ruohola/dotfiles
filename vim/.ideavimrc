@@ -129,11 +129,11 @@ nnoremap K a<CR><Esc>k$
 nnoremap <CR> mqo<Esc>`q
 nnoremap <S-Enter> mqO<Esc>`q
 
-" " better way to indent
-" nnoremap <BS> <<
-" nnoremap <TAB> >>
-" xnoremap <BS> <gv
-" xnoremap <TAB> >gv
+" better way to indent
+nnoremap <BS> <<
+nnoremap <TAB> >>
+xnoremap <BS> <gv
+xnoremap <TAB> >gv
 
 " persistent visuals
 xnoremap > >gv

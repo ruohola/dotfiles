@@ -391,14 +391,19 @@ augroup END
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
-" " move CTRL-I, since tab is taken
-" nnoremap <C-K> <C-I>
+if has('gui_running')
+    " macvim doesn't support differentiating ctrl-i and tab
+    nnoremap <C-K> <C-I>
+endif
 
-" " better way to indent
-" nnoremap <BS> <<
-" nnoremap <TAB> >>
-" xnoremap <BS> <gv
-" xnoremap <TAB> >gv
+" to keep the default behavior
+nnoremap <C-I> <C-I>
+
+" better way to indent
+nnoremap <BS> <<
+nnoremap <TAB> >>
+xnoremap <BS> <gv
+xnoremap <TAB> >gv
 
 " persistent visuals
 xnoremap > >gv
