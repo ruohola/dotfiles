@@ -286,24 +286,16 @@ if has('gui_running')
     nnoremap ↑ <C-W>k
     nnoremap → <C-W>l
 
-    " cycle buffers (alt+nm)
-    nnoremap <silent> № :bprev<CR>
-    nnoremap <silent> µ :bnext<CR>
-
     " cycle tabs (alt+ui)
     nnoremap <silent>ü :tabprevious<CR>
     nnoremap <silent>↔︎ :tabnext<CR>
 
-    if has('terminal')
-        tnoremap ← <C-W><C-H>
-        tnoremap ↓ <C-W><C-J>
-        tnoremap ↑ <C-W><C-K>
-        tnoremap → <C-W><C-L>
-        tnoremap <silent> № <C-W>:bprev<CR>
-        tnoremap <silent> µ <C-W>:bnext<CR>
-        tnoremap <silent>ü <C-W>:tabprevious<CR>
-        tnoremap <silent>↔︎ <C-W>:tabnext<CR>
-    endif
+    tnoremap ← <C-W><C-H>
+    tnoremap ↓ <C-W><C-J>
+    tnoremap ↑ <C-W><C-K>
+    tnoremap → <C-W><C-L>
+    tnoremap <silent>ü <C-W>:tabprevious<CR>
+    tnoremap <silent>↔︎ <C-W>:tabnext<CR>
 else
     " move between splits (alt+hjkl)
     nnoremap <Esc>h <C-W>h
@@ -311,31 +303,21 @@ else
     nnoremap <Esc>k <C-W>k
     nnoremap <Esc>l <C-W>l
 
-    " cycle buffers (alt+nm)
-    nnoremap <silent> <Esc>n :bprev<CR>
-    nnoremap <silent> <Esc>m :bnext<CR>
-
     " cycle tabs (alt+ui)
     nnoremap <silent> <Esc>u :tabprevious<CR>
     nnoremap <silent> <Esc>i :tabnext<CR>
 
-    if has('terminal')
-        tnoremap <Esc>h <C-W><C-H>
-        tnoremap <Esc>j <C-W><C-J>
-        tnoremap <Esc>k <C-W><C-K>
-        tnoremap <Esc>l <C-W><C-L>
-        tnoremap <silent> <Esc>n <C-W>:bprev<CR>
-        tnoremap <silent> <Esc>m <C-W>:bnext<CR>
-        tnoremap <silent> <Esc>u <C-W>:tabprevious<CR>
-        tnoremap <silent> <Esc>i <C-W>:tabnext<CR>
-    endif
+    tnoremap <Esc>h <C-W><C-H>
+    tnoremap <Esc>j <C-W><C-J>
+    tnoremap <Esc>k <C-W><C-K>
+    tnoremap <Esc>l <C-W><C-L>
+    tnoremap <silent> <Esc>u <C-W>:tabprevious<CR>
+    tnoremap <silent> <Esc>i <C-W>:tabnext<CR>
 endif
 
 " makes these easier to use
 noremap , :
-if has('terminal')
-    tnoremap <C-W>, <C-W>:
-endif
+tnoremap <C-W>, <C-W>:
 noremap : ;
 noremap ; ,
 noremap g, g;
@@ -432,34 +414,10 @@ nnoremap <Leader>\ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:no
 nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 
-function! s:EscMapping() abort
-    nnoremap <silent> <Esc> <Esc>:noh<CR>
-endfunction
-function! s:SearchMapping() abort
-    call <SID>EscMapping()
-    unmap n
-    unmap N
-    unmap /
-    unmap ?
-    unmap *
-    unmap #
-endfunction
-if has('gui_running')
-    call <SID>EscMapping()
-else
-    nnoremap <silent> n :call <SID>SearchMapping()<CR>n
-    nnoremap <silent> N :call <SID>SearchMapping()<CR>N
-    nnoremap <silent> * :call <SID>SearchMapping()<CR>*
-    nnoremap <silent> # :call <SID>SearchMapping()<CR>#
-    nnoremap / :call <SID>SearchMapping()<CR>/
-    nnoremap ? :call <SID>SearchMapping()<CR>?
-    augroup esc_mapping
-      autocmd!
-      autocmd InsertEnter * call <SID>EscMapping()
-    augroup END
-endif
+" clear highlights
+nnoremap <silent> <Esc> <Esc>:noh<CR>
 
-" open vimrc or cocconfig
+" open vimrc, ideavimrc, or cocconfig
 nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>cr :CocConfig<CR>
 nnoremap <silent> <Leader>ir :e $HOME/.ideavimrc<CR>
