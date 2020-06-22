@@ -373,12 +373,9 @@ augroup END
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
-if has('gui_running')
-    " macvim doesn't support differentiating ctrl-i and tab
-    nnoremap <C-K> <C-I>
-endif
-
-" to keep the default behavior
+" macvim doesn't support differentiating ctrl-i and tab
+nnoremap <C-K> <C-I>
+" to ensure that the default behavior is kept after mapping tab
 nnoremap <C-I> <C-I>
 
 " better way to indent
@@ -415,7 +412,7 @@ nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 
 " clear highlights
-nnoremap <silent> <Esc> <Esc>:noh<CR>
+nnoremap <nowait> <silent> <Esc> <Esc>:noh<CR>
 
 " open vimrc, ideavimrc, or cocconfig
 nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
