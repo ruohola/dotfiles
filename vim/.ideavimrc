@@ -165,9 +165,9 @@ xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 " clear highlights
 nnoremap <Esc> <Esc>:noh<CR>
 
-" change eol comment to line comment and vice versa
-nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"zDO<C-R>z<Esc>^
-nnoremap Ä ^"zD"_ddA  <C-R>z<Esc>^
+" " change eol comment to line comment and vice versa
+" nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"zDO<C-R>z<Esc>^
+" nnoremap Ä ^"zD"_ddA  <C-R>z<Esc>^
 
 " select previously yanked text
 nnoremap gb `[v`]

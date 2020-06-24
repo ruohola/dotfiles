@@ -50,7 +50,14 @@ alias preview='open -a Preview'
 alias act='source venv/bin/activate'
 alias lg='lazygit'
 
-alias trash="rmtrash"
+alias trash='rmtrash'
+
+alias fdi='fd --no-ignore'
+alias rgi='rg --no-ignore'
+
+pyclean () {
+    find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+}
 
 alias clamshell='sudo pmset -a disablesleep 1'
 alias noclamshell='sudo pmset -a disablesleep 0'
@@ -120,12 +127,25 @@ brew () {
     fi
 }
 
+
+# skole
 alias fmtbackend='yarn --cwd ~/skole backend:format'
 alias mypybackend='docker-compose run --no-deps --rm backend mypy .'
 alias testbackend='docker-compose run --rm backend pytest --verbose .'
 alias covbackend='docker-compose run --rm backend pytest --verbose --cov-report=html --cov=. . && open ~/skole/backend/htmlcov/index.html'
 alias allbackend='yarn --cwd ~/skole backend:test'
 alias managebackend='docker-compose run --rm backend python manage.py'
+
+
+# shuup
+installshuup () {
+    pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 pip==19.2.* \
+    && [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt \
+    && [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt \
+    && [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt \
+    && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c "cd '{}' && pip install --disable-pip-version-check -e ."
+}
+
 
 # fzf config
 source ~/.fzf.bash

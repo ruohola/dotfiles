@@ -354,10 +354,10 @@ xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
 " easy way to run : command again for a visual selection
 xnoremap <Leader>' q:<UP>I'<,'><Esc>$
 
-" change eol comment to line comment and vice versa
-" this // is the default version for unspecified filetypes
-nnoremap ä :set nohlsearch<CR>$?\v//<CR>gEl"_d/\v\//<CR>"zDO<C-R>z<Esc>^:set hlsearch<BAR>noh<CR>
-nnoremap Ä ^"zD"_ddA  <C-R>z<Esc>^
+" " change eol comment to line comment and vice versa
+" " this // is the default version for unspecified filetypes
+" nnoremap ä :set nohlsearch<CR>$?\v//<CR>gEl"_d/\v\//<CR>"zDO<C-R>z<Esc>^:set hlsearch<BAR>noh<CR>
+" nnoremap Ä ^"zD"_ddA  <C-R>z<Esc>^
 
 " change enter behaviour
 augroup EnterMappings
