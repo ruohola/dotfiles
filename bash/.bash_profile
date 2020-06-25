@@ -136,6 +136,9 @@ alias covbackend='docker-compose run --rm backend pytest --verbose --cov-report=
 alias allbackend='yarn --cwd ~/skole backend:test'
 alias managebackend='docker-compose run --rm backend python manage.py'
 
+npmall () {
+    find . ! -path "*/node_modules/*" -name "package.json" -execdir npm install \; -execdir npm run build \;
+}
 
 # shuup
 installshuup () {
@@ -143,7 +146,8 @@ installshuup () {
     && [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt \
     && [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt \
     && [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt \
-    && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c "cd '{}' && pip install --disable-pip-version-check -e ."
+    && npmall \
+    && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c "cd '{}' && pip install --disable-pip-version-check -e . && npmall"
 }
 
 
