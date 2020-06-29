@@ -153,7 +153,7 @@ installshuup () {
     [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt
     npmall
     export -f npmall && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
-        "cd '{}' && pip install --disable-pip-version-check -e .  && npmall"
+        "cd '{}' && pip install --disable-pip-version-check -e . && npmall"
 }
 
 
@@ -182,11 +182,9 @@ if [[ $- == *i* ]]; then
     bind '"\C-f": "\ec"'
 fi
 
-# can't use variables for the excludable files because those won't get evaluated when using fzf.vim
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --exclude \
-    "{.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm}" .'
-export FZF_ALT_C_COMMAND='fd --type d --type l --hidden --no-ignore --exclude \
-    "{.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm}" .'
+export FZF_IGNORES=Applications,Library,Movies,Music,Pictures,.git,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm,*cache*
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
+export FZF_ALT_C_COMMAND='fd --type d --type l --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export RIPGREP_CONFIG_PATH=~/dotfiles/ripgrep/.ripgreprc
