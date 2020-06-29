@@ -138,17 +138,18 @@ alias allbackend='yarn --cwd ~/skole backend:test'
 alias managebackend='docker-compose run --rm backend python manage.py'
 
 npmall () {
-    find . ! -path "*/node_modules/*" -name "package.json" -execdir npm install \; -execdir npm run build \;
+    find . ! -path '*/node_modules/*' -name 'package.json' -execdir npm install \; -execdir npm run build \;
 }
 
 # shuup
 installshuup () {
-    pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 pip==19.2.* \
-    && [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt \
-    && [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt \
-    && [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt \
-    && npmall \
-    && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c "cd '{}' && pip install --disable-pip-version-check -e . && npmall"
+    pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 pip==19.2.*
+    [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt
+    [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt
+    [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt
+    npmall
+    export -f npmall && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
+        "cd '{}' && pip install --disable-pip-version-check -e .  && npmall"
 }
 
 
