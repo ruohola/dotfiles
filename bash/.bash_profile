@@ -59,6 +59,11 @@ pyclean () {
     find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 }
 
+alias fixtouchid="grep -q 'pam_tid.so' /etc/pam.d/sudo \
+|| sudo sed -i '' '1 a\\
+auth       sufficient     pam_tid.so
+' /etc/pam.d/sudo"
+
 alias clamshell='sudo pmset -a disablesleep 1'
 alias noclamshell='sudo pmset -a disablesleep 0'
 
