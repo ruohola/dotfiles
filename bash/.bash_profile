@@ -97,6 +97,10 @@ alias gch='git checkout'
 gchb () { git checkout -b "$1" || git checkout "$1"; }
 alias gstash='git stash --include-untracked'
 alias gpop='git stash pop'
+alias gr='git remote'
+alias grs='git remote show'
+alias gra='git remote add'
+alias grr='git remote remove'
 
 alias dc='docker-compose'
 alias dcb='docker-compose build --parallel'
