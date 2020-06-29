@@ -28,10 +28,6 @@ export HISTFILESIZE=
 # ** expands to any number of directories
 shopt -s globstar
 
-bind "TAB:menu-complete"
-bind "set show-all-if-ambiguous on"
-bind "set menu-complete-display-prefix on"
-
 alias vvrc='vim ~/.vim/vimrc'
 alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
 alias sbrc='source ~/.bash_profile'
@@ -156,7 +152,6 @@ installshuup () {
 }
 
 
-# fzf config
 source ~/.fzf.bash
 
 __fzf_vim__ () {
@@ -167,13 +162,22 @@ __fzf_vim__ () {
     fi
 }
 
-stty lnext ''
-bind '"\C-v": " \C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+if [[ $- == *i* ]]; then
+    # we are in an interactive shell
 
-# remap cd to dir from ALT-C to CTRL-F
-bind '"\C-f": "\ec"'
+    bind "TAB:menu-complete"
+    bind "set show-all-if-ambiguous on"
+    bind "set menu-complete-display-prefix on"
 
-# Can't use variables for the excludable files because those won't get evaluated when using fzf.vim
+    # open file in vim with fzf
+    stty lnext ''
+    bind '"\C-v": " \C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+
+    # remap cd to dir from ALT-C to CTRL-F
+    bind '"\C-f": "\ec"'
+fi
+
+# can't use variables for the excludable files because those won't get evaluated when using fzf.vim
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --exclude \
     "{.git,Library,Applications,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm}" .'
 export FZF_ALT_C_COMMAND='fd --type d --type l --hidden --no-ignore --exclude \
