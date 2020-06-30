@@ -1,3 +1,4 @@
+Brewfile.lock.json
 alfred/Alfred.alfredpreferences/workflows/user.workflow*/warmth
 karabiner/automatic_backups
 plug.vim.old

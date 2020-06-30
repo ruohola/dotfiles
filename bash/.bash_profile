@@ -125,8 +125,8 @@ brew () {
         command brew update && brew upgrade && brew cask upgrade
     elif [[ "$@" == "dump" ]]; then
         command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
-    elif [[ "$@" == "dumpwork" ]]; then
-        command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile-work
+    elif [[ "$@" == "load" ]]; then
+        command brew bundle --file=~/dotfiles/brew/Brewfile
     else
         command brew "$@"
     fi
