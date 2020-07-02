@@ -141,15 +141,15 @@ alias covbackend='docker-compose run --rm backend pytest --verbose --cov-report=
 alias allbackend='yarn --cwd ~/skole backend:test'
 alias managebackend='docker-compose run --rm backend python manage.py'
 
+# shuup
 npmall () {
     find . ! -path '*/node_modules/*' -name 'package.json' -execdir npm install \; -execdir npm run build \;
 }
 
-
 installbasics () {
     pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 pip==19.2.*
 }
-# shuup
+
 installshuup () {
     installbasics
     [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt
@@ -164,6 +164,10 @@ installshuup () {
 setupproject () {
     ~/Documents/scripts/setup_project.sh "$@"
     cd "$HOME/shuup/$2/app"
+}
+
+linkshuup () {
+    [ ! -z "$1" ] && ln -s "../../$1/app" "../shuup-packages/$1"; ls -la ../shuup-packages
 }
 
 source ~/.fzf.bash
