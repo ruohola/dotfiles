@@ -205,6 +205,7 @@ endif
 " visuals
 set cursorline
 set number
+set relativenumber
 set showmode showcmd
 set report=1
 set cmdheight=2

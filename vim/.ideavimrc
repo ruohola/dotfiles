@@ -86,6 +86,9 @@ nnoremap va& F&vt&
 
 " ============= GENERAL =============
 
+" line numbers
+set number relativenumber
+
 " search settings
 set incsearch hlsearch ignorecase smartcase gdefault
 
