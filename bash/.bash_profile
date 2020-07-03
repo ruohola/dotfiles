@@ -172,7 +172,7 @@ setupproject () {
 }
 
 linkshuup () {
-    [ ! -z "$1" ] && ln -s "../../$1/app" "../shuup-packages/$1"; ls -la ../shuup-packages
+    mkdir -p ../shuup-packages && [ ! -z "$1" ] && ln -s "../../$1/app" "../shuup-packages/$1"; ls -la ../shuup-packages
 }
 
 source ~/.fzf.bash
