@@ -5,8 +5,13 @@ BASE2=$(tput setaf 254);  BASE3=$(tput setaf 230);   YELLOW=$(tput setaf 136); O
 RED=$(tput setaf 160);    MAGENTA=$(tput setaf 125); VIOLET=$(tput setaf 61);  BLUE=$(tput setaf 33)
 CYAN=$(tput setaf 37);    GREEN=$(tput setaf 64);    BOLD=$(tput bold);        RESET=$(tput sgr0)
 
-# solarized colored prompt that looks like: path/to/dir (branch_if_on_git_repo) $
-export PS1="\[$CYAN\]\w \[$MAGENTA\]\$(git branch 2> /dev/null | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\) /')\[$CYAN\]\$ \[$RESET\]"
+# solarized colored prompt that looks like: (venv) path/to/dir (branch_if_on_git_repo) $
+export PS1="\
+\$(pyenv version-name | grep -v '^system$' | sed -E 's/(.*)/\(\1\) /')\
+\[$CYAN\]\w \
+\[$MAGENTA\]\$(git branch 2> /dev/null | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\) /')\
+\[$CYAN\]\$ \[$RESET\]\
+"
 PROMPT_DIRTRIM=3  # show only last 3 dirs in prompt
 
 export EDITOR=vim
@@ -211,6 +216,7 @@ export PATH="$HOME/.cargo/bin:${PATH}"
 export PATH="$HOME/.pyenv/bin:${PATH}"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 export PATH="$HOME/.local/bin:${PATH}"
 
