@@ -420,6 +420,9 @@ nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>cr :CocConfig<CR>
 nnoremap <silent> <Leader>ir :e $HOME/.ideavimrc<CR>
 
+nnoremap <silent> <Leader>] :windo diffthis<CR>
+nnoremap <silent> <Leader>[ :windo diffoff<CR>
+
 
 
 " ============= COMMANDS =============
