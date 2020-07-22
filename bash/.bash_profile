@@ -171,6 +171,17 @@ setupproject () {
     cd "$HOME/shuup/$2/app"
 }
 
+cloneshuup () {
+    pushd .
+    cd ~/shuup
+    mkdir "$1"
+    cd "$1"
+    git clone "git@github.com:ruohola/$1.git" app
+    cd app
+    git remote add upstream "git@github.com:shuup/$1.git"
+    popd
+}
+
 linkshuup () {
     mkdir -p ../shuup-packages && [ ! -z "$1" ] && ln -s "../../$1/app" "../shuup-packages/$1"; ls -la ../shuup-packages
 }
