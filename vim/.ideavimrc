@@ -9,6 +9,11 @@ set commentary
 set argtextobj
 set ReplaceWithRegister
 set exchange
+set highlightedyank
+
+" highlightedyank
+let g:highlightedyank_highlight_duration = '300'
+let g:highlightedyank_highlight_color = 'rgb(131, 148, 150, 120)'
 
 " surround
 nmap S ysiW
