@@ -538,3 +538,10 @@ augroup TrimWhitespace
     autocmd!
     autocmd BufWritePre *vimrc :%s/\s\+$//e
 augroup END
+
+
+" automatically activate some filetypes
+augroup FileTypes
+    autocmd!
+    autocmd BufRead,BufNewFile Dockerfile* set filetype=dockerfile
+augroup END
