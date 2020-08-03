@@ -396,7 +396,7 @@ xnoremap <C-A> <C-A>gv
 nnoremap Q @q
 
 " repeat the last substitution
-nnoremap & :&&
+nnoremap & :&&<CR>
 xnoremap & :s//~/&<CR>:noh<CR>
 
 " easier substitution
