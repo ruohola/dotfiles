@@ -108,11 +108,15 @@ alias gra='git remote add'
 alias grr='git remote remove'
 
 alias dc='docker-compose'
-alias dcb='docker-compose build --parallel'
-alias dcbn='docker-compose build --parallel --no-cache'
+alias dcf='docker-compose --file'
+alias dcb='docker-compose build '
+dcbf () { docker-compose --file "$1" build; }
+alias dcbn='docker-compose build --no-cache'
 alias dcu='docker-compose up'
-alias dcub='docker-compose build --parallel && docker-compose up'
-alias dcubn='docker-compose build --parallel --no-cache && docker-compose up'
+dcuf () { docker-compose --file "$1" up; }
+alias dcub='docker-compose build && docker-compose up'
+dcubf () { docker-compose --file "$1" build && docker-compose --file "$1" up; }
+alias dcubn='docker-compose build --no-cache && docker-compose up'
 alias dcd='docker-compose down'
 alias dcr='docker-compose run --rm'
 dcs () { docker-compose run --rm "$1" sh ; }
@@ -236,3 +240,6 @@ export PATH="$HOME/dotfiles/bash/exported:${PATH}"
 export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
 
 export PYTHONWARNINGS=ignore::UserWarning:setuptools.distutils_patch:26
+
+export COMPOSE_DOCKER_CLI_BUILD=1
+export DOCKER_BUILDKIT=1
