@@ -348,9 +348,6 @@ nnoremap gP O<Esc>p^
 " this is often the import statement, get back with `o
 nnoremap <silent> gf :set nohlsearch<CR>mo"zyiwgg/\C\<<C-R>z\><CR>:set hlsearch<BAR>noh<CR>
 
-" search for selected text
-xnoremap <Leader>/ "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
-
 " substitute selected text
 xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
 
@@ -399,6 +396,10 @@ nnoremap Q @q
 " repeat the last substitution
 nnoremap & :&&<CR>
 xnoremap & :s//~/&<CR>:noh<CR>
+
+" search for selected text
+xnoremap * "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
+xnoremap # "zy?\V<C-R>=escape(@z,'?\')<CR><CR>
 
 " easier substitution
 nnoremap <Leader>, :%s/

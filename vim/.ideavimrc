@@ -156,6 +156,10 @@ nnoremap Q @q
 nnoremap & :&&<CR>
 xnoremap & :s//~/&<CR>:noh<CR>
 
+" search for selected text
+xnoremap * "zy/<C-R>z<CR>
+xnoremap # "zy?<C-R>z<CR>
+
 " easier substitution
 nnoremap <Leader>, :%s/
 xnoremap <Leader>, :s/
