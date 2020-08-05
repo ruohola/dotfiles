@@ -268,9 +268,10 @@ set undolevels=10000           " remember more undo history
 set history=1000               " remember more command history
 set updatecount=10             " update swap file more often
 set matchpairs=(:),{:},[:]     " configure which braces to match
-set shortmess=Sac               " shorter prompt messages, no ins completion messages
+set shortmess=Sac              " shorter prompt messages, no ins completion messages
 set title                      " show the current file in the window title
 set titleold=                  " restore the old window title after exiting
+let g:is_posix=1               " make sh filetype be posix shell compliant
 filetype plugin indent on      " auto detect filetype
 
 
