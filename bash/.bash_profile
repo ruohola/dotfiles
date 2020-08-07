@@ -165,7 +165,7 @@ installshuup () {
     [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt
     [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt
     npmall
-    export -f npmall && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
+    [ "$1" != "--no-packages" ] && export -f npmall && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
         "cd '{}' && pip install --disable-pip-version-check -e . && npmall"
     python manage.py migrate
 }
