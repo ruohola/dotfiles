@@ -40,15 +40,6 @@ if [ ! -L .config/karabiner ]; then
     ln -sv ~/dotfiles/karabiner ~/.config/karabiner
 fi
 
-if [ ! -L .config/ranger ]; then
-    rm -rf .config/ranger
-    ln -sv ~/dotfiles/ranger ~/.config/ranger
-fi
-
-if [ ! -L ~/Library/Preferences/org.dystroy.broot/conf.toml ]; then
-    ln -sfv ~/dotfiles/broot/conf.toml ~/Library/Preferences/org.dystroy.broot/conf.toml
-fi
-
 
 # install all vim plugins (cannot be done in background with &)
 vim -c "PlugClean!" -c "PlugInstall" -c "qa!"

@@ -224,8 +224,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export RIPGREP_CONFIG_PATH=~/dotfiles/ripgrep/.ripgreprc
 
-source /Users/eero/Library/Preferences/org.dystroy.broot/launcher/bash/br
-
 source /usr/local/etc/bash_completion
 
 export PATH="$HOME/.cargo/bin:${PATH}"
