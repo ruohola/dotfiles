@@ -12,7 +12,7 @@ export PS1="\
 \[$MAGENTA\]\$(git branch 2> /dev/null | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\) /')\
 \[$CYAN\]\$ \[$RESET\]\
 "
-PROMPT_DIRTRIM=3  # show only last 3 dirs in prompt
+export PROMPT_DIRTRIM=3  # show only last 3 dirs in prompt
 
 export EDITOR=vim
 
@@ -24,7 +24,7 @@ export LANG=en_US.UTF-8
 
 # bash history gets written immediately
 shopt -s histappend
-PROMPT_COMMAND='history -a;history -n'
+export PROMPT_COMMAND='history -a;history -n'
 
 # unlimited bash history
 export HISTSIZE=
@@ -192,6 +192,9 @@ linkshuup () {
     mkdir -p ../shuup-packages && [ ! -z "$1" ] && ln -s "../../$1/app" "../shuup-packages/$1"; ls -la ../shuup-packages
 }
 
+
+source /usr/local/etc/bash_completion
+
 source ~/.fzf.bash
 
 __fzf_vim__ () {
@@ -224,8 +227,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export RIPGREP_CONFIG_PATH=~/dotfiles/ripgrep/.ripgreprc
 
-source /usr/local/etc/bash_completion
-
 export PATH="$HOME/.cargo/bin:${PATH}"
 
 export PATH="$HOME/.pyenv/bin:${PATH}"
@@ -237,7 +238,7 @@ export PATH="$HOME/.local/bin:${PATH}"
 
 export PATH="/usr/local/bin:${PATH}"
 export PATH="$HOME/dotfiles/bash/exported:${PATH}"
-export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
+export PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
 
 export PYTHONWARNINGS=ignore::UserWarning:setuptools.distutils_patch:26,ignore::UserWarning:_distutils_hack:19
 
