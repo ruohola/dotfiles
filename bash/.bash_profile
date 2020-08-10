@@ -121,6 +121,8 @@ alias dcd='docker-compose down'
 alias dcr='docker-compose run --rm'
 dcs () { docker-compose run --rm "$1" sh ; }
 
+docker_shell_ssh () { ssh "$1" -t "docker exec -it \$(docker container ls | awk '/$2/ {print \$NF; exit}') sh; bash"; }
+
 git () {
     if [[ "${@: -1}" == "dev" ]]; then
         command git ${@:1:$#-1} develop
