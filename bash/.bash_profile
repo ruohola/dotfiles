@@ -68,6 +68,8 @@ auth       sufficient     pam_tid.so
 alias clamshell='sudo pmset -a disablesleep 1'
 alias noclamshell='sudo pmset -a disablesleep 0'
 
+alias makemigrations='python manage.py makemigrations'
+alias migrate='python manage.py migrate'
 alias runserver='python manage.py runserver'
 
 alias gs='git status'
