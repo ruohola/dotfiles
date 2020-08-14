@@ -194,6 +194,10 @@ linkshuup () {
     mkdir -p ../shuup-packages && [ ! -z "$1" ] && ln -s "../../$1/app" "../shuup-packages/$1"; ls -la ../shuup-packages
 }
 
+unlinkshuup () {
+    rm "../shuup-packages/$1"; ls -la ../shuup-packages
+}
+
 
 source /usr/local/etc/bash_completion
 
