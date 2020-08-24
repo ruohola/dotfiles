@@ -174,6 +174,16 @@ installshuup () {
     python manage.py migrate
 }
 
+installshuup_nonpm () {
+    installbasics
+    [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt
+    [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt
+    [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt
+    [ "$1" != "--no-packages" ] &&[ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
+        "cd '{}' && pip install --disable-pip-version-check -e ."
+    python manage.py migrate
+}
+
 setupproject () {
     ~/Documents/scripts/setup_project.sh "$@"
     cd "$HOME/shuup/$2/app"
