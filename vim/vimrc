@@ -65,7 +65,10 @@ Plug 'tpope/vim-eunuch'                " easy unix file operations
 
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 Plug 'neoclide/coc.nvim', {'branch': 'release'}        " language-server plugin
-Plug 'jparise/vim-graphql'             " graphql filetype
+
+" filetypes
+Plug 'jparise/vim-graphql'
+Plug 'cespare/vim-toml'
 
 " colorshemes
 Plug 'lifepillar/vim-solarized8'
