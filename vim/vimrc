@@ -116,6 +116,9 @@ endfunction
 " tpope/vim-surround
 nmap S ysiW
 
+" google/vim-searchindex
+let g:searchindex_line_limit=100000000
+
 " xuhdev/vim-latex-live-preview
 let g:livepreview_previewer = 'open -a Skim'
 let g:livepreview_cursorhold_recompile = 0
