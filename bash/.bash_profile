@@ -164,7 +164,7 @@ npmall () {
 }
 
 installbasics () {
-    pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 pip==19.2.*
+    pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==19.2.*
 }
 
 installshuup () {
@@ -186,6 +186,14 @@ installshuup_nonpm () {
     [ "$1" != "--no-packages" ] &&[ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
         "cd '{}' && pip install --disable-pip-version-check -e ."
     python manage.py migrate
+}
+
+fixshuup () {
+    autoflake --in-place --recursive --remove-all-unused-imports --ignore-init-module-imports . && isort --recursive .
+}
+
+checkshuup () {
+    isort --check-only && flake8 && echo all good
 }
 
 setupproject () {
