@@ -191,15 +191,15 @@ nnoremap gP O<Esc>p^
 
 " =========== IDEAVIM MAPPINGS ===========
 
-nnoremap gd :action GotoDeclarationOnly<CR>
-nnoremap gs :action GotoSuperMethod<CR>
-nnoremap gr :action GotoRelated<CR>
-nnoremap gt :action GotoTest<CR>
 " go to the first occurance of the symbol in the filename
-" this is often the import statement, get back with `o
-nnoremap gf mo"zyiwgg/\C\\<\\><Left><Left><BS><C-R>z<CR>:noh<CR>
+nnoremap gf "zyiwgg/\C\\<\\><Left><Left><BS><C-R>z<CR>:noh<CR>
+nnoremap gd :action GotoDeclarationOnly<CR>
+nnoremap gr :action GotoRelated<CR>
+nnoremap gs :action GotoSuperMethod<CR>
+nnoremap gt :action GotoTypeDeclaration<CR>
+nnoremap gy :action GotoTest<CR>
 
-" motions around jinja tags, DON'T CHANGE, these work
+" motions around jinja tags, these don't work perfectly, pretty rard to improve though
 nnoremap cij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR>
 nnoremap caj /{%<CR>/%}<CR>f}a<C-O>2c?{%<CR><C-O>:noh<CR>
 nnoremap dij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR><Esc>l

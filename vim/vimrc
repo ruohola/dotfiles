@@ -351,8 +351,7 @@ nnoremap gp o<Esc>p^
 nnoremap gP O<Esc>p^
 
 " go to the first occurance of the symbol in the filename
-" this is often the import statement, get back with `o
-nnoremap <silent> gf :set nohlsearch<CR>mo"zyiwgg/\C\<<C-R>z\><CR>:set hlsearch<BAR>noh<CR>
+nnoremap <silent> gf :set nohlsearch<CR>"zyiwgg/\C\<<C-R>z\><CR>:set hlsearch<BAR>noh<CR>
 
 " substitute selected text
 xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
