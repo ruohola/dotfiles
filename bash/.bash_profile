@@ -120,7 +120,7 @@ dcbf () { docker-compose --file "$1" build; }
 alias dcbn='docker-compose build --no-cache'
 alias dcu='docker-compose up'
 dcuf () { docker-compose --file "$1" up; }
-alias dcub='docker-compose build && docker-compose up'
+dcub () { docker-compose build "$@" && docker-compose up "$@"; }
 dcubf () { docker-compose --file "$1" build && docker-compose --file "$1" up; }
 alias dcubn='docker-compose build --no-cache && docker-compose up'
 alias dcd='docker-compose down'
@@ -220,6 +220,22 @@ unlinkshuup () {
     rm "../shuup-packages/$1"; ls -la ../shuup-packages
 }
 
+pyenv () {
+    if [[ "$@" == "list" ]]; then
+        local versions=$(pyenv install --list)
+        for version in 5 6 7 8
+        do
+             echo "${versions}" | grep -E "^\s+3\.${version}" | tail -1
+        done
+        for version in 9 10
+        do
+             echo "${versions}" | grep -E "^\s+3\.${version}"
+        done
+    else
+        command pyenv "$@"
+    fi
+}
+
 
 source /usr/local/etc/bash_completion
 
@@ -258,8 +274,6 @@ export RIPGREP_CONFIG_PATH=~/dotfiles/ripgrep/.ripgreprc
 export PATH="$HOME/.cargo/bin:${PATH}"
 
 export PATH="$HOME/.pyenv/bin:${PATH}"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 export PATH="$HOME/.local/bin:${PATH}"
@@ -269,6 +283,9 @@ export PATH="$HOME/dotfiles/bash/exported:${PATH}"
 export PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
 
 export PYTHONWARNINGS=ignore::UserWarning:setuptools.distutils_patch:26,ignore::UserWarning:_distutils_hack:19
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
