@@ -191,13 +191,13 @@ nnoremap gP O<Esc>p^
 
 " =========== IDEAVIM MAPPINGS ===========
 
-" go to the first occurance of the symbol in the filename
 nnoremap gf "zyiwgg/\C\\<\\><Left><Left><BS><C-R>z<CR>:noh<CR>
 nnoremap gd :action GotoDeclarationOnly<CR>
 nnoremap gr :action GotoRelated<CR>
 nnoremap gs :action GotoSuperMethod<CR>
 nnoremap gt :action GotoTypeDeclaration<CR>
 nnoremap gy :action GotoTest<CR>
+nnoremap go ?^\s*class <CR>f(l:noh<CR>
 
 " motions around jinja tags, these don't work perfectly, pretty rard to improve though
 nnoremap cij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR>
