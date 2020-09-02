@@ -33,6 +33,27 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>nightshift</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>Toggle NightShift</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>DF9D5C63-3CBF-4358-974B-6FF97A1A7A15</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -63,27 +84,6 @@ echo $query &gt; warmth
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>nightshift</string>
-				<key>subtext</key>
-				<string></string>
-				<key>text</key>
-				<string>Toggle NightShift</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>DF9D5C63-3CBF-4358-974B-6FF97A1A7A15</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -99,9 +99,9 @@ echo $query &gt; warmth
 		<key>DF9D5C63-3CBF-4358-974B-6FF97A1A7A15</key>
 		<dict>
 			<key>xpos</key>
-			<integer>35</integer>
+			<integer>90</integer>
 			<key>ypos</key>
-			<integer>210</integer>
+			<integer>190</integer>
 		</dict>
 	</dict>
 	<key>webaddress</key>
