@@ -158,6 +158,16 @@ alias covbackend='docker-compose run --rm backend pytest --verbose --cov-report=
 alias allbackend='yarn --cwd ~/skole backend:test'
 alias managebackend='docker-compose run --rm backend python manage.py'
 
+updatebackend () {
+    docker-compose run --rm backend sh -c \
+        'pip list --outdated > /tmp/pip-temp1.txt \
+         && awk '\''{ print $1 }'\'' /tmp/pip-temp1.txt | sort > /tmp/pip-temp2.txt \
+         && awk -F '\''=='\'' '\''{ print $1 }'\'' requirements*txt | sort > /tmp/pip-temp3.txt \
+         && comm -12 /tmp/pip-temp2.txt /tmp/pip-temp3.txt | grep -f /dev/stdin /tmp/pip-temp1.txt \
+         && rm /tmp/pip-temp*txt'
+}
+
+
 # shuup
 npmall () {
     find . ! -path '*/node_modules/*' -name 'package.json' -execdir npm install \; -execdir npm run build \;
