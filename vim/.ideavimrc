@@ -194,7 +194,7 @@ nnoremap gr :action GotoRelated<CR>
 nnoremap gs :action GotoSuperMethod<CR>
 nnoremap gt :action GotoTypeDeclaration<CR>
 nnoremap gy :action GotoTest<CR>
-nnoremap go ?^\s*class <CR>f(l:action GotoDeclarationOnly<CR>:noh<CR>
+nnoremap go ?^\s*class <CR>f(Egeb:action GotoDeclarationOnly<CR>:noh<CR>
 
 " motions around jinja tags, these don't work perfectly, pretty rard to improve though
 nnoremap cij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR>
