@@ -201,7 +201,7 @@ if has('gui_running')
 else
     " terminal specific settings
     set mouse=a
-    if $TERM_PROGRAM =~ "iTerm"
+    if $TERM =~ "xterm-256color"
         set ttymouse=sgr
         let &t_SI = "\e[6 q"
         let &t_EI = "\e[2 q"
