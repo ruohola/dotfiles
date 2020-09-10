@@ -38,6 +38,9 @@ alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
 alias sbrc='source ~/.bash_profile'
 alias virc='vim ~/.vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
+vims () {
+    vim "scp://$1/$2"
+}
 
 alias b='cd ..'
 alias bb='cd ../..'
