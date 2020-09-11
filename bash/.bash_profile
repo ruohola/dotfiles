@@ -5,7 +5,7 @@ BASE2=$(tput setaf 254);  BASE3=$(tput setaf 230);   YELLOW=$(tput setaf 136); O
 RED=$(tput setaf 160);    MAGENTA=$(tput setaf 125); VIOLET=$(tput setaf 61);  BLUE=$(tput setaf 33)
 CYAN=$(tput setaf 37);    GREEN=$(tput setaf 64);    BOLD=$(tput bold);        RESET=$(tput sgr0)
 
-# solarized colored prompt that looks like: (venv) path/to/dir (branch_if_on_git_repo) $
+# solarized colored prompt: (venv) path/to/dir (branch) $
 export PS1="\
 \$(pyenv version-name | grep -v '^system$' | sed -E 's/(.*)/\(\1\) /')\
 \[$CYAN\]\w \
