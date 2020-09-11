@@ -45,8 +45,9 @@ vims () {
 alias b='cd ..'
 alias bb='cd ../..'
 alias bbb='cd ../../..'
-alias l='ls -la'
-alias ll='ls -la'
+alias bbbb='cd ../../../..'
+alias l='exa --long --all --all --classify'
+alias ll='l'
 
 alias F='open .'
 alias preview='open -a Preview'
