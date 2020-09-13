@@ -131,7 +131,7 @@ alias dcd='docker-compose down'
 alias dcr='docker-compose run --rm'
 dcs () { docker-compose run --rm "$1" sh ; }
 
-docker_shell_ssh () { ssh "$1" -t "docker exec -it \$(docker container ls | awk '/$2/ {print \$NF; exit}') sh; bash"; }
+docker_exec_ssh () { ssh $1 -t "docker exec -it \$(docker container ls | awk '/$2/ {print \$NF; exit}') $3; bash"; }
 
 git () {
     if [[ "${@: -1}" == "dev" ]]; then
@@ -197,7 +197,7 @@ installshuup_nonpm () {
     [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt
     [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt
     [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt
-    [ "$1" != "--no-packages" ] &&[ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
+    [ "$1" != "--no-packages" ] && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
         "cd '{}' && pip install --disable-pip-version-check -e ."
     python manage.py migrate
 }
