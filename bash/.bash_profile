@@ -234,23 +234,6 @@ unlinkshuup () {
     rm "../shuup-packages/$1"; ls -la ../shuup-packages
 }
 
-pyenv () {
-    if [[ "$@" == "list" ]]; then
-        local versions=$(pyenv install --list)
-        for version in 5 6 7 8
-        do
-             echo "${versions}" | grep -E "^\s+3\.${version}" | tail -1
-        done
-        for version in 9 10
-        do
-             echo "${versions}" | grep -E "^\s+3\.${version}"
-        done
-    else
-        command pyenv "$@"
-    fi
-}
-
-
 source /usr/local/etc/bash_completion
 
 source ~/.fzf.bash
@@ -305,3 +288,19 @@ export BUILDKIT_PROGRESS=plain
 # Need to be after all PATH settings
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+pyenv () {
+    if [[ "$@" == "list" ]]; then
+        local versions=$(pyenv install --list)
+        for version in 5 6 7 8
+        do
+             echo "${versions}" | grep -E "^\s+3\.${version}" | tail -1
+        done
+        for version in 9 10
+        do
+             echo "${versions}" | grep -E "^\s+3\.${version}"
+        done
+    else
+        command pyenv "$@"
+    fi
+}
