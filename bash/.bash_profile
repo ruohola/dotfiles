@@ -46,7 +46,7 @@ alias b='cd ..'
 alias bb='cd ../..'
 alias bbb='cd ../../..'
 alias bbbb='cd ../../../..'
-alias l='exa --long --all --all --classify'
+alias l='ls -la'
 alias ll='l'
 
 alias F='open .'
