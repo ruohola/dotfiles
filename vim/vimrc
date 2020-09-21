@@ -351,7 +351,7 @@ nnoremap gp o<Esc>p^
 nnoremap gP O<Esc>p^
 
 " go to the first occurance of the symbol in the filename
-nnoremap <silent> gf :set nohlsearch<CR>"zyiwgg/\C\<<C-R>z\><CR>:set hlsearch<BAR>noh<CR>
+nnoremap <silent> gf :set nohlsearch<CR>"zyiwgg/\C\<<C-R>z\><CR>:set hlsearch<Bar>noh<CR>
 
 " substitute selected text
 xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
@@ -361,7 +361,7 @@ xnoremap <Leader>' q:<UP>I'<,'><Esc>$
 
 " " change eol comment to line comment and vice versa
 " " this // is the default version for unspecified filetypes
-" nnoremap ä :set nohlsearch<CR>$?\v//<CR>gEl"_d/\v\//<CR>"zDO<C-R>z<Esc>^:set hlsearch<BAR>noh<CR>
+" nnoremap ä :set nohlsearch<CR>$?\v//<CR>gEl"_d/\v\//<CR>"zDO<C-R>z<Esc>^:set hlsearch<Bar>noh<CR>
 " nnoremap Ä ^"zD"_ddA  <C-R>z<Esc>^
 
 " change enter behaviour
