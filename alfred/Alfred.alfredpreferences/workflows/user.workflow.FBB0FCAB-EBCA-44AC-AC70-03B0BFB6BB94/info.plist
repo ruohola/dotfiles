@@ -20,18 +20,7 @@
 			</dict>
 		</array>
 		<key>AEDE6F2A-3933-4CB6-9F5B-0D53DDFE79BA</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>F5CA3331-1B99-45EF-8E9A-06C417387250</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
+		<array/>
 		<key>F36CDFFD-4057-4FF1-965B-4379AE4B8D90</key>
 		<array>
 			<dict>
@@ -113,7 +102,9 @@ osascript -l JavaScript emoji.js "$query" 2&gt;&amp;1</string>
 				<key>autopaste</key>
 				<true/>
 				<key>clipboardtext</key>
-				<string>{query}</string>
+				<string></string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
 				<key>transient</key>
 				<true/>
 			</dict>
@@ -123,79 +114,6 @@ osascript -l JavaScript emoji.js "$query" 2&gt;&amp;1</string>
 			<string>AEDE6F2A-3933-4CB6-9F5B-0D53DDFE79BA</string>
 			<key>version</key>
 			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>
-# Based On The OneUpdater workflow, but heavily simplified for github releases
-# https://github.com/vitorgalvao/alfred-workflows/tree/master/OneUpdater
-
-# THESE VARIABLES MUST BE SET.
-readonly github_repo='jsumners/alfred-emoji'
-readonly frequency_check='1' # days
-
-# FROM HERE ON, CODE SHOULD BE LEFT UNTOUCHED!
-readonly info_plist='info.plist'
-
-function abort {
-  echo "${1}" &gt;&amp;2
-  exit 1
-}
-
-function notification {
-  osascript -e "display notification \"${1}\" with title \"${alfred_workflow_name}\" subtitle \"A new version is available\""
-}
-
-function fetch_remote_version {
-  curl --silent "https://api.github.com/repos/${github_repo}/releases/latest" | grep 'tag_name' | head -1 | sed -E 's/.*tag_name": "v?(.*)".*/\1/'
-}
-
-function fetch_download_url {
-  curl --silent "https://api.github.com/repos/${github_repo}/releases/latest" | grep 'browser_download_url.*\.alfredworkflow"' | head -1 | sed -E 's/.*browser_download_url": "(.*)".*/\1/'
-}
-
-function download_and_install {
-  readonly tmpfile="$(mktemp).alfredworkflow"
-  notification 'Downloading and installing…'
-  curl --silent --location --output "${tmpfile}" "${1}"
-  open "${tmpfile}"
-}
-
-# Local sanity checks
-[[ -n "${alfred_workflow_version}" ]] || abort "'alfred_workflow_version' must be set."
-[[ -n "${alfred_workflow_name}" ]] || abort "'alfred_workflow_name' must be set."
-[[ "${github_repo}" =~ ^.+\/.+$ ]] || abort "'github_repo' (${github_repo}) must be in the format 'username/repo'."
-[[ "${frequency_check}" =~ ^[0-9]+$ ]] || abort "'frequency_check' (${frequency_check}) must be a number."
-
-# Check for updates
-if [[ $(find "${info_plist}" -mtime +"${frequency_check}"d) ]]; then
-  if [[ "${alfred_workflow_version}" == "$(fetch_remote_version)" ]]; then
-    touch "${info_plist}" # Reset timer by touching local file
-    exit 0
-  fi
-
-  download_and_install "$(fetch_download_url)"
-fi
-        </string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>F5CA3331-1B99-45EF-8E9A-06C417387250</string>
-			<key>version</key>
-			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -274,15 +192,6 @@ https://github.com/jsumners/alfred-emoji/issues
 		<dict>
 			<key>xpos</key>
 			<integer>40</integer>
-			<key>ypos</key>
-			<integer>180</integer>
-		</dict>
-		<key>F5CA3331-1B99-45EF-8E9A-06C417387250</key>
-		<dict>
-			<key>note</key>
-			<string>Auto Update - remove to disable</string>
-			<key>xpos</key>
-			<integer>830</integer>
 			<key>ypos</key>
 			<integer>180</integer>
 		</dict>

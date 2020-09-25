@@ -18,16 +18,6 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>DF790B34-3FE0-4384-B76B-23A465EB83C4</string>
-				<key>modifiers</key>
-				<integer>1048576</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
 		</array>
 	</dict>
 	<key>createdby</key>
@@ -40,23 +30,6 @@
 	<string>fast-unicode</string>
 	<key>objects</key>
 	<array>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>autopaste</key>
-				<false/>
-				<key>clipboardtext</key>
-				<string></string>
-				<key>transient</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
-			<key>uid</key>
-			<string>9A4C34D9-C33D-494A-9CDD-B3F3AA5A0C34</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -114,16 +87,18 @@ python3 find_unicode.py "{query}"</string>
 			<key>config</key>
 			<dict>
 				<key>autopaste</key>
-				<false/>
+				<true/>
 				<key>clipboardtext</key>
 				<string></string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
 				<key>transient</key>
 				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.output.clipboard</string>
 			<key>uid</key>
-			<string>DF790B34-3FE0-4384-B76B-23A465EB83C4</string>
+			<string>9A4C34D9-C33D-494A-9CDD-B3F3AA5A0C34</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -144,14 +119,7 @@ python3 find_unicode.py "{query}"</string>
 			<key>xpos</key>
 			<integer>350</integer>
 			<key>ypos</key>
-			<integer>95</integer>
-		</dict>
-		<key>DF790B34-3FE0-4384-B76B-23A465EB83C4</key>
-		<dict>
-			<key>xpos</key>
-			<integer>345</integer>
-			<key>ypos</key>
-			<integer>230</integer>
+			<integer>125</integer>
 		</dict>
 	</dict>
 	<key>variablesdontexport</key>
