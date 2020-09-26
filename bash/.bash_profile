@@ -33,6 +33,8 @@ export HISTFILESIZE=
 # ** expands to any number of directories
 shopt -s globstar
 
+source /usr/local/etc/bash_completion
+
 alias vvrc='vim ~/.vim/vimrc'
 alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
 alias sbrc='source ~/.bash_profile'
@@ -116,6 +118,7 @@ alias grb='git rebase'
 alias grbi='git rebase --interactive'
 alias grbc='git rebase --continue'
 alias grba='git rebase --abort'
+__git_complete gch _git_checkout
 
 alias dc='docker-compose'
 alias dcf='docker-compose --file'
@@ -132,14 +135,6 @@ alias dcr='docker-compose run --rm'
 dcs () { docker-compose run --rm "$1" sh ; }
 
 docker_exec_ssh () { ssh $1 -t "docker exec -it \$(docker container ls | awk '/$2/ {print \$NF; exit}') $3; bash"; }
-
-git () {
-    if [[ "${@: -1}" == "dev" ]]; then
-        command git ${@:1:$#-1} develop
-    else
-        command git "$@"
-    fi
-}
 
 brew () {
     if [[ "$@" == "up" ]]; then
@@ -233,8 +228,6 @@ linkshuup () {
 unlinkshuup () {
     rm "../shuup-packages/$1"; ls -la ../shuup-packages
 }
-
-source /usr/local/etc/bash_completion
 
 source ~/.fzf.bash
 
