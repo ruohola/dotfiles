@@ -3,8 +3,6 @@ setlocal formatoptions=jt
 setlocal nowrap
 setlocal updatetime=1000
 
-" change eol comment to line comment and vice versa
-nnoremap <buffer> ä :set nohlsearch<CR>$?\v%<CR>gEl"_d/\v\%<CR>"qDO<C-R>q<Esc>^:set hlsearch<BAR>noh<CR>
 nnoremap <nowait> <buffer> <Leader>c a\cite{}<Left>
 nnoremap <nowait> <buffer> <Leader>s a\cite[s.~]{}<Left><Left><Left>
 nnoremap <nowait> <buffer> <Leader>i a\textit{}<Left>

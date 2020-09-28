@@ -174,9 +174,9 @@ xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 " clear highlights
 nnoremap <Esc> <Esc>:noh<CR>
 
-" " change eol comment to line comment and vice versa
-" nnoremap ä $?\v//\|#<CR>gEl"_d/\v\/\/\|#<CR>:noh<CR>"zDO<C-R>z<Esc>^
-" nnoremap Ä ^"zD"_ddA  <C-R>z<Esc>^
+" change eol comment to line comment and vice versa
+nnoremap ä :s,^\(\s*\)\(\w.\{-}\)\s*\(\(#\\\|//\).*\)$,\1\3\r\1\2<CR>:noh<CR>
+nnoremap Ä :s,^\s*\(\(#\\\|//\).*\)$\n\(.\{-}\)\s*$,\3  \1<CR>:noh<CR>
 
 " select previously yanked text
 nnoremap gb `[v`]
@@ -243,7 +243,7 @@ nnoremap <Leader>w :action Debug<CR>
 noremap  <Leader>x :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Leader>y :action ShowErrorDescription<CR>
 nnoremap <Leader>z :action RenameFile<CR>
-nnoremap <Leader>ä :action CallHierarchy<CR>
+nnoremap <Leader>ä :s,^\(.\{-}\)\s*\(\(#\\\|//\).*\)$,\1<CR>:noh<CR>
 nnoremap <Leader>ö :action HighlightUsagesInFile<CR>
 
 nnoremap <Leader>< :action NewFile<CR>
@@ -291,6 +291,7 @@ nnoremap <C-4> :action ActivateDebugToolWindow<CR>
 nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
 nnoremap <C-6> :action ActivatePythonConsoleToolWindow<CR>
 nnoremap <C-7> :action ActivateVersionControlToolWindow<CR>
+nnoremap <C-9> :action CallHierarchy<CR>
 nnoremap <C-0> :action Django.RunManageTaskAction<CR>
 
 nnoremap <F10> :action ExportSettings<CR>
