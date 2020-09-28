@@ -410,7 +410,7 @@ xnoremap # "zy?\V<C-R>=escape(@z,'?\')<CR><CR>
 nnoremap <Leader>, :%s/
 xnoremap <Leader>, :s/
 
-" split line on whitepace
+" split line on whitespace
 nnoremap \ hf a<CR><Esc>^
 
 " split function arguments or list members into their own lines
