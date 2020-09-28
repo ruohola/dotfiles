@@ -226,7 +226,11 @@ linkshuup () {
 }
 
 unlinkshuup () {
-    rm "../shuup-packages/$1"; ls -la ../shuup-packages
+    if [ $# -eq 0 ]; then
+        rm ../shuup-packages/*; ls -la ../shuup-packages
+    else
+        rm "../shuup-packages/$1"; ls -la ../shuup-packages
+    fi
 }
 
 source ~/.fzf.bash
