@@ -5,11 +5,21 @@ BASE2=$(tput setaf 254);  BASE3=$(tput setaf 230);   YELLOW=$(tput setaf 136); O
 RED=$(tput setaf 160);    MAGENTA=$(tput setaf 125); VIOLET=$(tput setaf 61);  BLUE=$(tput setaf 33)
 CYAN=$(tput setaf 37);    GREEN=$(tput setaf 64);    BOLD=$(tput bold);        RESET=$(tput sgr0)
 
-# solarized colored prompt: (venv) path/to/dir (branch) $
+# solarized colored prompt: (venv) path/to/dir (branch)*$
+__venv () {
+    pyenv version-name | grep -v '^system$' | sed -E 's/(.*)/\(\1\) /'
+}
+__git_branch () {
+    git branch 2> /dev/null | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\) /'
+}
+__git_status () {
+    [ -z "$(git status --porcelain 2> /dev/null)" ] || printf '\b*'
+}
 export PS1="\
-\$(pyenv version-name | grep -v '^system$' | sed -E 's/(.*)/\(\1\) /')\
+\$(__venv)\
 \[$CYAN\]\w \
-\[$MAGENTA\]\$(git branch 2> /dev/null | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\) /')\
+\[$MAGENTA\]\$(__git_branch)\
+\[$RESET\]\$(__git_status)\
 \[$CYAN\]\$ \[$RESET\]\
 "
 export PROMPT_DIRTRIM=3  # show only last 3 dirs in prompt
