@@ -131,6 +131,10 @@ alias grbc='git rebase --continue'
 alias grba='git rebase --abort'
 alias gsw='git show --format=fuller --date=iso'
 alias gsws='gsw --stat'
+ghub () {
+    remote=$(git config remote.upstream.url || git config remote.origin.url) \
+    && open "$(echo $remote | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
+}
 __git_complete gch _git_checkout
 
 alias dc='docker-compose'
