@@ -136,6 +136,7 @@ ghub () {
     && open "$(echo $remote | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
 }
 __git_complete gch _git_checkout
+__git_complete grb _git_rebase
 
 alias dc='docker-compose'
 alias dcf='docker-compose --file'
