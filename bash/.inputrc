@@ -1,3 +1,2 @@
 # unbind <Esc><Esc> from it's default tab complete
 "\e\e":
-"\C-l":"\C-e\C-uclear\C-m\C-y"
