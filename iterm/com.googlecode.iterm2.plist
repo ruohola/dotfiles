@@ -2269,12 +2269,33 @@
 					<key>Text</key>
 					<string> </string>
 				</dict>
+				<key>0x6d-0x40000</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Text</key>
+					<string>0x0d</string>
+				</dict>
+				<key>0x7f-0x20000</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Text</key>
+					<string>0x08</string>
+				</dict>
 				<key>0x7f-0x40000</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>
 					<key>Text</key>
 					<string>0x08</string>
+				</dict>
+				<key>0xd-0x20000</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Text</key>
+					<string>0x0d</string>
 				</dict>
 				<key>0xd-0x40000</key>
 				<dict>
@@ -2412,7 +2433,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>9326E0B5-2DA9-4957-9E1F-36F78759275E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>1160</integer>
+	<integer>1176</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3197,7 +3218,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-09-28T18:51:32Z</date>
+	<date>2020-09-30T20:46:38Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
