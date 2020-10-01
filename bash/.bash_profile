@@ -269,10 +269,11 @@ if [[ $- == *i* ]]; then
     bind "set menu-complete-display-prefix on"
 
     # open file in vim with fzf
+    # reference from: https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L92
     stty lnext ''
     bind '"\C-v": " \C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
-    # remap cd to dir from ALT-C to CTRL-F
+    # remap fzf cd to dir from ALT-C to CTRL-F
     bind '"\C-f": "\ec"'
 fi
 

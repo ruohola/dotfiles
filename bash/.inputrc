@@ -1,2 +1,9 @@
 # unbind <Esc><Esc> from it's default tab complete
 "\e\e":
+
+# make <C-L> clear the screen while also refreshing the prompt
+"\C-x\C-l": clear-screen
+"\C-l": " \C-b\C-k \C-u\C-m\C-x\C-l\C-y\C-h\C-y\ey\C-x\C-x\C-d"
+
+# remap <C-X><C-V< to <C-V>'s default behavior, since bash_profile overwrites that
+"\C-x\C-v": quoted-insert
