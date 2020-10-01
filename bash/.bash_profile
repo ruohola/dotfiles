@@ -99,6 +99,9 @@ alias gdc='git restore --staged --worktree'
 alias gdca='git restore --staged --worktree :/ && git clean --interactive'
 alias gcl='git clone'
 alias gc='git commit'
+gcf () {
+    git commit --fixup "$1" && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${1}~1"
+}
 alias gcm='git commit -m'
 alias gca='git commit --amend'
 alias gcan='git commit --amend --no-edit'
