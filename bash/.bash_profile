@@ -94,8 +94,9 @@ alias ga='git add'
 alias gai='git add --interactive'
 alias gaa='git add --all'
 alias gu='git restore --staged'
-alias gua='git reset'
-alias gdc='git restore --source=HEAD --staged --worktree'
+alias gua='git restore --staged :/'
+alias gdc='git restore --staged --worktree'
+alias gdca='git restore --staged --worktree :/ && git clean --interactive'
 alias gcl='git clone'
 alias gc='git commit'
 alias gcm='git commit -m'
@@ -121,9 +122,9 @@ alias gch='git checkout'
 gchb () { git checkout -b "$1" || git checkout "$1"; }
 alias gstash='git stash --include-untracked'
 alias gpop='git stash pop'
-alias gr='git remote'
-alias grs='git remote show'
-alias gra='git remote add'
+alias gre='git remote'
+alias gres='git remote show'
+alias grea='git remote add'
 alias grr='git remote remove'
 alias grb='git rebase'
 alias grbi='git rebase --interactive'
@@ -131,9 +132,17 @@ alias grbc='git rebase --continue'
 alias grba='git rebase --abort'
 alias gsw='git show --format=fuller --date=iso'
 alias gsws='gsw --stat'
+alias grs='git reset'
+alias grv='git revert'
 ghub () {
+    # Open the GitHub link for the current repo in the browser.
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
     && open "$(echo $remote | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
+}
+gsha () {
+    # Copy the hash of the specified revision to the clipboard.
+    # Uses the latest commit as the default if no argument is passed.
+    git rev-parse --short ${1:-HEAD} | tr -d '\n' | pbcopy
 }
 __git_complete gch _git_checkout
 __git_complete grb _git_rebase
