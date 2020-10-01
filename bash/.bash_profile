@@ -263,8 +263,9 @@ unlinkshuup () {
 source ~/.fzf.bash
 
 __fzf_vim__ () {
-    local file=$(__fzf_select__)
-    local file="$(echo "${file}" | sed 's/ $//')"
+    local file
+    file=$(__fzf_select__)
+    file="$(echo "${file}" | sed 's/ $//')"
     if [ -f "${file}" ]; then
         echo vim "${file}"
     fi
@@ -316,7 +317,8 @@ eval "$(pyenv virtualenv-init -)"
 
 pyenv () {
     if [[ "$@" == "list" ]]; then
-        local versions=$(pyenv install --list)
+        local versions
+        versions=$(pyenv install --list)
         for version in 5 6 7 8
         do
              echo "${versions}" | grep -E "^\s+3\.${version}" | tail -1
