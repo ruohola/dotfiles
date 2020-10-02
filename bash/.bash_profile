@@ -1,4 +1,4 @@
-# solarized colors for coloring the prompt
+# Solarized colors for coloring the prompt.
 tput sgr0;                BASE03=$(tput setaf 234);  BASE02=$(tput setaf 235)
 BASE01=$(tput setaf 240); BASE00=$(tput setaf 241);  BASE0=$(tput setaf 244);  BASE1=$(tput setaf 245)
 BASE2=$(tput setaf 254);  BASE3=$(tput setaf 230);   YELLOW=$(tput setaf 136); ORANGE=$(tput setaf 166)
@@ -14,7 +14,7 @@ __ps1_git_branch () {
 __ps1_git_status () {
     [ -n "$(git status --porcelain)" ] && printf '\b*'
 }
-# solarized colored prompt: (venv) path/to/dir (branch)*$
+# Solarized colored prompt: (venv) path/to/dir (branch)*$
 export PS1="\
 \$(__ps1_venv 2> /dev/null)\
 \[$CYAN\]\w \
@@ -22,25 +22,25 @@ export PS1="\
 \[$RESET\]\$(__ps1_git_status 2> /dev/null)\
 \[$CYAN\]\$ \[$RESET\]\
 "
-export PROMPT_DIRTRIM=3  # show only last 3 dirs in prompt
+export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
 
 export EDITOR=vim
 
-export CLICOLOR=1  # enable syntax highlighting
+export CLICOLOR=1
 
-# needed for something to not break, don't remove
+# Needed for something to not break, don't remove.
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# bash history gets written immediately
+# Bash history gets written immediately.
 shopt -s histappend
 export PROMPT_COMMAND='history -a;history -n'
 
-# unlimited bash history
+# Unlimited bash history.
 export HISTSIZE=
 export HISTFILESIZE=
 
-# ** expands to any number of directories
+# Make ** expand to any number of directories.
 shopt -s globstar
 
 source /usr/local/etc/bash_completion
@@ -63,6 +63,11 @@ alias ll='l'
 
 alias F='open .'
 alias preview='open -a Preview'
+
+pbcopyn () {
+    # Like normal pbcopy but strips away all trailing newlines.
+    printf "$(< /dev/stdin)" | pbcopy
+}
 
 alias act='source venv/bin/activate'
 alias lg='lazygit'
@@ -196,7 +201,7 @@ brew () {
 }
 
 
-# skole
+# Skole
 alias fmtbackend='yarn --cwd ~/skole backend:format'
 alias mypybackend='docker-compose run --no-deps --rm backend mypy .'
 alias testbackend='docker-compose run --rm backend pytest --verbose .'
@@ -221,7 +226,7 @@ updatebackend () {
 }
 
 
-# shuup
+# Shuup
 npmall () {
     find . ! -path '*/node_modules/*' -name 'package.json' -execdir npm install \; -execdir npm run build \;
 }
@@ -298,7 +303,7 @@ __fzf_vim__ () {
     fi
 }
 gll() {
-    # git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
+    # Git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
     # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
     local out shas sha q k
     while out=$(
@@ -320,18 +325,18 @@ gll() {
 }
 
 if [[ $- == *i* ]]; then
-    # we are in an interactive shell
+    # We are in an interactive shell.
 
     bind "TAB:menu-complete"
     bind "set show-all-if-ambiguous on"
     bind "set menu-complete-display-prefix on"
 
-    # open file in vim with fzf
+    # Open file in vim with fzf.
     # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L92
     stty lnext ''
     bind '"\C-v": " \C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
-    # remap fzf cd to dir from ALT-C to CTRL-F
+    # Remap fzf cd to dir from ALT-C to CTRL-F.
     bind '"\C-f": "\ec"'
 fi
 
@@ -359,7 +364,7 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
 export BUILDKIT_PROGRESS=plain
 
-# Need to be after all PATH settings
+# Need to be after all PATH settings.
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
