@@ -547,4 +547,5 @@ augroup END
 augroup FileTypes
     autocmd!
     autocmd BufRead,BufNewFile Dockerfile* set filetype=dockerfile
+    autocmd BufRead,BufNewFile .env* set filetype=sh
 augroup END
