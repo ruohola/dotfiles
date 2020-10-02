@@ -187,6 +187,13 @@ alias covbackend='docker-compose run --rm backend pytest --verbose --cov-report=
 alias allbackend='yarn --cwd ~/skole backend:test'
 alias managebackend='docker-compose run --rm backend python manage.py'
 
+setupbackend() {
+    docker-compose run --rm backend sh -c \
+       'python manage.py migrate \
+        && python manage.py compilemessages \
+        && python manage.py loaddata test-data.yaml'
+}
+
 updatebackend () {
     docker-compose run --rm backend sh -c \
         'pip list --outdated > /tmp/pip-temp1.txt \
