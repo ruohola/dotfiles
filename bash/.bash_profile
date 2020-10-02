@@ -92,6 +92,7 @@ alias gs='git status'
 alias gf='git fetch --all --tags --prune'
 alias ga='git add'
 alias gai='git add --interactive'
+alias gap='git add --patch'
 alias gaa='git add --all'
 alias gu='git restore --staged'
 alias gua='git restore --staged :/'
@@ -102,29 +103,30 @@ alias gc='git commit'
 gcf () {
     git commit --fixup "$1" && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${1}~1"
 }
-alias gcm='git commit -m'
+alias gcm='git commit --message'
 alias gca='git commit --amend'
 alias gcan='git commit --amend --no-edit'
 alias gcae='git commit --allow-empty'
-alias gcaem='git commit --allow-empty -m'
+alias gcaem='git commit --allow-empty --message'
 alias gpl='git pull --rebase'
 alias gps='git push'
-alias gpsf='git push -f'
-alias gpsu='git push -u origin $(git branch --show-current)'
-alias gpsuf='git push -f -u origin $(git branch --show-current)'
+alias gpsf='git push --force'
+alias gpsu='git push --set-upstream origin HEAD'
+alias gpsuf='git push --force --set-upstream origin HEAD'
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gdh='git diff HEAD'
-alias gl='git log --branches --remotes --tags --graph --date-order'
+alias gl='git log --branches --remotes --tags --graph --date-order --color=always'
 alias glf='gl --name-status'
 alias glff='glf --format=full'
 alias gb='git branch'
-alias gba='git branch -a'
+alias gba='git branch --all'
 gbd () { git branch --delete "$1" && git push --delete origin "$1"; }
 alias gch='git checkout'
 gchb () { git checkout -b "$1" || git checkout "$1"; }
-alias gstash='git stash --include-untracked'
-alias gpop='git stash pop'
+alias gst='git stash'
+alias gsts='git stash push --include-untracked'
+alias gstp='git stash pop'
 alias gre='git remote'
 alias gres='git remote show'
 alias grea='git remote add'
@@ -137,6 +139,20 @@ alias gsw='git show --format=fuller --date=iso'
 alias gsws='gsw --stat'
 alias grs='git reset'
 alias grv='git revert'
+alias grl='git reflog'
+gup () {
+    local remote_branch
+    local head
+    git fetch --all --tags --prune \
+    && git stash push --include-untracked \
+    && remote_branch=$(git remote | grep -E '(upstream|origin)' | tail -1) \
+    && head=$(git remote show "$remote_branch" | awk '/HEAD branch/ {print $NF}') \
+    && git checkout "$head" \
+    && git pull --rebase \
+    && git checkout - \
+    && git rebase "$head" \
+    && git stash pop
+}
 ghub () {
     # Open the GitHub link for the current repo in the browser.
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
@@ -149,6 +165,7 @@ gsha () {
 }
 __git_complete gch _git_checkout
 __git_complete grb _git_rebase
+__git_complete gbd _git_branch
 
 alias dc='docker-compose'
 alias dcf='docker-compose --file'
@@ -280,6 +297,27 @@ __fzf_vim__ () {
         echo vim "${file}"
     fi
 }
+gll() {
+    # git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
+    # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
+    local out shas sha q k
+    while out=$(
+        gl "$@" |
+        fzf --ansi --multi --no-sort --reverse --query="$q" \
+            --print-query --expect=ctrl-d --toggle-sort=\`); do
+    q=$(head -1 <<< "$out")
+    k=$(head -2 <<< "$out" | tail -1)
+    shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
+    [ -z "$shas" ] && continue
+    if [ "$k" = ctrl-d ]; then
+        git diff --color=always $shas | less -R
+    else
+        for sha in $shas; do
+            git show --color=always $sha | less -R
+        done
+    fi
+  done
+}
 
 if [[ $- == *i* ]]; then
     # we are in an interactive shell
@@ -289,7 +327,7 @@ if [[ $- == *i* ]]; then
     bind "set menu-complete-display-prefix on"
 
     # open file in vim with fzf
-    # reference from: https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L92
+    # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L92
     stty lnext ''
     bind '"\C-v": " \C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
