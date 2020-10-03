@@ -328,14 +328,6 @@ if [[ $- == *i* ]]; then
     bind "TAB:menu-complete"
     bind "set show-all-if-ambiguous on"
     bind "set menu-complete-display-prefix on"
-
-    # Open file in vim with fzf.
-    # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L92
-    stty lnext ''
-    bind '"\C-v": " \C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
-
-    # Remap fzf cd to dir from ALT-C to CTRL-F.
-    bind '"\C-f": "\ec"'
 fi
 
 export FZF_IGNORES=Applications,Library,Movies,Music,Pictures,.git,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm,*cache*
