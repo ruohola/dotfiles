@@ -106,7 +106,7 @@ alias gu='git restore --staged'
 alias gua='git restore --staged :/'
 alias gdc='git restore --staged --worktree'
 alias gdca='git restore --staged --worktree :/ && git clean --interactive'
-alias gcl='git clone'
+alias gcl='git clone --recurse-submodules'
 alias gc='git commit'
 gcf () {
     git commit --fixup "$1" && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${1}~1"
@@ -126,10 +126,11 @@ alias gl='git log --branches --remotes --tags --graph --date-order --color=alway
 alias glf='gl --name-status'
 alias glff='glf --format=full'
 alias gb='git branch'
+alias gbm='git branch -m'
 alias gba='git branch --all'
 gbd () { git branch --delete "$1" && git push --delete origin "$1"; }
 alias gch='git checkout'
-gchb () { git checkout -b "$1" || git checkout "$1"; }
+gn () { git checkout -b "$1" || git checkout "$1"; }
 alias gst='git stash'
 alias gsts='git stash push --include-untracked'
 alias gstp='git stash pop'
@@ -149,8 +150,8 @@ alias grl='git reflog'
 gup () {
     local remote_branch
     local head
-    git fetch --all --tags --prune \
-    && git stash push --include-untracked \
+    git stash push --include-untracked \
+    && git fetch --all --tags --prune \
     && remote_branch=$(git remote | grep -E '(upstream|origin)' | tail -1) \
     && head=$(git remote show "$remote_branch" | awk '/HEAD branch/ {print $NF}') \
     && git checkout "$head" \
