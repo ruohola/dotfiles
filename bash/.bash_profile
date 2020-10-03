@@ -40,6 +40,9 @@ export PROMPT_COMMAND='history -a;history -n'
 export HISTSIZE=
 export HISTFILESIZE=
 
+# Don't add commands starting with a space to the history.
+export HISTCONTROL=ignorespace
+
 # Make ** expand to any number of directories.
 shopt -s globstar
 
