@@ -128,7 +128,18 @@ alias glff='glf --format=full'
 alias gb='git branch'
 alias gbm='git branch -m'
 alias gba='git branch --all'
-gbd () { git branch --delete "$1" && git push --delete origin "$1"; }
+gbd () {
+    local output
+    git branch --delete "$1" \
+    && { output="$(git push --delete origin "$1" 2>&1)" \
+        ; grep -q 'remote ref does not exist' <<< "$output" || echo "$output" 1>&2; }
+}
+gbdf () {
+    local output
+    git branch --delete --force "$1" \
+    && { output="$(git push --delete origin "$1" 2>&1)" \
+        ; grep -q 'remote ref does not exist' <<< "$output" || echo "$output" 1>&2; }
+}
 alias gch='git checkout'
 gn () { git checkout -b "$1" || git checkout "$1"; }
 alias gst='git stash'
@@ -145,6 +156,7 @@ alias grba='git rebase --abort'
 alias gsw='git show --format=fuller --date=iso'
 alias gsws='gsw --stat'
 alias grs='git reset'
+alias grsh='git reset --hard'
 alias grv='git revert'
 alias grl='git reflog'
 gup () {
