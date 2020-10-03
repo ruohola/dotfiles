@@ -116,7 +116,7 @@ alias gca='git commit --amend'
 alias gcan='git commit --amend --no-edit'
 alias gcae='git commit --allow-empty'
 alias gcaem='git commit --allow-empty --message'
-alias gpl='git pull --rebase'
+alias gpl='git pull'
 gps () { git push "$@" || git push --set-upstream origin HEAD; }
 alias gpsf='git push --force'
 alias gd='git diff'
@@ -167,7 +167,7 @@ gup () {
     && remote_branch=$(git remote | grep -E '(upstream|origin)' | tail -1) \
     && head=$(git remote show "$remote_branch" | awk '/HEAD branch/ {print $NF}') \
     && git checkout "$head" \
-    && git pull --rebase \
+    && git pull \
     && git checkout - \
     && git rebase "$head" \
     && git stash pop
