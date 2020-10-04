@@ -96,72 +96,93 @@ alias makemigrations='python manage.py makemigrations'
 alias migrate='python manage.py migrate'
 alias runserver='python manage.py runserver'
 
-alias gs='git status'
-alias gf='git fetch --all --tags --prune'
 alias ga='git add'
+alias gaa='git add --all'
 alias gai='git add --interactive'
 alias gap='git add --patch'
-alias gaa='git add --all'
-alias gu='git restore --staged'
-alias gua='git restore --staged :/'
-alias gdc='git restore --staged --worktree'
-alias gdca='git restore --staged --worktree :/ && git clean --interactive'
-alias gcl='git clone --recurse-submodules'
+alias gb='git branch'
+alias gba='git branch --all'
+alias gbm='git branch --move'
 alias gc='git commit'
-gcf () {
-    git commit --fixup "$1" && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${1}~1"
-}
-alias gcm='git commit --message'
 alias gca='git commit --amend'
-alias gcan='git commit --amend --no-edit'
 alias gcae='git commit --allow-empty'
 alias gcaem='git commit --allow-empty --message'
-alias gpl='git pull'
-gps () { git push "$@" || git push --set-upstream origin HEAD; }
-alias gpsf='git push --force'
+alias gcan='git commit --amend --no-edit'
+alias gcl='git clone --recurse-submodules'
+alias gcm='git commit --message'
 alias gd='git diff'
-alias gds='git diff --staged'
+alias gdc='git restore --staged --worktree'
+alias gdca='git restore --staged --worktree :/ && git clean --interactive'
 alias gdh='git diff HEAD'
+alias gds='git diff --staged'
+alias gf='git fetch --all --tags --prune'
+alias gh='git show --format=fuller --date=iso'
 alias gl='git log --branches --remotes --tags --graph --date-order --color=always'
 alias glf='gl --name-status'
 alias glff='glf --format=full'
-alias gb='git branch'
-alias gbm='git branch -m'
-alias gba='git branch --all'
+alias gpl='git pull'
+alias gpsf='git push --force'
+alias grb='git rebase'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbi='git rebase --interactive'
+alias gre='git remote'
+alias grea='git remote add'
+alias greh='git remote show'
+alias grer='git remote remove'
+alias grl='git reflog'
+alias grs='git reset'
+alias grsh='git reset --hard'
+alias grt='git restore'
+alias grv='git revert'
+alias gs='git status'
+alias gst='git stash'
+alias gsth='git stash show --patch --format=fuller --date=iso'
+alias gstl='git stash list --format=medium --date=iso --stat'
+alias gstp='git stash pop'
+alias gsts='git stash push --include-untracked'
+alias gu='git restore --staged'
+alias gua='git restore --staged :/'
+alias gw='git switch'
 gbd () {
+    # Delete a local branch and it's remote counterpart if it exists.
     local output
     git branch --delete "$1" \
     && { output="$(git push --delete origin "$1" 2>&1)" \
         ; grep -q 'remote ref does not exist' <<< "$output" || echo "$output" 1>&2; }
 }
 gbdf () {
+    # Force delete a local branch and it's remote counterpart if it exists.
     local output
     git branch --delete --force "$1" \
     && { output="$(git push --delete origin "$1" 2>&1)" \
         ; grep -q 'remote ref does not exist' <<< "$output" || echo "$output" 1>&2; }
 }
-gn () { git switch --create "$1" || git switch "$1"; }
-alias gst='git stash'
-alias gsts='git stash push --include-untracked'
-alias gstp='git stash pop'
-alias gsth='git stash show -p --format=fuller --date=iso'
-alias gstl='git stash list --format=medium --date=iso --stat'
-alias gre='git remote'
-alias greh='git remote show'
-alias grea='git remote add'
-alias grer='git remote remove'
-alias grb='git rebase'
-alias grbi='git rebase --interactive'
-alias grbc='git rebase --continue'
-alias grba='git rebase --abort'
-alias gh='git show --format=fuller --date=iso'
-alias grs='git reset'
-alias grsh='git reset --hard'
-alias grv='git revert'
-alias grl='git reflog'
-alias gw='git switch'
-alias grt='git restore'
+gcf () {
+    # Squash staged changes to the given commit.
+    git commit --fixup "$1" \
+    && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${1}~1"
+}
+ghub () {
+    # Open the GitHub link for the current repo in the browser.
+    remote=$(git config remote.upstream.url || git config remote.origin.url) \
+    && open "$(echo $remote | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
+}
+gn () { 
+    # Create a new branch with the given name or switch to if it already exists.
+    git switch --create "$1" || git switch "$1"
+}
+gps () {
+    # Push the current branch.
+    git push "$@" || git push --set-upstream origin HEAD
+}
+gsha () {
+    # Copy the hash of the specified revision to the clipboard.
+    # Uses the latest commit as the default if no argument is passed.
+    git rev-parse --short ${1:-HEAD} | tr -d '\n' | pbcopy
+}
 gup () {
+    # Update the curent branch to the latest primary remote HEAD.
     local status
     local remote_branch
     local head
@@ -175,16 +196,6 @@ gup () {
     && git switch - \
     && git rebase "$head" \
     && [ -n "$status" ] && git stash pop
-}
-ghub () {
-    # Open the GitHub link for the current repo in the browser.
-    remote=$(git config remote.upstream.url || git config remote.origin.url) \
-    && open "$(echo $remote | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
-}
-gsha () {
-    # Copy the hash of the specified revision to the clipboard.
-    # Uses the latest commit as the default if no argument is passed.
-    git rev-parse --short ${1:-HEAD} | tr -d '\n' | pbcopy
 }
 __git_complete grb _git_rebase
 __git_complete gbd _git_branch
