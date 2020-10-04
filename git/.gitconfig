@@ -3,12 +3,6 @@
 	email = eero@ruohola.dev
 [core]
 	excludesfile = /Users/eero/.gitignore_global
-[difftool "sourcetree"]
-	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
-	trustExitCode = true
 [credential]
 	helper = osxkeychain
 [log]
@@ -25,3 +19,18 @@
 	rebase = true
 [rebase]
 	autoStash = true
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
+[difftool "sourcetree"]
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+	trustExitCode = true
