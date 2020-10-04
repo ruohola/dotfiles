@@ -60,7 +60,6 @@ Plug 'wellle/targets.vim'              " more text objects
 Plug 'tommcdo/vim-exchange'            " change two objects
 Plug 'tpope/vim-abolish'               " more advanced substitute etc
 Plug 'tommcdo/vim-lion'                " alignment operator
-Plug 'junegunn/vim-peekaboo'           " peek in to registers
 
 Plug 'tpope/vim-eunuch'                " easy unix file operations
 
