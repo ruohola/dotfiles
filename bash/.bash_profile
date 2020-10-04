@@ -140,37 +140,41 @@ gbdf () {
     && { output="$(git push --delete origin "$1" 2>&1)" \
         ; grep -q 'remote ref does not exist' <<< "$output" || echo "$output" 1>&2; }
 }
-alias gch='git checkout'
-gn () { git checkout -b "$1" || git checkout "$1"; }
+gn () { git switch --create "$1" || git switch "$1"; }
 alias gst='git stash'
 alias gsts='git stash push --include-untracked'
 alias gstp='git stash pop'
+alias gsth='git stash show -p --format=fuller --date=iso'
+alias gstl='git stash list --format=medium --date=iso --stat'
 alias gre='git remote'
-alias gres='git remote show'
+alias greh='git remote show'
 alias grea='git remote add'
-alias grr='git remote remove'
+alias grer='git remote remove'
 alias grb='git rebase'
 alias grbi='git rebase --interactive'
 alias grbc='git rebase --continue'
 alias grba='git rebase --abort'
-alias gsw='git show --format=fuller --date=iso'
-alias gsws='gsw --stat'
+alias gh='git show --format=fuller --date=iso'
 alias grs='git reset'
 alias grsh='git reset --hard'
 alias grv='git revert'
 alias grl='git reflog'
+alias gw='git switch'
+alias grt='git restore'
 gup () {
+    local status
     local remote_branch
     local head
-    git stash push --include-untracked \
-    && git fetch --all --tags --prune \
+    status="$(git status --porcelain)" \
+    && [ -n "$status" ] && git stash push --include-untracked \
+    ; git fetch --all --tags --prune \
     && remote_branch=$(git remote | grep -E '(upstream|origin)' | tail -1) \
     && head=$(git remote show "$remote_branch" | awk '/HEAD branch/ {print $NF}') \
-    && git checkout "$head" \
-    && git pull \
-    && git checkout - \
+    && git switch "$head" \
+    && git rebase \
+    && git switch - \
     && git rebase "$head" \
-    && git stash pop
+    && [ -n "$status" ] && git stash pop
 }
 ghub () {
     # Open the GitHub link for the current repo in the browser.
@@ -182,9 +186,10 @@ gsha () {
     # Uses the latest commit as the default if no argument is passed.
     git rev-parse --short ${1:-HEAD} | tr -d '\n' | pbcopy
 }
-__git_complete gch _git_checkout
 __git_complete grb _git_rebase
 __git_complete gbd _git_branch
+__git_complete gw _git_switch
+
 
 alias dc='docker-compose'
 alias dcf='docker-compose --file'
