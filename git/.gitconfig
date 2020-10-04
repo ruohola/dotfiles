@@ -6,9 +6,9 @@
 [credential]
 	helper = osxkeychain
 [log]
-	date = relative
+	date = format-local:%a %Y-%m-%d %H:%M
 [format]
-	pretty = format:%C(auto,yellow)%h %C(auto,blue)%>(12,trunc)%cd %C(auto,green)%<(7,trunc)%aN%C(auto,reset)% s%C(auto,red)% gD% D
+	pretty = format:%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(8,trunc)%aN%x08%x08 %C(auto,reset)%s %C(auto,red)%D
 [push]
 	default = simple
 [pager]
