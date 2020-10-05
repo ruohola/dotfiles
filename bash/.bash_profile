@@ -103,6 +103,9 @@ alias gai='git add --interactive'
 alias gap='git add --patch'
 alias gb='git branch'
 alias gba='git branch --all'
+alias gbd='git branch --delete'
+alias gbdf='git branch --delete --force'
+alias gbdp='git push --delete'
 alias gbm='git branch --move'
 alias gc='git commit'
 alias gca='git commit --amend'
@@ -145,20 +148,6 @@ alias gsts='git stash push --include-untracked'
 alias gu='git restore --staged'
 alias gua='git restore --staged :/'
 alias gw='git switch'
-gbd () {
-    # Delete a local branch and it's remote counterpart if it exists.
-    local output
-    git branch --delete "$1" \
-    && { output="$(git push --delete origin "$1" 2>&1)" \
-        ; grep -q 'remote ref does not exist' <<< "$output" || echo "$output" 1>&2; }
-}
-gbdf () {
-    # Force delete a local branch and it's remote counterpart if it exists.
-    local output
-    git branch --delete --force "$1" \
-    && { output="$(git push --delete origin "$1" 2>&1)" \
-        ; grep -q 'remote ref does not exist' <<< "$output" || echo "$output" 1>&2; }
-}
 gcf () {
     # Squash staged changes to the given commit.
     git commit --fixup "$1" \
