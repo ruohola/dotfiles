@@ -121,6 +121,8 @@ alias gdh='git diff HEAD'
 alias gds='git diff --staged'
 alias gf='git fetch --all --tags --prune'
 alias gh='git show --format=fuller --date=rfc'
+alias ghs='gh --stat'
+alias gsk='git ls-files -v | grep --color "^[Sa-z]"'
 alias gl='git log --branches --remotes --tags --graph --date-order --color=always'
 alias glf='gl --name-status'
 alias glff='glf --format=full'
@@ -141,17 +143,20 @@ alias grt='git restore'
 alias grtp='git restore --patch'
 alias grv='git revert'
 alias gs='git status'
-alias gsk='git update-index --skip-worktree'
-alias gskn='git update-index --no-skip-worktree'
-alias gskl='git ls-files -v | grep --color "^[Sa-z]"'
 alias gst='git stash'
 alias gsth='git stash show --patch --format=fuller --date=rfc'
 alias gstl='git stash list --format=medium --date=rfc --stat'
 alias gstp='git stash pop'
 alias gsts='git stash push --include-untracked'
+alias gt='git tag'
+alias gta='git tag --annotate'
+alias gtl="git tag --list --format='%(color:blue)%(taggerdate:format-local:%a %Y-%m-%d %H:%M)%09%(color:green)%(taggername)%09%(color:red)%(refname:short)%09%(color:reset)%(contents:subject)' --color=always | column -ts $'\t' | sort -k2 -k3 --reverse | less --raw-control-chars --no-init --quit-if-one-screen"
 alias gu='git restore --staged'
 alias gua='git restore --staged :/'
+alias guis='git update-index --skip-worktree'
+alias guin='git update-index --no-skip-worktree'
 alias gw='git switch'
+alias gwd='git switch --detach'
 gcf () {
     # Squash staged changes to the given commit.
     git commit --fixup "$1" \
@@ -168,7 +173,7 @@ gn () {
 }
 gps () {
     # Push the current branch.
-    git push "$@" || git push --set-upstream origin HEAD
+    git push --follow-tags "$@" || git push --follow-tags --set-upstream origin HEAD
 }
 gsha () {
     # Copy the hash of the specified revision to the clipboard.
