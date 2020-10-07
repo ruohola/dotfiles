@@ -162,8 +162,9 @@ alias gw='git switch'
 alias gwd='git switch --detach'
 gcf () {
     # Squash staged changes to the given commit.
-    git commit --fixup "$1" \
-    && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${1}~1"
+    commit="$(git rev-parse $1)" \
+    && git commit --fixup "$commit" \
+    && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${commit}~1"
 }
 ghub () {
     # Open the GitHub link for the current repo in the browser.
