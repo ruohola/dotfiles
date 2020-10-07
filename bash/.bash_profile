@@ -192,7 +192,7 @@ gup () {
     && remote_branch=$(git remote | grep -E '(upstream|origin)' | tail -1) \
     && head=$(git remote show "$remote_branch" | awk '/HEAD branch/ {print $NF}') \
     && git switch "$head" \
-    && git rebase \
+    && git rebase "${remote_branch}/${head}" \
     && git switch - \
     && git rebase "$head" \
     && [ -n "$status" ] && git stash pop
