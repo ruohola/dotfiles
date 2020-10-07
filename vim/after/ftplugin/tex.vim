@@ -2,6 +2,7 @@ setlocal textwidth=80
 setlocal formatoptions=jt
 setlocal nowrap
 setlocal updatetime=1000
+setlocal spell
 
 nnoremap <nowait> <buffer> <Leader>c a\cite{}<Left>
 nnoremap <nowait> <buffer> <Leader>s a\cite[s.~]{}<Left><Left><Left>

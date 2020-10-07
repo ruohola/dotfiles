@@ -4,34 +4,23 @@ let g:mapleader=' '
 
 " language settings (have to be before ä and ö mappings)
 let $LANG='en_US'
+set spelllang=en_us
 set fileformats=unix,dos
 set fileencodings=ucs-bom,utf-8,default,latin1
 set encoding=utf-8
 scriptencoding utf-8
 
-
-" temp file locations
-let TempFolder = '/.temp'
-let PluginsFolder = '/plugins'
+" vim file locations
 let VimFolder = '/.vim'
-exe 'set viminfo+=n~' . VimFolder . TempFolder . '/.viminfo'
-let PathToTempFolder = $HOME . VimFolder . TempFolder
-let PathToPluginsFolder = $HOME . VimFolder . PluginsFolder
-let g:netrw_dirhistmax=0
-
-" make sure that the temp file locations exists
-if !isdirectory(PathToTempFolder)
-    call mkdir(PathToTempFolder)
-endif
-for folder in ['/undo', '/backup', '/swap']
-    if !isdirectory(PathToTempFolder . folder)
-        call mkdir(PathToTempFolder . folder, 'p')
-    endif
-endfor
-
+let PathToPluginsFolder = $HOME . VimFolder . '/plugins'
+let PathToSpellFolder = $HOME . VimFolder . '/spell'
+let PathToTempFolder = $HOME . VimFolder . '/.temp'
+execute 'set spellfile=' . PathToSpellFolder . '/en.utf-8.add'
+execute 'set viminfo+=n' . PathToTempFolder . '/.viminfo'
 let &undodir = PathToTempFolder . '/undo'
 let &backupdir = PathToTempFolder . '/backup'
 let &directory = PathToTempFolder . '/swap'
+let g:netrw_dirhistmax=0
 
 
 
@@ -185,6 +174,23 @@ if !exists('g:notfirstopen')
     highlight Comment term=NONE ctermfg=10 gui=NONE guifg=#586e75
     " make solarized8 terminal and gui cursor the same color
     highlight Cursor ctermfg=15 ctermbg=4 guifg=#073642 guibg=#839496
+
+    " make sure that the temp file locations exists
+    if !isdirectory(PathToTempFolder)
+        call mkdir(PathToTempFolder)
+    endif
+    for folder in ['/undo', '/backup', '/swap']
+        if !isdirectory(PathToTempFolder . folder)
+            call mkdir(PathToTempFolder . folder, 'p')
+        endif
+    endfor
+
+    " rebuild the spell file if the word list has changed
+    for d in glob(PathToSpellFolder . '/*.add', 1, 1)
+        if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
+            silent execute 'mkspell! ' . fnameescape(d)
+        endif
+    endfor
 endif
 
 " use the bash installed with homebrew as shell
@@ -242,7 +248,7 @@ set wrap linebreak textwidth=0 wrapmargin=0
 set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
 set smarttab  autoindent    breakindent
 
-" show unwanted whitesace on 'set list'
+" show unwanted whitespace on 'set list'
 set nolist listchars=tab:>-,trail:.,nbsp:.
 
 " search settings
@@ -349,7 +355,7 @@ nnoremap gb `[v`]
 nnoremap gp o<Esc>p^
 nnoremap gP O<Esc>p^
 
-" go to the first occurance of the symbol in the filename
+" go to the first occurrence of the symbol in the filename
 nnoremap <silent> gf :set nohlsearch<CR>"zyiwgg/\C\<<C-R>z\><CR>:set hlsearch<Bar>noh<CR>
 
 " substitute selected text
@@ -358,7 +364,7 @@ xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
 " easy way to run : command again for a visual selection
 xnoremap <Leader>' q:<UP>I'<,'><Esc>$
 
-" change enter behaviour
+" change enter behavior
 augroup EnterMappings
     autocmd!
     autocmd BufEnter * if &buftype !=# 'nofile'
@@ -433,7 +439,7 @@ nnoremap <silent> <Leader>[ :windo diffoff<CR>
 command! PI silent! w | PlugInstall
 command! PC silent! w | PlugClean!
 command! PU w | PlugUpgrade | PlugUpdate
-command! PS exec 'PlugSnapshot! ' . PathToPluginsFolder . '/plugins.lock'
+command! PS execute 'PlugSnapshot! ' . PathToPluginsFolder . '/plugins.lock'
 
 " source vimrc
 command! SO so $MYVIMRC
@@ -460,7 +466,7 @@ function! RunCommandInSplitTerm(command) abort
     let termWinNr = bufwinnr(termBufNr)
 
     if termWinNr == -1
-        exe 'below split | resize ' . winSize
+        execute 'below split | resize ' . winSize
         if termBufNr == -1 || bufexists(termBufNr) == 0
             let termBufNr = term_start(&shell, {
                         \ 'curwin': 1,
@@ -468,15 +474,15 @@ function! RunCommandInSplitTerm(command) abort
                         \ })
             call setbufvar(mainBuf, '_run_term', termBufNr)
         else
-            exe 'buffer' . termBufNr
+            execute 'buffer' . termBufNr
         endif
     else
-        exe termWinNr . 'wincmd w'
+        execute termWinNr . 'wincmd w'
     endif
 
     let mainWin = bufwinnr(mainBuf)
     call term_sendkeys(termBufNr, a:command . "\<CR>")
-    exe "normal \<C-W>p"
+    execute "normal \<C-W>p"
 endfunction
 
 
@@ -484,7 +490,7 @@ endfunction
 function! s:BlankUp(count) abort
     norm! mq
     for i in range(a:count)
-        exec "norm! O\<Esc>0\"_D"
+        execute "norm! O\<Esc>0\"_D"
     endfor
     norm! `q
 endfunction
@@ -494,7 +500,7 @@ endfunction
 function! s:BlankDown(count) abort
     norm! mq
     for i in range(a:count)
-        exec "norm! o\<Esc>0\"_D"
+        execute "norm! o\<Esc>0\"_D"
     endfor
     norm! `q
 endfunction
@@ -503,7 +509,7 @@ endfunction
 " redir command's output to the current line
 function! RED(command)
     redir => output
-    silent exec a:command
+    silent execute a:command
     redir END
     let @z = substitute(output, '^\n', '', '')
     put z
@@ -530,7 +536,7 @@ augroup END
 augroup HelpOpen
     autocmd!
     autocmd BufRead *.txt if &buftype ==? 'help'
-                    \|exe "normal \<C-W>T"
+                    \|execute "normal \<C-W>T"
                 \|endif
 augroup END
 
