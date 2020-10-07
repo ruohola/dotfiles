@@ -264,6 +264,9 @@ nnoremap <Leader>9 :action GotoImplementation<CR>
 
 nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
 
+nnoremap <S-Space>J "zdiWi{{<Esc>"zp
+vnoremap <S-Space>J "zdi{{<Esc>"zp
+
 nnoremap <C-H> :action ParameterInfo<CR>
 nnoremap <C-J> :action EditorCloneCaretBelow<CR>
 nnoremap <C-K> :action EditorCloneCaretAbove<CR>
