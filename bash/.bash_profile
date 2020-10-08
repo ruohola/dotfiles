@@ -223,7 +223,7 @@ docker_exec_ssh () { ssh $1 -t "docker exec -it \$(docker container ls | awk '/$
 
 brew () {
     if [[ "$@" == "up" ]]; then
-        command brew update && brew upgrade && brew cask upgrade
+        command brew update && brew upgrade && brew upgrade --cask
     elif [[ "$@" == "dump" ]]; then
         command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
     elif [[ "$@" == "load" ]]; then

@@ -27,7 +27,8 @@ for file in dotfiles/git/.[^.]*; do
     fi
 done
 
-# on purpose as absolute links and not relative to ~
+# the rest are on purpose as absolute links and not relative from ~
+
 for file in dotfiles/keylayouts/*.keylayout; do
     file=$(basename "$file")
     if [ ! -L /Library/Keyboard\ Layouts/"$file" ]; then
@@ -40,17 +41,16 @@ if [ ! -L .config/karabiner ]; then
     ln -sv ~/dotfiles/karabiner ~/.config/karabiner
 fi
 
-# install vim-plug
+# install vim-plug and all vim plugins
 [ ! -f ~/.vim/autoload/plug.vim ] \
     && curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
+    && vim -c "PlugClean!" -c "PlugInstall" -c "qa!"
 
-# install all vim plugins (cannot be done in background with &)
-vim -c "PlugClean!" -c "PlugInstall" -c "qa!"
 
-# install homebrew-bundle and all brew packages with it
-brew tap homebrew/bundle
-brew bundle --file=~/dotfiles/brew/Brewfile
-
-# install fzf shell extensions
-/usr/local/opt/fzf/install
+# install homebrew and all brew packages
+[ ! -f /usr/local/bin/brew ] \
+    && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" \
+    && brew tap homebrew/bundle \
+    && brew bundle --file=~/dotfiles/brew/Brewfile \
+    && /usr/local/opt/fzf/install
