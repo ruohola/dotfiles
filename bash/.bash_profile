@@ -19,7 +19,7 @@ export PS1="\
 \$(__ps1_venv 2> /dev/null)\
 \[$CYAN\]\w \
 \[$MAGENTA\]\$(__ps1_git_branch 2> /dev/null)\
-\[$RESET\]\$(__ps1_git_status 2> /dev/null)\
+\[$RESET\]\[\$(__ps1_git_status 2> /dev/null)\]\
 \[$CYAN\]\$ \[$RESET\]\
 "
 export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
@@ -202,6 +202,9 @@ gup () {
 }
 __git_complete grb _git_rebase
 __git_complete gbd _git_branch
+__git_complete gps _git_push
+__git_complete gpsd _git_push
+__git_complete gpsf _git_push
 __git_complete gw _git_switch
 
 
