@@ -177,7 +177,7 @@ gn () {
 }
 gps () {
     # Push the current branch.
-    git push --follow-tags "$@" || git push --follow-tags --set-upstream origin HEAD
+    git push --follow-tags "$@" || { [ "$?" -eq 128 ] && git push --follow-tags --set-upstream origin HEAD; }
 }
 gsha () {
     # Copy the hash of the specified revision to the clipboard.
