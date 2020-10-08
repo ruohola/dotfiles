@@ -439,7 +439,6 @@ nnoremap <silent> <Leader>[ :windo diffoff<CR>
 command! PI silent! w | PlugInstall
 command! PC silent! w | PlugClean!
 command! PU w | PlugUpgrade | PlugUpdate
-command! PS execute 'PlugSnapshot! ' . PathToPluginsFolder . '/plugins.lock'
 
 " source vimrc
 command! SO so $MYVIMRC

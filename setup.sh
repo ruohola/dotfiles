@@ -40,10 +40,13 @@ if [ ! -L .config/karabiner ]; then
     ln -sv ~/dotfiles/karabiner ~/.config/karabiner
 fi
 
+# install vim-plug
+[ ! -f ~/.vim/autoload/plug.vim ] \
+    && curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # install all vim plugins (cannot be done in background with &)
 vim -c "PlugClean!" -c "PlugInstall" -c "qa!"
-
 
 # install homebrew-bundle and all brew packages with it
 brew tap homebrew/bundle
