@@ -294,7 +294,8 @@ nnoremap <C-4> :action ActivateDebugToolWindow<CR>
 nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
 nnoremap <C-6> :action ActivatePythonConsoleToolWindow<CR>
 nnoremap <C-7> :action ActivateVersionControlToolWindow<CR>
-nnoremap <C-9> :action CallHierarchy<CR>
+nnoremap <C-8> :action CallHierarchy<CR>
+nnoremap <C-9> :action TypeHierarchy<CR>
 nnoremap <C-0> :action Django.RunManageTaskAction<CR>
 
 nnoremap <F10> :action ExportSettings<CR>
