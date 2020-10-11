@@ -202,7 +202,10 @@ gup () {
     && [ -n "$status" ] && git stash pop
 }
 __git_complete grb _git_rebase
+__git_complete gba _git_branch
 __git_complete gbd _git_branch
+__git_complete gbdf _git_branch
+__git_complete gbm _git_branch
 __git_complete gps _git_push
 __git_complete gpsd _git_push
 __git_complete gpsf _git_push
