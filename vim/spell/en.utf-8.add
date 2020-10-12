@@ -21,3 +21,6 @@ codecov
 io
 filenames
 Anonymize
+shader
+mergetool
+keepBackup
