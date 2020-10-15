@@ -24,3 +24,5 @@ Anonymize
 shader
 mergetool
 keepBackup
+tfstate
+filetype
