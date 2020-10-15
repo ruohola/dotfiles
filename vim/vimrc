@@ -59,6 +59,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}        " language-server plugin
 Plug 'jparise/vim-graphql'
 Plug 'cespare/vim-toml'
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'hashivim/vim-terraform'
 
 " colorshemes
 Plug 'lifepillar/vim-solarized8'
