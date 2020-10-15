@@ -344,23 +344,33 @@ __fzf_vim__ () {
         echo vim "${file}"
     fi
 }
-gll() {
-    # Git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
+gz() {
+    # Git commit browser
     # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
+    # enter to show commit,
+    # ctrl-d to diff to current
+    # ctrl-n to copy commit message
+    # ctrl-h to copy commit hash
     local out shas sha q k
     while out=$(
         gl "$@" |
         fzf --ansi --multi --no-sort --reverse --query="$q" \
-            --print-query --expect=ctrl-d --toggle-sort=\`); do
+            --print-query --expect=ctrl-d,ctrl-n,ctrl-h); do
     q=$(head -1 <<< "$out")
     k=$(head -2 <<< "$out" | tail -1)
     shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
     [ -z "$shas" ] && continue
     if [ "$k" = ctrl-d ]; then
         git diff --color=always $shas | less -R
+    elif [ "$k" = ctrl-n ]; then
+        git log --format=%B -n 1 "$shas" | pbcopyn
+        break
+    elif [ "$k" = ctrl-h ]; then
+        echo -n "$shas" | pbcopyn
+        break
     else
         for sha in $shas; do
-            git show --color=always $sha | less -R
+            gy --color=always $sha | less -R
         done
     fi
   done
