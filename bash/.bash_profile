@@ -224,7 +224,9 @@ dcubf () { docker-compose --file "$1" build && docker-compose --file "$1" up; }
 alias dcubn='docker-compose build --no-cache && docker-compose up'
 alias dcd='docker-compose down'
 alias dcr='docker-compose run --rm'
-dcs () { docker-compose run --rm "$1" sh ; }
+dcs () { docker-compose run --rm "$1" sh; }
+dcrf () { docker-compose --file "$1" run --rm "$2"; }
+dcsf () { docker-compose --file "$1" run --rm "$2" sh; }
 
 docker_exec_ssh () { ssh $1 -t "docker exec -it \$(docker container ls | awk '/$2/ {print \$NF; exit}') $3; bash"; }
 
