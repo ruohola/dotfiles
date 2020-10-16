@@ -1,0 +1,3 @@
+[submodule "keylayouts/finner"]
+	path = keylayouts/finner
+	url = https://github.com/ruohola/finner

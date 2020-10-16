@@ -29,12 +29,9 @@ done
 
 # the rest are on purpose as absolute links and not relative from ~
 
-for file in dotfiles/keylayouts/*.keylayout; do
-    file=$(basename "$file")
-    if [ ! -L /Library/Keyboard\ Layouts/"$file" ]; then
-        sudo ln -sfv ~/dotfiles/keylayouts/"$file" /Library/Keyboard\ Layouts/"$file"
-    fi
-done
+if [ ! -L /Library/Keyboard\ Layouts/Finner.keylayout ]; then
+    sudo ln -sfv ~/dotfiles/keylayouts/finner/Finner.keylayout /Library/Keyboard\ Layouts/Finner.keylayout
+fi
 
 if [ ! -L .config/karabiner ]; then
     rm -rf .config/karabiner
