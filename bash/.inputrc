@@ -1,3 +1,6 @@
+# Don't immediately execute pasted multiline commands
+set enable-bracketed-paste
+
 # Unbind <Esc><Esc> from it's default tab complete.
 "\e\e":
 
