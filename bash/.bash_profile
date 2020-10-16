@@ -408,6 +408,9 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
 export BUILDKIT_PROGRESS=plain
 
+# Affects bat and delta
+export BAT_THEME='Solarized (dark)'
+
 # Need to be after all PATH settings.
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"

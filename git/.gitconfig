@@ -3,6 +3,7 @@
 	email = eero@ruohola.dev
 [core]
 	excludesfile = /Users/eero/.gitignore_global
+	pager = delta
 [credential]
 	helper = osxkeychain
 [log]
@@ -13,10 +14,6 @@
 	pretty = format:%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(8,trunc)%aN%x08%x08 %C(auto,reset)%s %C(auto,red)%D
 [push]
 	default = simple
-[pager]
-	log = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
-	show = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
-	diff = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
 [pull]
 	rebase = true
 [rebase]
@@ -31,3 +28,12 @@
 [mergetool]
 	prompt = false
 	keepBackup = false
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
