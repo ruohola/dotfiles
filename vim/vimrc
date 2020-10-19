@@ -549,6 +549,17 @@ augroup TrimWhitespace
 augroup END
 
 
+" restore the last cursor position when opening a file
+" https://vimhelp.org/usr_05.txt.html#last-position-jump
+augroup RestoreCursorPosition
+    autocmd!
+    autocmd BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+      \ |   exe "normal! g`\""
+      \ | endif
+augroup END
+
+
 " automatically activate some filetypes
 augroup FileTypes
     autocmd!
