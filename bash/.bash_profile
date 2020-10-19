@@ -9,6 +9,8 @@ __ps1_venv () {
     pyenv version-name | grep --invert-match '^system$' | sed -E 's/(.*)/\(\1\) /'
 }
 __ps1_git_branch () {
+    # This doesn't use git branch --show-current because
+    # it doesn't work # with a detached HEAD.
     git branch | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\) /'
 }
 __ps1_git_status () {
@@ -161,6 +163,10 @@ alias gw='git switch'
 alias gwd='git switch --detach'
 alias gy='git show --format=fuller'
 alias gys='gy --stat'
+gbdp () {
+    # Delete local and remote branch.
+    git branch --delete "$1"; git push --delete origin "$1"
+}
 gcf () {
     # Squash staged changes to the given commit.
     commit="$(git rev-parse $1)" \
@@ -205,6 +211,7 @@ __git_complete grb _git_rebase
 __git_complete gba _git_branch
 __git_complete gbd _git_branch
 __git_complete gbdf _git_branch
+__git_complete gbdp _git_branch
 __git_complete gbm _git_branch
 __git_complete gps _git_push
 __git_complete gpsd _git_push
