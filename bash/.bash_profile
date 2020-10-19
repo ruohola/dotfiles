@@ -269,10 +269,6 @@ updatebackend () {
 
 
 # Shuup
-npmall () {
-    find . ! -path '*/node_modules/*' -name 'package.json' -execdir npm install \; -execdir npm run build \;
-}
-
 installbasics () {
     pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==19.2.*
 }
@@ -282,9 +278,9 @@ installshuup () {
     [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt
     [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt
     [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt
-    npmall
-    [ "$1" != "--no-packages" ] && export -f npmall && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
-        "cd '{}' && pip install --disable-pip-version-check -e . && npmall"
+    python setup.py build_resources
+    [ "$1" != "--no-packages" ] && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
+        "cd '{}' && pip install --disable-pip-version-check -e . && python setup.py build_resources"
     python manage.py migrate
 }
 
