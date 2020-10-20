@@ -326,14 +326,14 @@ cloneshuup () {
 }
 
 linkshuup () {
-    mkdir -p ../shuup-packages && [ ! -z "$1" ] && ln -s "../../$1/app" "../shuup-packages/$1"; ls -la ../shuup-packages
+    mkdir -p ../shuup-packages && [ ! -z "$1" ] && cp -r "~/shuup/$1/app" "../shuup-packages/$1"; ls -la ../shuup-packages
 }
 
 unlinkshuup () {
     if [ $# -eq 0 ]; then
-        rm ../shuup-packages/*; ls -la ../shuup-packages
+        rm -rf ../shuup-packages/*; ls -la ../shuup-packages
     else
-        rm "../shuup-packages/$1"; ls -la ../shuup-packages
+        rm -rf "../shuup-packages/$1"; ls -la ../shuup-packages
     fi
 }
 
