@@ -9,7 +9,7 @@ __ps1_venv () {
     pyenv version-name | grep --invert-match '^system$' | sed -E 's/(.*)/\(\1\) /'
 }
 __ps1_git_branch () {
-    # This doesn't use git branch --show-current because
+    # This doesn't use `git branch --show-current` because
     # it doesn't work # with a detached HEAD.
     git branch | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\) /'
 }
@@ -137,7 +137,7 @@ alias grbc='git rebase --continue'
 alias grbi='git rebase --interactive'
 alias gre='git remote'
 alias grea='git remote add'
-alias greh='git remote show'
+alias grey='git remote show'
 alias grer='git remote remove'
 alias grl='git reflog'
 alias grs='git reset'
@@ -148,7 +148,7 @@ alias grv='git revert'
 alias gs='git status --untracked-files'
 alias gsk='git ls-files -v | grep --color "^[Sa-z]"'
 alias gst='git stash'
-alias gsth='git stash show --patch --format=fuller'
+alias gsty='git stash show --patch --format=fuller'
 alias gstl='git stash list --format=medium --stat'
 alias gstp='git stash pop'
 alias gsts='git stash push --include-untracked'
