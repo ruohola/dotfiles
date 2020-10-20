@@ -154,7 +154,9 @@ alias gstp='git stash pop'
 alias gsts='git stash push --include-untracked'
 alias gt='git tag'
 alias gta='git tag --annotate'
-alias gtl="git tag --list --format='%(color:blue)%(taggerdate:format-local:%a %Y-%m-%d %H:%M)%09%(color:green)%(taggername)%09%(color:red)%(refname:short)%09%(color:reset)%(contents:subject)' --color=always | column -ts $'\t' | sort -k2,3 --reverse | less --raw-control-chars --no-init --quit-if-one-screen"
+alias gtl="git tag --list --format='%(color:blue)%(taggerdate:format-local:%a %Y-%m-%d %H:%M)%09%(color:green)\
+    %(taggername)%09%(color:red)%(refname:short)%09%(color:reset)%(contents:subject)' --color=always \
+    | column -ts $'\t' | sort -k2,3 --reverse | less --raw-control-chars --no-init --quit-if-one-screen"
 alias gu='git restore --staged'
 alias gua='git restore --staged :/'
 alias guin='git update-index --no-skip-worktree'
@@ -173,10 +175,20 @@ gcf () {
     && git commit --fixup "$commit" \
     && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${commit}~1"
 }
+gha () {
+    # Copy the hash of the specified revision to the clipboard.
+    # Use the latest commit as the default if no argument is passed.
+    git rev-parse --short ${1:-HEAD} | pbcopyn
+}
 ghub () {
     # Open the GitHub link for the current repo in the browser.
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
     && open "$(echo $remote | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
+}
+gms () {
+    # Copy the commit message of the specified revision to the clipboard.
+    # Use the latest commit as the default if no argument is passed.
+    git log --format=%B -n 1 ${1:-HEAD} | pbcopyn
 }
 gn () { 
     # Create a new branch with the given name or switch to if it already exists.
@@ -185,11 +197,6 @@ gn () {
 gps () {
     # Push the current branch.
     git push --follow-tags "$@" || { [ "$?" -eq 128 ] && git push --follow-tags --set-upstream origin HEAD; }
-}
-gsha () {
-    # Copy the hash of the specified revision to the clipboard.
-    # Uses the latest commit as the default if no argument is passed.
-    git rev-parse --short ${1:-HEAD} | tr -d '\n' | pbcopy
 }
 gup () {
     # Update the curent branch to the latest primary remote HEAD.
