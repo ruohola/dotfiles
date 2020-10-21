@@ -347,6 +347,7 @@ unlinkshuup () {
 source ~/.fzf.bash
 
 __fzf_vim__ () {
+    # FIXME: doesn't work with filenames that contain spaces.
     local file
     file=$(__fzf_select__)
     file="$(echo "${file}" | sed 's/ $//')"
@@ -361,6 +362,8 @@ gz() {
     # ctrl-d to diff to current
     # ctrl-n to copy commit message
     # ctrl-h to copy commit hash
+
+    # FIXME: the Enter functionality doesn't use git-delta
     local out shas sha q k
     while out=$(
         gl "$@" |

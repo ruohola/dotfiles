@@ -162,7 +162,7 @@ nnoremap <Leader>, :%s/
 xnoremap <Leader>, :s/
 
 " split line on whitespace
-nnoremap \ hf a<CR><Esc>^
+nnoremap \ f a<CR><Esc>^
 
 " split function arguments or list members into their own lines
 nnoremap <Leader>\ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:noh<CR>`qv%=`q
