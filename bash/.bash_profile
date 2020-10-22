@@ -214,6 +214,11 @@ gup () {
     && git rebase "$head" \
     && [ -n "$status" ] && git stash pop
 }
+gvi () {
+    # Open the specified file at the given revision in vim.
+    # Usage: $ gvi HEAD~10:vim/vimrc
+    [ $# -ne 0 ] && vim -c "Gedit $@"
+}
 __git_complete grb _git_rebase
 __git_complete gba _git_branch
 __git_complete gbd _git_branch
