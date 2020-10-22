@@ -51,6 +51,7 @@ Plug 'tpope/vim-abolish'               " more advanced substitute etc
 Plug 'tommcdo/vim-lion'                " alignment operator
 
 Plug 'tpope/vim-eunuch'                " easy unix file operations
+Plug 'tpope/vim-fugitive'              " git plugin
 
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 Plug 'neoclide/coc.nvim', {'branch': 'release'}        " language-server plugin
