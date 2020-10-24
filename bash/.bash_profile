@@ -112,8 +112,6 @@ alias gbm='git branch --move'
 alias gbl='git blame'
 alias gc='git commit'
 alias gca='git commit --amend'
-alias gcae='git commit --allow-empty'
-alias gcaem='git commit --allow-empty --message'
 alias gcam='git commit --amend --message'
 alias gcan='git commit --amend --no-edit'
 alias gcm='git commit --message'
@@ -184,6 +182,10 @@ ghub () {
     # Open the GitHub link for the current repo in the browser.
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
     && open "$(echo $remote | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
+}
+gini () {
+    # Initalize a new repository with an initial commit.
+    git init "$1" && cd "$1" && git commit --allow-empty --message 'Initial commit'
 }
 gms () {
     # Copy the commit message of the specified revision to the clipboard.
