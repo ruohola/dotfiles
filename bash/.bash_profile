@@ -165,7 +165,7 @@ alias guin='git update-index --no-skip-worktree'
 alias guis='git update-index --skip-worktree'
 alias gw='git switch'
 alias gwd='git switch --detach'
-alias gy='git show --format=fuller'
+alias gy='git show --format=fuller --first-parent'
 alias gys='gy --stat'
 gbdp () {
     # Delete local and remote branch.
@@ -235,6 +235,7 @@ __git_complete gps _git_push
 __git_complete gpsd _git_push
 __git_complete gpsf _git_push
 __git_complete gw _git_switch
+__git_complete gy _git_show
 
 
 alias dc='docker-compose'
