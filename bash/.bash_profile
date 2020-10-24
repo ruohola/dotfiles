@@ -178,6 +178,16 @@ gcf () {
     && git commit --fixup "$commit" \
     && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${commit}~1"
 }
+ggc () {
+    # Get a commit from another repo to the current one.
+    # Usage: $ ggc ../other-repo/ af1bc21
+    git -C "$1" format-patch --stdout -1 "$2" | git am --3way
+}
+ggp () {
+    # Get the patch from a commit in another repo to the current repo.
+    # Usage: $ ggp ../other-repo/ af1bc21
+    git -C "$1" show --pretty=format:%b "$2" | git apply
+}
 gha () {
     # Copy the hash of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
