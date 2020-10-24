@@ -346,7 +346,7 @@ cloneshuup () {
 }
 
 linkshuup () {
-    mkdir -p ../shuup-packages && [ ! -z "$1" ] && cp -r "~/shuup/$1/app" "../shuup-packages/$1"; ls -la ../shuup-packages
+    mkdir -p ../shuup-packages && [ ! -z "$1" ] && cp -r ~/"shuup/$1/app" "../shuup-packages/$1"; ls -la ../shuup-packages
 }
 
 unlinkshuup () {
