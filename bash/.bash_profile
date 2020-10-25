@@ -162,6 +162,7 @@ alias gtl="git tag --list --format='%(color:blue)%(taggerdate:format-local:%a %Y
     | column -ts $'\t' | sort -k2,3 --reverse | less --raw-control-chars --no-init --quit-if-one-screen"
 alias gu='git restore --staged'
 alias gua='git restore --staged :/'
+alias gut='git restore --staged --patch'
 alias guin='git update-index --no-skip-worktree'
 alias guis='git update-index --skip-worktree'
 alias gw='git switch'
