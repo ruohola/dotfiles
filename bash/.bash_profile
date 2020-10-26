@@ -124,7 +124,6 @@ alias gcp='git cherry-pick'
 alias gdc='git restore --staged --worktree'
 alias gdca='git restore --staged --worktree :/ && git clean --interactive'
 alias gd='git diff'
-alias gdh='git diff HEAD'
 alias gds='git diff --staged'
 alias gf='git fetch --all --tags --prune'
 alias gl='git log --branches --remotes --tags --graph --date-order --color=always'
@@ -179,6 +178,17 @@ gcf () {
     commit="$(git rev-parse $1)" \
     && git commit --fixup "$commit" \
     && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${commit}~1"
+}
+gdh () {
+    # Show the diff of the currently staged and unstaged files compared to HEAD.
+    # The speciality is that this also show the diff for newly created files.
+    (
+        git diff HEAD
+        git ls-files --others --exclude-standard :/ |
+            while read -r file; do
+                git diff -- /dev/null "$file"
+            done
+    ) | delta
 }
 ggc () {
     # Get a commit from another repo to the current one.
