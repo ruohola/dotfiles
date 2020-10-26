@@ -158,7 +158,7 @@ alias gt='git tag'
 alias gta='git tag --annotate'
 alias gtl="git tag --list --format='%(color:blue)%(taggerdate:format-local:%a %Y-%m-%d %H:%M)%09%(color:green)\
     %(taggername)%09%(color:red)%(refname:short)%09%(color:reset)%(contents:subject)' --color=always \
-    | column -ts $'\t' | sort -k2,3 --reverse | less --raw-control-chars --no-init --quit-if-one-screen"
+    | column -ts $'\t' | sort -k2,3 --reverse | less --RAW-CONTROL-CHARS --no-init --quit-if-one-screen"
 alias gu='git restore --staged'
 alias gua='git restore --staged :/'
 alias gup='git restore --staged --patch'
@@ -397,12 +397,10 @@ __fzf_vim__ () {
 gz() {
     # Git commit browser
     # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
-    # enter to show commit,
-    # ctrl-d to diff to current
-    # ctrl-n to copy commit message
-    # ctrl-h to copy commit hash
-
-    # FIXME: the Enter functionality doesn't use git-delta
+    # Enter to show commit
+    # CTRL-D to diff to current
+    # CTRL-N to copy commit message
+    # CTRL-H to copy commit hash
     local out shas sha q k
     while out=$(
         gl "$@" |
@@ -413,7 +411,8 @@ gz() {
     shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
     [ -z "$shas" ] && continue
     if [ "$k" = ctrl-d ]; then
-        git diff --color=always $shas | less -R
+        clear
+        git diff --color=always $shas | delta --paging=always
     elif [ "$k" = ctrl-n ]; then
         git log --format=%B -n 1 "$shas" | pbcopyn
         break
@@ -421,11 +420,13 @@ gz() {
         echo -n "$shas" | pbcopyn
         break
     else
+        clear
         for sha in $shas; do
-            gy --color=always $sha | less -R
+            gy --color=always $sha | delta --paging=always
         done
     fi
   done
+  clear
 }
 
 if [[ $- == *i* ]]; then
