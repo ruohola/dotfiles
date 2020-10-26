@@ -163,7 +163,7 @@ alias gtl="git tag --list --format='%(color:blue)%(taggerdate:format-local:%a %Y
     | column -ts $'\t' | sort -k2,3 --reverse | less --raw-control-chars --no-init --quit-if-one-screen"
 alias gu='git restore --staged'
 alias gua='git restore --staged :/'
-alias gut='git restore --staged --patch'
+alias gup='git restore --staged --patch'
 alias guin='git update-index --no-skip-worktree'
 alias guis='git update-index --skip-worktree'
 alias gw='git switch'
@@ -217,21 +217,27 @@ gps () {
     # Push the current branch.
     git push --follow-tags "$@" || { [ "$?" -eq 128 ] && git push --follow-tags --set-upstream origin HEAD; }
 }
-gup () {
+gub () {
     # Update the curent branch to the latest primary remote HEAD.
     local status
-    local remote_branch
+    local remote
     local head
-    status="$(git status --porcelain)" \
-    && [ -n "$status" ] && git stash push --include-untracked \
-    ; git fetch --all --tags --prune \
-    && remote_branch=$(git remote | grep -E '(upstream|origin)' | tail -1) \
-    && head=$(git remote show "$remote_branch" | awk '/HEAD branch/ {print $NF}') \
-    && git switch "$head" \
-    && git rebase "${remote_branch}/${head}" \
-    && git switch - \
-    && git rebase "$head" \
-    && [ -n "$status" ] && git stash pop
+    local current
+    status="$(git status --porcelain)"
+    [ -n "$status" ] && git stash push --include-untracked
+    git fetch --all --tags --prune
+    remote=$(git remote | grep -E '(upstream|origin)' | tail -1)
+    head=$(git remote show "$remote" | awk '/HEAD branch/ {print $NF}')
+    current="$(git rev-parse --abbrev-ref HEAD)"
+    if [ "$current" != "$head" ]; then
+        git switch "$head"
+        git rebase "${remote}/${head}"
+        git switch -
+        git rebase "$head"
+    else
+        git rebase "${remote}/${head}"
+    fi
+    [ -n "$status" ] && git stash pop
 }
 gvi () {
     # Open the specified file at the given revision in vim.
