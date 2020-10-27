@@ -45,6 +45,13 @@ export HISTFILESIZE=
 # Don't add commands starting with a space to the history.
 export HISTCONTROL=ignorespace
 
+if [[ $- == *i* ]]; then
+    # We are in an interactive shell.
+    bind "TAB:menu-complete"
+    bind "set show-all-if-ambiguous on"
+    bind "set menu-complete-display-prefix on"
+fi
+
 # Make ** expand to any number of directories.
 shopt -s globstar
 
@@ -184,6 +191,17 @@ gdh () {
     # The speciality is that this also show the diff for newly created files.
     (
         git diff HEAD
+        git ls-files --others --exclude-standard :/ |
+            while read -r file; do
+                git diff -- /dev/null "$file"
+            done
+    ) | delta
+}
+gdu () {
+    # Show the diff of the currently unstaged files compared to HEAD.
+    # The speciality is that this also show the diff for newly created files.
+    (
+        git diff
         git ls-files --others --exclude-standard :/ |
             while read -r file; do
                 git diff -- /dev/null "$file"
@@ -429,14 +447,6 @@ gz() {
   done
   clear
 }
-
-if [[ $- == *i* ]]; then
-    # We are in an interactive shell.
-
-    bind "TAB:menu-complete"
-    bind "set show-all-if-ambiguous on"
-    bind "set menu-complete-display-prefix on"
-fi
 
 export FZF_IGNORES=Applications,Library,Movies,Music,Pictures,.git,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm,*cache*,.stack
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
