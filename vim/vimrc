@@ -128,7 +128,7 @@ let g:EasyMotion_do_shade=0
 let g:EasyMotion_do_mapping=0
 let g:EasyMotion_smartcase=1
 hi link EasyMotionTarget2First EasyMotionTarget
-map <Leader>k <Plug>(easymotion-bd-f)
+map <Leader>k mo<Plug>(easymotion-bd-f)
 
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300
