@@ -21,19 +21,6 @@
 		</array>
 		<key>AEDE6F2A-3933-4CB6-9F5B-0D53DDFE79BA</key>
 		<array/>
-		<key>F36CDFFD-4057-4FF1-965B-4379AE4B8D90</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>05450F7C-3D4F-45BF-ACA3-9422EF54EFDD</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 	</dict>
 	<key>createdby</key>
 	<string>James Sumners</string>
@@ -45,6 +32,25 @@
 	<string>Emoji search</string>
 	<key>objects</key>
 	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<true/>
+				<key>clipboardtext</key>
+				<string></string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>AEDE6F2A-3933-4CB6-9F5B-0D53DDFE79BA</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -96,54 +102,6 @@ osascript -l JavaScript emoji.js "$query" 2&gt;&amp;1</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>autopaste</key>
-				<true/>
-				<key>clipboardtext</key>
-				<string></string>
-				<key>ignoredynamicplaceholders</key>
-				<false/>
-				<key>transient</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
-			<key>uid</key>
-			<string>AEDE6F2A-3933-4CB6-9F5B-0D53DDFE79BA</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>action</key>
-				<integer>0</integer>
-				<key>argument</key>
-				<integer>0</integer>
-				<key>focusedappvariable</key>
-				<false/>
-				<key>focusedappvariablename</key>
-				<string></string>
-				<key>hotkey</key>
-				<integer>0</integer>
-				<key>hotmod</key>
-				<integer>0</integer>
-				<key>leftcursor</key>
-				<false/>
-				<key>modsmode</key>
-				<integer>0</integer>
-				<key>relatedAppsMode</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.hotkey</string>
-			<key>uid</key>
-			<string>F36CDFFD-4057-4FF1-965B-4379AE4B8D90</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string>
@@ -175,7 +133,7 @@ https://github.com/jsumners/alfred-emoji/issues
 			<key>note</key>
 			<string>Please submit issues and feature requests at https://github.com/jsumners/alfred-emoji/issues</string>
 			<key>xpos</key>
-			<integer>275</integer>
+			<integer>205</integer>
 			<key>ypos</key>
 			<integer>180</integer>
 		</dict>
@@ -184,14 +142,7 @@ https://github.com/jsumners/alfred-emoji/issues
 			<key>note</key>
 			<string>Auto Paste</string>
 			<key>xpos</key>
-			<integer>580</integer>
-			<key>ypos</key>
-			<integer>180</integer>
-		</dict>
-		<key>F36CDFFD-4057-4FF1-965B-4379AE4B8D90</key>
-		<dict>
-			<key>xpos</key>
-			<integer>40</integer>
+			<integer>495</integer>
 			<key>ypos</key>
 			<integer>180</integer>
 		</dict>
