@@ -1,3 +1,5 @@
+[[ $- != *i* ]] && return  # Don't do anything if not interactive.
+
 # Solarized colors for coloring the prompt.
 tput sgr0;                BASE03=$(tput setaf 234);  BASE02=$(tput setaf 235)
 BASE01=$(tput setaf 240); BASE00=$(tput setaf 241);  BASE0=$(tput setaf 244);  BASE1=$(tput setaf 245)
@@ -45,17 +47,14 @@ export HISTFILESIZE=
 # Don't add commands starting with a space to the history.
 export HISTCONTROL=ignorespace
 
-if [[ $- == *i* ]]; then
-    # We are in an interactive shell.
-    bind "TAB:menu-complete"
-    bind "set show-all-if-ambiguous on"
-    bind "set menu-complete-display-prefix on"
-fi
-
 # Make ** expand to any number of directories.
 shopt -s globstar
 
 source /usr/local/etc/bash_completion
+
+bind "TAB:menu-complete"
+bind "set show-all-if-ambiguous on"
+bind "set menu-complete-display-prefix on"
 
 alias vvrc='vim ~/.vim/vimrc'
 alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
@@ -451,7 +450,9 @@ gz() {
   clear
 }
 
-bind '"\C-t": transpose-chars'  # Have to reset this to it's default value here after sourcing the fzf script.
+# Have to reset this to it's default value here after sourcing the fzf script.
+bind '"\C-t": transpose-chars'
+
 export FZF_IGNORES=Applications,Library,Movies,Music,Pictures,.git,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm,*cache*,.stack
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
 export FZF_ALT_C_COMMAND='fd --type d --type l --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
