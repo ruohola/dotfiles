@@ -176,6 +176,7 @@ alias gw='git switch'
 alias gwd='git switch --detach'
 alias gy='git show --format=fuller --first-parent'
 alias gys='gy --stat'
+
 gbdp () {
     # Delete local and remote branch.
     git branch --delete "$1"; git push --delete origin "$1"
@@ -272,6 +273,7 @@ gvi () {
     # Usage: $ gvi HEAD~10:vim/vimrc
     [ $# -ne 0 ] && vim -c "Gedit $@"
 }
+
 __git_complete grb _git_rebase
 __git_complete gba _git_branch
 __git_complete gbd _git_branch
@@ -282,6 +284,8 @@ __git_complete gps _git_push
 __git_complete gpsf _git_push
 __git_complete gw _git_switch
 __git_complete gy _git_show
+
+complete -F _fzf_path_completion -o default -o bashdefault ga
 
 
 alias dc='docker-compose'
