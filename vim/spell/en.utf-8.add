@@ -50,3 +50,6 @@ middleware
 APIs
 config
 Dockerfiles
+tmux
+POSIX
+shellcheck

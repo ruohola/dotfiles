@@ -1,49 +1,35 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
+cd ~ || exit  # makes sure that the symlinks are shown as relative to ~ with ls -la
 
 # make the needed symlinks if they don't exist
-cd ~  # makes sure that the symlinks are shown as relative to ~ with ls -la
+[ ! -L .vim ] && rm -rf .vim && ln -sv dotfiles/vim .vim
 
-if [ ! -L .vim ]; then
-    rm -rf .vim
-    ln -sv dotfiles/vim .vim
-fi
+[ ! -L .ideavimrc ] && ln -sfv dotfiles/vim/.ideavimrc .ideavimrc
 
-if [ ! -L .ideavimrc ]; then
-    ln -sfv dotfiles/vim/.ideavimrc .ideavimrc
-fi
+[ ! -L .tmux.conf ] && ln -sfv dotfiles/tmux/.tmux.conf .tmux.conf
 
-for file in dotfiles/bash/.[^.]*; do
-    file=$(basename "$file")
-    if [ ! -L "$file" ] && [ "$file" != '.DS_Store' ]; then
-        ln -sfv dotfiles/bash/"$file" "$file"
-    fi
+for file in .bash_profile .inputrc .hushlogin; do
+    [ ! -L "$file" ] && ln -sfv dotfiles/bash/"$file" "$file"
 done
 
-for file in dotfiles/git/.[^.]*; do
-    file=$(basename "$file")
-    if [ ! -L "$file" ] && [ "$file" != '.DS_Store' ]; then
-        ln -sfv dotfiles/git/"$file" "$file"
-    fi
+for file in .gitconfig .gitignore_global; do
+    [ ! -L "$file" ] && ln -sfv dotfiles/git/"$file" "$file"
 done
 
 # the rest are on purpose as absolute links and not relative from ~
 
-if [ ! -L /Library/Keyboard\ Layouts/Finner.keylayout ]; then
-    sudo ln -sfv ~/dotfiles/keylayouts/finner/Finner.keylayout /Library/Keyboard\ Layouts/Finner.keylayout
-fi
+[ ! -L /Library/Keyboard\ Layouts/Finner.keylayout ] \
+    && sudo ln -sfv ~/dotfiles/keylayouts/finner/Finner.keylayout /Library/Keyboard\ Layouts/Finner.keylayout
 
-if [ ! -L .config/karabiner ]; then
-    rm -rf .config/karabiner
-    ln -sv ~/dotfiles/karabiner ~/.config/karabiner
-fi
+[ ! -L .config/karabiner ] \
+    && rm -rf .config/karabiner && ln -sv ~/dotfiles/karabiner ~/.config/karabiner
 
 # install vim-plug and all vim plugins
 [ ! -f ~/.vim/autoload/plug.vim ] \
     && curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
     && vim -c "PlugClean!" -c "PlugInstall" -c "qa!"
-
 
 # install homebrew and all brew packages
 [ ! -f /usr/local/bin/brew ] \
