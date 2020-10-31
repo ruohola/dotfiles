@@ -53,12 +53,15 @@ shopt -s globstar
 source /usr/local/etc/bash_completion
 
 alias vvrc='vim ~/.vim/vimrc'
-alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
+alias vbrc='vim ~/.bashrc && source ~/.bashrc'
+alias sbrc='source ~/.bashrc'
+alias vzrc='vim ~/.zshrc && source ~/.zshrc'
+alias szrc='source ~/.zshrc'
 alias vinp='vim ~/.inputrc && bind -f ~/.inputrc'
-alias sbrc='source ~/.bash_profile'
 alias virc='vim ~/.vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
 alias vgit='vim ~/.gitconfig'
+
 vims () {
     vim "scp://$1/$2"
 }
@@ -468,7 +471,7 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PATH="$HOME/.local/bin:${PATH}"
 
 export PATH="/usr/local/bin:${PATH}"
-export PATH="$HOME/dotfiles/bash/exported:${PATH}"
+export PATH="$HOME/dotfiles/shell/exported:${PATH}"
 export PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
 
 export PYTHONWARNINGS=ignore::UserWarning:setuptools.distutils_patch:26,ignore::UserWarning:_distutils_hack:19

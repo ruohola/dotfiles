@@ -9,8 +9,8 @@ cd ~ || exit  # makes sure that the symlinks are shown as relative to ~ with ls 
 
 [ ! -L .tmux.conf ] && ln -sfv dotfiles/tmux/.tmux.conf .tmux.conf
 
-for file in .bash_profile .inputrc .hushlogin; do
-    [ ! -L "$file" ] && ln -sfv dotfiles/bash/"$file" "$file"
+for file in .bashrc .bash_profile .zshrc .zprofile .inputrc .hushlogin; do
+    [ ! -L "$file" ] && ln -sfv dotfiles/shell/"$file" "$file"
 done
 
 for file in .gitconfig .gitignore_global; do

@@ -196,11 +196,6 @@ if !exists('g:notfirstopen')
     endfor
 endif
 
-" use the bash installed with homebrew as shell
-set shell=/usr/local/bin/bash\ --login
-
-set clipboard=unnamed  " use system clipboard, unnamedplus doesn't work with gvim
-
 if has('gui_running')
     " GUI specific settings
     set guioptions=
@@ -267,6 +262,7 @@ augroup END
 " mixed settings
 filetype plugin indent on      " auto detect filetype
 let g:is_posix=1               " make sh filetype be posix shell compliant
+set clipboard=unnamed          " use system clipboard, unnamedplus doesn't work with gvim
 set timeoutlen=1000            " timeout for keymappings
 set formatoptions=qlj          " don't autocontinue comment lines, remove comment when joining
 set pumheight=12               " max height for the autocompletion popup
