@@ -170,6 +170,8 @@ alias guis='git update-index --skip-worktree'
 alias gw='git switch'
 alias gwd='git switch --detach'
 alias gy='git show --format=fuller --first-parent'
+# For some reason git -c doesn't work with delta.
+alias gyn='git config --global delta.line-numbers false && gy && git config --global delta.line-numbers true'
 alias gys='gy --stat'
 
 gbdp () {
@@ -212,7 +214,7 @@ ggc () {
 ggp () {
     # Get the patch from a commit in another repo to the current repo.
     # Usage: $ ggp ../other-repo/ af1bc21
-    git -C "$1" show --pretty=format:%b "$2" | git apply
+    git -C "$1" show --pretty=format:%b "$2" | git apply --3way
 }
 gha () {
     # Copy the hash of the specified revision to the clipboard.

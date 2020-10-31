@@ -32,6 +32,6 @@
 [interactive]
 	diffFilter = delta --color-only
 [delta]
-	features = line-numbers decorations
+	line-numbers = true
 	commit-decoration-style = bold box ul
 	file-style = bold
