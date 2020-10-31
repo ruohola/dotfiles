@@ -1,5 +1,10 @@
-# Don't immediately execute pasted multiline commands
+# Don't immediately execute pasted multiline commands.
 set enable-bracketed-paste
+
+# Enable autocompletion.
+TAB:menu-complete
+set show-all-if-ambiguous on
+set menu-complete-display-prefix on
 
 # Unbind <Esc><Esc> from it's default tab complete.
 "\e\e":

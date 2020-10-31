@@ -52,12 +52,9 @@ shopt -s globstar
 
 source /usr/local/etc/bash_completion
 
-bind "TAB:menu-complete"
-bind "set show-all-if-ambiguous on"
-bind "set menu-complete-display-prefix on"
-
 alias vvrc='vim ~/.vim/vimrc'
 alias vbrc='vim ~/.bash_profile && source ~/.bash_profile'
+alias vinp='vim ~/.inputrc && bind -f ~/.inputrc'
 alias sbrc='source ~/.bash_profile'
 alias virc='vim ~/.vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
