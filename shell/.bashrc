@@ -160,8 +160,10 @@ alias gsty='git stash show --patch --format=fuller'
 alias gstl='git stash list --format=medium --stat'
 alias gstp='git stash pop'
 alias gsts='git stash push --include-untracked'
-alias gt='git tag'
-alias gta='git tag --annotate'
+alias gt='git tag --annotate'
+alias gtm='git tag --annotate --message'
+alias gtn='git tag --annotate --message=""'
+alias gtd='git tag --delete'
 alias gtl="git tag --list --format='%(color:blue)%(taggerdate:format-local:%a %Y-%m-%d %H:%M)%09%(color:green)\
     %(taggername)%09%(color:red)%(refname:short)%09%(color:reset)%(contents:subject)' --color=always \
     | column -ts $'\t' | sort -k2,3 --reverse | less --RAW-CONTROL-CHARS --no-init --quit-if-one-screen"
@@ -245,6 +247,11 @@ gn () {
 gps () {
     # Push the current branch.
     git push --follow-tags "$@" || { [ "$?" -eq 128 ] && git push --follow-tags --set-upstream origin HEAD; }
+}
+gtp () {
+    # Tag a commit in the past.
+    # Usage: $ gtp v1.0.1 af1bc21 -m ""
+    GIT_COMMITTER_DATE="$(git show "$2" --format=%aD | head -1)" git tag --annotate "$@"
 }
 gub () {
     # Update the curent branch to the latest primary remote HEAD.
