@@ -427,13 +427,10 @@ unlinkshuup () {
 source ~/.fzf.bash
 
 __fzf_vim__ () {
-    # FIXME: doesn't work with filenames that contain spaces.
     local file
     file=$(__fzf_select__)
     file="$(echo "${file}" | sed 's/ $//')"
-    if [ -f "${file}" ]; then
-        echo vim "${file}"
-    fi
+    [ -z "${file}" ] || echo vim "${file}"
 }
 gz() {
     # Git commit browser
