@@ -478,7 +478,7 @@ export FZF_ALT_C_COMMAND='fd --type d --type l --hidden --no-ignore --exclude "{
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_COMPLETION_TRIGGER='*'
 
-export RIPGREP_CONFIG_PATH=~/dotfiles/ripgrep/.ripgreprc
+export RIPGREP_CONFIG_PATH=~/dotfiles/rg/.ripgreprc
 
 export PATH="$HOME/.cargo/bin:${PATH}"
 
