@@ -354,7 +354,7 @@ setupbackend() {
 
 updatebackend () {
     docker-compose run --rm backend sh -c \
-        'pip list --outdated > /tmp/pip-temp1.txt \
+        'pip list --outdated --pre > /tmp/pip-temp1.txt \
          && awk '\''{ print $1 }'\'' /tmp/pip-temp1.txt | sort > /tmp/pip-temp2.txt \
          && awk -F '\''=='\'' '\''{ print $1 }'\'' requirements*txt | sort > /tmp/pip-temp3.txt \
          && comm -12 /tmp/pip-temp2.txt /tmp/pip-temp3.txt | grep -f /dev/stdin /tmp/pip-temp1.txt \
