@@ -76,6 +76,9 @@ alias ll='l'
 alias F='open .'  # Open Finder in the current directory.
 alias o='open'
 
+alias cp='cp -v'
+alias mv='mv -v'
+
 pbcopyn () {
     # Like normal `pbcopy` but strips away all trailing newlines.
     printf "$(< /dev/stdin)" | pbcopy
