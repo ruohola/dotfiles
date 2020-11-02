@@ -1,11 +1,11 @@
 [[ $- != *i* ]] && return  # Don't do anything if not interactive.
 
-# Solarized colors for coloring the prompt.
-tput sgr0;                BASE03=$(tput setaf 234);  BASE02=$(tput setaf 235)
-BASE01=$(tput setaf 240); BASE00=$(tput setaf 241);  BASE0=$(tput setaf 244);  BASE1=$(tput setaf 245)
-BASE2=$(tput setaf 254);  BASE3=$(tput setaf 230);   YELLOW=$(tput setaf 136); ORANGE=$(tput setaf 166)
-RED=$(tput setaf 160);    MAGENTA=$(tput setaf 125); VIOLET=$(tput setaf 61);  BLUE=$(tput setaf 33)
-CYAN=$(tput setaf 37);    GREEN=$(tput setaf 64);    BOLD=$(tput bold);        RESET=$(tput sgr0)
+# Solarized colors for coloring the prompt and man pages in iTerm.
+_base03=$(tput setaf 8);  _base02=$(tput setaf 0);  _base01=$(tput setaf 10); _base00=$(tput setaf 11);
+_base0=$(tput setaf 12);  _base1=$(tput setaf 14);  _base2=$(tput setaf 7);   _base3=$(tput setaf 15);
+_yellow=$(tput setaf 3);  _orange=$(tput setaf 9);  _red=$(tput setaf 1);     _magenta=$(tput setaf 5);
+_violet=$(tput setaf 13); _blue=$(tput setaf 4);    _cyan=$(tput setaf 6);    _green=$(tput setaf 2);
+_bold=$(tput bold);       _underlined=$(tput smul); _reset=$(tput sgr0);      tput sgr0;
 
 __ps1_venv () {
     pyenv version-name | grep --invert-match '^system$' | sed -E 's/(.*)/\(\1\) /'
@@ -21,10 +21,10 @@ __ps1_git_status () {
 # Solarized colored prompt: (venv) path/to/dir (branch)*$
 export PS1="\
 \$(__ps1_venv 2> /dev/null)\
-\[$CYAN\]\w \
-\[$MAGENTA\]\$(__ps1_git_branch 2> /dev/null)\
-\[$RESET\]\[\$(__ps1_git_status 2> /dev/null)\]\
-\[$CYAN\]\$ \[$RESET\]\
+\[$_cyan\]\w \
+\[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
+\[$_reset\]\[\$(__ps1_git_status 2> /dev/null)\]\
+\[$_cyan\]\$ \[$_reset\]\
 "
 export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
 
@@ -74,11 +74,28 @@ alias l='ls -la'
 alias ll='l'
 
 alias F='open .'  # Open Finder in the current directory.
+alias o='open'
 
 pbcopyn () {
     # Like normal `pbcopy` but strips away all trailing newlines.
     printf "$(< /dev/stdin)" | pbcopy
 }
+
+# Colored `man` pages and `less`'s help.
+# mb = start blink
+# md = start bold
+# me = stop bold, blink, and underline
+# se = stop standout
+# so = start standout (e.g. search matches)
+# ue = stop underline
+# us = start underline
+export LESS_TERMCAP_mb=$_blue
+export LESS_TERMCAP_md=$_orange
+export LESS_TERMCAP_me=$_reset
+export LESS_TERMCAP_se=$_reset
+export LESS_TERMCAP_so=$_base03$(tput setab 12)
+export LESS_TERMCAP_ue=$_reset
+export LESS_TERMCAP_us=$_green
 
 alias act='source venv/bin/activate'
 alias lg='lazygit'

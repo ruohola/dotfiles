@@ -53,3 +53,5 @@ Dockerfiles
 tmux
 POSIX
 shellcheck
+monorepo's
+terraform
