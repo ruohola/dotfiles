@@ -78,6 +78,7 @@ alias o='open'
 
 alias cp='cp -v'
 alias mv='mv -v'
+alias grep='GREP_COLOR="1;91" grep --color'
 
 pbcopyn () {
     # Like normal `pbcopy` but strips away all trailing newlines.
