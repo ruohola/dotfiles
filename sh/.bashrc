@@ -404,10 +404,8 @@ setupproject () {
 cloneshuup () {
     pushd .
     cd ~/shuup
-    mkdir "$1"
+    git clone "git@github.com:ruohola/$1.git"
     cd "$1"
-    git clone "git@github.com:ruohola/$1.git" app
-    cd app
     git remote add upstream "git@github.com:shuup/$1.git"
     popd
 }
