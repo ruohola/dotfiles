@@ -565,4 +565,5 @@ augroup FileTypes
     autocmd BufRead,BufNewFile Dockerfile* set filetype=dockerfile
     autocmd BufRead,BufNewFile .env* set filetype=sh
     autocmd BufRead,BufNewFile *.tfstate set filetype=json
+    autocmd BufRead,BufNewFile .bashrc,.bash_profile set filetype=bash
 augroup END
