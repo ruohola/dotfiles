@@ -85,7 +85,7 @@ pbcopyn () {
     printf "$(< /dev/stdin)" | pbcopy
 }
 
-# Colored `man` pages and `less`'s help.
+# Colored man pages and `less`'s help.
 # mb = start blink
 # md = start bold
 # me = stop bold, blink, and underline
@@ -363,28 +363,33 @@ updatebackend () {
 
 
 # Shuup
-installbasics () {
-    pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==19.2.*
-}
-
 installshuup () {
-    installbasics
-    [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt
-    [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt
-    [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt
-    python setup.py build_resources
-    [ "$1" != "--no-packages" ] && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
-        "cd '{}' && pip install --disable-pip-version-check -e . && python setup.py build_resources"
-    python manage.py migrate
-}
+    local install_packages
+    local build_resources
+    [[ ! "$@" =~ "--no-packages" && ! "$@" =~ "-p" ]]
+    install_packages=$?
+    [[ ! "$@" =~ "--no-resources" && ! "$@" =~ "-r" ]]
+    build_resources=$?
 
-installshuup_nonpm () {
-    installbasics
-    [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt
-    [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt
-    [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt
-    [ "$1" != "--no-packages" ] && [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
-        "cd '{}' && pip install --disable-pip-version-check -e ."
+    pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==19.2.*
+
+    for file in requirements.txt requirements-dev.txt requirements-test.txt; do
+        [ -f "$file" ] && pip install --disable-pip-version-check -r \
+            <(grep --invert-match --file=<(_ls_linkedshuup | sed 's/$/==/') "$file")
+    done
+
+    [ "$build_resources" -eq 0 ] && python setup.py build_resources
+
+    if [ "$install_packages" -eq 0 ]; then 
+        if [ "$build_resources" -eq 0 ]; then 
+            _ls_linkedshuup | xargs -I {} sh -c \
+                "pip install --disable-pip-version-check -e ~/shuup/{}/ && python ~/shuup/{}/setup.py build_resources"
+        else
+            _ls_linkedshuup | xargs -I {} sh -c \
+                "pip install --disable-pip-version-check -e ~/shuup/{}/"
+        fi
+    fi
+
     python manage.py migrate
 }
 
@@ -410,17 +415,34 @@ cloneshuup () {
     popd
 }
 
+_ls_linkedshuup () {
+    xmlstarlet select --indent --template --value-of \
+        "/module/component[@name='NewModuleRootManager']/content[contains(@url, '/../')]/@url" "$(_idea_iml_file)" \
+    | cut -d / -f 5
+}
+
+_idea_iml_file () {
+    printf "../.idea/$(basename "$(dirname "$PWD")").iml"
+}
+
 linkshuup () {
-    mkdir -p ../shuup-packages && [ ! -z "$1" ] && cp -r ~/"shuup/$1/app" "../shuup-packages/$1"; ls -la ../shuup-packages
+    [ $# -ne 0 ] \
+        && xmlstarlet edit --inplace \
+            --subnode "/module/component[@name='NewModuleRootManager']" --type 'elem' --name 'content' \
+            --insert '$prev' --type 'attr' --name 'url' --value "file://\$MODULE_DIR\$/../$1" \
+            "$(_idea_iml_file)"
+
+    _ls_linkedshuup
 }
 
 unlinkshuup () {
-    if [ $# -eq 0 ]; then
-        rm -rf ../shuup-packages/*; ls -la ../shuup-packages
-    else
-        rm -rf "../shuup-packages/$1"; ls -la ../shuup-packages
-    fi
+    xmlstarlet edit --inplace --delete \
+        "/module/component[@name='NewModuleRootManager']/content[contains(@url, '/../$1')]" \
+        "$(_idea_iml_file)"
+
+    _ls_linkedshuup
 }
+
 
 source ~/.fzf.bash
 
