@@ -82,7 +82,7 @@ alias grep='GREP_COLOR="1;91" grep --color'
 
 pbcopyn () {
     # Like normal `pbcopy` but strips away all trailing newlines.
-    printf "$(< /dev/stdin)" | pbcopy
+    printf '%s' "$(< /dev/stdin)" | pbcopy
 }
 
 # Colored man pages and `less`'s help.
@@ -235,12 +235,12 @@ gdu () {
 gha () {
     # Copy the hash of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
-    git rev-parse --short ${1:-HEAD} | pbcopyn
+    git rev-parse --short "${1:-HEAD}" | pbcopyn
 }
 ghub () {
     # Open the GitHub link for the current repo in the browser.
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
-    && open "$(echo $remote | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
+    && open "$(echo "$remote" | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
 }
 gini () {
     # Initalize a new repository with an initial commit.
@@ -249,7 +249,7 @@ gini () {
 gms () {
     # Copy the commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
-    git log --format=%B -n 1 ${1:-HEAD} | pbcopyn
+    git log --format=%B -n 1 "${1:-HEAD}" | pbcopyn
 }
 gn () { 
     # Create a new branch with the given name or switch to if it already exists.
@@ -289,7 +289,7 @@ gub () {
 gvi () {
     # Open the specified file at the given revision in vim.
     # Usage: $ gvi HEAD~10:vim/vimrc
-    [ $# -ne 0 ] && vim -c "Gedit $@"
+    [ $# -ne 0 ] && vim -c "Gedit $*"
 }
 
 __git_complete grb _git_rebase
@@ -322,14 +322,14 @@ dcs () { docker-compose run --rm "$1" sh; }
 dcrf () { docker-compose --file "$1" run --rm "$2"; }
 dcsf () { docker-compose --file "$1" run --rm "$2" sh; }
 
-docker_exec_ssh () { ssh $1 -t "docker exec -it \$(docker container ls | awk '/$2/ {print \$NF; exit}') $3; bash"; }
+docker_exec_ssh () { ssh "$1" -t "docker exec -it \$(docker container ls | awk '/$2/ {print \$NF; exit}') $3; bash"; }
 
 brew () {
-    if [[ "$@" == "up" ]]; then
+    if [[ "$*" == "up" ]]; then
         command brew update && brew upgrade && brew upgrade --cask
-    elif [[ "$@" == "dump" ]]; then
+    elif [[ "$*" == "dump" ]]; then
         command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
-    elif [[ "$@" == "load" ]]; then
+    elif [[ "$*" == "load" ]]; then
         command brew bundle --file=~/dotfiles/brew/Brewfile
     else
         command brew "$@"
@@ -366,9 +366,9 @@ updatebackend () {
 installshuup () {
     local install_packages
     local build_resources
-    [[ ! "$@" =~ "--no-packages" && ! "$@" =~ "-p" ]]
+    [[ ! "$*" =~ "--no-packages" && ! "$*" =~ "-p" ]]
     install_packages=$?
-    [[ ! "$@" =~ "--no-resources" && ! "$@" =~ "-r" ]]
+    [[ ! "$*" =~ "--no-resources" && ! "$*" =~ "-r" ]]
     build_resources=$?
 
     pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==19.2.*
@@ -403,16 +403,16 @@ checkshuup () {
 
 setupproject () {
     ~/Documents/scripts/setup_project.sh "$@"
-    cd "$HOME/shuup/$2/app"
+    cd ~/"shuup/$2/app" || exit
 }
 
 cloneshuup () {
     pushd .
-    cd ~/shuup
+    cd ~/shuup || exit
     git clone "git@github.com:ruohola/$1.git"
-    cd "$1"
+    cd "$1" || exit
     git remote add upstream "git@github.com:shuup/$1.git"
-    popd
+    popd || exit
 }
 
 _ls_linkedshuup () {
@@ -422,7 +422,7 @@ _ls_linkedshuup () {
 }
 
 _idea_iml_file () {
-    printf "../.idea/$(basename "$(dirname "$PWD")").iml"
+    printf '../.idea/%s.iml' "$(basename "$(dirname "$PWD")")"
 }
 
 linkshuup () {
@@ -470,7 +470,7 @@ gz() {
     [ -z "$shas" ] && continue
     if [ "$k" = ctrl-d ]; then
         clear
-        git diff --color=always $shas | delta --paging=always
+        git diff --color=always "$shas" | delta --paging=always
     elif [ "$k" = ctrl-n ]; then
         git log --format=%B -n 1 "$shas" | pbcopyn
         break
@@ -480,7 +480,7 @@ gz() {
     else
         clear
         for sha in $shas; do
-            gy --color=always $sha | delta --paging=always
+            gy --color=always "$sha" | delta --paging=always
         done
     fi
   done
@@ -523,9 +523,9 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 pyenv () {
-    if [[ "$@" == "list" ]]; then
+    if [[ "$*" == "list" ]]; then
         local versions
-        versions=$(pyenv install --list)
+        versions="$(pyenv install --list)"
         for version in 5 6 7 8
         do
              echo "${versions}" | grep -E "^\s+3\.${version}" | tail -1
