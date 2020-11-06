@@ -22,8 +22,10 @@ done
 [ ! -L /Library/Keyboard\ Layouts/Finner.keylayout ] \
     && sudo ln -sfv ~/dotfiles/keylayouts/finner/Finner.keylayout /Library/Keyboard\ Layouts/Finner.keylayout
 
-[ ! -L .config/karabiner ] \
-    && rm -rf .config/karabiner && ln -sv ~/dotfiles/karabiner ~/.config/karabiner
+[ ! -L ~/.config/karabiner ] \
+    && rm -rf ~/.config/karabiner && ln -sv ~/dotfiles/karabiner ~/.config/karabiner
+
+[ ! -L ~/.config/pgcli/config ] && ln -sfv ~/dotfiles/pgcli/config ~/.config/pgcli/config 
 
 # install vim-plug and all vim plugins
 [ ! -f ~/.vim/autoload/plug.vim ] \
