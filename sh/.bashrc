@@ -375,8 +375,14 @@ installshuup () {
     pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==19.2.*
 
     for file in requirements.txt requirements-dev.txt requirements-test.txt; do
-        [ -f "$file" ] && pip install --disable-pip-version-check -r \
-            <(grep --invert-match --file=<(_ls_linkedshuup | sed 's/$/==/') "$file")
+        if [ -f "$file" ]; then
+            if [ -z "$(_ls_linkedshuup)" ]; then
+                pip install --disable-pip-version-check -r "$file"
+            else
+                # We have the check here, because when `grep --file` gets an empty input it will make the end result empty.
+                pip install --disable-pip-version-check -r <(grep --invert-match --file=<(_ls_linkedshuup | sed 's/$/==/') "$file")
+            fi
+        fi
     done
 
     [ "$build_resources" -eq 0 ] && python setup.py build_resources
