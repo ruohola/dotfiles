@@ -437,7 +437,13 @@ linkshuup () {
         && xmlstarlet edit --inplace \
             --subnode "/module/component[@name='NewModuleRootManager']" --type 'elem' --name 'content' \
             --insert '$prev' --type 'attr' --name 'url' --value "file://\$MODULE_DIR\$/../$1" \
-            "$(_idea_iml_file)"
+            "$(_idea_iml_file)" \
+        && xmlstarlet edit --inplace \
+            --subnode "/project/component[@name='VcsDirectoryMappings']" --type 'elem' --name 'mapping' \
+            --var inserted '$prev' \
+            --insert '$inserted' --type 'attr' --name 'directory' --value "\$PROJECT_DIR\$/../$1" \
+            --insert '$inserted' --type 'attr' --name 'vcs' --value 'Git' \
+            ../.idea/vcs.xml
 
     _ls_linkedshuup
 }
@@ -446,6 +452,9 @@ unlinkshuup () {
     xmlstarlet edit --inplace --delete \
         "/module/component[@name='NewModuleRootManager']/content[contains(@url, '/../$1')]" \
         "$(_idea_iml_file)"
+    xmlstarlet edit --inplace --delete \
+        "/project/component[@name='VcsDirectoryMappings']/mapping[contains(@directory, '/../$1')]" \
+        ../.idea/vcs.xml
 
     _ls_linkedshuup
 }
