@@ -450,12 +450,21 @@ linkshuup () {
 }
 
 unlinkshuup () {
-    xmlstarlet edit --inplace --delete \
-        "/module/component[@name='NewModuleRootManager']/content[contains(@url, '/../$1')]" \
-        "$(_idea_iml_file)"
-    xmlstarlet edit --inplace --delete \
-        "/project/component[@name='VcsDirectoryMappings']/mapping[contains(@directory, '/../$1')]" \
-        ../.idea/vcs.xml
+    if [ $# -ne 0 ]; then
+        xmlstarlet edit --inplace --delete \
+            "/module/component[@name='NewModuleRootManager']/content[substring(@url,string-length(@url) -string-length('/../$1') +1) = '/../$1']" \
+            "$(_idea_iml_file)"
+        xmlstarlet edit --inplace --delete \
+            "/project/component[@name='VcsDirectoryMappings']/mapping[substring(@directory,string-length(@directory) -string-length('/../$1') +1) = '/../$1']" \
+            ../.idea/vcs.xml
+    else
+        xmlstarlet edit --inplace --delete \
+            "/module/component[@name='NewModuleRootManager']/content[contains(@url, '/../')]" \
+            "$(_idea_iml_file)"
+        xmlstarlet edit --inplace --delete \
+            "/project/component[@name='VcsDirectoryMappings']/mapping[contains(@directory, '/../')]" \
+            ../.idea/vcs.xml
+    fi
 
     _ls_linkedshuup
 }
