@@ -434,6 +434,7 @@ _idea_iml_file () {
 
 linkshuup () {
     [ $# -ne 0 ] \
+        && [[ ! $(_ls_linkedshuup) =~ ^$1$'\n'|$'\n'$1$|$'\n'$1$'\n' ]] \
         && xmlstarlet edit --inplace \
             --subnode "/module/component[@name='NewModuleRootManager']" --type 'elem' --name 'content' \
             --insert '$prev' --type 'attr' --name 'url' --value "file://\$MODULE_DIR\$/../$1" \
