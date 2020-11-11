@@ -571,3 +571,20 @@ pyenv () {
         command pyenv "$@"
     fi
 }
+
+
+# Bash specific binds (`.inputrc` only has universal ones).
+
+# Make CTRL-L clear the screen while also refreshing the prompt.
+bind '"\C-x\C-l": clear-screen'
+bind '"\C-l": " \C-b\C-k \C-u\C-m\C-x\C-l\C-y\C-h\C-y\ey\C-x\C-x\C-d"'
+
+# Open file in vim with fzf. Reference from:
+# https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L92
+bind '"\C-v": " \C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+
+# Remap CTRL-X_CTRL-V to CTRL-V's default behavior.
+bind '"\C-x\C-v": quoted-insert'
+
+# Remap fzf cd to dir from ALT-C to CTRL-F.
+bind '"\C-f": "\ec"'
