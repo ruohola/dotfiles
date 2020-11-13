@@ -204,8 +204,6 @@ alias guis='git update-index --skip-worktree'
 alias gw='git switch'
 alias gwd='git switch --detach'
 alias gy='git show --format=fuller --first-parent'
-# For some reason git -c doesn't work with delta.
-alias gyn='git config --global delta.line-numbers false && gy && git config --global delta.line-numbers true'
 alias gys='gy --stat'
 
 gbdp () {
@@ -298,6 +296,14 @@ gvi () {
     # Open the specified file at the given revision in vim.
     # Usage: $ gvi HEAD~10:vim/vimrc
     [ $# -ne 0 ] && vim -c "Gedit $*"
+}
+gyn () {
+    # Show the commit like with `gy`, but disable delta's line numbers for easier copying.
+
+    # For some reason `git -c` doesn't work with delta.
+    git config --global --replace-all delta.line-numbers false
+    gy "$@"
+    git config --global delta.line-numbers true
 }
 
 __git_complete grb _git_rebase
