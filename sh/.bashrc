@@ -166,6 +166,7 @@ alias glGr='glp --regexp-ignore-case --pickaxe-regex -G'
 alias glSr='glp --regexp-ignore-case --pickaxe-regex -S'
 alias gmt='git mergetool'
 alias gpl='git pull'
+alias gpsd='git push --delete'
 alias gpsf='git push --force'
 alias gpsu='git push --follow-tags upstream HEAD'
 alias grb='git rebase'
@@ -313,6 +314,7 @@ __git_complete gbdf _git_branch
 __git_complete gbdp _git_branch
 __git_complete gbm _git_branch
 __git_complete gps _git_push
+__git_complete gpsd _git_push
 __git_complete gpsf _git_push
 __git_complete gw _git_switch
 __git_complete gy _git_show
