@@ -66,3 +66,5 @@ PyCharm's
 deps
 changelog
 submodules
+gitignore
+cli

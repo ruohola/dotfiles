@@ -415,11 +415,11 @@ installshuup () {
 }
 
 fixshuup () {
-    autoflake --in-place --recursive --remove-all-unused-imports --ignore-init-module-imports . && isort --recursive .
+    autoflake --in-place --recursive --remove-all-unused-imports --ignore-init-module-imports "$@" && isort --recursive "$@"
 }
 
 checkshuup () {
-    isort --check-only && flake8 && echo all good
+    isort --check-only --recursive "$@" && flake8 "$@" && echo all good
 }
 
 setupproject () {
