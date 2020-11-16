@@ -6,3 +6,4 @@ plug.vim
 plug.vim.old
 vim/.temp/
 vim/plugins/
+.bookmarks.sh
