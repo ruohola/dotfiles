@@ -427,6 +427,10 @@ xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 nnoremap <Esc>\ <Esc>\
 nnoremap <nowait> <silent> <Esc> <Esc>:noh<CR>
 
+" removes delay from closing fzf search popup
+tnoremap <Esc>\ <Esc>\
+tnoremap <nowait> <silent> <Esc> <Esc>
+
 " open vimrc, ideavimrc, or cocconfig
 nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>cr :CocConfig<CR>
