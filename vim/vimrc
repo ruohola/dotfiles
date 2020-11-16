@@ -313,21 +313,21 @@ if has('gui_running')
     tnoremap <silent>↔︎ <C-W>:tabnext<CR>
 else
     " move between splits (alt+hjkl)
-    nnoremap <Esc>h <C-W>h
-    nnoremap <Esc>j <C-W>j
-    nnoremap <Esc>k <C-W>k
-    nnoremap <Esc>l <C-W>l
+    nnoremap è <C-W>h
+    nnoremap ê <C-W>j
+    nnoremap ë <C-W>k
+    nnoremap ì <C-W>l
 
     " cycle tabs (alt+ui)
-    nnoremap <silent> <Esc>u :tabprevious<CR>
-    nnoremap <silent> <Esc>i :tabnext<CR>
+    nnoremap <silent> õ :tabprevious<CR>
+    nnoremap <silent> é :tabnext<CR>
 
-    tnoremap <Esc>h <C-W><C-H>
-    tnoremap <Esc>j <C-W><C-J>
-    tnoremap <Esc>k <C-W><C-K>
-    tnoremap <Esc>l <C-W><C-L>
-    tnoremap <silent> <Esc>u <C-W>:tabprevious<CR>
-    tnoremap <silent> <Esc>i <C-W>:tabnext<CR>
+    tnoremap è <C-W><C-H>
+    tnoremap ê <C-W><C-J>
+    tnoremap ë <C-W><C-K>
+    tnoremap ì <C-W><C-L>
+    tnoremap <silent> õ <C-W>:tabprevious<CR>
+    tnoremap <silent> é <C-W>:tabnext<CR>
 endif
 
 " makes these easier to use
@@ -422,6 +422,9 @@ nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 
 " clear highlights
+" we need this noop mapping before, otherwise
+" the esc mapping will just *completely* break
+nnoremap <Esc>\ <Esc>\
 nnoremap <nowait> <silent> <Esc> <Esc>:noh<CR>
 
 " open vimrc, ideavimrc, or cocconfig
