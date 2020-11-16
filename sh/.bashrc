@@ -320,8 +320,6 @@ __git_complete gpsf _git_push
 __git_complete gw _git_switch
 __git_complete gy _git_show
 
-complete -F _fzf_path_completion -o default -o bashdefault ga
-
 
 alias dc='docker-compose'
 alias dcf='docker-compose --file'
@@ -529,11 +527,8 @@ gz() {
   clear
 }
 
-# Have to reset this to it's default value here after sourcing the fzf script.
-bind '"\C-t": transpose-chars'
-
 export FZF_IGNORES=Applications,Library,Movies,Music,Pictures,.git,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm,*cache*,.stack
-export FZF_DEFAULT_COMMAND='command fd --type f --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
+export FZF_DEFAULT_COMMAND='command fd --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
 export FZF_ALT_C_COMMAND='command fd --type d --type l --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_COMPLETION_TRIGGER='*'
