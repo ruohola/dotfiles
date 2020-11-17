@@ -577,21 +577,17 @@ export BAT_THEME='Solarized (dark)'
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-pyenv () {
-    if [[ "$*" == "list" ]]; then
-        local versions
-        versions="$(pyenv install --list)"
-        for version in 5 6 7 8
-        do
-             echo "${versions}" | grep -E "^\s+3\.${version}" | tail -1
-        done
-        for version in 9 10
-        do
-             echo "${versions}" | grep -E "^\s+3\.${version}"
-        done
-    else
-        command pyenv "$@"
-    fi
+pyenv_list () {
+    local versions
+    versions="$(pyenv install --list)"
+    for version in 5 6 7 8
+    do
+         echo "${versions}" | grep -E "^\s+3\.${version}" | tail -1
+    done
+    for version in 9 10
+    do
+         echo "${versions}" | grep -E "^\s+3\.${version}"
+    done
 }
 
 
