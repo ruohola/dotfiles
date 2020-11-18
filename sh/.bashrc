@@ -420,7 +420,7 @@ installshuup () {
 }
 
 fixshuup () {
-    autoflake --in-place --recursive --remove-all-unused-imports --ignore-init-module-imports "${@:-.}" && isort --recursive "$@"
+    autoflake --in-place --recursive --remove-all-unused-imports --ignore-init-module-imports "${@:-.}" && isort --apply --recursive "$@"
 }
 
 checkshuup () {
