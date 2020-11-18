@@ -36,7 +36,7 @@ export CLICOLOR=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Bash history gets written immediately.
+# When the shell exits, append to the history file instead of overwriting it.
 shopt -s histappend
 
 # Don't add commands starting with a space to the history.
