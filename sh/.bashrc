@@ -46,21 +46,6 @@ HISTCONTROL=ignorespace
 HISTSIZE=
 HISTFILESIZE=
 
-# Reference: https://unix.stackexchange.com/a/48116/337515
-_bash_history_sync() {
-    builtin history -a
-    HISTFILESIZE=$HISTSIZE
-    builtin history -c
-    builtin history -r
-}
-
-history() {
-    _bash_history_sync
-    builtin history "$@"
-}
-
-PROMPT_COMMAND=_bash_history_sync
-
 # Make ** expand to any number of directories.
 shopt -s globstar
 
