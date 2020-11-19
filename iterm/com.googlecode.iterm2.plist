@@ -1821,6 +1821,15 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
+		<key>0xf702-0x280000-0x7b</key>
+		<dict>
+			<key>Action</key>
+			<integer>10</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string>b</string>
+		</dict>
 		<key>0xf702-0x300000</key>
 		<dict>
 			<key>Action</key>
@@ -1828,10 +1837,21 @@
 			<key>Text</key>
 			<string>0x01</string>
 		</dict>
-		<key>0xf703-0x300000</key>
+		<key>0xf703-0x280000-0x7c</key>
+		<dict>
+			<key>Action</key>
+			<integer>10</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string>f</string>
+		</dict>
+		<key>0xf703-0x300000-0x7c</key>
 		<dict>
 			<key>Action</key>
 			<integer>11</integer>
+			<key>Label</key>
+			<string></string>
 			<key>Text</key>
 			<string>0x05</string>
 		</dict>
