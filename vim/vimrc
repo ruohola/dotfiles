@@ -359,6 +359,9 @@ nnoremap gP O<Esc>p^
 " go to the first occurrence of the symbol in the filename
 nnoremap <silent> gf :set nohlsearch<CR>"zyiwgg/\C\<<C-R>z\><CR>:set hlsearch<Bar>noh<CR>
 
+" fix the closest spell check error before the cursor and return back
+nnoremap <silent> gs mq[s1z=`q
+
 " substitute selected text
 xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
 
