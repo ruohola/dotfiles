@@ -75,11 +75,9 @@ alias b='cd ..'
 alias bb='cd ../..'
 alias bbb='cd ../../..'
 alias bbbb='cd ../../../..'
-alias l='ls -la'
-alias ll='l'
+alias ll='ls -la'
 
 alias F='open .'  # Open Finder in the current directory.
-alias o='open'
 
 alias cp='cp -v'
 alias mv='mv -v'
@@ -105,11 +103,6 @@ export LESS_TERMCAP_se=$_reset
 export LESS_TERMCAP_so=$_base03$(tput setab 12)
 export LESS_TERMCAP_ue=$_reset
 export LESS_TERMCAP_us=$_green
-
-alias act='source venv/bin/activate'
-alias lg='lazygit'
-
-alias trash='rmtrash'
 
 alias rg='rg --hidden --follow --colors="match:fg:9"'
 alias fd='fd --hidden --follow'
