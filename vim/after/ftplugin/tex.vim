@@ -16,6 +16,3 @@ setlocal tabstop=8 softtabstop=4 shiftwidth=4 expandtab
 setlocal smarttab  autoindent    breakindent
 
 command! SOT so ~/.vim/after/ftplugin/tex.vim
-
-" remove doubled spaces after formatting
-vnoremap gq gqgv:s/  / /e<CR>:noh<CR><C-L>

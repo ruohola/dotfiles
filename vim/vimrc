@@ -265,6 +265,7 @@ let g:is_posix=1               " make sh filetype be posix shell compliant
 set clipboard=unnamed          " use system clipboard, unnamedplus doesn't work with gvim
 set timeoutlen=1000            " timeout for keymappings
 set formatoptions=qlj          " don't autocontinue comment lines, remove comment when joining
+set nojoinspaces               " don't put two spaces after a period when using `J` or `gq`
 set pumheight=12               " max height for the autocompletion popup
 set nomodeline                 " don't try to parse commands from opened file
 set ttimeoutlen=0              " remove delay from esc
