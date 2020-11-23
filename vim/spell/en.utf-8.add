@@ -69,3 +69,4 @@ submodules
 gitignore
 cli
 filepaths
+pylint

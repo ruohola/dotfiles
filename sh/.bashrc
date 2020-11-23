@@ -207,6 +207,11 @@ alias gwd='git switch --detach'
 alias gy='git show --format=fuller --first-parent'
 alias gys='gy --stat'
 
+gclg () {
+    # Clone a repo more easily without the full URI.
+    # Usage: $ gclg username/repo-name
+    git clone --recurse-submodules "git@github.com:${1}.git"
+}
 gbdp () {
     # Delete local and remote branch.
     git branch --delete "$1"; git push --delete origin "$1"
@@ -353,6 +358,7 @@ brew () {
 
 # Skole
 alias fmtbackend='yarn --cwd ~/skole backend:format'
+alias lintbackend='yarn --cwd ~/skole backend:lint'
 alias mypybackend='docker-compose run --no-deps --rm backend mypy .'
 alias testbackend='docker-compose run --rm backend pytest --verbose .'
 alias covbackend='docker-compose run --rm backend pytest --verbose --cov-report=html --cov=. . && open ~/skole/backend/htmlcov/index.html'
