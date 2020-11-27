@@ -29,6 +29,7 @@ export PS1="\
 export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
 
 export EDITOR=vim
+export VISUAL=vim
 
 export CLICOLOR=1
 
