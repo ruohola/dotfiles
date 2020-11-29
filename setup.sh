@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 cd ~ || exit  # makes sure that the symlinks are shown as relative to ~ with ls -la
 
