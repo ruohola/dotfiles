@@ -297,7 +297,9 @@ gub () {
     else
         git rebase "${remote}/${head}"
     fi
-    [ -n "$status" ] && git stash pop
+    if [ -n "$status" ]; then
+        git stash pop
+    fi
 }
 gvi () {
     # Open the specified file at the given revision in vim.
