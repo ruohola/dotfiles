@@ -444,12 +444,19 @@ cloneshuup () {
     popd || exit
 }
 
+pu () {
+    # Run a `prequ update` until requirements are consistent.
+    while : ; do
+        prequ update
+        grep --quiet django_polymorphic requirements.txt || break
+    done
+}
+
 _ls_linkedshuup () {
     xmlstarlet select --indent --template --value-of \
         "/module/component[@name='NewModuleRootManager']/content[contains(@url, '/../')]/@url" "$(_idea_iml_file)" \
     | cut -d / -f 5
 }
-
 _idea_iml_file () {
     printf '../.idea/%s.iml' "$(basename "$(dirname "$PWD")")"
 }
