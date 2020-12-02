@@ -53,7 +53,7 @@ shopt -s globstar
 # allow to create cd bookmarks, must be defined before sourcing bash_completion
 shopt -s cdable_vars
 export dotfiles="$HOME/dotfiles"
-source ~/dotfiles/sh/.bookmarks.sh 2> /dev/null
+source ~/dotfiles/sh/bookmarks 2> /dev/null
 
 source /usr/local/etc/bash_completion
 
@@ -66,7 +66,7 @@ alias vinp='vim ~/.inputrc && bind -f ~/.inputrc'
 alias virc='vim ~/.vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
 alias vgit='vim ~/.gitconfig'
-alias vbok='vim ~/dotfiles/sh/.bookmarks.sh'
+alias vbok='vim ~/dotfiles/sh/bookmarks'
 
 vims () {
     vim "scp://$1/$2"
