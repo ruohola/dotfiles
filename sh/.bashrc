@@ -164,7 +164,6 @@ alias glp='_gl --format=fuller --patch'
 alias glg='glf --regexp-ignore-case --grep'
 alias glG='glp --regexp-ignore-case -G'
 alias glS='glp --regexp-ignore-case --pickaxe-regex -S'
-alias gm='git switch "$(git remote show origin | awk '\''/HEAD branch/ {print $NF}'\'')"'
 alias gmt='git mergetool'
 alias gpl='git pull'
 alias gpsd='git push --delete'
@@ -186,6 +185,8 @@ alias grtp='git restore --source --patch'
 alias grv='git revert'
 alias gs='git status --untracked-files'
 alias gsk='git ls-files -v | grep --color "^[Sa-z]"'
+alias gsml='git submodule foreach '\''git log $sha1..'\'''
+alias gsmu="export -f gub gm; git submodule foreach 'gm && gub && git switch -'"
 alias gst='git stash'
 alias gsty='git stash show --patch --format=fuller'
 alias gstl='git stash list --format=medium --stat'
@@ -258,6 +259,11 @@ ghub () {
 gini () {
     # Initalize a new repository with an initial commit.
     git init "$1" && cd "$1" && git commit --allow-empty --message 'Initial commit'
+}
+gm () {
+    # Switch to the default branch.
+    # This is a function so that it can be exported in `gsmu` alias.
+    git switch "$(git remote show origin | awk '/HEAD branch/ {print $NF}')"
 }
 gms () {
     # Copy the commit message of the specified revision to the clipboard.
