@@ -286,7 +286,7 @@ inoremap <C-X> <C-O>:action CodeCompletion<CR>
 nnoremap <C-P> :action GotoPreviousError<CR>
 nnoremap <C-N> :action GotoNextError<CR>
 
-nnoremap <C-S-P> :action VcsShowPreviousChangeMarker<CR>
+nnoremap <C-S-P> :action VcsShowPrevChangeMarker<CR>
 nnoremap <C-S-N> :action VcsShowNextChangeMarker<CR>
 
 nnoremap <C-O> :action Back<CR>
