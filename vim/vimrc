@@ -249,7 +249,7 @@ set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
 set smarttab  autoindent    breakindent
 
 " show unwanted whitespace on 'set list'
-set nolist listchars=tab:>-,trail:.,nbsp:.
+set nolist listchars=tab:▷\ ,trail:•,nbsp:␣,eol:¬
 
 " search settings
 set incsearch hlsearch ignorecase smartcase gdefault
