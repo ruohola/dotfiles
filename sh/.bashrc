@@ -105,7 +105,7 @@ export LESS_TERMCAP_so=$_base03$(tput setab 12)
 export LESS_TERMCAP_ue=$_reset
 export LESS_TERMCAP_us=$_green
 
-alias rg='rg --hidden --follow --colors="match:fg:9"'
+alias rg='rg --hidden --follow --colors="match:fg:9" --glob "!**/.git/"'
 alias fd='fd --hidden --follow'
 alias rgi='rg --no-ignore'
 alias fdi='fd --no-ignore'
