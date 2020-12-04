@@ -52,7 +52,7 @@ shopt -s globstar
 
 # allow to create cd bookmarks, must be defined before sourcing bash_completion
 shopt -s cdable_vars
-export dotfiles="$HOME/dotfiles"
+export dotfiles="$HOME/dotfiles/"
 source ~/dotfiles/sh/bookmarks 2> /dev/null
 
 source /usr/local/etc/bash_completion
