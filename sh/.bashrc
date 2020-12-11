@@ -372,8 +372,8 @@ brew () {
 alias fmtbackend='yarn --cwd ~/skole backend:format'
 alias lintbackend='yarn --cwd ~/skole backend:lint'
 alias mypybackend='docker-compose run --no-deps --rm backend mypy .'
-testbackend () { docker-compose run --rm backend pytest --verbose $@ .; }
-covbackend () { docker-compose run --rm backend pytest --verbose --cov-report=html --cov=. $@ . && open ~/skole/backend/htmlcov/index.html; }
+testbackend () { docker-compose run --rm backend pytest --verbose $@; }
+covbackend () { docker-compose run --rm backend pytest --verbose --cov-report=html --cov=. $@ && open ~/skole/backend/htmlcov/index.html; }
 alias allbackend='yarn --cwd ~/skole backend:test'
 alias managebackend='docker-compose run --rm backend python manage.py'
 
