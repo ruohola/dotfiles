@@ -268,6 +268,14 @@ gm () {
     # This is a function so that it can be exported in `gsmu` alias.
     git switch "$(git remote show origin | awk '/HEAD branch/ {print $NF}')"
 }
+gmm () {
+    # Switch to the default branch, update it, and delete the feature branch that you changed from.
+    [ -n "$(git status --porcelain)" ] && echo 'not clean' && exit
+    remote=$(git remote | grep -E '(upstream|origin)' | tail -1)
+    head=$(git remote show "$remote" | awk '/HEAD branch/ {print $NF}')
+    current="$(git rev-parse --abbrev-ref HEAD)"
+    [ "$default" != "$current" ] && git switch "$head" && gub && gbd "$current"
+}
 gms () {
     # Copy the commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
