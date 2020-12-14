@@ -270,7 +270,7 @@ gm () {
 }
 gmm () {
     # Switch to the default branch, update it, and delete the feature branch that you changed from.
-    [ -n "$(git status --porcelain)" ] && echo 'not clean' && exit
+    [ -n "$(git status --porcelain --ignore-submodules)" ] && echo 'not clean' && return
     remote=$(git remote | grep -E '(upstream|origin)' | tail -1)
     head=$(git remote show "$remote" | awk '/HEAD branch/ {print $NF}')
     current="$(git rev-parse --abbrev-ref HEAD)"
@@ -300,7 +300,7 @@ gub () {
     local remote
     local head
     local current
-    status="$(git status --porcelain)"
+    status="$(git status --porcelain --ignore-submodules)"
     [ -n "$status" ] && git stash push --include-untracked
     git fetch --all --tags --prune
     remote=$(git remote | grep -E '(upstream|origin)' | tail -1)
