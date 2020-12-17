@@ -189,6 +189,7 @@ alias grv='git revert'
 alias gs='git status --untracked-files'
 alias gsk='git ls-files -v | grep --color "^[Sa-z]"'
 alias gsml='git submodule foreach '\''git log $sha1..'\'''
+alias gsms='git submodule summary'
 alias gsmu="export -f gub gm; git submodule foreach 'gm && gub && git switch -'"
 alias gst='git stash'
 alias gsty='git stash show --patch --format=fuller'
