@@ -68,7 +68,7 @@ alias vinp='vim ~/.inputrc && bind -f ~/.inputrc'
 alias virc='vim ~/.vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
 alias vgit='vim ~/.gitconfig'
-alias vbok='vim ~/dotfiles/sh/bookmarks'
+alias vbok='vim ~/dotfiles/sh/bookmarks && source ~/dotfiles/sh/bookmarks'
 
 vims () {
     vim "scp://$1/$2"
