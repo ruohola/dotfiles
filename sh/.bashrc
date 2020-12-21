@@ -444,6 +444,14 @@ fixshuup () {
     autoflake --in-place --recursive --remove-all-unused-imports --ignore-init-module-imports "${@:-.}" && isort --apply --recursive "$@"
 }
 
+fs() {
+   path="${@:-.}"
+   autoflake --in-place --recursive --remove-all-unused-imports --ignore-init-module-imports "$path" \
+       && isort "$path" \
+       && black "$path" \
+       && flake8 "$path"
+}
+
 checkshuup () {
     isort --check-only --recursive "$@" && flake8 "$@" && echo all good
 }
