@@ -176,7 +176,7 @@ xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 nnoremap <Esc> <Esc>:noh<CR>
 
 " change eol comment to line comment and vice versa
-nnoremap ä :s,^\(\s*\)\(\w.\{-}\)\s*\(\(#\\\|//\).*\)$,\1\3\r\1\2<CR>:noh<CR>
+nnoremap ä :s,^\(\s*\)\(\S.\{-}\)\s*\(\(#\\\|//\).*\)$,\1\3\r\1\2<CR>:noh<CR>
 nnoremap Ä :s,^\s*\(\(#\\\|//\).*\)$\n\(.\{-}\)\s*$,\3  \1<CR>:noh<CR>
 
 " select previously yanked text
