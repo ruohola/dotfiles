@@ -2431,7 +2431,7 @@
 					<key>precision</key>
 					<string>very_high</string>
 					<key>regex</key>
-					<string>File "(.+)", line ([0-9]+), in .+</string>
+					<string>File "(.+)", line ([0-9]+)(?:, in .+)?</string>
 				</dict>
 			</array>
 			<key>Space</key>
@@ -2513,6 +2513,8 @@
 			<string>kNextWindowPointerAction</string>
 		</dict>
 	</dict>
+	<key>PreventEscapeSequenceFromClearingHistory</key>
+	<true/>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnQuit</key>
