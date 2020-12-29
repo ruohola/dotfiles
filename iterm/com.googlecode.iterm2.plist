@@ -8,6 +8,8 @@
 	<true/>
 	<key>BootstrapDaemon</key>
 	<false/>
+	<key>CopySelection</key>
+	<false/>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>Dracula</key>
@@ -1772,6 +1774,8 @@
 	<key>DimInactiveSplitPanes</key>
 	<false/>
 	<key>DimOnlyText</key>
+	<true/>
+	<key>DisallowCopyEmptyString</key>
 	<true/>
 	<key>DoubleClickPerformsSmartSelection</key>
 	<true/>
