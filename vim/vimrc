@@ -386,16 +386,17 @@ augroup END
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
-" macvim doesn't support differentiating ctrl-i and tab
-nnoremap <C-K> <C-I>
-" to ensure that the default behavior is kept after mapping tab
-nnoremap <C-I> <C-I>
-
 " better way to indent
 nnoremap <BS> <<
 nnoremap <TAB> >>
 xnoremap <BS> <gv
 xnoremap <TAB> >gv
+
+" to ensure that the default behavior is kept after mapping tab
+nnoremap <C-I> <C-I>
+
+" macvim doesn't support differentiating ctrl-i and tab, so keep this as a fallback
+nnoremap <C-K> <C-I>
 
 " persistent visuals
 xnoremap > >gv
