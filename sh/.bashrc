@@ -362,7 +362,12 @@ dcs () { docker-compose run --rm "$1" sh -c 'if command -v bash > /dev/null; the
 dcrf () { docker-compose --file "$1" run --rm "$2"; }
 dcsf () { docker-compose --file "$1" run --rm "$2" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
 
-docker_exec_ssh () { ssh "$1" -t "docker exec -it \$(docker container ls | awk '/$2/ {print \$NF; exit}') $3; bash"; }
+dssh () {
+    ssh "$1" -t \
+        "docker exec -it \$(docker container ls | awk '/$2/ {print \$NF; exit}') \
+            sh -c ${3:-'if command -v bash > /dev/null; then bash; else sh; fi'}; \
+        bash"
+}
 
 brew () {
     if [[ "$*" == "up" ]]; then
