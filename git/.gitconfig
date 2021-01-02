@@ -12,6 +12,8 @@
 	date = format-local:%a %Y-%m-%d %H:%M
 [format]
 	pretty = format:%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(8,trunc)%aN%x08%x08 %C(auto)%s %D
+[init]
+	defaultBranch = master
 [push]
 	default = simple
 [pull]
