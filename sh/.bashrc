@@ -262,7 +262,8 @@ ghub () {
 }
 gini () {
     # Initalize a new repository with an initial commit.
-    git init "$1" && cd "$1" && git commit --allow-empty --message 'Initial commit'
+    git rev-parse --git-dir > /dev/null 2>&1 && return
+    git init "$1" && if [ "$1" != . ]; then cd "$1"; fi && git commit --allow-empty --message 'Initial commit'
 }
 gm () {
     # Switch to the default branch.
