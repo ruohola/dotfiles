@@ -463,8 +463,36 @@ checkshuup () {
 }
 
 setupproject () {
-    ~/Documents/scripts/setup_project.sh "$@"
-    cd ~/"shuup/$2/app" || exit
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+
+    cd ~/shuup
+    mkdir "$2"
+    cd "$2"
+
+    git clone "git@github.com:ruohola/$2.git" app
+    cd app
+    git remote add upstream "git@github.com:shuup/$2.git"
+
+    pyenv virtualenv 3.6.9 "$1"
+    cd ..
+    pyenv local "$1"
+    cd app
+    createdb "$1"
+
+    sed "s/__PROJECT_NAME__/$1/g" ~/Documents/scripts/.env.shuup-template > .env
+
+    pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==19.2.*
+    [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt
+    [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt
+    [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt
+
+    python setup.py build_resources
+
+    [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
+        "cd '{}' && pip install --disable-pip-version-check -e . && python setup.py build_resources"
+
+    python manage.py migrate
 }
 
 cloneshuup () {
