@@ -115,6 +115,7 @@ let g:searchindex_line_limit=100000000
 
 " xuhdev/vim-latex-live-preview
 let g:livepreview_previewer = 'open -a Skim'
+" leaving this on makes the document flicker after just moving the cursor
 let g:livepreview_cursorhold_recompile = 0
 
 " junegunn/fzf.vim
