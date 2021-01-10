@@ -261,7 +261,7 @@ gha () {
     # Use the latest commit as the default if no argument is passed.
     git rev-parse --short "${1:-HEAD}" | pbcopyn
 }
-ghub () {
+ghu () {
     # Open the GitHub link for the current repo in the browser.
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
     && open "$(echo "$remote" | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
