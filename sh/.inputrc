@@ -9,12 +9,5 @@ set menu-complete-display-prefix on
 # Append traling slash when tab completing symlinks to directories.
 set mark-symlinked-directories on
 
-# Enable incremental history search with up/down arrows.
-# Reference: http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
-"\e[A": history-search-backward
-"\e[B": history-search-forward
-"\e[C": forward-char
-"\e[D": backward-char
-
 # Unbind <Esc><Esc> from it's default tab complete.
 "\e\e":
