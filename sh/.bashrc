@@ -92,6 +92,8 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias grep='GREP_COLOR="1;91" grep --color'
 
+alias lt='languagetool --language en-US'
+
 pbcopyn () {
     # Like normal `pbcopy` but strips away all trailing newlines.
     printf '%s' "$(< /dev/stdin)" | pbcopy
