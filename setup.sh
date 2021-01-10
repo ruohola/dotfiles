@@ -9,6 +9,8 @@ cd ~ || exit  # makes sure that the symlinks are shown as relative to ~ with ls 
 
 [ ! -L .tmux.conf ] && ln -sfv dotfiles/tmux/.tmux.conf .tmux.conf
 
+[ ! -L .latexmkrc ] && ln -sfv dotfiles/tex/.latexmkrc .latexmkrc
+
 for file in .bashrc .bash_profile .zshrc .zprofile .inputrc .hushlogin; do
     [ ! -L "$file" ] && ln -sfv dotfiles/sh/"$file" "$file"
 done
