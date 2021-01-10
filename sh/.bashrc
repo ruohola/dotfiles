@@ -82,6 +82,11 @@ alias ll='ls -la'
 
 alias F='open .'  # Open Finder in the current directory.
 
+op () {
+    # Open a matching PDF file conveniently.
+    [ $# -ne 0 ] && open *"$1"*.pdf
+}
+
 alias cp='cp -v'
 alias mv='mv -v'
 alias grep='GREP_COLOR="1;91" grep --color'
