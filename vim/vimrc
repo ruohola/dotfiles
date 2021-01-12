@@ -191,12 +191,17 @@ if !exists('g:notfirstopen')
         endif
     endfor
 
-    " rebuild the spell file if the word list has changed
-    for d in glob(PathToSpellFolder . '/*.add', 1, 1)
-        if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
-            silent execute 'mkspell! ' . fnameescape(d)
-        endif
-    endfor
+    " rebuild the spell file if the word list has changed,
+    " but only if not using vim as git mergetool
+    " this avoids an annoying error when the spell file has
+    " conflict markers which result in a syntax error
+    if !&diff
+        for d in glob(PathToSpellFolder . '/*.add', 1, 1)
+            if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
+                silent execute 'mkspell! ' . fnameescape(d)
+            endif
+        endfor
+    endif
 endif
 
 if has('gui_running')
