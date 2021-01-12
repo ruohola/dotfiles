@@ -99,6 +99,13 @@ pbcopyn () {
     printf '%s' "$(< /dev/stdin)" | pbcopy
 }
 
+unzipp () {
+    # Like normal `unzip` but unzips to the directory with the same name as the zipfile.
+    # https://unix.stackexchange.com/a/489450/337515
+    echo "$1" "$(basename "$1")"
+    unzip -d ${1%.*} "$1"
+}
+
 # Colored man pages and `less`'s help.
 # mb = start blink
 # md = start bold
