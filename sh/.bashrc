@@ -341,6 +341,17 @@ gyn () {
     gy "$@"
     git config --global delta.line-numbers true
 }
+gyp () {
+    # Show the pull request where the given commit was merged.
+    # First three lines from: https://stackoverflow.com/a/30998048/9835872
+    commit="$(git rev-parse $1)"
+    branch="${2:-HEAD}"
+    merge_commit="$( (git rev-list "$commit..$branch" --ancestry-path | cat -n; git rev-list "$commit..$branch" --first-parent | cat -n) \
+        | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2 )"
+    # TODO: If not merge_commit, show PRs of that branch
+    pr="$(git log --format=%B -n 1 "$merge_commit" | sed -nr 's/^.*#([0-9]+).*$/\1/p')"
+    gh pr view "$pr"
+}
 
 __git_complete grb _git_rebase
 __git_complete gba _git_branch
