@@ -12,7 +12,7 @@ __ps1_venv () {
 }
 __ps1_git_branch () {
     # This doesn't use `git branch --show-current` because
-    # it doesn't work # with a detached HEAD.
+    # it doesn't work with a detached HEAD.
     git branch | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\) /'
 }
 __ps1_git_status () {
@@ -348,16 +348,21 @@ gyn () {
     gy "$@"
     git config --global delta.line-numbers true
 }
-gyp () {
+gym () {
     # Show the pull request where the given commit was merged.
-    # First three lines from: https://stackoverflow.com/a/30998048/9835872
-    commit="$(git rev-parse $1)"
-    branch="${2:-HEAD}"
-    merge_commit="$( (git rev-list "$commit..$branch" --ancestry-path | cat -n; git rev-list "$commit..$branch" --first-parent | cat -n) \
+    # Some reference from: https://stackoverflow.com/a/30998048/9835872
+    commit="$(git rev-parse ${1:-HEAD})"
+    merge_commit="$( (git rev-list "$commit..HEAD" --ancestry-path | cat -n; git rev-list "$commit..HEAD" --first-parent | cat -n) \
         | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2 )"
-    # TODO: If not merge_commit, show PRs of that branch
-    pr="$(git log --format=%B -n 1 "$merge_commit" | sed -nr 's/^.*#([0-9]+).*$/\1/p')"
-    gh pr view "$pr"
+
+    if [ -z "$merge_commit" ]; then
+        # The commit is still unmerged, so just show PRs from the branch it belongs to.
+        pr_arg="$(git branch --contains "$commit" | head -n 1 | sed -nE 's/\*? *([^[:space:]]+)/\1/p')"
+    else
+        # The commit was merged, so find the PR number from commit the commit it was merged in.
+        pr_arg="$(git log --format=%B -n 1 "$merge_commit" | sed -nE 's/^.*#([0-9]+).*$/\1/p')"
+    fi
+    gh pr view "$pr_arg"
 }
 
 __git_complete grb _git_rebase
