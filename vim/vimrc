@@ -54,6 +54,7 @@ Plug 'kana/vim-textobj-user'           " dependency for the previious
 
 Plug 'tpope/vim-eunuch'                " easy unix file operations
 Plug 'tpope/vim-fugitive'              " git plugin
+Plug 'rhysd/vim-grammarous'            " Use LanguageTool to check spelling and grammar
 
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
 Plug 'neoclide/coc.nvim', {'branch': 'release'}        " language-server plugin
@@ -106,6 +107,8 @@ function! s:show_documentation()
   endif
 endfunction
 
+" rhysd/vim-grammarous
+let g:grammarous#languagetool_cmd = 'languagetool'
 
 " tpope/vim-surround
 nmap S ysiW
