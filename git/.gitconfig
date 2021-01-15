@@ -37,6 +37,11 @@
 	commit-decoration-style = bold box ul
 	file-style = bold
 	line-numbers = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [includeIf "gitdir:~/skole/"]
 	path = ~/dotfiles/git/.gitconfig_skole
 [includeIf "gitdir:~/shuup/"]
