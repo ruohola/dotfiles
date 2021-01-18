@@ -501,6 +501,7 @@ setupproject () {
         eval "$(pyenv init -)"
         eval "$(pyenv virtualenv-init -)"
 
+        gh repo fork --clone=false "shuup/$2"
         git clone "git@github.com:ruohola/$2.git" ~/"shuup/$2/app"
         cd ~/"shuup/$2/app"
         git remote add upstream "git@github.com:shuup/$2.git"
