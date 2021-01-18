@@ -524,7 +524,7 @@ setupproject () {
             "cd '{}' && pip install --disable-pip-version-check -e . && python setup.py build_resources"
 
         python manage.py migrate
-    ) && ~/"shuup/$2/app"
+    ) && cd ~/"shuup/$2/app"
 }
 
 cloneshuup () {
