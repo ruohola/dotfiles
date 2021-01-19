@@ -2269,6 +2269,8 @@
 				<key>Red Component</key>
 				<real>0.0</real>
 			</dict>
+			<key>Minimum Contrast</key>
+			<real>0.16763005780346821</real>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
