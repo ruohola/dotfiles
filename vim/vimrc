@@ -351,6 +351,9 @@ noremap ; ,
 noremap g, g;
 noremap g. g,
 
+nnoremap + $
+xnoremap + $
+
 " makes these more consistent with other commands
 nnoremap Y y$
 nnoremap vv V

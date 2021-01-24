@@ -118,6 +118,9 @@ noremap , :
 noremap : ;
 noremap ; ,
 
+nnoremap + $
+xnoremap + $
+
 " make Y behave the same way as D and C
 nnoremap Y y$
 
