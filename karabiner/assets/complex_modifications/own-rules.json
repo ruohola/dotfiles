@@ -274,7 +274,8 @@
               "type": "frontmost_application_unless",
               "bundle_identifiers": [
                 "^org\\.vim\\.",
-                "^com.googlecode.iterm2"
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\."
               ]
             }
           ],
@@ -302,7 +303,8 @@
               "type": "frontmost_application_unless",
               "bundle_identifiers": [
                 "^org\\.vim\\.",
-                "^com.googlecode.iterm2"
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.jetbrains\\."
               ]
             }
           ],
