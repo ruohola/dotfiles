@@ -367,6 +367,12 @@ ghu () {
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
     && open "$(echo "$remote" | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
 }
+ghpr () {
+    # Open a pull request and copy the resulting link to clipboard.
+
+    # TODO: Only use `--fill` if we have single commit, or at least check how it behaves with multiple commits.
+    gh pr create --fill | tee >(tail -n 1 | pbcopyn)
+}
 __git_complete grb _git_rebase
 __git_complete gba _git_branch
 __git_complete gbd _git_branch
