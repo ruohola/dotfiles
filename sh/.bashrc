@@ -370,7 +370,8 @@ ghu () {
 ghpr () {
     # Open a pull request and copy the resulting link to clipboard.
 
-    # TODO: Only use `--fill` if we have single commit, or at least check how it behaves with multiple commits.
+    # FIXME: Only use `--fill` if we have single commit, otherwise it will just list all the commit subjects in the PR.
+    # FIXME: Show the complete output in the terminal, not just the copied PR link.
     gh pr create --fill | tee >(tail -n 1 | pbcopyn)
 }
 __git_complete grb _git_rebase
