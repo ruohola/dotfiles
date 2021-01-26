@@ -228,6 +228,7 @@ alias gwd='git switch --detach'
 alias gy='git show --format=fuller --first-parent'
 alias gys='gy --stat'
 
+# Git functions
 gclg () {
     # Clone a repo more easily without the full URI.
     # Usage: $ gclg username/repo-name
@@ -265,15 +266,10 @@ gdu () {
             done
     ) | delta
 }
-gha () {
+gsh () {
     # Copy the hash of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
     git rev-parse --short "${1:-HEAD}" | pbcopyn
-}
-ghu () {
-    # Open the GitHub link for the current repo in the browser.
-    remote=$(git config remote.upstream.url || git config remote.origin.url) \
-    && open "$(echo "$remote" | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
 }
 gini () {
     # Initalize a new repository with an initial commit.
@@ -365,6 +361,12 @@ gym () {
     gh pr view "$pr_arg"
 }
 
+# GitHub functions
+ghu () {
+    # Open the GitHub link for the current repo in the browser.
+    remote=$(git config remote.upstream.url || git config remote.origin.url) \
+    && open "$(echo "$remote" | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
+}
 __git_complete grb _git_rebase
 __git_complete gba _git_branch
 __git_complete gbd _git_branch
