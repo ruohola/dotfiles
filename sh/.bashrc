@@ -131,6 +131,12 @@ pyclean () {
     find . -type f -name '*.py[co]' -delete -or -type d -name __pycache__ -delete
 }
 
+wcgt () {
+    # Count the amount of new words that came in the latex file in the last commit.
+    # 'word count git tex'
+    echo $(("$(detex <(git show HEAD:"$1") | wc -w)" - "$(detex <(git show HEAD~:"$1") | wc -w)"))
+}
+
 alias fixtouchid="grep -q 'pam_tid.so' /etc/pam.d/sudo \
 || sudo sed -i '' '1 a\\
 auth       sufficient     pam_tid.so
