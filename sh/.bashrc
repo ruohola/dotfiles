@@ -386,6 +386,8 @@ ghpr () {
     else
         gh pr create
     fi
+
+    gh pr view
 }
 __git_complete grb _git_rebase
 __git_complete gba _git_branch
