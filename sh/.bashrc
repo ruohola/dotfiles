@@ -179,9 +179,9 @@ alias gd='git diff'
 alias gds='git diff --staged'
 alias gf='git fetch --all --tags --prune'
 alias _gl='git log'
-alias gl='_gl --graph'
-alias glc='gl --branches --tags'
-alias gla='gl --branches --tags --remotes'
+alias gll='_gl --graph'
+alias glc='gll --branches --tags'
+alias gl='gll --branches --tags --remotes'
 alias glf='_gl --format=fuller --name-status'
 alias glp='_gl --format=fuller --patch'
 alias glg='glf --regexp-ignore-case --grep'
@@ -634,7 +634,7 @@ gz() {
     # CTRL-H to copy commit hash
     local out shas sha q k
     while out=$(
-        gl "$@" |
+        git log --graph "$@" |
         fzf --ansi --multi --no-sort --reverse --query="$q" \
             --print-query --expect=ctrl-d,ctrl-n,ctrl-h); do
     q=$(head -1 <<< "$out")
