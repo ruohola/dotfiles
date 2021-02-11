@@ -390,6 +390,7 @@ ghpr () {
     gh pr view
 }
 __git_complete grb _git_rebase
+__git_complete grbi _git_rebase
 __git_complete gba _git_branch
 __git_complete gbd _git_branch
 __git_complete gbdf _git_branch
