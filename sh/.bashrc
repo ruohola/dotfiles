@@ -132,9 +132,14 @@ pyclean () {
 }
 
 wcgt () {
-    # Count the amount of new words that came in the latex file in the last commit.
-    # 'word count git tex'
-    echo $(("$(detex <(git show HEAD:"$1") | wc -w)" - "$(detex <(git show HEAD~:"$1") | wc -w)"))
+    # Count the amount of new words that came in a latex file after a commit.
+    # If no commit is spesified as the second argument, just show the amout
+    # that came in the newest commit. `wcgt` stands for 'word count git tex'.
+    # Usage:
+    # $ wcgt thesis.tex
+    # $ wcgt thesis.tex HEAD~3
+    commit="$(git rev-parse "${2:-HEAD~1}")"
+    echo $(("$(detex <(git show HEAD:"$1") | wc -w)" - "$(detex <(git show "$commit":"$1") | wc -w)"))
 }
 
 alias fixtouchid="grep -q 'pam_tid.so' /etc/pam.d/sudo \
