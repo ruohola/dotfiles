@@ -19,19 +19,6 @@ for file in .gitconfig .gitignore_global; do
     [ ! -L "$file" ] && ln -sfv dotfiles/git/"$file" "$file"
 done
 
-# the rest are on purpose as absolute links and not relative from ~
-
-[ ! -L /Library/Keyboard\ Layouts/Finner.keylayout ] \
-    && sudo ln -sfv ~/dotfiles/keylayouts/finner/Finner.keylayout /Library/Keyboard\ Layouts/Finner.keylayout
-
-[ ! -L ~/.config/karabiner ] \
-    && rm -rf ~/.config/karabiner && ln -sv ~/dotfiles/karabiner ~/.config/karabiner
-
-[ ! -L ~/.config/pgcli/config ] && ln -sfv ~/dotfiles/pgcli/config ~/.config/pgcli/config 
-
-[ ! -L /usr/local/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt ] \
-    && ln -sfv ~/dotfiles/vim/spell/en.utf-8.add /usr/local/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt
-
 # install vim-plug and all vim plugins
 [ ! -f ~/.vim/autoload/plug.vim ] \
     && curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -44,3 +31,16 @@ done
     && brew tap homebrew/bundle \
     && brew bundle --file=~/dotfiles/brew/Brewfile \
     && /usr/local/opt/fzf/install
+
+# the rest are on purpose as absolute links and not relative from ~
+
+[ ! -L '/Library/Keyboard Layouts/Finner.keylayout' ] \
+    && sudo ln -sfv ~/dotfiles/keylayouts/finner/Finner.keylayout '/Library/Keyboard Layouts/Finner.keylayout'
+
+[ ! -L ~/.config/karabiner ] \
+    && rm -rf ~/.config/karabiner && ln -sv ~/dotfiles/karabiner ~/.config/karabiner
+
+[ ! -L ~/.config/pgcli/config ] && ln -sfv ~/dotfiles/pgcli/config ~/.config/pgcli/config
+
+[ ! -L /usr/local/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt ] \
+    && ln -sfv ~/dotfiles/vim/spell/en.utf-8.add /usr/local/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt
