@@ -29,6 +29,9 @@ done
 
 [ ! -L ~/.config/pgcli/config ] && ln -sfv ~/dotfiles/pgcli/config ~/.config/pgcli/config 
 
+[ ! -L /usr/local/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt ] \
+    && ln -sfv ~/dotfiles/vim/spell/en.utf-8.add /usr/local/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt
+
 # install vim-plug and all vim plugins
 [ ! -f ~/.vim/autoload/plug.vim ] \
     && curl -fLo ~/.vim/autoload/plug.vim --create-dirs \

@@ -69,7 +69,7 @@ alias virc='vim ~/.vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
 alias vgit='vim ~/.gitconfig'
 alias vbok='vim ~/dotfiles/sh/bookmarks && source ~/dotfiles/sh/bookmarks'
-alias vlig='vim /usr/local/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt'
+alias vlig='vim ~/dotfiles/vim/spell/en.utf-8.add'
 
 vims () {
     vim "scp://$1/$2"
