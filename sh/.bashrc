@@ -382,9 +382,9 @@ ghpr () {
     head=$(git remote show "$remote" | awk '/HEAD branch/ {print $NF}')
 
     if [ "$(git rev-list "${remote}/${head}".. --count)" -eq 1 ]; then
-        gh pr create --fill
+        gh pr create --fill "$@"
     else
-        gh pr create
+        gh pr create "$@"
     fi
 
     gh pr view
