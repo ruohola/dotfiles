@@ -406,6 +406,7 @@ __git_complete gps _git_push
 __git_complete gpsd _git_push
 __git_complete gpsf _git_push
 __git_complete gw _git_switch
+__git_complete gwd _git_switch
 __git_complete gy _git_show
 
 
