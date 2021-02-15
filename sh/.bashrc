@@ -480,7 +480,7 @@ installshuup () {
     [[ ! "$*" =~ "--no-resources" && ! "$*" =~ "-r" ]]
     build_resources=$?
 
-    pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==19.2.*
+    pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==18.1
 
     for file in requirements.txt requirements-dev.txt requirements-test.txt; do
         if [ -f "$file" ]; then
