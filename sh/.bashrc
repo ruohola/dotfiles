@@ -544,7 +544,9 @@ setupproject () {
         cd app
         createdb "$1"
 
-        sed "s/__PROJECT_NAME__/$1/g" ~/Documents/scripts/.env.shuup-template > .env
+        sed "s/<db_name>/$1/g" .env.template > .env
+        echo "CACHE_URL=memcache://localhost:11211?key_prefix=$1" >> .env
+        echo "EMAIL_URL=consolemail://" >> .env
 
         pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==19.2.*
         [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt
