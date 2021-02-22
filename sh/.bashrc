@@ -555,9 +555,6 @@ setupproject () {
 
         python setup.py build_resources
 
-        [ -d ../shuup-packages ] && ls -d ../shuup-packages/* | xargs -I {} bash -c \
-            "cd '{}' && pip install --disable-pip-version-check -e . && python setup.py build_resources"
-
         python manage.py migrate
     ) && cd ~/"shuup/$2/app"
 }
