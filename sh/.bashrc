@@ -544,7 +544,7 @@ setupproject () {
         cd app
         createdb "$1"
 
-        sed "s/<db_name>/$1/g" .env.template > .env
+        sed -e "s/<db_name>/$1/" -e 's/root:root/postgres:/' .env.template > .env
         echo "CACHE_URL=memcache://localhost:11211?key_prefix=$1" >> .env
         echo "EMAIL_URL=consolemail://" >> .env
 
