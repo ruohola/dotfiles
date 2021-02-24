@@ -199,3 +199,6 @@ addons
 navbar
 fallbacks
 postgres
+barcodes
+checkbox
+checkboxes
