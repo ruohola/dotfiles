@@ -107,6 +107,12 @@ unzipp () {
     done
 }
 
+throttle () {
+    # Disable and enable the thottling of system processes, such as Time Machine backups.
+    # https://apple.stackexchange.com/a/240073/321512
+    sudo sysctl "debug.lowpri_throttle_enabled=$1"
+}
+
 # Colored man pages and `less`'s help.
 # mb = start blink
 # md = start bold

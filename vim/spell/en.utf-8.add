@@ -202,3 +202,7 @@ postgres
 barcodes
 checkbox
 checkboxes
+incrementing
+noindex
+Googlebot
+unthrottling
