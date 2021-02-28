@@ -289,8 +289,8 @@ set splitright                 " open splits to the right
 set splitbelow                 " open splits to the bottom
 set wildmode=list:longest,full " better tab completion on command line mode
 set undofile                   " use an undofile for persistent undo
-set undolevels=10000           " remember more undo history
-set history=1000               " remember more command history
+set undolevels=1000000000      " remember more undo history
+set history=10000              " remember maximum amount of command history
 set updatecount=10             " update swap file more often
 set matchpairs=(:),{:},[:]     " configure which braces to match
 set title                      " show the current file in the window title
