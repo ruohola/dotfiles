@@ -362,7 +362,7 @@ gyn () {
     gy "$@"
     git config --global delta.line-numbers true
 }
-gym () {
+gyp () {
     # Show the pull request where the given commit was merged.
     # Some reference from: https://stackoverflow.com/a/30998048/9835872
     commit="$(git rev-parse ${1:-HEAD})"
