@@ -387,6 +387,8 @@ ghu () {
 }
 ghpr () {
     # Open a pull request.
+    gps
+
     local remote
     local head
 
