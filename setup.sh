@@ -19,18 +19,18 @@ for file in .gitconfig .gitignore_global; do
     [ ! -L "$file" ] && ln -sfv dotfiles/git/"$file" "$file"
 done
 
-# install vim-plug and all vim plugins
-[ ! -f ~/.vim/autoload/plug.vim ] \
-    && curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
-    && vim -c "PlugClean!" -c "PlugInstall" -c "qa!"
-
 # install homebrew and all brew packages
 [ ! -f /usr/local/bin/brew ] \
     && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" \
     && brew tap homebrew/bundle \
     && brew bundle --file=~/dotfiles/brew/Brewfile \
     && /usr/local/opt/fzf/install
+
+# install vim-plug and all vim plugins
+[ ! -f ~/.vim/autoload/plug.vim ] \
+    && curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
+    && vim -c "PlugClean!" -c "PlugInstall" -c "qa!"
 
 # the rest are on purpose as absolute links and not relative from ~
 
