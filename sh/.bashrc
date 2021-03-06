@@ -314,7 +314,8 @@ gms () {
 }
 gn () { 
     # Create a new branch with the given name or switch to if it already exists.
-    git switch --create "$1" || git switch "$1"
+    # The `$@` on the create call allows to pass `<branchname> <hash>` as the arguments.
+    git switch --create "$@" || git switch "$1"
 }
 gps () {
     # Push the current branch.
@@ -413,6 +414,7 @@ __git_complete gbm _git_branch
 __git_complete gps _git_push
 __git_complete gpsd _git_push
 __git_complete gpsf _git_push
+__git_complete gn _git_switch
 __git_complete gw _git_switch
 __git_complete gwd _git_switch
 __git_complete gy _git_show
