@@ -186,6 +186,61 @@
           "type":"basic"
         }
       ]
+    },
+    {
+      "description":"Change Razer Deathadder mouse4/mouse5 to back/forward.",
+      "manipulators":[
+        {
+          "from":{
+            "pointing_button":"button4"
+          },
+          "to":[
+            {
+              "key_code":"open_bracket",
+                "modifiers":[
+                  "left_command"
+                ]
+            }
+              ],
+              "conditions":[
+                {
+                  "type":"device_if",
+                  "identifiers":[
+                    {
+                      "vendor_id":5426,
+                      "product_id":55
+                    }
+                  ]
+                }
+              ],
+              "type":"basic"
+        },
+        {
+          "from":{
+            "pointing_button":"button5"
+          },
+          "to":[
+            {
+              "key_code":"close_bracket",
+              "modifiers":[
+                "left_command"
+              ]
+            }
+          ],
+          "conditions":[
+            {
+              "type":"device_if",
+              "identifiers":[
+                {
+                  "vendor_id":5426,
+                  "product_id":55
+                }
+              ]
+            }
+          ],
+          "type":"basic"
+        }
+      ]
     }
   ]
 }
