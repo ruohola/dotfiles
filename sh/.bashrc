@@ -682,7 +682,7 @@ gz() {
 }
 
 # FIXME: These ignores don't work in MacVim, since it doesn't see the FZF_DEFAULT_COMMAND env variable.
-export FZF_IGNORES=Applications,Library,Movies,Music,Pictures,.git,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm,*cache*,.stack
+export FZF_IGNORES=Applications,Library,Movies,Music,Pictures,.git,Qt,.DS_Store,.Trash,.temp,__pycache__,venv,.pyenv,node_modules,.cache,.npm,.stack
 export FZF_DEFAULT_COMMAND='command fd --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
 export FZF_ALT_C_COMMAND='command fd --type d --type l --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
