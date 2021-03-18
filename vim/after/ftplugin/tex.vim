@@ -5,6 +5,7 @@ setlocal updatetime=1000
 setlocal spell
 
 nnoremap <nowait> <buffer> <Leader>c a~\cite{}<Left>
+nnoremap <nowait> <buffer> <Leader>t a \texttt{}<Left>
 nnoremap <nowait> <buffer> <Leader>p :LLPStartPreview<CR>
 
 setlocal tabstop=8 softtabstop=4 shiftwidth=4 expandtab
