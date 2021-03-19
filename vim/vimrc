@@ -383,6 +383,9 @@ inoremap <silent> <C-_> <Esc>[s1z=``A
 " substitute selected text
 xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
 
+" insert the current ISO date
+nnoremap <Leader>' a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+
 " easy way to run : command again for a visual selection
 xnoremap <Leader>' q:<UP>I'<,'><Esc>$
 
