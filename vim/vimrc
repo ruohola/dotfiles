@@ -455,8 +455,8 @@ tnoremap <nowait> <silent> <Esc> <Esc>
 
 " open vimrc, ideavimrc, or cocconfig
 nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
-nnoremap <silent> <Leader>cr :CocConfig<CR>
-nnoremap <silent> <Leader>ir :e $HOME/.ideavimrc<CR>
+nnoremap <silent> <Leader>vc :CocConfig<CR>
+nnoremap <silent> <Leader>vi :e $HOME/.ideavimrc<CR>
 
 nnoremap <silent> <Leader>] :windo diffthis<CR>
 nnoremap <silent> <Leader>[ :windo diffoff<CR>
