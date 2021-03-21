@@ -202,7 +202,6 @@ alias glG='glp -G'
 alias glS='glp -S'
 alias gmt='git mergetool'
 alias gpl='git pull'
-alias gpsd='git push --delete'
 alias gpsf='git push --force-with-lease'
 alias gpsu='git push --follow-tags upstream HEAD'
 alias gpsuu='gps && gpsu'
@@ -324,6 +323,18 @@ gn () {
 gps () {
     # Push the current branch.
     git push --follow-tags "$@" || { [ "$?" -eq 128 ] && git push --follow-tags --set-upstream origin HEAD; }
+}
+gpsd () {
+    # Delete a remote branch or tag.
+    # Usage: `$ gpsd origin foo` or `$ gpsd origin/foo`.
+    # Useful for copying the branch name arg from git shortlog.
+    if [[ $1 =~ / ]] && ! [[ $1 =~ /.*/ ]]; then
+        local args
+        args=(${1//\// })
+        git push --delete "${args[@]}"
+    else
+        git push --delete "$@"
+    fi
 }
 gtp () {
     # Tag a commit in the past.
