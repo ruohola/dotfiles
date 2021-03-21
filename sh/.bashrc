@@ -54,6 +54,7 @@ shopt -s globstar
 shopt -s cdable_vars
 export dotfiles="$HOME/dotfiles"
 export Desktop="$HOME/Desktop"
+export Documents="$HOME/Documents"
 export Downloads="$HOME/Downloads"
 source ~/dotfiles/sh/bookmarks 2> /dev/null
 
