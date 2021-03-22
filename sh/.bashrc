@@ -330,9 +330,8 @@ gpsd () {
     # Usage: `$ gpsd origin foo` or `$ gpsd origin/foo`.
     # Useful for copying the branch name arg from git shortlog.
     if [[ $1 =~ / ]] && ! [[ $1 =~ /.*/ ]]; then
-        local args
-        args=(${1//\// })
-        git push --delete "${args[@]}"
+        # This cannot be quoted.
+        git push --delete ${1//\// }
     else
         git push --delete "$@"
     fi
