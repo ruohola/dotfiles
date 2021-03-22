@@ -565,7 +565,7 @@ setupproject () {
         echo "CACHE_URL=memcache://localhost:11211?key_prefix=$1" >> .env
         echo "EMAIL_URL=consolemail://" >> .env
 
-        pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==19.2.*
+        pip install --disable-pip-version-check --upgrade prequ setuptools wheel psycopg2 autoflake pip==18.1
         [ -f requirements.txt ] && pip install --disable-pip-version-check -r requirements.txt
         [ -f requirements-dev.txt ] && pip install --disable-pip-version-check -r requirements-dev.txt
         [ -f requirements-test.txt ] && pip install --disable-pip-version-check -r requirements-test.txt
