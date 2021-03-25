@@ -187,6 +187,8 @@ alias gcC='git commit --reuse-message'
 alias gcl='git clone --recurse-submodules'
 alias gcli='git clean --interactive :/'
 alias gcp='git cherry-pick'
+alias gcpa='git cherry-pick --abort'
+alias gcpc='git cherry-pick --continue'
 alias gdc='git restore --worktree'
 alias gdcp='git restore --worktree --patch'
 alias gd='git diff'
@@ -223,6 +225,8 @@ alias grsh='git reset --hard'
 alias grt='git restore --source'
 alias grtp='git restore --source --patch'
 alias grv='git revert'
+alias grva='git revert --abort'
+alias grvc='git revert --continue'
 alias gs='git status --untracked-files'
 alias gsk='git ls-files -v | grep --color "^[Sa-z]"'
 alias gsml='git submodule foreach '\''git log $sha1..'\'''
@@ -419,18 +423,21 @@ ghpr () {
 
     gh pr view
 }
-__git_complete grb _git_rebase
-__git_complete grbi _git_rebase
+
 __git_complete gba _git_branch
 __git_complete gbd _git_branch
 __git_complete gbdf _git_branch
 __git_complete gbdp _git_branch
 __git_complete gbm _git_branch
+__git_complete gcp _git_cherry_pick
+__git_complete gn _git_switch
 __git_complete gps _git_push
 __git_complete gpsd _git_push
 __git_complete gpsf _git_push
-__git_complete gn _git_switch
+__git_complete grb _git_rebase
+__git_complete grbi _git_rebase
 __git_complete grmc _git_rm
+__git_complete grv _git_revert
 __git_complete gtd _git_tag
 __git_complete gw _git_switch
 __git_complete gwd _git_switch
