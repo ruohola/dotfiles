@@ -600,3 +600,9 @@ augroup FileTypes
     autocmd BufRead,BufNewFile .bashrc,.bash_profile set filetype=bash
     autocmd BufRead,BufNewFile .gitconfig* set filetype=gitconfig
 augroup END
+
+" disable coc.nvim when running vimdiff
+augroup DisableCocInDiff
+  autocmd!
+  autocmd DiffUpdated * let b:coc_enabled=0
+augroup END
