@@ -213,6 +213,7 @@ alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
 alias grbi='git rebase --interactive'
+alias grbo='git rebase --onto'
 alias gre='git remote'
 alias grea='git remote add'
 alias greao='git remote add origin'
@@ -437,6 +438,7 @@ __git_complete gpsd _git_push
 __git_complete gpsf _git_push
 __git_complete grb _git_rebase
 __git_complete grbi _git_rebase
+__git_complete grbo _git_rebase
 __git_complete grmc _git_rm
 __git_complete grs _git_reset
 __git_complete grsh _git_reset

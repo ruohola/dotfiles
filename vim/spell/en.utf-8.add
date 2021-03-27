@@ -278,3 +278,6 @@ arg
 env
 Dockerfile
 rc
+schemas
+whitelist
+rebase
