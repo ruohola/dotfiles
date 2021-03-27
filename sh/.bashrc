@@ -373,8 +373,8 @@ gub () {
 }
 gvi () {
     # Open the specified file at the given revision in vim.
-    # Usage: $ gvi HEAD~10:vim/vimrc
-    [ $# -ne 0 ] && vim -c "Gedit $*"
+    # Usage: $ gvi HEAD~10 foo/bar.txt
+    [ $# -ne 0 ] && vim -c "Gedit $1:$2"
 }
 gyn () {
     # Show the commit like with `gy`, but disable delta's line numbers for easier copying.
