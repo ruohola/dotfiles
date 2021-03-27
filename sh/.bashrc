@@ -438,6 +438,8 @@ __git_complete gpsf _git_push
 __git_complete grb _git_rebase
 __git_complete grbi _git_rebase
 __git_complete grmc _git_rm
+__git_complete grs _git_reset
+__git_complete grsh _git_reset
 __git_complete grv _git_revert
 __git_complete gtd _git_tag
 __git_complete gw _git_switch
