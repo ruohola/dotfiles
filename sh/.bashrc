@@ -708,6 +708,8 @@ export PATH="$HOME/.cargo/bin:${PATH}"
 export PATH="$HOME/.pyenv/bin:${PATH}"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
+export PATH="$HOME/.poetry/bin:${PATH}"
+
 export PATH="$HOME/.local/bin:${PATH}"
 
 export PATH="/usr/local/bin:${PATH}"
