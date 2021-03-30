@@ -47,6 +47,11 @@ HISTCONTROL=ignorespace
 HISTSIZE=
 HISTFILESIZE=
 
+# Use the Mac `ls`'s default colorscheme for `gls` (which is aliased to `ls`)
+# Mac default `LSCOLORS` from: https://www.freebsd.org/cgi/man.cgi?ls
+# `LSCOLORS` to `LS_COLORS` converter: https://geoff.greer.fm/lscolors/
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
+
 # Make ** expand to any number of directories.
 shopt -s globstar
 
@@ -80,7 +85,9 @@ alias b='cd ..'
 alias bb='cd ../..'
 alias bbb='cd ../../..'
 alias bbbb='cd ../../../..'
-alias ll='ls -la'
+
+alias ls='gls --color=auto --group-directories-first'
+alias ll='ls -l --almost-all --human-readable'
 
 alias F='open .'  # Open Finder in the current directory.
 
