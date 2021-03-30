@@ -93,7 +93,7 @@ alias F='open .'  # Open Finder in the current directory.
 
 op () {
     # Open a matching PDF file conveniently.
-    [ $# -ne 0 ] && open *"$1"*.pdf
+    [ $# -ne 0 ] && open -- *"$1"*.pdf
 }
 
 alias cp='cp -v'
@@ -111,7 +111,7 @@ unzipp () {
     # Like normal `unzip` but unzips to the directory with the same name as the zipfile.
     # https://unix.stackexchange.com/a/489450/337515
     for file in "$@"; do
-        unzip -d ${file%.*} "$file"
+        unzip -d "${file%.*}" "$file"
     done
 }
 
@@ -275,7 +275,7 @@ gbdp () {
 }
 gcf () {
     # Squash staged changes to the given commit.
-    commit="$(git rev-parse $1)" \
+    commit="$(git rev-parse "$1")" \
     && git commit --fixup "$commit" \
     && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${commit}~1"
 }
@@ -319,10 +319,13 @@ gm () {
 gmm () {
     # Switch to the default branch, update it, and delete the feature branch that you changed from.
     [ -n "$(git status --porcelain --ignore-submodules)" ] && echo 'not clean' && return
+    local remote
+    local head
+    local current
     remote=$(git remote | grep -E '(upstream|origin)' | tail -1)
     head=$(git remote show "$remote" | awk '/HEAD branch/ {print $NF}')
     current="$(git rev-parse --abbrev-ref HEAD)"
-    [ "$default" != "$current" ] && git switch "$head" && gub && gbd "$current"
+    [ "$head" != "$current" ] && git switch "$head" && gub && gbd "$current"
 }
 gms () {
     # Copy the commit message of the specified revision to the clipboard.
@@ -496,8 +499,8 @@ brew () {
 alias fmtbackend='yarn --cwd ~/skole backend:format'
 alias lintbackend='yarn --cwd ~/skole backend:lint'
 alias mypybackend='docker-compose run --no-deps --rm backend mypy .'
-testbackend () { docker-compose run --rm backend pytest --verbose $@; }
-covbackend () { docker-compose run --rm backend pytest --verbose --cov-report=html --cov=. $@ && open ~/skole/backend/htmlcov/index.html; }
+testbackend () { docker-compose run --rm backend pytest --verbose "$@"; }
+covbackend () { docker-compose run --rm backend pytest --verbose --cov-report=html --cov=. "$@" && open ~/skole/backend/htmlcov/index.html; }
 alias managebackend='docker-compose run --rm backend python manage.py'
 
 setupbackend () {
