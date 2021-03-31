@@ -577,7 +577,7 @@ setupproject () {
         cd ~/"shuup/$2/app"
         git remote add upstream "git@github.com:shuup/$2.git"
 
-        pyenv virtualenv 3.6.9 "$1"
+        pyenv virtualenv 3.6.12 "$1"
         cd ..
         pyenv local "$1"
         cd app
