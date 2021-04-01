@@ -139,8 +139,9 @@ export LESS_TERMCAP_us=$_green
 
 alias rg='rg --hidden --follow --colors="match:fg:9" --glob "!**/.git/"'
 alias fd='fd --hidden --follow'
-alias rgi='rg --no-ignore'
-alias fdi='fd --no-ignore'
+alias rgi='rg --ignore-case'
+alias rgn='rg --no-ignore'
+alias fdn='fd --no-ignore'
 
 pyclean () {
     find . -type f -name '*.py[co]' -delete -or -type d -name __pycache__ -delete
