@@ -392,16 +392,6 @@ gyn () {
 }
 
 # GitHub functions
-gclg () {
-    # Clone a repo more easily without the full URI.
-    # Usage: $ gclg username/repo-name
-    git clone --recurse-submodules "git@github.com:${1}.git"
-}
-ghu () {
-    # Open the GitHub link for the current repo in the browser.
-    remote=$(git config remote.upstream.url || git config remote.origin.url) \
-    && open "$(echo "$remote" | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
-}
 ghpr () {
     # Open a pull request.
     gps
@@ -419,6 +409,21 @@ ghpr () {
     fi
 
     gh pr view
+}
+ghrc () {
+    # Clone a repo more easily without the full URI.
+    # Usage: $ ghrc username/repo-name
+    git clone --recurse-submodules "git@github.com:${1}.git"
+}
+ghrf () {
+    # Fork and clone the given repo.
+    # Usage: $ ghrf username/repo-name
+    gh repo fork --clone "$@"
+}
+ghu () {
+    # Open the GitHub link for the current repo in the browser.
+    remote=$(git config remote.upstream.url || git config remote.origin.url) \
+    && open "$(echo "$remote" | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
 }
 gyp () {
     # Show the pull request where the given commit was merged.
