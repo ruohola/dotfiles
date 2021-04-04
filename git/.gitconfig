@@ -1,6 +1,7 @@
 [user]
 	name = Eero Ruohola
 	email = eero@ruohola.dev
+	signingKey = 6FBF8A6897FE618FE7C3E01FDC40A970DAB939A5
 [core]
 	excludesfile = /Users/eero/.gitignore_global
 	pager = delta
@@ -8,6 +9,9 @@
 	helper = osxkeychain
 [commit]
 	verbose = true
+	gpgSign = true
+[tag]
+	forceSignAnnotated = true
 [log]
 	date = format-local:%a %Y-%m-%d %H:%M
 [blame]
