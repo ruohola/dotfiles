@@ -6,6 +6,8 @@
 	pager = delta
 [credential]
 	helper = osxkeychain
+[commit]
+	verbose = true
 [log]
 	date = format-local:%a %Y-%m-%d %H:%M
 [blame]
