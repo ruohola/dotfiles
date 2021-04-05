@@ -108,7 +108,7 @@ pbcopyn () {
 }
 
 unzipp () {
-    # Like normal `unzip` but unzips to the directory with the same name as the zipfile.
+    # Like normal `unzip` but unzips to a directory with the same name as the zipfile.
     # https://unix.stackexchange.com/a/489450/337515
     for file in "$@"; do
         unzip -d "${file%.*}" "$file"

@@ -2,7 +2,7 @@
 
 let g:mapleader=' '
 
-" language settings (have to be before ä and ö mappings)
+" Language settings (have to be before ä and ö mappings).
 let $LANG='en_US'
 set spelllang=en_us
 set fileformats=unix,dos
@@ -10,7 +10,7 @@ set fileencodings=ucs-bom,utf-8,default,latin1
 set encoding=utf-8
 scriptencoding utf-8
 
-" vim file locations
+" Vim file locations.
 let VimFolder = '/.vim'
 let PathToPluginsFolder = $HOME . VimFolder . '/plugins'
 let PathToSpellFolder = $HOME . VimFolder . '/spell'
@@ -26,46 +26,46 @@ let g:netrw_dirhistmax=0
 
 " ============= PLUGINS =============
 
-packadd! matchit  " enable the built-in plugin
+packadd! matchit  " Enable the built-in plugin.
 
 call plug#begin(PathToPluginsFolder)
 
 Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'                " fuzzy file finding
+Plug 'junegunn/fzf.vim'                " Fuzzy file finding
 
-Plug 'google/vim-searchindex'          " better search [x/y]
-Plug 'terryma/vim-smooth-scroll'       " smooth scrolling
-Plug 'machakann/vim-highlightedyank'   " highlight yanks
-Plug 'markonm/traces.vim'              " live substitution
+Plug 'google/vim-searchindex'          " Better search [x/y]
+Plug 'terryma/vim-smooth-scroll'       " Smooth scrolling
+Plug 'machakann/vim-highlightedyank'   " Highlight yanks
+Plug 'markonm/traces.vim'              " Live substitution
 
-Plug 'easymotion/vim-easymotion'       " jump to any position
-Plug 'simnalamburt/vim-mundo'          " graphical undotree
+Plug 'easymotion/vim-easymotion'       " Jump to any position
+Plug 'simnalamburt/vim-mundo'          " Graphical undotree
 
-Plug 'tpope/vim-surround'              " edit braces easily
-Plug 'tpope/vim-commentary'            " comment out lines
-Plug 'tpope/vim-repeat'                " repeat plugin commands
-Plug 'vim-scripts/ReplaceWithRegister' " operator to replace text
-Plug 'wellle/targets.vim'              " more text objects
-Plug 'tommcdo/vim-exchange'            " change two objects
-Plug 'tpope/vim-abolish'               " more advanced substitute etc
-Plug 'tommcdo/vim-lion'                " alignment operator
-Plug 'kana/vim-textobj-entire'         " text object for the entire buffer
-Plug 'kana/vim-textobj-user'           " dependency for the previious
+Plug 'tpope/vim-surround'              " Edit braces easily
+Plug 'tpope/vim-commentary'            " Comment out lines
+Plug 'tpope/vim-repeat'                " Repeat plugin commands
+Plug 'vim-scripts/ReplaceWithRegister' " Operator to replace text
+Plug 'wellle/targets.vim'              " More text objects
+Plug 'tommcdo/vim-exchange'            " Change two objects
+Plug 'tpope/vim-abolish'               " More advanced substitute etc
+Plug 'tommcdo/vim-lion'                " Alignment operator
+Plug 'kana/vim-textobj-entire'         " Text object for the entire buffer
+Plug 'kana/vim-textobj-user'           " Dependency for the previous
 
-Plug 'tpope/vim-eunuch'                " easy unix file operations
-Plug 'tpope/vim-fugitive'              " git plugin
+Plug 'tpope/vim-eunuch'                " Easy unix file operations
+Plug 'tpope/vim-fugitive'              " Git plugin
 Plug 'rhysd/vim-grammarous'            " Use LanguageTool to check spelling and grammar
 
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " live preview for latex
-Plug 'neoclide/coc.nvim', {'branch': 'release'}        " language-server plugin
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for latex
+Plug 'neoclide/coc.nvim', {'branch': 'release'}        " Language-server plugin
 
-" filetypes
+" Filetypes
 Plug 'jparise/vim-graphql'
 Plug 'cespare/vim-toml'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'hashivim/vim-terraform'
 
-" colorshemes
+" Colorshemes
 Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
@@ -164,28 +164,28 @@ nnoremap <silent> <C-F> :<C-U>call smooth_scroll#down(&scroll*2, 0, 6)<CR>
 
 " ============= GENERAL =============
 
-" set these only when vim starts, not when sourcing vimrc
+" Set these only when vim starts, not when sourcing vimrc.
 if !exists('g:notfirstopen')
     let g:notfirstopen=1
 
     set termguicolors
     set background=dark
 
-    colorscheme solarized8  " messes up Mundo if loaded again
+    colorscheme solarized8  " Messes up Mundo if loaded again.
 
     if has('gui_running')
-        set lines=40 columns=120  " initial window size
-        " changing font moves the window
+        set lines=40 columns=120  " Initial window size.
+        " Changing font moves the window.
         set guifont=Menlo:h16
     endif
 
     syntax enable
 
     highlight Comment term=NONE ctermfg=10 gui=NONE guifg=#586e75
-    " make solarized8 terminal and gui cursor the same color
+    " Make solarized8 terminal and gui cursor the same color.
     highlight Cursor ctermfg=15 ctermbg=4 guifg=#073642 guibg=#839496
 
-    " make sure that the temp file locations exists
+    " Make sure that the temp file locations exists.
     if !isdirectory(PathToTempFolder)
         call mkdir(PathToTempFolder)
     endif
@@ -195,10 +195,10 @@ if !exists('g:notfirstopen')
         endif
     endfor
 
-    " rebuild the spell file if the word list has changed,
-    " but only if not using vim as git mergetool
-    " this avoids an annoying error when the spell file has
-    " conflict markers which result in a syntax error
+    " Rebuild the spell file if the word list has changed
+    " but only if not using vim as git mergetool.
+    " This avoids an annoying error when the spell file has
+    " conflict markers which result in a syntax error.
     if !&diff
         for d in glob(PathToSpellFolder . '/*.add', 1, 1)
             if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
@@ -209,13 +209,13 @@ if !exists('g:notfirstopen')
 endif
 
 if has('gui_running')
-    " GUI specific settings
+    " GUI specific settings.
     set guioptions=
     " Cursor is a vertical bar in insert mode and a block in normal mode.
     set guicursor+=a:blinkon0
     set guicursor+=i-ci:ver20-blinkon0
 else
-    " terminal specific settings
+    " Terminal specific settings.
     set mouse=a
     if $TERM =~ "xterm-256color"
         set ttymouse=sgr
@@ -225,7 +225,7 @@ else
     endif
 endif
 
-" visuals
+" Visuals
 set cursorline
 set number
 set showmode showcmd
@@ -233,68 +233,68 @@ set report=1
 set cmdheight=2
 set hlsearch
 
-" statusline
-set laststatus=2                                           " always show statusline
-set statusline=                                            " clear statusline
-set statusline+=%l                                         " current line number
-set statusline+=/%L                                        " total lines
-set statusline+=(%p%%)                                     " percentage through the file
-set statusline+=%4c                                        " cursor column
-set statusline+=\|%-4{strwidth(getline('.'))}              " line length
+" Statusline
+set laststatus=2                                           " Always show statusline
+set statusline=                                            " Clear statusline
+set statusline+=%l                                         " Current line number
+set statusline+=/%L                                        " Total lines
+set statusline+=(%p%%)                                     " Percentage through the file
+set statusline+=%4c                                        " Cursor column
+set statusline+=\|%-4{strwidth(getline('.'))}              " Line length
 set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'/'.expand('%:t'):expand('%')}  " dir/filename.ext
-set statusline+=%m                                         " modified flag
-set statusline+=%r                                         " read only flag
-set statusline+=%=                                         " left/right separator
-set statusline+=\ \|\ %{substitute(getcwd(),$HOME,'~','')} " current working directory
-set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}       " filetype
-set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''}      " file encoding
-set statusline+=%{&ff}]                                    " line endings
-set statusline+=%<                                         " start to truncate here
+set statusline+=%m                                         " Modified flag
+set statusline+=%r                                         " Read only flag
+set statusline+=%=                                         " Left/right separator
+set statusline+=\ \|\ %{substitute(getcwd(),$HOME,'~','')} " Current working directory
+set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}       " Filetype
+set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''}      " File encoding
+set statusline+=%{&ff}]                                    " Line endings
+set statusline+=%<                                         " Start to truncate here
 
-" line wrapping
+" Line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0
 
-" indentation settings
+" Indentation settings
 set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
 set smarttab  autoindent    breakindent
 
-" show unwanted whitespace on 'set list'
+" Show unwanted whitespace on 'set list'.
 set nolist listchars=tab:▷\ ,trail:•,nbsp:␣,eol:¬
 
-" search settings
+" Search settings
 set incsearch hlsearch ignorecase smartcase gdefault
 
-" no errorbells
+" No errorbells
 set noerrorbells
 augroup NoVisualBells
     autocmd!
     autocmd GUIEnter * set visualbell t_vb=
 augroup END
 
-" mixed settings
-filetype plugin indent on      " auto detect filetype
-let g:is_posix=1               " make sh filetype be posix shell compliant
-set clipboard=unnamed          " use system clipboard, unnamedplus doesn't work with gvim
-set timeoutlen=1000            " timeout for keymappings
-set formatoptions=qlj          " don't autocontinue comment lines, remove comment when joining
-set nojoinspaces               " don't put two spaces after a period when using `J` or `gq`
-set pumheight=12               " max height for the autocompletion popup
-set nomodeline                 " don't try to parse commands from opened file
-set ttimeoutlen=0              " remove delay from esc
-set backspace=indent,eol,start " make backspace behave normally
-set hidden                     " switch to another buffer without saving
-set autoread                   " update changes to file automatically
-set scrolloff=1                " pad cursor row with lines
-set splitright                 " open splits to the right
-set splitbelow                 " open splits to the bottom
-set wildmode=list:longest,full " better tab completion on command line mode
-set undofile                   " use an undofile for persistent undo
-set undolevels=1000000000      " remember more undo history
-set history=10000              " remember maximum amount of command history
-set updatecount=10             " update swap file more often
-set matchpairs=(:),{:},[:]     " configure which braces to match
-set title                      " show the current file in the window title
-set titleold=                  " restore the old window title after exiting
+" Mixed settings
+filetype plugin indent on      " Auto detect filetype
+let g:is_posix=1               " Make sh filetype be posix shell compliant
+set clipboard=unnamed          " Use system clipboard, unnamedplus doesn't work with gvim
+set timeoutlen=1000            " Timeout for keymappings
+set formatoptions=qlj          " Don't autocontinue comment lines, remove comment when joining
+set nojoinspaces               " Don't put two spaces after a period when using `J` or `gq`
+set pumheight=12               " Max height for the autocompletion popup
+set nomodeline                 " Don't try to parse commands from opened file
+set ttimeoutlen=0              " Remove delay from esc
+set backspace=indent,eol,start " Make backspace behave normally
+set hidden                     " Switch to another buffer without saving
+set autoread                   " Update changes to file automatically
+set scrolloff=1                " Pad cursor row with lines
+set splitright                 " Open splits to the right
+set splitbelow                 " Open splits to the bottom
+set wildmode=list:longest,full " Better tab completion on command line mode
+set undofile                   " Use an undofile for persistent undo
+set undolevels=1000000000      " Remember more undo history
+set history=10000              " Remember maximum amount of command history
+set updatecount=10             " Update swap file more often
+set matchpairs=(:),{:},[:]     " Configure which braces to match
+set title                      " Show the current file in the window title
+set titleold=                  " Restore the old window title after exiting
 set shortmess=SacO             " S: no [x/y] when searching (plugin handles that)
                                " a: shorter prompt messages
                                " c: no ins completion messages
@@ -303,18 +303,18 @@ set shortmess=SacO             " S: no [x/y] when searching (plugin handles that
 
 " ============= MAPPINGS =============
 
-" make j and k populate the jump list, when used with a count
+" Make j and k populate the jump list, when used with a count.
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 
 if has('gui_running')
-    " move between splits (alt+hjkl)
+    " Move between splits (alt+hjkl).
     nnoremap ← <C-W>h
     nnoremap ↓ <C-W>j
     nnoremap ↑ <C-W>k
     nnoremap → <C-W>l
 
-    " cycle tabs (alt+ui)
+    " Cycle tabs (alt+ui).
     nnoremap <silent>ü :tabprevious<CR>
     nnoremap <silent>↔︎ :tabnext<CR>
 
@@ -325,13 +325,13 @@ if has('gui_running')
     tnoremap <silent>ü <C-W>:tabprevious<CR>
     tnoremap <silent>↔︎ <C-W>:tabnext<CR>
 else
-    " move between splits (alt+hjkl)
+    " Move between splits (alt+hjkl).
     nnoremap è <C-W>h
     nnoremap ê <C-W>j
     nnoremap ë <C-W>k
     nnoremap ì <C-W>l
 
-    " cycle tabs (alt+ui)
+    " Cycle tabs (alt+ui).
     nnoremap <silent> õ :tabprevious<CR>
     nnoremap <silent> é :tabnext<CR>
 
@@ -343,7 +343,7 @@ else
     tnoremap <silent> é <C-W>:tabnext<CR>
 endif
 
-" makes these easier to use
+" Makes these easier to use.
 noremap , :
 tnoremap <C-W>, <C-W>:
 noremap : ;
@@ -354,42 +354,42 @@ noremap g. g,
 nnoremap + $
 xnoremap + $
 
-" makes these more consistent with other commands
+" Makes these more consistent with other commands.
 nnoremap Y y$
 nnoremap vv V
 nnoremap V <C-V>$
 
-" cleaner to use when cursor doesn't move
+" Cleaner to use when cursor doesn't move.
 nnoremap J Jh
 
-" make K the logical opposite of J
+" Make K the logical opposite of J.
 nnoremap K a<CR><Esc>k$
 
-" select previously yanked text
+" Select previously yanked text.
 nnoremap gb `[v`]
 
-" paste to the next or previous line
+" Paste to the next or previous line.
 nnoremap gp o<Esc>p^
 nnoremap gP O<Esc>p^
 
-" go to the first occurrence of the symbol in the filename
+" Go to the first occurrence of the symbol in the filename.
 nnoremap <silent> gf :set nohlsearch<CR>"zyiwgg/\C\<<C-R>z\><CR>:set hlsearch<Bar>noh<CR>
 
-" fix the closest spell check error before the cursor and return back to writing
-" this is actually used with `CTRL + -`
+" Fix the closest spell check error before the cursor and return back to writing.
+" This is actually used with `CTRL + -`.
 nnoremap <silent> <C-_> [s1z=``$
 inoremap <silent> <C-_> <Esc>[s1z=``A
 
-" substitute selected text
+" Substitute selected text.
 xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
 
-" insert the current ISO date
+" Insert the current ISO date.
 nnoremap <Leader>' a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 
-" easy way to run : command again for a visual selection
+" Easy way to run : command again for a visual selection.
 xnoremap <Leader>' q:<UP>I'<,'><Esc>$
 
-" change enter behavior
+" Change enter behavior.
 augroup EnterMappings
     autocmd!
     autocmd BufEnter * if &buftype !=# 'nofile'
@@ -399,64 +399,64 @@ augroup EnterMappings
     autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 augroup END
 
-" make C-U and C-W undoable
+" Make C-U and C-W undoable.
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
-" to ensure that the default behavior is kept after mapping tab
+" To ensure that the default behavior is kept after mapping tab.
 nnoremap <C-I> <C-I>
 
-" better way to indent
+" Better way to indent.
 nnoremap <BS> <<
 nnoremap <TAB> >>
 xnoremap <BS> <gv
 xnoremap <TAB> >gv
 
-" macvim doesn't support differentiating ctrl-i and tab, so keep this as a fallback
+" Macvim doesn't support differentiating ctrl-i and tab, so keep this as a fallback.
 nnoremap <C-K> <C-I>
 
-" persistent visuals
+" Persistent visuals.
 xnoremap > >gv
 xnoremap < <gv
 xnoremap <C-X> <C-X>gv
 xnoremap <C-A> <C-A>gv
 
-" Q plays back q macro
+" Q plays back q macro.
 nnoremap Q @q
 
-" repeat the last substitution
+" Repeat the last substitution..
 nnoremap & :&&<CR>
 xnoremap & :s//~/&<CR>:noh<CR>
 
-" search for selected text
+" Search for selected text.
 xnoremap * "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
 xnoremap # "zy?\V<C-R>=escape(@z,'?\')<CR><CR>
 
-" easier substitution
+" Easier substitution.
 nnoremap <Leader>, :%s/
 xnoremap <Leader>, :s/
 
-" split line on a comma
+" Split line on a comma.
 nnoremap \ f,a<CR><Esc>^
 
-" split function arguments or list members into their own lines
+" Split function arguments or list members into their own lines.
 nnoremap <Leader>\ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:noh<CR>`qv%=`q
 
-" type a delimiter for splitting the line into separate lines
+" Type a delimiter for splitting the line into separate lines.
 nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 
-" clear highlights
-" we need this noop mapping before, otherwise
-" the esc mapping will just *completely* break
+" Clear highlights.
+" We need this noop mapping before, otherwise
+" the esc mapping will just *completely* break.
 nnoremap <Esc>\ <Esc>\
 nnoremap <nowait> <silent> <Esc> <Esc>:noh<CR>
 
-" removes delay from closing fzf search popup
+" Removes delay from closing fzf search popup.
 tnoremap <Esc>\ <Esc>\
 tnoremap <nowait> <silent> <Esc> <Esc>
 
-" open vimrc, ideavimrc, or cocconfig
+" Open vimrc, ideavimrc, or cocconfig.
 nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>vc :CocConfig<CR>
 nnoremap <silent> <Leader>vi :e $HOME/.ideavimrc<CR>
@@ -468,21 +468,21 @@ nnoremap <silent> <Leader>[ :windo diffoff<CR>
 
 " ============= COMMANDS =============
 
-" vim-plug commands
+" `vim-plug` commands.
 command! PI silent! w | PlugInstall
 command! PC silent! w | PlugClean!
 command! PU w | PlugUpgrade | PlugUpdate
 
-" source vimrc
+" Source vimrc.
 command! SO so $MYVIMRC
 
-" insert contents of command to buffer
+" Insert contents of command to buffer.
 command! -nargs=1 RE call RED('<args>')
 
-" change the contents of a register
+" Change the contents of a register.
 command! -nargs=1 CR call ChangeReg('<args>')
 
-" change working directory to current file's directory
+" Change working directory to current file's directory.
 command! CD cd %:p:h
 
 
@@ -518,7 +518,7 @@ function! RunCommandInSplitTerm(command) abort
 endfunction
 
 
-" insert blank lines before current line
+" Insert blank lines before current line.
 function! s:BlankUp(count) abort
     norm! mq
     for i in range(a:count)
@@ -528,7 +528,7 @@ function! s:BlankUp(count) abort
 endfunction
 
 
-" insert blank lines after current line
+" Insert blank lines after current line.
 function! s:BlankDown(count) abort
     norm! mq
     for i in range(a:count)
@@ -538,7 +538,7 @@ function! s:BlankDown(count) abort
 endfunction
 
 
-" redir command's output to the current line
+" Redirect command's output to the current line.
 function! RED(command)
     redir => output
     silent execute a:command
@@ -557,14 +557,14 @@ endfunction
 
 " ============= AUTOCMD =============
 
-" source vimrc when it's saved
+" Source vimrc when it's saved.
 augroup ReloadVimrc
     autocmd!
     autocmd BufWritePost *vimrc so $MYVIMRC
 augroup END
 
 
-" open help windows in a new tab
+" Open help windows in a new tab.
 augroup HelpOpen
     autocmd!
     autocmd BufRead *.txt if &buftype ==? 'help'
@@ -573,14 +573,14 @@ augroup HelpOpen
 augroup END
 
 
-" clear trailing whitespace when saving vimrc
+" Clear trailing whitespace when saving vimrc.
 augroup TrimWhitespace
     autocmd!
     autocmd BufWritePre *vimrc :%s/\s\+$//e
 augroup END
 
 
-" restore the last cursor position when opening a file
+" Restore the last cursor position when opening a file.
 " https://vimhelp.org/usr_05.txt.html#last-position-jump
 augroup RestoreCursorPosition
     autocmd!
@@ -591,7 +591,7 @@ augroup RestoreCursorPosition
 augroup END
 
 
-" automatically activate some filetypes
+" Automatically activate some filetypes.
 augroup FileTypes
     autocmd!
     autocmd BufRead,BufNewFile Dockerfile* set filetype=dockerfile
@@ -602,7 +602,7 @@ augroup FileTypes
     autocmd BufRead,BufNewFile poetry.lock set filetype=toml
 augroup END
 
-" disable coc.nvim when running vimdiff
+" Disable coc.nvim when running vimdiff.
 augroup DisableCocInDiff
   autocmd!
   autocmd DiffUpdated * let b:coc_enabled=0
