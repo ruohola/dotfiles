@@ -408,6 +408,9 @@ ghpr () {
         gh pr create "$@"
     fi
 
+    # Copy the PR URL to clipboard.
+    gh pr view | awk '/^url/ {print $2}' | pbcopyn
+
     gh pr view
 }
 ghrc () {
