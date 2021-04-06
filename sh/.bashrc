@@ -604,10 +604,7 @@ setupproject () {
 cloneshuup () {
     pushd .
     cd ~/shuup || exit
-    gh repo fork --clone=false "shuup/$1"
-    git clone "git@github.com:ruohola/$1.git"
-    cd "$1" || exit
-    git remote add upstream "git@github.com:shuup/$1.git"
+    ghrf "shuup/$1"
     popd || exit
 }
 
