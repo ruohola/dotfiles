@@ -193,12 +193,12 @@ nnoremap gP O<Esc>p^
 " =========== IDEAVIM MAPPINGS ===========
 
 nnoremap gf "zyiwgg/\C\\<\\><Left><Left><BS><C-R>z<CR>:noh<CR>
-nnoremap gd :action GotoDeclarationOnly<CR>
-nnoremap gr :action GotoRelated<CR>
-nnoremap gs :action GotoSuperMethod<CR>
-nnoremap gt :action GotoTypeDeclaration<CR>
-nnoremap gy :action GotoTest<CR>
-nnoremap go ?^class <CR>f(Egeb:action GotoDeclarationOnly<CR>:noh<CR>
+nmap gd <Action>(GotoDeclarationOnly)
+nmap gr <Action>(GotoRelated)
+nmap gs <Action>(GotoSuperMethod)
+nmap gt <Action>(GotoTypeDeclaration)
+nmap gy <Action>(GotoTest)
+nmap go ?^class <CR>f(Egeb<Action>(GotoDeclarationOnly):noh<CR>
 
 " motions around jinja tags, these don't work perfectly, pretty rard to improve though
 nnoremap cij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR>
@@ -211,73 +211,73 @@ nmap yij vijy
 nmap yaj vajy
 
 " makes using marks a lot better, ` mapping clashes with surround
-nnoremap ' :action ShowBookmarks<CR>
-nnoremap m :action ToggleBookmarkWithMnemonic<CR>
+nmap ' <Action>(ShowBookmarks)
+nmap m <Action>(ToggleBookmarkWithMnemonic)
 
 " these only make sense as ideavim mappings,
 " since vim defines so many ]x mappings
-nnoremap [ :action MethodUp<CR>
-nnoremap ] :action MethodDown<CR>
+nmap [ <Action>(MethodUp)
+nmap ] <Action>(MethodDown)
 
-noremap  <Leader>a :action GotoAction<CR>
-nnoremap <Leader>b :action ToggleLineBreakpoint<CR>
-nnoremap <Leader>c :action GotoClass<CR>
-nnoremap <Leader>d :action QuickJavaDoc<CR>
-nnoremap <Leader>e :action Run<CR>
-nnoremap <Leader>f :action GotoFile<CR>
-nnoremap <Leader>g :action ManageRecentProjects<CR>
-nnoremap <Leader>h :action FileStructurePopup<CR>
-nnoremap <Leader>i :action QuickImplementations<CR>
-nnoremap <Leader>j :action ShowNavBar<CR>
-noremap  <Leader>k mo:action KJumpAction<CR>
-nnoremap <Leader>l :action FindInPath<CR>
-nnoremap <Leader>m :action RecentChangedFiles<CR>
-nnoremap <Leader>n :action LocalHistory.ShowHistory<CR>
-xnoremap <Leader>n :action LocalHistory.ShowSelectionHistory<CR>
-nnoremap <Leader>o :action ShowReformatFileDialog<CR>
-xnoremap <Leader>o :action ReformatCode<CR>
-nnoremap <Leader>p :action PasteMultiple<CR>
-nnoremap <Leader>q :action ChooseRunConfiguration<CR>
-nnoremap <Leader>r :action RenameElement<CR>
-nnoremap <Leader>s :action GotoSymbol<CR>
-noremap  <Leader>t :action ExpressionTypeInfo<CR>
-nnoremap <Leader>u :action ShowUsages<CR>
-nnoremap <Leader>v :action ViewBreakpoints<CR>
-nnoremap <Leader>w :action Debug<CR>
-noremap  <Leader>x :action Refactorings.QuickListPopupAction<CR>
-nnoremap <Leader>y :action ShowErrorDescription<CR>
-nnoremap <Leader>z :action RenameFile<CR>
+map  <Leader>a <Action>(GotoAction)
+nmap <Leader>b <Action>(ToggleLineBreakpoint)
+nmap <Leader>c <Action>(GotoClass)
+nmap <Leader>d <Action>(QuickJavaDoc)
+nmap <Leader>e <Action>(Run)
+nmap <Leader>f <Action>(GotoFile)
+nmap <Leader>g <Action>(ManageRecentProjects)
+nmap <Leader>h <Action>(FileStructurePopup)
+nmap <Leader>i <Action>(QuickImplementations)
+nmap <Leader>j <Action>(ShowNavBar)
+map  <Leader>k mo<Action>(KJumpAction)
+nmap <Leader>l <Action>(FindInPath)
+nmap <Leader>m <Action>(RecentChangedFiles)
+nmap <Leader>n <Action>(LocalHistory.ShowHistory)
+xmap <Leader>n <Action>(LocalHistory.ShowSelectionHistory)
+nmap <Leader>o <Action>(ShowReformatFileDialog)
+xmap <Leader>o <Action>(ReformatCode)
+nmap <Leader>p <Action>(PasteMultiple)
+nmap <Leader>q <Action>(ChooseRunConfiguration)
+nmap <Leader>r <Action>(RenameElement)
+nmap <Leader>s <Action>(GotoSymbol)
+map  <Leader>t <Action>(ExpressionTypeInfo)
+nmap <Leader>u <Action>(ShowUsages)
+nmap <Leader>v <Action>(ViewBreakpoints)
+nmap <Leader>w <Action>(Debug)
+map  <Leader>x <Action>(Refactorings.QuickListPopupAction)
+nmap <Leader>y <Action>(ShowErrorDescription)
+nmap <Leader>z <Action>(RenameFile)
 nnoremap <Leader>ä :s,^\(.\{-}\)\s*\(\(#\\\|//\).*\)$,\1<CR>:noh<CR>
-nnoremap <Leader>ö :action HighlightUsagesInFile<CR>
+nmap <Leader>ö <Action>(HighlightUsagesInFile)
 
-nnoremap <Leader>< :action NewFile<CR>
-noremap  <Leader>] :action SurroundWith<CR>
-noremap  <Leader>[ :action Unwrap<CR>
-nnoremap <Leader>' :action Generate<CR>
+nmap <Leader>< <Action>(NewFile)
+map  <Leader>] <Action>(SurroundWith)
+map  <Leader>[ <Action>(Unwrap)
+nmap <Leader>' <Action>(Generate)
 
-nnoremap <Leader>1 :action InspectCode<CR>
-nnoremap <Leader>2 :action DebugClass<CR>
-nnoremap <Leader>3 :action RunClass<CR>
-nnoremap <Leader>4 :action Vcs.ShowTabbedFileHistory<CR>
-xnoremap <Leader>4 :action Vcs.ShowHistoryForBlock<CR>
-nnoremap <Leader>5 :action Annotate<CR>
-nnoremap <Leader>6 :action Compare.SameVersion<CR>
-nnoremap <Leader>7 :action ReplaceInPath<CR>
-nnoremap <Leader>8 :action ToggleBreakpointEnabled<CR>
-nnoremap <Leader>9 :action GotoImplementation<CR>
+nmap <Leader>1 <Action>(InspectCode)
+nmap <Leader>2 <Action>(DebugClass)
+nmap <Leader>3 <Action>(RunClass)
+nmap <Leader>4 <Action>(Vcs.ShowTabbedFileHistory)
+xmap <Leader>4 <Action>(Vcs.ShowHistoryForBlock)
+nmap <Leader>5 <Action>(Annotate)
+nmap <Leader>6 <Action>(Compare.SameVersion)
+nmap <Leader>7 <Action>(ReplaceInPath)
+nmap <Leader>8 <Action>(ToggleBreakpointEnabled)
+nmap <Leader>9 <Action>(GotoImplementation)
 
-nnoremap <Leader><Esc> :action MarkNotificationsAsRead<CR>
+nmap <Leader><Esc> <Action>(MarkNotificationsAsRead)
 
 nnoremap <S-Space>J "zdiWi{{<Esc>"zp
 vnoremap <S-Space>J "zdi{{<Esc>"zp
 
-nnoremap <C-H> :action ParameterInfo<CR>
-nnoremap <C-J> :action EditorCloneCaretBelow<CR>
-nnoremap <C-K> :action EditorCloneCaretAbove<CR>
-inoremap <C-H> <C-O>:action ParameterInfo<CR>
-inoremap <C-J> <C-O>:action EditorCloneCaretBelow<CR>
-inoremap <C-K> <C-O>:action EditorCloneCaretAbove<CR>
-inoremap <C-X> <C-O>:action CodeCompletion<CR>
+nmap <C-H> <Action>(ParameterInfo)
+nmap <C-J> <Action>(EditorCloneCaretBelow)
+nmap <C-K> <Action>(EditorCloneCaretAbove)
+imap <C-H> <Action>(ParameterInfo)
+imap <C-J> <Action>(EditorCloneCaretBelow)
+imap <C-K> <Action>(EditorCloneCaretAbove)
+imap <C-X> <Action>(CodeCompletion)
 
 " mapped in the IDE
 " -----------------
@@ -286,25 +286,25 @@ inoremap <C-X> <C-O>:action CodeCompletion<CR>
 " <C-M> clone caret to next occurrence
 " <C-,> unclone caret from occurrence
 
-nnoremap <C-P> :action GotoPreviousError<CR>
-nnoremap <C-N> :action GotoNextError<CR>
+nmap <C-P> <Action>(GotoPreviousError)
+nmap <C-N> <Action>(GotoNextError)
 
-nnoremap <C-S-P> :action VcsShowPrevChangeMarker<CR>
-nnoremap <C-S-N> :action VcsShowNextChangeMarker<CR>
+nmap <C-S-P> <Action>(VcsShowPrevChangeMarker)
+nmap <C-S-N> <Action>(VcsShowNextChangeMarker)
 
-nnoremap <C-O> :action Back<CR>
-nnoremap <C-I> :action Forward<CR>
+nmap <C-O> <Action>(Back)
+nmap <C-I> <Action>(Forward)
 
-nnoremap <C-2> :action ActivateProjectToolWindow<CR>
-nnoremap <C-3> :action ActivateRunToolWindow<CR>
-nnoremap <C-4> :action ActivateDebugToolWindow<CR>
-nnoremap <C-5> :action ActivateTerminalToolWindow<CR>
-nnoremap <C-6> :action ActivatePythonConsoleToolWindow<CR>
-nnoremap <C-7> :action ActivateVersionControlToolWindow<CR>
-nnoremap <C-8> :action CallHierarchy<CR>
-nnoremap <C-9> :action TypeHierarchy<CR>
-nnoremap <C-0> :action Django.RunManageTaskAction<CR>
+nmap <C-2> <Action>(ActivateProjectToolWindow)
+nmap <C-3> <Action>(ActivateRunToolWindow)
+nmap <C-4> <Action>(ActivateDebugToolWindow)
+nmap <C-5> <Action>(ActivateTerminalToolWindow)
+nmap <C-6> <Action>(ActivatePythonConsoleToolWindow)
+nmap <C-7> <Action>(ActivateVersionControlToolWindow)
+nmap <C-8> <Action>(CallHierarchy)
+nmap <C-9> <Action>(TypeHierarchy)
+nmap <C-0> <Action>(Django.RunManageTaskAction)
 
-nnoremap <F10> :action ExportSettings<CR>
-nnoremap <F11> :action ImportSettings<CR>
+nmap <F10> <Action>(ExportSettings)
+nmap <F11> <Action>(ImportSettings)
 nnoremap <F12> :source ~/.ideavimrc<CR>
