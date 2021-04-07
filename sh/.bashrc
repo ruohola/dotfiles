@@ -102,9 +102,14 @@ alias grep='GREP_COLOR="1;91" grep --color'
 
 alias lt='languagetool --language en-US'
 
+trail () {
+    # Use as a pipe to remove all trailing newlines from the input.
+    printf '%s' "$(< /dev/stdin)"
+}
+
 pbcopyn () {
     # Like normal `pbcopy` but strips away all trailing newlines.
-    printf '%s' "$(< /dev/stdin)" | pbcopy
+    trail | pbcopy
 }
 
 unzipp () {
