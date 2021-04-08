@@ -244,6 +244,7 @@ alias grva='git revert --abort'
 alias grvc='git revert --continue'
 alias gs='git status --untracked-files'
 alias gsk='git ls-files -v | grep --color "^[Sa-z]"'
+alias gsm='git submodule'
 alias gsml='git submodule foreach '\''git log $sha1..'\'''
 alias gsms='git submodule summary'
 alias gsmu="export -f gub gm; git submodule foreach 'gm && gub && git switch -'"
