@@ -198,7 +198,7 @@ nmap gr <Action>(GotoRelated)
 nmap gs <Action>(GotoSuperMethod)
 nmap gt <Action>(GotoTypeDeclaration)
 nmap gy <Action>(GotoTest)
-nmap go ?^class <CR>f(Egeb<Action>(GotoDeclarationOnly):noh<CR>
+nnoremap go ?^class <CR>f(Egeb: action GotoDeclarationOnly<CR>:noh<CR>
 
 " motions around jinja tags, these don't work perfectly, pretty rard to improve though
 nnoremap cij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR>
@@ -229,7 +229,7 @@ nmap <Leader>g <Action>(ManageRecentProjects)
 nmap <Leader>h <Action>(FileStructurePopup)
 nmap <Leader>i <Action>(QuickImplementations)
 nmap <Leader>j <Action>(ShowNavBar)
-map  <Leader>k mo<Action>(KJumpAction)
+noremap  <Leader>k mo:action KJumpAction<CR>
 nmap <Leader>l <Action>(FindInPath)
 nmap <Leader>m <Action>(RecentChangedFiles)
 nmap <Leader>n <Action>(LocalHistory.ShowHistory)
