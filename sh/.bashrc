@@ -126,6 +126,11 @@ throttle () {
     sudo sysctl "debug.lowpri_throttle_enabled=$1"
 }
 
+flushdns () {
+    # https://support.apple.com/en-ca/HT202516
+    sudo killall -HUP mDNSResponder && echo 'DNS cache cleared'
+}
+
 # Colored man pages and `less`'s help.
 # mb = start blink
 # md = start bold
