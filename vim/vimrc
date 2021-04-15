@@ -171,6 +171,7 @@ if !exists('g:notfirstopen')
     set termguicolors
     set background=dark
 
+    let g:solarized_italics=0
     colorscheme solarized8  " Messes up Mundo if loaded again.
 
     if has('gui_running')
