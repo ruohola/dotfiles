@@ -431,13 +431,13 @@ ghpr () {
 }
 ghrc () {
     # Clone a repo more easily without the full URI.
-    # Usage: $ ghrc username/repo-name
-    git clone --recurse-submodules "git@github.com:${1}.git"
+    # Usage: $ ghrc username repo-name
+    git clone --recurse-submodules "git@github.com:${1}/${2}.git" "${@:3}"
 }
 ghrf () {
     # Fork and clone the given repo.
-    # Usage: $ ghrf username/repo-name
-    gh repo fork --clone "$@"
+    # Usage: $ ghrf username repo-name
+    gh repo fork --clone "${1}/${2}" "${@:3}"
 }
 ghu () {
     # Open the GitHub link for the current repo in the browser.
