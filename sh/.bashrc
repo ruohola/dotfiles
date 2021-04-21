@@ -7,8 +7,9 @@ _yellow=$(tput setaf 3);  _orange=$(tput setaf 9);  _red=$(tput setaf 1);     _m
 _violet=$(tput setaf 13); _blue=$(tput setaf 4);    _cyan=$(tput setaf 6);    _green=$(tput setaf 2);
 _bold=$(tput bold);       _underlined=$(tput smul); _reset=$(tput sgr0);      tput sgr0;
 
+__global_python="$(cat ~/.pyenv/version)"
 __ps1_venv () {
-    pyenv version-name | grep --invert-match '^system$' | sed -E 's/(.*)/\(\1\) /'
+    pyenv version-name | grep --invert-match "^${__global_python}$" | sed -E 's/(.*)/(\1) /'
 }
 __ps1_git_branch () {
     # This doesn't use `git branch --show-current` because
