@@ -87,7 +87,7 @@ alias bbb='cd ../../..'
 alias bbbb='cd ../../../..'
 
 alias ls='gls --color=auto --group-directories-first'
-alias ll='ls -l --almost-all --human-readable'
+alias ll='ls -l --almost-all --human-readable --time-style=long-iso'
 
 alias F='open .'  # Open Finder in the current directory.
 
