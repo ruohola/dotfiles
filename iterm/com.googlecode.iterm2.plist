@@ -2565,6 +2565,8 @@
 	<false/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
+	<key>WorkAroundBigSurBug</key>
+	<true/>
 	<key>disableMetalWhenUnplugged</key>
 	<true/>
 	<key>findMode_iTerm</key>
