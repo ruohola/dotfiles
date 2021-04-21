@@ -61,6 +61,7 @@ export dotfiles="$HOME/dotfiles"
 export Desktop="$HOME/Desktop"
 export Documents="$HOME/Documents"
 export Downloads="$HOME/Downloads"
+export tmp="$HOME/tmp"
 source ~/dotfiles/sh/bookmarks 2> /dev/null
 
 source /usr/local/etc/bash_completion
