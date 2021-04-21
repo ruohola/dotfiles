@@ -519,6 +519,14 @@ brew () {
     fi
 }
 
+poetry () {
+    if [[ "$1" == "install" ]]; then
+        command poetry install --no-root "${@:2}"
+    else
+        command poetry "$@"
+    fi
+}
+
 
 # Skole
 alias setupbackend='yarn --cwd ~/skole backend:setup'
