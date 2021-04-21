@@ -40,6 +40,9 @@ export LANG=en_US.UTF-8
 # When the shell exits, append to the history file instead of overwriting it.
 shopt -s histappend
 
+# Make new shells get access to history of all currently running shells.
+export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
 # Don't add commands starting with a space to the history.
 HISTCONTROL=ignorespace
 
