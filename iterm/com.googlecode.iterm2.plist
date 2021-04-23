@@ -2495,11 +2495,6 @@
 			<key>Action</key>
 			<string>kContextMenuPointerAction</string>
 		</dict>
-		<key>Button,2,1,,</key>
-		<dict>
-			<key>Action</key>
-			<string>kPasteFromClipboardPointerAction</string>
-		</dict>
 		<key>Gesture,ThreeFingerSwipeDown,,</key>
 		<dict>
 			<key>Action</key>
@@ -2521,8 +2516,6 @@
 			<string>kNextWindowPointerAction</string>
 		</dict>
 	</dict>
-	<key>PreventEscapeSequenceFromClearingHistory</key>
-	<true/>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnQuit</key>
