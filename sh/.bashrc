@@ -19,6 +19,10 @@ __ps1_git_branch () {
 __ps1_git_status () {
     [ -n "$(git status --porcelain)" ] && printf '\b*'
 }
+__ps1_reset_title () {
+    # https://gitlab.com/gnachman/iterm2/-/issues/5659#note_553863324
+    printf '\e]0;\7'
+}
 # Solarized colored prompt: (venv) path/to/dir (branch)*$
 export PS1="\
 \$(__ps1_venv 2> /dev/null)\
@@ -26,6 +30,7 @@ export PS1="\
 \[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
 \[$_reset\]\[\$(__ps1_git_status 2> /dev/null)\]\
 \[$_cyan\]\$ \[$_reset\]\
+\$(__ps1_reset_title)\
 "
 export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
 
