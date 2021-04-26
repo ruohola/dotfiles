@@ -25,12 +25,12 @@ __ps1_reset_title () {
 }
 # Solarized colored prompt: (venv) path/to/dir (branch)*$
 export PS1="\
+\[\$(__ps1_reset_title)\]\
 \$(__ps1_venv 2> /dev/null)\
 \[$_cyan\]\w \
 \[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
 \[$_reset\]\[\$(__ps1_git_status 2> /dev/null)\]\
 \[$_cyan\]\$ \[$_reset\]\
-\$(__ps1_reset_title)\
 "
 export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
 
