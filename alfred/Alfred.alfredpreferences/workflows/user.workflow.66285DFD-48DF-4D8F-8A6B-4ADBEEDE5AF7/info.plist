@@ -6,29 +6,6 @@
 	<string></string>
 	<key>connections</key>
 	<dict>
-		<key>0C855F2B-147B-4342-8EB6-8971D0836DF6</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>ECEBF9A5-D6CE-457C-A084-13B048A93744</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>92C6D800-B74C-4859-811D-85ABBA0AB865</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 		<key>7C321AC5-3A29-42BE-994A-F23820B0C82E</key>
 		<array>
 			<dict>
@@ -44,29 +21,6 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
-		<key>A2E47DA8-31AF-4DD4-BBF3-012502C2B348</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>ECEBF9A5-D6CE-457C-A084-13B048A93744</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>1962B30F-9D20-4478-A1BF-D06C56FA6904</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -171,25 +125,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>browser</key>
-				<string></string>
-				<key>spaces</key>
-				<string></string>
-				<key>url</key>
-				<string>https://www.google.com/search?q=site:docs.djangoproject.com/en/+{query}</string>
-				<key>utf8</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
-			<key>uid</key>
-			<string>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
@@ -216,75 +151,14 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>https://www.google.com/search?q=https://jinja.octoprint.org/+{query}</string>
+				<string>https://www.google.com/search?q=site:docs.djangoproject.com/en/+{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.openurl</string>
 			<key>uid</key>
-			<string>1962B30F-9D20-4478-A1BF-D06C56FA6904</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>ji</string>
-				<key>subtext</key>
-				<string></string>
-				<key>text</key>
-				<string>Jinja2 docs</string>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>A2E47DA8-31AF-4DD4-BBF3-012502C2B348</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>browser</key>
-				<string></string>
-				<key>spaces</key>
-				<string></string>
-				<key>url</key>
-				<string>https://github.com/search?q=org%3Ashuup+"{query}"&amp;type=Code</string>
-				<key>utf8</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
-			<key>uid</key>
-			<string>92C6D800-B74C-4859-811D-85ABBA0AB865</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>sh</string>
-				<key>subtext</key>
-				<string></string>
-				<key>text</key>
-				<string>Shuup repos</string>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>0C855F2B-147B-4342-8EB6-8971D0836DF6</string>
+			<string>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -293,13 +167,6 @@
 	<string></string>
 	<key>uidata</key>
 	<dict>
-		<key>0C855F2B-147B-4342-8EB6-8971D0836DF6</key>
-		<dict>
-			<key>xpos</key>
-			<integer>55</integer>
-			<key>ypos</key>
-			<integer>500</integer>
-		</dict>
 		<key>1222513C-3B3C-4FCC-9146-6AA3807453F1</key>
 		<dict>
 			<key>xpos</key>
@@ -307,33 +174,12 @@
 			<key>ypos</key>
 			<integer>120</integer>
 		</dict>
-		<key>1962B30F-9D20-4478-A1BF-D06C56FA6904</key>
-		<dict>
-			<key>xpos</key>
-			<integer>375</integer>
-			<key>ypos</key>
-			<integer>375</integer>
-		</dict>
 		<key>7C321AC5-3A29-42BE-994A-F23820B0C82E</key>
 		<dict>
 			<key>xpos</key>
 			<integer>55</integer>
 			<key>ypos</key>
 			<integer>245</integer>
-		</dict>
-		<key>92C6D800-B74C-4859-811D-85ABBA0AB865</key>
-		<dict>
-			<key>xpos</key>
-			<integer>375</integer>
-			<key>ypos</key>
-			<integer>500</integer>
-		</dict>
-		<key>A2E47DA8-31AF-4DD4-BBF3-012502C2B348</key>
-		<dict>
-			<key>xpos</key>
-			<integer>55</integer>
-			<key>ypos</key>
-			<integer>375</integer>
 		</dict>
 		<key>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</key>
 		<dict>
