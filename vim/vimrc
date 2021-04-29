@@ -84,6 +84,10 @@ let g:coc_global_extensions = [
     \ 'coc-yaml',
 \]
 
+let g:coc_filetype_map = {
+    \ 'bash': 'sh',
+\}
+
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 
