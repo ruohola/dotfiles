@@ -1,6 +1,5 @@
 {
   "suggest.noselect": false,
-  "python.jediEnabled": false,
   "languageserver": {
     "ccls": {
       "command": "ccls",

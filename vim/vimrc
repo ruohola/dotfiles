@@ -73,8 +73,8 @@ call plug#end()
 " neoclide/coc.nvim
 let g:coc_global_extensions = [
     \ 'coc-docker',
+    \ 'coc-jedi',
     \ 'coc-json',
-    \ 'coc-python',
     \ 'coc-rls',
     \ 'coc-sh',
     \ 'coc-tsserver',
