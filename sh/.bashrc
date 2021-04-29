@@ -105,6 +105,8 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias grep='GREP_COLOR="1;91" grep --color'
 
+export LESS='--chop-long-lines'
+
 alias lt='languagetool --language en-US'
 
 trail () {
