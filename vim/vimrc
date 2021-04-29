@@ -71,6 +71,15 @@ call plug#end()
 
 
 " neoclide/coc.nvim
+let g:coc_global_extensions = [
+    \ 'coc-docker',
+    \ 'coc-json',
+    \ 'coc-python',
+    \ 'coc-rls',
+    \ 'coc-sh',
+    \ 'coc-tsserver',
+    \ 'coc-yaml',
+\]
 
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
