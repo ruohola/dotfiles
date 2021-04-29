@@ -320,3 +320,5 @@ cron
 pyproject
 toml
 pragma
+coc
+vimtex
