@@ -56,7 +56,7 @@ Plug 'tpope/vim-eunuch'                " Easy unix file operations
 Plug 'tpope/vim-fugitive'              " Git plugin
 Plug 'rhysd/vim-grammarous'            " Use LanguageTool to check spelling and grammar
 
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for latex
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for LaTeX
 Plug 'lervag/vimtex',                 { 'for': 'tex' } " LaTeX automompletion and more
 Plug 'neoclide/coc.nvim', {'branch': 'release'}        " Language-server plugin
 
@@ -197,8 +197,12 @@ if !exists('g:notfirstopen')
     syntax enable
 
     highlight Comment term=NONE ctermfg=10 gui=NONE guifg=#586e75
+
     " Make solarized8 terminal and gui cursor the same color.
     highlight Cursor ctermfg=15 ctermbg=4 guifg=#073642 guibg=#839496
+
+    " Remove light blug background from matching parenthesis.
+    highlight MatchParen term=reverse cterm=bold ctermbg=6 gui=bold guifg=#fdf6e3 guibg=NONE
 
     " Make sure that the temp file locations exists.
     if !isdirectory(PathToTempFolder)
