@@ -351,7 +351,7 @@ gms () {
     # Use the latest commit as the default if no argument is passed.
     git log --format=%B -n 1 "${1:-HEAD}" | pbcopyn
 }
-gn () { 
+gn () {
     # Create a new branch with the given name or switch to if it already exists.
     # The `$@` on the create call allows to pass `<branchname> <hash>` as the arguments.
     git switch --create "$@" || git switch "$1"
@@ -553,7 +553,7 @@ __fzf_vim__ () {
     file="$(echo "${file}" | sed 's/ $//')"
     [ -z "${file}" ] || echo vim "${file}"
 }
-gz() {
+gz () {
     # Git commit browser
     # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
     # Enter to show commit
