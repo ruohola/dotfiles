@@ -379,6 +379,8 @@ gub () {
     local remote
     local head
     local current
+
+    git pull
     status="$(git status --porcelain --ignore-submodules)"
     [ -n "$status" ] && git stash push --include-untracked
     git fetch --all --tags --prune
