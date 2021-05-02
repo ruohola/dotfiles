@@ -261,7 +261,7 @@ alias gsk='git ls-files -v | grep --color "^[Sa-z]"'
 alias gsm='git submodule'
 alias gsml='git submodule foreach '\''git log $sha1..'\'''
 alias gsms='git submodule summary'
-alias gsmu="export -f gub gm; git submodule foreach 'gm && gub && git switch -'"
+alias gsmu="export -f gub gm; git submodule foreach 'gm && gub'"
 alias gst='git stash'
 alias gsty='git stash show --patch --format=fuller'
 alias gstl='git stash list --format=medium --stat'
