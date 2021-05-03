@@ -23,8 +23,8 @@ done
 [ ! -f /usr/local/bin/brew ] \
     && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" \
     && brew tap homebrew/bundle \
-    && brew bundle install --file=~/dotfiles/brew/Brewfile \
-    && /usr/local/opt/fzf/install
+    && { brew bundle install --file=~/dotfiles/brew/Brewfile;
+        /usr/local/opt/fzf/install; }
 
 # install vim-plug and all vim plugins
 [ ! -f ~/.vim/autoload/plug.vim ] \
