@@ -2,5 +2,5 @@
 
 Installation:
 ```
-cd && git clone git@github.com:ruohola/dotfiles.git && dotfiles/setup.sh
+cd && git clone --recurse-submodules git@github.com:ruohola/dotfiles.git && dotfiles/setup.sh
 ```
