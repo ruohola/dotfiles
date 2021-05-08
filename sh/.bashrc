@@ -380,7 +380,7 @@ gub () {
     local head
     local current
 
-    git pull
+    git pull 2> /dev/null
     status="$(git status --porcelain --ignore-submodules)"
     [ -n "$status" ] && git stash push --include-untracked
     git fetch --all --tags --prune
