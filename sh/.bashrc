@@ -58,11 +58,11 @@ shopt -s globstar
 
 # allow to create cd bookmarks, must be defined before sourcing bash_completion
 shopt -s cdable_vars
-export dotfiles="$HOME/dotfiles"
-export Desktop="$HOME/Desktop"
-export Documents="$HOME/Documents"
-export Downloads="$HOME/Downloads"
-export tmp="$HOME/tmp"
+export dotfiles="${HOME}/dotfiles"
+export Desktop="${HOME}/Desktop"
+export Documents="${HOME}/Documents"
+export Downloads="${HOME}/Downloads"
+export tmp="${HOME}/tmp"
 source ~/dotfiles/sh/bookmarks 2> /dev/null
 
 source /usr/local/etc/bash_completion
@@ -594,17 +594,17 @@ export FZF_ALT_C_COMMAND='command fd --type d --type l --hidden --no-ignore --ex
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_COMPLETION_TRIGGER='*'
 
-export PATH="$HOME/.cargo/bin:${PATH}"
+export PATH="${HOME}/.cargo/bin:${PATH}"
 
-export PATH="$HOME/.pyenv/bin:${PATH}"
+export PATH="${HOME}/.pyenv/bin:${PATH}"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
-export PATH="$HOME/.poetry/bin:${PATH}"
+export PATH="${HOME}/.poetry/bin:${PATH}"
 
-export PATH="$HOME/.local/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${PATH}"
 
 export PATH="/usr/local/bin:${PATH}"
-export PATH="$HOME/dotfiles/shell/exported:${PATH}"
+export PATH="${HOME}/dotfiles/shell/exported:${PATH}"
 export PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
 
 export DOCKER_BUILDKIT=1
