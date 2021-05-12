@@ -607,8 +607,6 @@ export PATH="/usr/local/bin:${PATH}"
 export PATH="$HOME/dotfiles/shell/exported:${PATH}"
 export PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
 
-export PYTHONWARNINGS=ignore::UserWarning:setuptools.distutils_patch:26,ignore::UserWarning:_distutils_hack:19
-
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 export BUILDKIT_PROGRESS=plain
