@@ -6,6 +6,19 @@
 	<string></string>
 	<key>connections</key>
 	<dict>
+		<key>1D832A08-F343-4046-A448-7E70F40365B3</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4419065E-274A-40AB-8C2A-69DB80669A90</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>7C321AC5-3A29-42BE-994A-F23820B0C82E</key>
 		<array>
 			<dict>
@@ -125,6 +138,25 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>https://www.google.com/search?q=site:docs.djangoproject.com/en/+{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
@@ -151,14 +183,35 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>https://www.google.com/search?q=site:docs.djangoproject.com/en/+{query}</string>
+				<string>https://www.google.com/search?q=site:pypi.org+{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.openurl</string>
 			<key>uid</key>
-			<string>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</string>
+			<string>4419065E-274A-40AB-8C2A-69DB80669A90</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>pypi</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>PyPI</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>1D832A08-F343-4046-A448-7E70F40365B3</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -174,6 +227,20 @@
 			<key>ypos</key>
 			<integer>120</integer>
 		</dict>
+		<key>1D832A08-F343-4046-A448-7E70F40365B3</key>
+		<dict>
+			<key>xpos</key>
+			<integer>60</integer>
+			<key>ypos</key>
+			<integer>370</integer>
+		</dict>
+		<key>4419065E-274A-40AB-8C2A-69DB80669A90</key>
+		<dict>
+			<key>xpos</key>
+			<integer>380</integer>
+			<key>ypos</key>
+			<integer>370</integer>
+		</dict>
 		<key>7C321AC5-3A29-42BE-994A-F23820B0C82E</key>
 		<dict>
 			<key>xpos</key>
@@ -184,7 +251,7 @@
 		<key>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</key>
 		<dict>
 			<key>xpos</key>
-			<integer>375</integer>
+			<integer>380</integer>
 			<key>ypos</key>
 			<integer>245</integer>
 		</dict>
