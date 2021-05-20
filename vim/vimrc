@@ -121,6 +121,14 @@ function! s:show_documentation()
     endif
 endfunction
 
+" lervag/vimtex
+let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-pdf',
+    \   '-shell-escape',
+    \ ],
+\}
+
 " rhysd/vim-grammarous
 let g:grammarous#languagetool_cmd = 'languagetool'
 
