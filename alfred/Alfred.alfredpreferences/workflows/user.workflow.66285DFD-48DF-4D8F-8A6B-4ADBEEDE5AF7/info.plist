@@ -42,6 +42,29 @@
 				<false/>
 			</dict>
 		</array>
+		<key>A6C9C2B1-D567-4D2E-98C0-0F9ECB2A8BF5</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>ECEBF9A5-D6CE-457C-A084-13B048A93744</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>996A9BB9-F0C4-47F7-AB44-3FA5FC42AE19</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>D0E29595-DCEF-4CBE-8CBA-A6E34D54BDFC</key>
 		<array>
 			<dict>
@@ -57,6 +80,29 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>1222513C-3B3C-4FCC-9146-6AA3807453F1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>FC135199-4217-4FD2-BAEF-2ED80D9FF6EA</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>ECEBF9A5-D6CE-457C-A084-13B048A93744</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>80F3EBB2-BE9D-4FB9-AAC2-A28BFBF7DD03</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -138,25 +184,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>browser</key>
-				<string></string>
-				<key>spaces</key>
-				<string></string>
-				<key>url</key>
-				<string>https://www.google.com/search?q=site:docs.djangoproject.com/en/+{query}</string>
-				<key>utf8</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
-			<key>uid</key>
-			<string>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
@@ -172,6 +199,25 @@
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
 			<string>7C321AC5-3A29-42BE-994A-F23820B0C82E</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>https://www.google.com/search?q=site:docs.djangoproject.com/en/+{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -215,6 +261,86 @@
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>js</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>JavaScript docs</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>A6C9C2B1-D567-4D2E-98C0-0F9ECB2A8BF5</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>https://www.google.com/search?q=site:developer.mozilla.org/en-US/docs/Web/JavaScript+{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>996A9BB9-F0C4-47F7-AB44-3FA5FC42AE19</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>ts</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>TypeScript docs</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>FC135199-4217-4FD2-BAEF-2ED80D9FF6EA</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>https://www.google.com/search?q=site:www.typescriptlang.org/docs/+{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>80F3EBB2-BE9D-4FB9-AAC2-A28BFBF7DD03</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -248,6 +374,27 @@
 			<key>ypos</key>
 			<integer>245</integer>
 		</dict>
+		<key>80F3EBB2-BE9D-4FB9-AAC2-A28BFBF7DD03</key>
+		<dict>
+			<key>xpos</key>
+			<integer>380</integer>
+			<key>ypos</key>
+			<integer>630</integer>
+		</dict>
+		<key>996A9BB9-F0C4-47F7-AB44-3FA5FC42AE19</key>
+		<dict>
+			<key>xpos</key>
+			<integer>380</integer>
+			<key>ypos</key>
+			<integer>500</integer>
+		</dict>
+		<key>A6C9C2B1-D567-4D2E-98C0-0F9ECB2A8BF5</key>
+		<dict>
+			<key>xpos</key>
+			<integer>60</integer>
+			<key>ypos</key>
+			<integer>500</integer>
+		</dict>
 		<key>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</key>
 		<dict>
 			<key>xpos</key>
@@ -268,6 +415,13 @@
 			<integer>245</integer>
 			<key>ypos</key>
 			<integer>10</integer>
+		</dict>
+		<key>FC135199-4217-4FD2-BAEF-2ED80D9FF6EA</key>
+		<dict>
+			<key>xpos</key>
+			<integer>60</integer>
+			<key>ypos</key>
+			<integer>630</integer>
 		</dict>
 	</dict>
 	<key>webaddress</key>
