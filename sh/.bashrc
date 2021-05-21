@@ -604,8 +604,9 @@ export PATH="${HOME}/.poetry/bin:${PATH}"
 export PATH="${HOME}/.local/bin:${PATH}"
 
 export PATH="/usr/local/bin:${PATH}"
-export PATH="${HOME}/dotfiles/shell/exported:${PATH}"
 export PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
+
+export PATH="/usr/local/opt/llvm/bin/:${PATH}"
 
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
