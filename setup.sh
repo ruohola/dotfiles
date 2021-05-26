@@ -50,10 +50,12 @@ done
 
 
 # Remove delay from Dock.
+# https://apple.stackexchange.com/a/70598/321512
 defaults write com.apple.dock autohide-delay -int 0
 defaults write com.apple.dock autohide-time-modifier -int 0
 killall Dock
 
 # Disable mouse acceleration
 # (also needs https://downloads.steelseriescdn.com/drivers/tools/steelseries-exactmouse-tool.dmg)
+# https://apple.stackexchange.com/a/151552/321512
 defaults write .GlobalPreferences com.apple.mouse.scaling -1
