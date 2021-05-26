@@ -59,3 +59,7 @@ killall Dock
 # (also needs https://downloads.steelseriescdn.com/drivers/tools/steelseries-exactmouse-tool.dmg)
 # https://apple.stackexchange.com/a/151552/321512
 defaults write .GlobalPreferences com.apple.mouse.scaling -1
+
+# Disable holding key for special character popup, needs logging out to take effect.
+# https://apple.stackexchange.com/a/332770/321512
+defaults write -g ApplePressAndHoldEnabled -bool false
