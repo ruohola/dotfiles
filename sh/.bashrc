@@ -596,9 +596,6 @@ export FZF_COMPLETION_TRIGGER='*'
 
 export PATH="${HOME}/.cargo/bin:${PATH}"
 
-export PATH="${HOME}/.pyenv/bin:${PATH}"
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-
 export PATH="${HOME}/.poetry/bin:${PATH}"
 
 export PATH="${HOME}/.local/bin:${PATH}"
@@ -616,7 +613,10 @@ export BUILDKIT_PROGRESS=plain
 export BAT_THEME='Solarized (dark)'
 
 # Need to be after all PATH settings.
-eval "$(pyenv init -)"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH="${PYENV_ROOT}/bin:${PATH}"
+eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 
 pyenv_list () {
