@@ -49,8 +49,6 @@ Plug 'wellle/targets.vim'              " More text objects
 Plug 'tommcdo/vim-exchange'            " Change two objects
 Plug 'tpope/vim-abolish'               " More advanced substitute etc
 Plug 'tommcdo/vim-lion'                " Alignment operator
-Plug 'kana/vim-textobj-entire'         " Text object for the entire buffer
-Plug 'kana/vim-textobj-user'           " Dependency for the previous
 
 Plug 'tpope/vim-eunuch'                " Easy unix file operations
 Plug 'tpope/vim-fugitive'              " Git plugin

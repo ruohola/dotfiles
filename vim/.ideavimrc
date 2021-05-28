@@ -10,7 +10,6 @@ set argtextobj
 set ReplaceWithRegister
 set exchange
 set highlightedyank
-set textobj-entire
 
 " highlightedyank
 let g:highlightedyank_highlight_duration = '300'
