@@ -5,6 +5,7 @@ setlocal updatetime=1000
 setlocal spell
 
 nnoremap <nowait> <buffer> <Leader>c a~\cite{}<Left>
+nnoremap <nowait> <buffer> <Leader>r a~\ref{}<Left>
 nnoremap <nowait> <buffer> <Leader>i a \textit{}<Left>
 nnoremap <nowait> <buffer> <Leader>t a \texttt{}<Left>
 nnoremap <nowait> <buffer> <Leader>p :LLPStartPreview<CR>
