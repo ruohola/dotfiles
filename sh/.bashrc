@@ -65,7 +65,7 @@ export Downloads="${HOME}/Downloads"
 export tmp="${HOME}/tmp"
 source ~/dotfiles/sh/bookmarks 2> /dev/null
 
-source /usr/local/etc/bash_completion
+[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 
 alias vvrc='vim ~/.vim/vimrc'
 alias vbrc='vim ~/.bashrc && source ~/.bashrc'
