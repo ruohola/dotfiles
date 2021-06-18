@@ -648,3 +648,7 @@ bind '"\C-x\C-v": quoted-insert'
 
 # Remap fzf cd to dir from ALT-C to CTRL-F.
 bind '"\C-f": "\ec"'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
