@@ -132,7 +132,11 @@ throttle () {
 
 flushdns () {
     # https://support.apple.com/en-ca/HT202516
-    sudo killall -HUP mDNSResponder && echo 'DNS cache cleared'
+    # https://apple.stackexchange.com/a/365958/321512
+    sudo killall -HUP mDNSResponder \
+        && sudo killall mDNSResponderHelper \
+        && sudo dscacheutil -flushcache \
+        && echo 'DNS cache cleared'
 }
 
 alert () {
