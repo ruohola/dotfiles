@@ -19,6 +19,29 @@
 				<false/>
 			</dict>
 		</array>
+		<key>4DC84137-38C7-43EB-950F-1266E709517A</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>ECEBF9A5-D6CE-457C-A084-13B048A93744</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>43F83342-2E64-4E00-A04D-032D90E18378</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>7C321AC5-3A29-42BE-994A-F23820B0C82E</key>
 		<array>
 			<dict>
@@ -184,6 +207,25 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>https://www.google.com/search?q=site:docs.djangoproject.com/en/+{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
@@ -199,25 +241,6 @@
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
 			<string>7C321AC5-3A29-42BE-994A-F23820B0C82E</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>browser</key>
-				<string></string>
-				<key>spaces</key>
-				<string></string>
-				<key>url</key>
-				<string>https://www.google.com/search?q=site:docs.djangoproject.com/en/+{query}</string>
-				<key>utf8</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
-			<key>uid</key>
-			<string>AD68FEBD-E6F4-4FE1-97B7-1D5700934CC8</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -264,6 +287,25 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>https://www.google.com/search?q=site:developer.mozilla.org/en-US/docs/Web/JavaScript+{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>996A9BB9-F0C4-47F7-AB44-3FA5FC42AE19</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
@@ -290,14 +332,14 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>https://www.google.com/search?q=site:developer.mozilla.org/en-US/docs/Web/JavaScript+{query}</string>
+				<string>https://www.google.com/search?q=site:www.typescriptlang.org/docs/+{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.openurl</string>
 			<key>uid</key>
-			<string>996A9BB9-F0C4-47F7-AB44-3FA5FC42AE19</string>
+			<string>80F3EBB2-BE9D-4FB9-AAC2-A28BFBF7DD03</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -330,14 +372,35 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>https://www.google.com/search?q=site:www.typescriptlang.org/docs/+{query}</string>
+				<string>https://www.google.com/search?q=site:https://www.django-rest-framework.org+{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.openurl</string>
 			<key>uid</key>
-			<string>80F3EBB2-BE9D-4FB9-AAC2-A28BFBF7DD03</string>
+			<string>43F83342-2E64-4E00-A04D-032D90E18378</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>drf</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>DRF docs</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>4DC84137-38C7-43EB-950F-1266E709517A</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -360,12 +423,26 @@
 			<key>ypos</key>
 			<integer>370</integer>
 		</dict>
+		<key>43F83342-2E64-4E00-A04D-032D90E18378</key>
+		<dict>
+			<key>xpos</key>
+			<integer>380</integer>
+			<key>ypos</key>
+			<integer>760</integer>
+		</dict>
 		<key>4419065E-274A-40AB-8C2A-69DB80669A90</key>
 		<dict>
 			<key>xpos</key>
 			<integer>380</integer>
 			<key>ypos</key>
 			<integer>370</integer>
+		</dict>
+		<key>4DC84137-38C7-43EB-950F-1266E709517A</key>
+		<dict>
+			<key>xpos</key>
+			<integer>60</integer>
+			<key>ypos</key>
+			<integer>760</integer>
 		</dict>
 		<key>7C321AC5-3A29-42BE-994A-F23820B0C82E</key>
 		<dict>
