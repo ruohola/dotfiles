@@ -417,7 +417,7 @@ gyn () {
     git config --global delta.line-numbers true
 }
 
-# GitHub functions
+# GitHub/GitLab functions
 ghpr () {
     # Open a pull request.
     gps
@@ -450,9 +450,9 @@ ghrf () {
     gh repo fork --clone "${1}/${2}" "${@:3}"
 }
 ghu () {
-    # Open the GitHub link for the current repo in the browser.
+    # Open the GitHub/GitLab link for the current repo in the browser.
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
-    && open "$(echo "$remote" | sed 's,^[^:]*:\([^:]*\).git$,https://github.com/\1,')"
+        && open "$(echo "$remote" | sed 's,^.*@\(.*\):\(.*\).git$,https://\1/\2,')"
 }
 gyp () {
     # Show the pull request where the given commit was merged.
