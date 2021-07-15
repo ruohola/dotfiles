@@ -65,8 +65,8 @@ export Downloads="${HOME}/Downloads"
 export tmp="${HOME}/tmp"
 source ~/dotfiles/sh/bookmarks 2> /dev/null
 
-[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
-[[ -r ~/.local/share/bash-completion/completions/git ]] && . ~/.local/share/bash-completion/completions/git
+[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+[ -r ~/.local/share/bash-completion/completions/git ] && . ~/.local/share/bash-completion/completions/git
 
 alias vvrc='vim ~/.vim/vimrc'
 alias vbrc='vim ~/.bashrc && source ~/.bashrc'
@@ -519,11 +519,11 @@ dssh () {
 }
 
 brew () {
-    if [[ "$*" == "up" ]]; then
+    if [ "$*" == "up" ]; then
         command brew update && brew upgrade && brew upgrade --cask
-    elif [[ "$*" == "dump" ]]; then
+    elif [ "$*" == "dump" ]; then
         command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
-    elif [[ "$*" == "load" ]]; then
+    elif [ "$*" == "load" ]; then
         command brew bundle --file=~/dotfiles/brew/Brewfile
     else
         command brew "$@"
@@ -531,7 +531,7 @@ brew () {
 }
 
 poetry () {
-    if [[ "$1" == "install" ]]; then
+    if [ "$1" == "install" ]; then
         command poetry install --no-root "${@:2}"
     else
         command poetry "$@"
