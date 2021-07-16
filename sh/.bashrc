@@ -610,6 +610,8 @@ export PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
 
 export PATH="/usr/local/opt/llvm/bin/:${PATH}"
 
+export PATH="${HOME}/.flutter/bin:${PATH}"
+
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 export BUILDKIT_PROGRESS=plain
