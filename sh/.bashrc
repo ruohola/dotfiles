@@ -103,7 +103,7 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias grep='GREP_COLOR="1;91" grep --color'
 
-export LESS='--chop-long-lines'
+export LESS='--chop-long-lines --raw-control-chars'
 
 alias lt='languagetool --language en-US'
 
