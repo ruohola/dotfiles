@@ -150,7 +150,8 @@
               "bundle_identifiers": [
                 "^org\\.vim\\.",
                 "^com\\.googlecode\\.iterm2$",
-                "^com\\.jetbrains\\."
+                "^com\\.jetbrains\\.",
+                "^com\\.google\\.android\\.studio$"
               ]
             }
           ],
@@ -179,7 +180,8 @@
               "bundle_identifiers": [
                 "^org\\.vim\\.",
                 "^com\\.googlecode\\.iterm2$",
-                "^com\\.jetbrains\\."
+                "^com\\.jetbrains\\.",
+                "^com\\.google\\.android\\.studio$"
               ]
             }
           ],
