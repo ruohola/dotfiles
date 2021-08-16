@@ -479,6 +479,7 @@ __git_complete gbdf _git_branch
 __git_complete gbdp _git_branch
 __git_complete gbm _git_branch
 __git_complete gcp _git_cherry_pick
+__git_complete gd _git_diff
 __git_complete gn _git_switch
 __git_complete gps _git_push
 __git_complete gpsd _git_push
