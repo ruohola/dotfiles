@@ -367,9 +367,9 @@ gpsd () {
     # Delete a remote branch or tag.
     # Usage: `$ gpsd origin foo` or `$ gpsd origin/foo`.
     # Useful for copying the branch name arg from git shortlog.
-    if [[ $1 =~ / ]] && ! [[ $1 =~ /.*/ ]]; then
+    if [[ $1 =~ / ]]; then
         # This cannot be quoted.
-        git push --delete ${1//\// }
+        git push --delete $(echo "$1" | sed 's/\// /')
     else
         git push --delete "$@"
     fi
