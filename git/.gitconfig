@@ -24,6 +24,7 @@
 	default = simple
 [pull]
 	rebase = true
+	twohead = ort
 [rebase]
 	autoStash = true
 [diff]
