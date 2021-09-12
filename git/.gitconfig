@@ -49,7 +49,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[includeIf "gitdir:~/skole/"]
-	path = ~/dotfiles/git/.gitconfig_skole
 [includeIf "gitdir:~/vincit/"]
 	path = ~/dotfiles/git/.gitconfig_vincit
