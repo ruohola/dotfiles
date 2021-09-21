@@ -87,6 +87,26 @@ nnoremap vi! T!vt!
 nnoremap va! F!vt!
 nnoremap vi& T&vt&
 nnoremap va& F&vt&
+nnoremap yi/ T/yt/
+nnoremap ya/ F/yt/
+nnoremap yi, T,yt,
+nnoremap ya, F,yt,
+nnoremap yi. T.yt.
+nnoremap ya. F.yt.
+nnoremap yi_ T_yt_
+nnoremap ya_ F_yt_
+nnoremap yi- T-yt-
+nnoremap ya- F-yt-
+nnoremap yi% T%yt%
+nnoremap ya% F%yt%
+nnoremap yi= T=yt=
+nnoremap ya= F=yt=
+nnoremap yi? T?yt?
+nnoremap ya? F?yt?
+nnoremap yi! T!yt!
+nnoremap ya! F!yt!
+nnoremap yi& T&yt&
+nnoremap ya& F&yt&
 
 
 " ============= GENERAL =============
