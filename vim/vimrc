@@ -73,6 +73,7 @@ call plug#end()
 let g:coc_global_extensions = [
     \ 'coc-clangd',
     \ 'coc-docker',
+    \ 'coc-go',
     \ 'coc-jedi',
     \ 'coc-json',
     \ 'coc-rls',
