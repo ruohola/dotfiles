@@ -380,7 +380,7 @@ gpsd () {
 }
 gtp () {
     # Tag a commit in the past.
-    # Usage: $ gtp v1.0.1 af1bc21 -m ""
+    # Usage: $ gtp v1.0.1 af1bc21
     GIT_COMMITTER_DATE="$(git show "${2:-HEAD}" --format=%aD | head -1)" git tag --annotate --message "" "$@"
 }
 gub () {
