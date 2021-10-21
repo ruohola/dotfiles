@@ -68,15 +68,15 @@ source ~/dotfiles/sh/bookmarks 2> /dev/null
 [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 [ -r ~/.local/share/bash-completion/completions/git ] && . ~/.local/share/bash-completion/completions/git
 
-alias vvrc='vim ~/.vim/vimrc'
-alias vbrc='vim ~/.bashrc && source ~/.bashrc'
-alias sbrc='source ~/.bashrc'
-alias vzrc='vim ~/.zshrc && source ~/.zshrc'
-alias szrc='source ~/.zshrc'
-alias vinp='vim ~/.inputrc && bind -f ~/.inputrc'
-alias virc='vim ~/.vim/.ideavimrc'
+alias vvrc='vim ~/dotfiles/vim/vimrc'
+alias vbrc='vim ~/dotfiles/sh/.bashrc && source ~/dotfiles/sh/.bashrc'
+alias sbrc='source ~/dotfiles/sh/.bashrc'
+alias vzrc='vim ~/dotfiles/sh/.zshrc && source ~/dotfiles/sh/.zshrc'
+alias szrc='source ~/dotfiles/sh/.zshrc'
+alias vinp='vim ~/dotfiles/sh/.inputrc && bind -f ~/dotfiles/sh/.inputrc'
+alias virc='vim ~/dotfiles/vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
-alias vgit='vim ~/.gitconfig'
+alias vgit='vim ~/dotfiles/git/.gitconfig'
 alias vbok='vim ~/dotfiles/sh/bookmarks && source ~/dotfiles/sh/bookmarks'
 alias vlig='vim ~/dotfiles/vim/spell/en.utf-8.add'
 
