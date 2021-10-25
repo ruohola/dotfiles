@@ -562,7 +562,7 @@ gz () {
     # CTRL-H to copy commit hash
     local out shas sha q k
     while out=$(
-        git log --graph "$@" |
+        git log --graph --color=always "$@" |
         fzf --ansi --multi --no-sort --reverse --query="$q" \
             --print-query --expect=ctrl-d,ctrl-n,ctrl-h); do
     q=$(head -1 <<< "$out")
