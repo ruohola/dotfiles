@@ -10,6 +10,7 @@ set argtextobj
 set ReplaceWithRegister
 set exchange
 set highlightedyank
+set matchit
 
 " highlightedyank
 let g:highlightedyank_highlight_duration = '300'
