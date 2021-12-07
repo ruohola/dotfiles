@@ -56,7 +56,7 @@ HISTFILESIZE=
 # Make ** expand to any number of directories.
 shopt -s globstar
 
-# allow to create cd bookmarks, must be defined before sourcing bash_completion
+# Allow to create cd bookmarks, must be defined before sourcing `bash_completion`.
 shopt -s cdable_vars
 export dotfiles="${HOME}/dotfiles"
 export Desktop="${HOME}/Desktop"
