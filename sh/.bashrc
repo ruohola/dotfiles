@@ -524,6 +524,8 @@ dssh () {
         bash"
 }
 
+alias yif='yarn install --frozen-lockfile'
+
 brew () {
     if [ "$*" == "up" ]; then
         command brew update && brew upgrade && brew upgrade --cask
