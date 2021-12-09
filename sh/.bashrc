@@ -615,7 +615,7 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 export BUILDKIT_PROGRESS=plain
 export DOCKER_SCAN_SUGGEST=false
 
-# Affects bat and delta
+# Affects bat and delta.
 export BAT_THEME='Solarized (dark)'
 
 # Need to be after all PATH settings.
