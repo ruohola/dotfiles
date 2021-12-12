@@ -226,7 +226,7 @@ alias glg='glf --regexp-ignore-case --grep'
 alias glG='glp -G'
 alias glS='glp -S'
 alias gmt='git mergetool'
-alias gpl='git pull'
+alias gpl='git pull --all --tags --prune'
 alias gpsf='git push --force-with-lease'
 alias gpsfu='git push --force-with-lease --set-upstream origin HEAD'
 alias gpsu='git push --follow-tags upstream HEAD'
@@ -379,10 +379,9 @@ gub () {
     local head
     local current
 
-    git pull 2> /dev/null
+    gpl 2> /dev/null
     status="$(git status --porcelain --ignore-submodules)"
     [ -n "$status" ] && git stash push --include-untracked
-    git fetch --all --tags --prune
     remote=$(git remote | grep -E '(upstream|origin)' | tail -1)
     head=$(git remote show "$remote" | awk '/HEAD branch/ {print $NF}')
     current="$(git rev-parse --abbrev-ref HEAD)"
