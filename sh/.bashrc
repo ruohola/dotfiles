@@ -295,6 +295,25 @@ gbdp () {
     # Delete local and remote branch.
     git branch --delete "$1"; git push --delete origin "$1"
 }
+gbr () {
+    # Force move a branch pointer.
+    # Usage: `$ gbr @~2` or `$ gbr master af1bc21`.
+
+    local branchname
+    local startpoint
+
+    if [ $# -eq 1 ]; then
+        branchname="$(git branch --show-current)"
+        startpoint="$1"
+    else
+        branchname="$1"
+        startpoint="$2"
+    fi
+
+    # `git branch --force` will fail if $1 is the current branch, thus the fallback.
+    git branch --force "$branchname" "$startpoint" 2> /dev/null \
+        || { [ "$?" -eq 128 ] && git switch --force-create "$branchname" "$startpoint"; }
+}
 gcf () {
     # Squash staged changes to the given commit.
     commit="$(git rev-parse "$1")" \
@@ -477,6 +496,7 @@ __git_complete gbd _git_branch
 __git_complete gbdf _git_branch
 __git_complete gbdp _git_branch
 __git_complete gbm _git_branch
+__git_complete gbr _git_branch
 __git_complete gcp _git_cherry_pick
 __git_complete gd _git_diff
 __git_complete gn _git_switch
