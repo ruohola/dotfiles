@@ -346,7 +346,7 @@ gmm () {
     local current
     remote=$(git remote | grep -E '(upstream|origin)' | tail -1)
     head=$(git remote show "$remote" | awk '/HEAD branch/ {print $NF}')
-    current="$(git rev-parse --abbrev-ref HEAD)"
+    current="$(git branch --show-current)"
     [ "$head" != "$current" ] && git switch "$head" && gub && gbd "$current"
 }
 gms () {
@@ -391,7 +391,7 @@ gub () {
     [ -n "$status" ] && git stash push --include-untracked
     remote=$(git remote | grep -E '(upstream|origin)' | tail -1)
     head=$(git remote show "$remote" | awk '/HEAD branch/ {print $NF}')
-    current="$(git rev-parse --abbrev-ref HEAD)"
+    current="$(git branch --show-current)"
     if [ "$current" != "$head" ]; then
         git switch "$head"
         git rebase "${remote}/${head}"
