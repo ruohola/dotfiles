@@ -252,7 +252,6 @@ alias grer='git remote remove'
 alias grl='git reflog'
 alias grmc='git rm --cached'
 alias grs='git reset'
-alias grsh='git reset --hard'
 alias grt='git restore'
 alias grts='git restore --source'
 alias grtsp='git restore --source --patch'
@@ -508,7 +507,6 @@ __git_complete grbi _git_rebase
 __git_complete grbo _git_rebase
 __git_complete grmc _git_rm
 __git_complete grs _git_reset
-__git_complete grsh _git_reset
 __git_complete grv _git_revert
 __git_complete gtd _git_tag
 __git_complete gw _git_switch
