@@ -3,7 +3,7 @@
 	email = eero@ruohola.dev
 	signingKey = 6FBF8A6897FE618FE7C3E01FDC40A970DAB939A5
 [core]
-	excludesfile = /Users/eero/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	pager = delta
 [credential]
 	helper = osxkeychain
