@@ -30,6 +30,8 @@
 [diff]
 	tool = vimdiff
 	colorMoved = default
+[diff "utf16"]
+	textconv = "iconv -f utf-16 -t utf-8"
 [difftool]
 	prompt = false
 [merge]
