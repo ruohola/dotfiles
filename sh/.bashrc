@@ -628,6 +628,8 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 export BUILDKIT_PROGRESS=plain
 export DOCKER_SCAN_SUGGEST=false
 
+export PYTHONPYCACHEPREFIX="${HOME}/.cache/pycache/"
+
 # Affects bat and delta.
 export BAT_THEME='Solarized (dark)'
 
