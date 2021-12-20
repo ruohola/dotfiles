@@ -545,7 +545,7 @@ brew () {
     elif [ "$*" == "dump" ]; then
         command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
     elif [ "$*" == "load" ]; then
-        command brew bundle --file=~/dotfiles/brew/Brewfile
+        command brew bundle install --file=~/dotfiles/brew/Brewfile
     else
         command brew "$@"
     fi
