@@ -101,8 +101,9 @@ op () {
 
 alias cp='cp -v'
 alias mv='mv -v'
-alias grep='GREP_COLOR="1;91" grep --color'
+alias grep='grep --color'
 
+export GREP_COLOR='1;91'
 export LESS='--chop-long-lines --RAW-CONTROL-CHARS'
 
 alias lt='languagetool --language en-US'
