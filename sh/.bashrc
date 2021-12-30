@@ -207,6 +207,7 @@ alias gba='git branch --all'
 alias gbd='git branch --delete'
 alias gbdf='git branch --delete --force'
 alias gbm='git branch --move'
+alias gbsu='git branch --set-upstream-to'
 alias gbl='git blame'
 alias gc='git commit'
 alias gcm='git commit --message'
@@ -497,6 +498,7 @@ __git_complete gbdf _git_branch
 __git_complete gbdp _git_branch
 __git_complete gbm _git_branch
 __git_complete gbr _git_branch
+__git_complete gbsu _git_branch
 __git_complete gcp _git_cherry_pick
 __git_complete gd _git_diff
 __git_complete gn _git_switch
