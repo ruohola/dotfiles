@@ -640,11 +640,11 @@ pyenv () {
     if [ "$*" == "list" ]; then
         local versions
         versions="$(pyenv install --list)"
-        for version in 5 6 7 8
+        for version in 7 8 9 10
         do
              echo "${versions}" | command grep -E "^\s+3\.${version}" | tail -1
         done
-        for version in 9 10
+        for version in 11
         do
              echo "${versions}" | command grep -E "^\s+3\.${version}"
         done
