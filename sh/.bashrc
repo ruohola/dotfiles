@@ -234,6 +234,7 @@ alias glp='_gl --format=fuller --patch'
 alias glg='glf --regexp-ignore-case --grep'
 alias glG='glp -G'
 alias glS='glp -S'
+alias gmf='git merge --ff-only'
 alias gmt='git mergetool'
 alias gpl='git pull --all --tags --prune'
 alias gpsf='git push --force-with-lease'
@@ -501,6 +502,7 @@ __git_complete gbr _git_branch
 __git_complete gbsu _git_branch
 __git_complete gcp _git_cherry_pick
 __git_complete gd _git_diff
+__git_complete gmf _git_merge
 __git_complete gn _git_switch
 __git_complete gps _git_push
 __git_complete gpsd _git_push
