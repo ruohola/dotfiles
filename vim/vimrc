@@ -80,7 +80,7 @@ let g:coc_global_extensions = [
     \ 'coc-sh',
     \ 'coc-tsserver',
     \ 'coc-vimlsp',
-    \ 'coc-vimtex',
+    \ 'coc-vimtex@1.0.4',
     \ 'coc-yaml',
 \]
 
