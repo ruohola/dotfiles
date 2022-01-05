@@ -251,8 +251,8 @@ alias gre='git remote'
 alias grea='git remote add'
 alias greao='git remote add origin'
 alias greau='git remote add upstream'
-alias grey='git remote show'
 alias grer='git remote remove'
+alias grey='git remote show'
 alias grl='git reflog'
 alias grmc='git rm --cached'
 alias grs='git reset'
@@ -511,6 +511,9 @@ __git_complete gpsf _git_push
 __git_complete grb _git_rebase
 __git_complete grbi _git_rebase
 __git_complete grbo _git_rebase
+__git_complete gre _git_remote
+__git_complete grer _git_remote
+__git_complete grey _git_remote
 __git_complete grmc _git_rm
 __git_complete grs _git_reset
 __git_complete grv _git_revert
