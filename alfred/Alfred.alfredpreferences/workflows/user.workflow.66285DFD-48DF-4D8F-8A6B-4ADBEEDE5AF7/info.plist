@@ -111,6 +111,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>DB3E5CA7-CDBE-458D-9D5D-66602EF7FEA3</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>15352AF3-309E-475B-9450-E2BAAC5380D8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>FC135199-4217-4FD2-BAEF-2ED80D9FF6EA</key>
 		<array>
 			<dict>
@@ -404,6 +417,46 @@
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>https://cs.github.com/?q={query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>15352AF3-309E-475B-9450-E2BAAC5380D8</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>gh</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>GitHub</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>DB3E5CA7-CDBE-458D-9D5D-66602EF7FEA3</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -415,6 +468,13 @@
 			<integer>380</integer>
 			<key>ypos</key>
 			<integer>120</integer>
+		</dict>
+		<key>15352AF3-309E-475B-9450-E2BAAC5380D8</key>
+		<dict>
+			<key>xpos</key>
+			<integer>380</integer>
+			<key>ypos</key>
+			<integer>885</integer>
 		</dict>
 		<key>1D832A08-F343-4046-A448-7E70F40365B3</key>
 		<dict>
@@ -485,6 +545,13 @@
 			<integer>55</integer>
 			<key>ypos</key>
 			<integer>120</integer>
+		</dict>
+		<key>DB3E5CA7-CDBE-458D-9D5D-66602EF7FEA3</key>
+		<dict>
+			<key>xpos</key>
+			<integer>60</integer>
+			<key>ypos</key>
+			<integer>885</integer>
 		</dict>
 		<key>ECEBF9A5-D6CE-457C-A084-13B048A93744</key>
 		<dict>
