@@ -63,6 +63,7 @@ export Desktop="${HOME}/Desktop"
 export Documents="${HOME}/Documents"
 export Downloads="${HOME}/Downloads"
 export tmp="${HOME}/tmp"
+export stdlib="${HOME}/.pyenv/versions/${__global_python}/lib/python${__global_python%.*}"
 source ~/dotfiles/sh/bookmarks 2> /dev/null
 
 [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
