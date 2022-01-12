@@ -549,6 +549,8 @@ dssh () {
 
 alias yif='yarn install --frozen-lockfile'
 
+alias tff='terraform fmt -recursive'
+
 brew () {
     if [ "$*" == "up" ]; then
         command brew update && brew upgrade && brew upgrade --cask
