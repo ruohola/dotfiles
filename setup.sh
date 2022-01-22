@@ -26,6 +26,10 @@ done
     && { brew bundle install --file=~/dotfiles/brew/Brewfile;
         /usr/local/opt/fzf/install; }
 
+# Install nvm.
+[ ! -f ~/.nvm/nvm.sh ] \
+    && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
 # Install vim-plug and all vim plugins.
 [ ! -f ~/.vim/autoload/plug.vim ] \
     && curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
