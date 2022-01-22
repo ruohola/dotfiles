@@ -89,6 +89,8 @@ let g:coc_filetype_map = {
     \ 'bash': 'sh',
 \}
 
+let g:coc_node_path = system('~/dotfiles/scripts/node_path.sh')
+
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 

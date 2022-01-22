@@ -675,15 +675,10 @@ nvm () {
 
 [ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"
 
-DEFAULT_NODE_VER="$( (< "$NVM_DIR/alias/default" || < ~/.nvmrc) 2> /dev/null)"
-while [ -s "${NVM_DIR}/alias/${DEFAULT_NODE_VER}" ] && [ ! -z "$DEFAULT_NODE_VER" ]; do
-    DEFAULT_NODE_VER="$(<"${NVM_DIR}/alias/${DEFAULT_NODE_VER}")"
-done
+__node_bin_dir="$(dirname "$(~/dotfiles/scripts/node_path.sh)")"
 
-DEFAULT_NODE_VER_PATH="$(find "${NVM_DIR}/versions/node" -maxdepth 1 -name "v${DEFAULT_NODE_VER#v}*" | sort -rV | head -n 1)"
-
-if [ ! -z "$DEFAULT_NODE_VER_PATH" ]; then
-    export PATH="${DEFAULT_NODE_VER_PATH}/bin:${PATH}"
+if [ ! -z "$__node_bin_dir" ]; then
+    export PATH="${__node_bin_dir}:${PATH}"
 fi
 
 # Bash specific binds (`.inputrc` only has universal ones).

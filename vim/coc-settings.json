@@ -2,6 +2,7 @@
   "suggest.noselect": false,
   "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.source.file.ignoreHidden": false,
+  "jedi.executable.command": "~/.pyenv/shims/jedi-language-server",
   "languageserver": {
     "haskell": {
       "command": "haskell-language-server-wrapper",
