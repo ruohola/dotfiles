@@ -92,8 +92,8 @@ let g:coc_filetype_map = {
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 
-nmap <silent> <C-P> <Plug>(coc-diagnostic-prev)
-nmap <silent> <C-N> <Plug>(coc-diagnostic-next)
+nmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc>' : '<Plug>(coc-diagnostic-next)'
+nmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc>' : '<Plug>(coc-diagnostic-prev)'
 
 nmap <silent> gd <Plug>(coc-definition)
 
