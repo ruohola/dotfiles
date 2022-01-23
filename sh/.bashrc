@@ -292,6 +292,7 @@ alias guis='git update-index --skip-worktree'
 alias gw='git switch'
 alias gwd='git switch --detach'
 alias gy='git show --format=fuller --first-parent'
+alias gyr='gy --pretty=raw'
 alias gys='gy --stat'
 
 # Git functions
