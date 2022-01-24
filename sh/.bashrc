@@ -225,6 +225,7 @@ alias gcpc='git cherry-pick --continue'
 alias gdc='git restore --worktree'
 alias gdcp='git restore --worktree --patch'
 alias gd='git diff'
+alias gdg='git diff --compact-summary'
 alias gds='git diff --staged'
 alias gf='git fetch --all --tags --prune'
 alias _gl='git log'
@@ -292,8 +293,8 @@ alias guis='git update-index --skip-worktree'
 alias gw='git switch'
 alias gwd='git switch --detach'
 alias gy='git show --format=fuller --first-parent'
+alias gyg='gy --compact-summary'
 alias gyr='gy --pretty=raw'
-alias gys='gy --stat'
 
 # Git functions
 gbdp () {
@@ -505,6 +506,7 @@ __git_complete gbr _git_branch
 __git_complete gbsu _git_branch
 __git_complete gcp _git_cherry_pick
 __git_complete gd _git_diff
+__git_complete gdg _git_diff
 __git_complete gmf _git_merge
 __git_complete gn _git_switch
 __git_complete gps _git_push
@@ -523,6 +525,7 @@ __git_complete gtd _git_tag
 __git_complete gw _git_switch
 __git_complete gwd _git_switch
 __git_complete gy _git_show
+__git_complete gyg _git_show
 
 
 alias dc='docker-compose'
