@@ -226,6 +226,7 @@ alias gdc='git restore --worktree'
 alias gdcp='git restore --worktree --patch'
 alias gd='git diff'
 alias gdg='git diff --compact-summary'
+alias gdn='git diff --no-index'
 alias gds='git diff --staged'
 alias gf='git fetch --all --tags --prune'
 alias _gl='git log'
@@ -507,6 +508,7 @@ __git_complete gbsu _git_branch
 __git_complete gcp _git_cherry_pick
 __git_complete gd _git_diff
 __git_complete gdg _git_diff
+__git_complete gdn _git_diff
 __git_complete gmf _git_merge
 __git_complete gn _git_switch
 __git_complete gps _git_push
