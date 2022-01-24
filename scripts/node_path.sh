@@ -8,7 +8,7 @@ else
     nvm_dir="${HOME}/.nvm"
 fi
 
-node_version="$( (< "$nvm_dir/alias/default" || < ~/.nvmrc) 2> /dev/null)"
+node_version="$({ cat "$nvm_dir/alias/default" || cat ~/.nvmrc; } 2> /dev/null)"
 while [ -s "${nvm_dir}/alias/${node_version}" ] && [ ! -z "$node_version" ]; do
     node_version="$(<"${nvm_dir}/alias/${node_version}")"
 done
