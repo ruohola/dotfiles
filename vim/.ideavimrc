@@ -275,6 +275,7 @@ nmap <Leader>< <Action>(NewFile)
 map  <Leader>] <Action>(SurroundWith)
 map  <Leader>[ <Action>(Unwrap)
 nmap <Leader>' <Action>(Generate)
+nmap <Leader>` <Action>(RerunFailedTests)
 
 nmap <Leader>1 <Action>(InspectCode)
 nmap <Leader>2 <Action>(DebugClass)
