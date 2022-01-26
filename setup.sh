@@ -35,6 +35,10 @@ target=~/cloned/git-completion
     && git -C "$target" switch --detach "$(git -C "$target" describe --tag --abbrev=0)" \
     && make --directory="$target" install
 
+target=~/.local/share/bash-completion/completions/yarn
+[ ! -f "$target" ] \
+    && curl --fail --output "$target" https://raw.githubusercontent.com/dsifford/yarn-completion/master/yarn-completion.bash
+
 # Install nvm.
 [ ! -f ~/.nvm/nvm.sh ] \
     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
