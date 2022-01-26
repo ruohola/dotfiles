@@ -447,3 +447,6 @@ browsable
 parameterized
 Parallelize
 serverless
+JSDoc
+TSConfig
+unmodifiable
