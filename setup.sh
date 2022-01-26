@@ -26,6 +26,15 @@ done
     && { brew bundle install --file=~/dotfiles/brew/Brewfile;
         /usr/local/opt/fzf/install; }
 
+# Install Bash completions.
+mkdir -p ~/cloned
+
+target=~/cloned/git-completion
+[ ! -d "$target" ] \
+    && git clone git@github.com:felipec/git-completion.git "$target" \
+    && git -C "$target" switch --detach "$(git -C "$target" describe --tag --abbrev=0)" \
+    && make --directory="$target" install
+
 # Install nvm.
 [ ! -f ~/.nvm/nvm.sh ] \
     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
