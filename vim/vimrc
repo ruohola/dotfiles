@@ -435,7 +435,7 @@ xnoremap <Leader>' q:<UP>I'<,'><Esc>$
 " Change enter behavior.
 augroup EnterMappings
     autocmd!
-    autocmd BufEnter * if &buftype !=# 'nofile' && &filetype !~# '^fugitive'
+    autocmd BufEnter * if &modifiable && &buftype !=# 'nofile' && &filetype !~# '^fugitive'
             \| nnoremap <buffer> <silent> <CR> :<C-U>call <SID>BlankDown(v:count1)<CR>
             \| nnoremap <buffer> <silent> <S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
             \| endif
