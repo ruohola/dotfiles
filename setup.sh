@@ -47,6 +47,9 @@ target=~/.local/share/bash-completion/completions/yarn
 [ ! -f "$target" ] \
     && curl --fail --output "$target" https://raw.githubusercontent.com/dsifford/yarn-completion/master/yarn-completion.bash
 
+target=~/.local/share/bash-completion/completions/npm
+[ ! -f "$target" ] \
+    && npm completion > "$target"
 
 # Install vim-plug and all vim plugins.
 [ ! -f ~/.vim/autoload/plug.vim ] \
