@@ -276,6 +276,7 @@ map  <Leader>] <Action>(SurroundWith)
 map  <Leader>[ <Action>(Unwrap)
 nmap <Leader>' <Action>(Generate)
 nmap <Leader>` <Action>(RerunFailedTests)
+nmap <Leader>% <Action>(TypeScript.Restart.Service)
 
 nmap <Leader>1 <Action>(InspectCode)
 nmap <Leader>2 <Action>(DebugClass)
