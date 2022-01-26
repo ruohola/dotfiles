@@ -26,6 +26,14 @@ done
     && { brew bundle install --file=~/dotfiles/brew/Brewfile;
         /usr/local/opt/fzf/install; }
 
+# Install nvm.
+default_node=lts/fermium  # v14
+[ ! -f ~/.nvm/nvm.sh ] \
+    && curl --fail https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
+    && . ~/.nvm/nvm.sh \
+    && nvm install "$default_node" \
+    && nvm alias default "$default_node"
+
 # Install Bash completions.
 mkdir -p ~/cloned
 
@@ -39,9 +47,6 @@ target=~/.local/share/bash-completion/completions/yarn
 [ ! -f "$target" ] \
     && curl --fail --output "$target" https://raw.githubusercontent.com/dsifford/yarn-completion/master/yarn-completion.bash
 
-# Install nvm.
-[ ! -f ~/.nvm/nvm.sh ] \
-    && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 # Install vim-plug and all vim plugins.
 [ ! -f ~/.vim/autoload/plug.vim ] \
