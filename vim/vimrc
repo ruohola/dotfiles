@@ -333,7 +333,7 @@ set undofile                   " Use an undofile for persistent undo
 set undolevels=1000000000      " Remember more undo history
 set history=10000              " Remember maximum amount of command history
 set updatecount=10             " Update swap file more often
-set matchpairs=(:),{:},[:]     " Configure which braces to match
+set matchpairs=(:),{:},[:],<:> " Configure which braces to match
 set title                      " Show the current file in the window title
 set titleold=                  " Restore the old window title after exiting
 set updatetime=300             " Faster CursorHold events, mainly for coc.nvim
