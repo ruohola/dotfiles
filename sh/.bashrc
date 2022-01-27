@@ -557,8 +557,6 @@ dssh () {
 
 alias yif='yarn install --frozen-lockfile'
 
-alias nr='npm run'
-
 alias tff='terraform fmt -recursive'
 
 brew () {
