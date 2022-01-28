@@ -32,7 +32,9 @@ default_node=lts/fermium  # v14
     && curl --fail https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
     && . ~/.nvm/nvm.sh \
     && nvm install "$default_node" \
-    && nvm alias default "$default_node"
+    && nvm alias default "$default_node" \
+    && npm update --global npm \
+    && npm install --global yarn
 
 # Install Bash completions.
 mkdir -p ~/cloned
