@@ -6,6 +6,9 @@ TAB:menu-complete
 set show-all-if-ambiguous on
 set menu-complete-display-prefix on
 
+# Make Shift-Tab cycle completions backwards.
+"\e[Z":menu-complete-backward
+
 # Append traling slash when tab completing symlinks to directories.
 set mark-symlinked-directories on
 
