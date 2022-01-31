@@ -63,6 +63,7 @@ Plug 'jparise/vim-graphql'
 Plug 'cespare/vim-toml'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'hashivim/vim-terraform'
+Plug 'kevinoid/vim-jsonc'
 
 " Colorshemes
 Plug 'lifepillar/vim-solarized8'
