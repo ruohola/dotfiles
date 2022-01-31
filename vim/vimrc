@@ -643,6 +643,7 @@ augroup FileTypes
     autocmd BufRead,BufNewFile .bashrc,.bash_profile set filetype=bash
     autocmd BufRead,BufNewFile .gitconfig* set filetype=gitconfig
     autocmd BufRead,BufNewFile poetry.lock set filetype=toml
+    autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
 augroup END
 
 " Disable coc.nvim when running vimdiff.
