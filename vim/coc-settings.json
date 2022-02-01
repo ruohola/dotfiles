@@ -1,28 +1,5 @@
 {
   "suggest.noselect": false,
   "coc.preferences.extensionUpdateCheck": "weekly",
-  "coc.source.file.ignoreHidden": false,
-  "languageserver": {
-    "haskell": {
-      "command": "haskell-language-server-wrapper",
-      "args": [
-        "--lsp"
-      ],
-      "rootPatterns": [
-        "*.cabal",
-        "stack.yaml",
-        "cabal.project",
-        "package.yaml",
-        ".git/"
-      ],
-      "filetypes": [
-        "hs",
-        "lhs",
-        "haskell"
-      ],
-      "initializationOptions": {
-        "languageServerHaskell": {}
-      }
-    }
-  }
+  "coc.source.file.ignoreHidden": false
 }
