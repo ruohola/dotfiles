@@ -571,6 +571,14 @@ brew () {
     fi
 }
 
+poetry () {
+    if [ "$1" == "old" ]; then
+        command poetry show --outdated | grep --file=<(poetry show --tree | grep '^\w' | sed 's/^\([^ ]*\).*/^\1/')
+    else
+        command poetry "$@"
+    fi
+}
+
 
 source ~/.fzf.bash
 
