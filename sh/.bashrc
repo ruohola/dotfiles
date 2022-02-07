@@ -299,6 +299,12 @@ alias gyg='gy --compact-summary'
 alias gyr='gy --pretty=raw'
 
 # Git functions
+__git_default_remote () {
+    git remote | grep -E '(upstream|origin)' | tail -1
+}
+__git_default_branch () {
+    git remote show "${1-$(__git_default_remote)}" | awk '/HEAD branch/ {print $NF}'
+}
 gbdp () {
     # Delete local and remote branch.
     git branch --delete "$1"; git push --delete origin "$1"
@@ -363,16 +369,14 @@ gini () {
 gm () {
     # Switch to the default branch.
     # This is a function so that it can be exported in `gsmu` alias.
-    git switch "$(git remote show origin | awk '/HEAD branch/ {print $NF}')"
+    git switch "$(__git_default_branch)"
 }
 gmm () {
     # Switch to the default branch, update it, and delete the feature branch that you changed from.
     [ -n "$(git status --porcelain --ignore-submodules)" ] && echo 'not clean' && return
-    local remote
     local head
     local current
-    remote=$(git remote | grep -E '(upstream|origin)' | tail -1)
-    head=$(git remote show "$remote" | awk '/HEAD branch/ {print $NF}')
+    head=$(__git_default_branch)
     current="$(git branch --show-current)"
     [ "$head" != "$current" ] && git switch "$head" && gub && gbd "$current"
 }
@@ -416,8 +420,8 @@ gub () {
     gpl 2> /dev/null
     status="$(git status --porcelain --ignore-submodules)"
     [ -n "$status" ] && git stash push --include-untracked
-    remote=$(git remote | grep -E '(upstream|origin)' | tail -1)
-    head=$(git remote show "$remote" | awk '/HEAD branch/ {print $NF}')
+    remote="$(__git_default_remote)"
+    head="$(__git_default_branch "$remote")"
     current="$(git branch --show-current)"
     if [ "$current" != "$head" ]; then
         git switch "$head"
@@ -453,8 +457,8 @@ ghpr () {
     local remote
     local head
 
-    remote=$(git remote | grep -E '(upstream|origin)' | tail -1)
-    head=$(git remote show "$remote" | awk '/HEAD branch/ {print $NF}')
+    remote="$(__git_default_remote)"
+    head="$(__git_default_branch "$remote")"
 
     if [ "$(git rev-list "${remote}/${head}".. --count)" -eq 1 ]; then
         gh pr create --fill "$@"
