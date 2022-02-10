@@ -237,16 +237,19 @@ if !exists('g:notfirstopen')
         endif
     endfor
 
-    " Rebuild the spell file if the word list has changed
-    " but only if not using vim as git mergetool.
-    " This avoids an annoying error when the spell file has
-    " conflict markers which result in a syntax error.
     if !&diff
+        " Rebuild the spell file if the word list has changed
+        " but only if not using vim as git mergetool.
+        " This avoids an annoying error when the spell file has
+        " conflict markers which result in a syntax error.
         for d in glob(PathToSpellFolder . '/*.add', 1, 1)
             if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
                 silent execute 'mkspell! ' . fnameescape(d)
             endif
         endfor
+    else
+        " Diff mode specifc settings.
+        syntax off
     endif
 endif
 
@@ -648,7 +651,19 @@ augroup FileTypes
 augroup END
 
 " Disable coc.nvim when running vimdiff.
+" This is not toggled back, because the diff might be toggled off and on when we
+" still have conflict markers in the file, and we don't want coc to complain about them.
 augroup DisableCocInDiff
   autocmd!
   autocmd DiffUpdated * let b:coc_enabled=0
+augroup END
+
+" Toggle syntax highlighting together with diff mode.
+augroup DiffSettings
+  autocmd!
+  autocmd OptionSet diff if &diff
+          \| syntax off
+          \| else
+          \| syntax enable
+          \| endif
 augroup END
