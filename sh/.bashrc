@@ -657,6 +657,8 @@ export DOCKER_SCAN_SUGGEST=false
 
 export PYTHONPYCACHEPREFIX="${HOME}/.cache/pycache/"
 
+export NODE_OPTIONS='--experimental-repl-await'
+
 # Affects bat and delta.
 export BAT_THEME='Solarized (dark)'
 
