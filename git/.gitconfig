@@ -46,6 +46,8 @@
 	commit-decoration-style = bold box ul
 	file-style = bold
 	line-numbers = true
+[color "grep"]
+    match = 9 bold
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
