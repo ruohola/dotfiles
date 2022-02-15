@@ -387,6 +387,11 @@ gms () {
     # Use the latest commit as the default if no argument is passed.
     git log --format=%B -n 1 "${1:-HEAD}" | pbcopyn
 }
+gms1 () {
+    # Copy the subject line of commit message of the specified revision to the clipboard.
+    # Use the latest commit as the default if no argument is passed.
+    git log --format=%s -n 1 "${1:-HEAD}" | pbcopyn
+}
 gn () {
     # Create a new branch with the given name or switch to if it already exists.
     # The `$@` on the create call allows to pass `<branchname> <hash>` as the arguments.
