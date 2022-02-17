@@ -403,14 +403,9 @@ gps () {
 }
 gpsd () {
     # Delete a remote branch or tag.
-    # Usage: `$ gpsd origin foo` or `$ gpsd origin/foo`.
-    # Useful for copying the branch name arg from git shortlog.
-    if [[ $1 =~ / ]]; then
-        # This cannot be quoted.
-        git push --delete $(echo "$1" | sed 's/\// /')
-    else
-        git push --delete "$@"
-    fi
+    # Usage: `$ gpsd origin foo` or `$ gpsd origin/foo` or `$ gpsd remotes/origin/foo`.
+    # Useful for copying the branch name arg from `git log` or `git branch` output.
+    git push --delete $(echo "$1" | sed -e 's#^remotes/\(.*/\)#\1#' -e 's#/# #')  # This cannot be quoted.
 }
 gtp () {
     # Tag a commit in the past.
