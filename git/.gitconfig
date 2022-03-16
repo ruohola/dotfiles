@@ -43,6 +43,7 @@
 [interactive]
 	diffFilter = delta --color-only
 [delta]
+	pager = less --no-init --quit-if-one-screen
 	commit-decoration-style = bold box ul
 	file-style = bold
 	line-numbers = true
