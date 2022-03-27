@@ -424,8 +424,8 @@ nnoremap <silent> gf :set nohlsearch<CR>"zyiwgg/\C\<<C-R>z\><CR>:set hlsearch<Ba
 
 " Fix the closest spell check error before the cursor and return back to writing.
 " This is actually used with `CTRL + -`.
-nnoremap <silent> <C-_> [s1z=``$
-inoremap <silent> <C-_> <Esc>[s1z=``A
+nnoremap <silent> <C-_> [s1z=``
+inoremap <silent> <C-_> <Esc>[s1z=``a
 
 " Substitute selected text.
 xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
