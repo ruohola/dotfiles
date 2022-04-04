@@ -56,5 +56,3 @@
 	required = true
 [alias]
 	recommit = !git commit --file=\"$(git rev-parse --git-dir)/COMMIT_EDITMSG\" --edit
-[includeIf "gitdir:~/vincit/"]
-	path = ~/dotfiles/git/.gitconfig_vincit
