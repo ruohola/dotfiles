@@ -20,11 +20,11 @@ for file in .gitconfig .gitignore_global; do
 done
 
 # Install homebrew and all brew packages.
-[ ! -f /usr/local/bin/brew ] \
-    && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" \
-    && brew tap homebrew/bundle \
-    && { brew bundle install --file=~/dotfiles/brew/Brewfile;
-        /usr/local/opt/fzf/install; }
+brew --version > /dev/null 2>&1 \
+    || { /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" \
+        && brew tap homebrew/bundle \
+        && { brew bundle install --file=~/dotfiles/brew/Brewfile;
+            "$(brew --prefix)/opt/fzf/install"; }; }
 
 # Install nvm.
 default_node=lts/fermium  # v14
@@ -69,8 +69,8 @@ target=~/.local/share/bash-completion/completions/npm
 
 [ ! -L ~/.config/pgcli/config ] && ln -sfv ~/dotfiles/pgcli/config ~/.config/pgcli/config
 
-[ ! -L /usr/local/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt ] \
-    && ln -sfv ~/dotfiles/vim/spell/en.utf-8.add /usr/local/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt
+[ ! -L "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt" ] \
+    && ln -sfv ~/dotfiles/vim/spell/en.utf-8.add "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt"
 
 [ ! -L ~/.gnupg/gpg.conf ] && ln -sfv ~/dotfiles/gpg/gpg.conf ~/.gnupg/gpg.conf
 [ ! -L ~/.gnupg/gpg-agent.conf ] && ln -sfv ~/dotfiles/gpg/gpg-agent.conf ~/.gnupg/gpg-agent.conf

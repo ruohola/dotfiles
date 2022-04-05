@@ -1,5 +1,8 @@
 [[ $- != *i* ]] && return  # Don't do anything if not interactive.
 
+[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -f /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"
+
 # Solarized colors for coloring the prompt and man pages in iTerm.
 _base03=$(tput setaf 8);  _base02=$(tput setaf 0);  _base01=$(tput setaf 10); _base00=$(tput setaf 11);
 _base0=$(tput setaf 12);  _base1=$(tput setaf 14);  _base2=$(tput setaf 7);   _base3=$(tput setaf 15);
@@ -647,11 +650,6 @@ export POETRY_HOME=/Users/eero/.poetry
 export PATH="${HOME}/.poetry/bin:${PATH}"
 
 export PATH="${HOME}/.local/bin:${PATH}"
-
-export PATH="/usr/local/bin:${PATH}"
-export PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
-
-export PATH="/usr/local/opt/llvm/bin/:${PATH}"
 
 export PATH="${HOME}/.flutter/bin:${PATH}"
 
