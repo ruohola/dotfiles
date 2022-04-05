@@ -15,16 +15,17 @@ for file in .bashrc .bash_profile .zshrc .zprofile .inputrc .hushlogin; do
     [ ! -L "$file" ] && ln -sfv dotfiles/sh/"$file" "$file"
 done
 
-for file in .gitconfig .gitignore_global; do
-    [ ! -L "$file" ] && ln -sfv dotfiles/git/"$file" "$file"
-done
-
 # Install homebrew and all brew packages.
 brew --version > /dev/null 2>&1 \
     || { /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" \
         && brew tap homebrew/bundle \
         && { brew bundle install --file=~/dotfiles/brew/Brewfile;
             "$(brew --prefix)/opt/fzf/install"; }; }
+
+# Link gitconfig only after modern git from brew is installed.
+for file in .gitconfig .gitignore_global; do
+    [ ! -L "$file" ] && ln -sfv dotfiles/git/"$file" "$file"
+done
 
 # Install nvm.
 default_node=lts/fermium  # v14
