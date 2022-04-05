@@ -76,6 +76,8 @@ target=~/.local/share/bash-completion/completions/npm
 [ ! -L ~/.gnupg/gpg.conf ] && ln -sfv ~/dotfiles/gpg/gpg.conf ~/.gnupg/gpg.conf
 [ ! -L ~/.gnupg/gpg-agent.conf ] && ln -sfv ~/dotfiles/gpg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
 
+[ -f "$(brew --prefix)/bin/pinentry-mac" ] && [ ! -L /usr/local/bin/pinentry ] && sudo ln -sfv "$(brew --prefix)/bin/pinentry-mac" /usr/local/bin/pinentry
+
 
 # Remove delay from Dock.
 # https://apple.stackexchange.com/a/70598/321512
