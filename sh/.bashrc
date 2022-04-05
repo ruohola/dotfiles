@@ -646,7 +646,7 @@ export FZF_COMPLETION_TRIGGER='*'
 
 export PATH="${HOME}/.cargo/bin:${PATH}"
 
-export POETRY_HOME=/Users/eero/.poetry
+export POETRY_HOME="${HOME}/.poetry"
 export PATH="${HOME}/.poetry/bin:${PATH}"
 
 export PATH="${HOME}/.local/bin:${PATH}"
