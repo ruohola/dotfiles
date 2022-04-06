@@ -56,3 +56,5 @@
 	required = true
 [alias]
 	recommit = !git commit --file=\"$(git rev-parse --git-dir)/COMMIT_EDITMSG\" --edit
+[includeIf "gitdir:~/reaktor/"]
+	path = ~/dotfiles/git/.gitconfig_reaktor
