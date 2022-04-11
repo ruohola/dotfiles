@@ -31,6 +31,7 @@ packadd! matchit  " Enable the built-in plugin.
 call plug#begin(PathToPluginsFolder)
 
 Plug '/usr/local/opt/fzf'
+Plug '/opt/homebrew/opt/fzf'
 Plug 'junegunn/fzf.vim'                " Fuzzy file finding
 
 Plug 'google/vim-searchindex'          " Better search [x/y]
