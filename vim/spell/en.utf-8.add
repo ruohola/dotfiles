@@ -483,3 +483,5 @@ Gunicorn
 NGINX
 pytest
 IntelliJ
+unindexed
+symlink
