@@ -1,60 +1,60 @@
-[user]
-	name = Eero Ruohola
-	email = eero@ruohola.dev
-	signingKey = 6FBF8A6897FE618FE7C3E01FDC40A970DAB939A5
+[alias]
+	recommit = !git commit --file=\"$(git rev-parse --git-dir)/COMMIT_EDITMSG\" --edit
+[blame]
+	date = format-local:%a %Y-%m-%d %H:%M
+[color "grep"]
+	match = 9 bold
+[commit]
+	gpgSign = true
+	verbose = true
 [core]
 	excludesfile = ~/.gitignore_global
 	pager = delta
 [credential]
 	helper = osxkeychain
-[commit]
-	verbose = true
-	gpgSign = true
-[tag]
-	forceSignAnnotated = true
-[log]
-	date = format-local:%a %Y-%m-%d %H:%M
-[blame]
-	date = format-local:%a %Y-%m-%d %H:%M
-[format]
-	pretty = format:%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(8,trunc)%aN%x08%x08 %C(auto)%s %D
-[init]
-	defaultBranch = master
-[push]
-	default = simple
-[pull]
-	rebase = true
-	twohead = ort
-[rebase]
-	autoStash = true
+[delta]
+	commit-decoration-style = bold box ul
+	file-style = bold
+	line-numbers = true
+	pager = less --no-init --quit-if-one-screen
 [diff]
-	tool = vimdiff
 	colorMoved = default
+	tool = vimdiff
 [diff "utf16"]
 	textconv = "iconv -f utf-16 -t utf-8"
 [difftool]
 	prompt = false
-[merge]
-	tool = vimdiff
-	conflictstyle = zdiff3
-[mergetool]
-	prompt = false
-	keepBackup = false
-[interactive]
-	diffFilter = delta --color-only
-[delta]
-	pager = less --no-init --quit-if-one-screen
-	commit-decoration-style = bold box ul
-	file-style = bold
-	line-numbers = true
-[color "grep"]
-    match = 9 bold
 [filter "lfs"]
 	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[alias]
-	recommit = !git commit --file=\"$(git rev-parse --git-dir)/COMMIT_EDITMSG\" --edit
+	smudge = git-lfs smudge -- %f
+[format]
+	pretty = format:%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(8,trunc)%aN%x08%x08 %C(auto)%s %D
+[init]
+	defaultBranch = master
+[interactive]
+	diffFilter = delta --color-only
+[log]
+	date = format-local:%a %Y-%m-%d %H:%M
+[merge]
+	conflictstyle = zdiff3
+	tool = vimdiff
+[mergetool]
+	keepBackup = false
+	prompt = false
+[pull]
+	rebase = true
+	twohead = ort
+[push]
+	default = simple
+[rebase]
+	autoStash = true
+[tag]
+	forceSignAnnotated = true
+[user]
+	email = eero@ruohola.dev
+	name = Eero Ruohola
+	signingKey = 6FBF8A6897FE618FE7C3E01FDC40A970DAB939A5
 [includeIf "gitdir:~/reaktor/"]
 	path = ~/dotfiles/git/.gitconfig_reaktor
