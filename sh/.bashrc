@@ -663,6 +663,8 @@ export NODE_OPTIONS='--experimental-repl-await'
 # Affects bat and delta.
 export BAT_THEME='Solarized (dark)'
 
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 # Need to be after all PATH settings.
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PYENV_ROOT="${HOME}/.pyenv"
