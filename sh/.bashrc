@@ -66,6 +66,7 @@ export Downloads="${HOME}/Downloads"
 export tmp="${HOME}/tmp"
 export stdlib="${HOME}/.pyenv/versions/${__global_python}/lib/python${__global_python%.*}"
 source ~/dotfiles/sh/bookmarks 2> /dev/null
+source ~/dotfiles/sh/env 2> /dev/null
 
 [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 [ -r ~/.local/share/bash-completion/completions/git ] && . ~/.local/share/bash-completion/completions/git
@@ -80,6 +81,7 @@ alias virc='vim ~/dotfiles/vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
 alias vgit='vim ~/dotfiles/git/.gitconfig'
 alias vbok='vim ~/dotfiles/sh/bookmarks && source ~/dotfiles/sh/bookmarks'
+alias venv='vim ~/dotfiles/sh/env && source ~/dotfiles/sh/env'
 alias vlig='vim ~/dotfiles/vim/spell/en.utf-8.add'
 
 vims () {
