@@ -558,9 +558,10 @@ dcubf () { docker-compose --file "$1" build && docker-compose --file "$1" up; }
 alias dcubn='docker-compose build --no-cache && docker-compose up'
 alias dcd='docker-compose down'
 alias dcr='docker-compose run --rm'
-dcs () { docker-compose run --rm "$1" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
 dcrf () { docker-compose --file "$1" run --rm "$2"; }
-dcsf () { docker-compose --file "$1" run --rm "$2" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
+alias dcs='docker-compose stop'
+dcsh () { docker-compose run --rm "$1" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
+dcshf () { docker-compose --file "$1" run --rm "$2" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
 
 dssh () {
     ssh "$1" -t \
