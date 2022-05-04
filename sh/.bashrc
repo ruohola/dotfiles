@@ -112,6 +112,8 @@ export LESS='--chop-long-lines --RAW-CONTROL-CHARS'
 
 alias lt='languagetool --language en-US'
 
+alias nq='networkQuality'
+
 pc () {
     pycharm "${1:-.}"
 }
