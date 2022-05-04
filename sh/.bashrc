@@ -505,18 +505,22 @@ ghu () {
 gyp () {
     # Show the pull request where the given commit was merged.
     # Some reference from: https://stackoverflow.com/a/30998048/9835872
-    commit="$(git rev-parse ${1:-HEAD})"
-    merge_commit="$( (git rev-list "$commit..HEAD" --ancestry-path | cat -n; git rev-list "$commit..HEAD" --first-parent | cat -n) \
-        | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2 )"
+    commit="$(git rev-parse "${1:-HEAD}")"
+    pr="$(git log --format=%s -n 1 "$commit" | sed -En 's/Merge pull request #([0-9][0-9]*) from .*|.*\(#([0-9][0-9]*)\)$/\1\2/p')"
 
-    if [ -z "$merge_commit" ]; then
-        # The commit is still unmerged, so just show PRs from the branch it belongs to.
-        pr_arg="$(git branch --contains "$commit" | head -n 1 | sed -nE 's/\*? *([^[:space:]]+)/\1/p')"
-    else
-        # The commit was merged, so find the PR number from commit the commit it was merged in.
-        pr_arg="$(git log --format=%B -n 1 "$merge_commit" | sed -nE 's/^.*#([0-9]+).*$/\1/p')"
+    if [ -z "$pr" ]; then
+        merge_commit="$( (git rev-list "$commit..HEAD" --ancestry-path | cat -n; git rev-list "$commit..HEAD" --first-parent | cat -n) \
+            | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2 )"
+
+        if [ -z "$merge_commit" ]; then
+            # The commit is still unmerged, so just show PRs from the branch it belongs to.
+            pr="$(git branch --contains "$commit" | head -n 1 | sed -nE 's/\*? *([^[:space:]]+)/\1/p')"
+        else
+            # The commit was merged, so find the PR number from commit the commit it was merged in.
+            pr="$(git log --format=%B -n 1 "$merge_commit" | sed -nE 's/^.*#([0-9]+).*$/\1/p')"
+        fi
     fi
-    gh pr view "$pr_arg"
+    gh pr view "$pr"
 }
 
 __git_complete gba _git_branch
