@@ -502,6 +502,10 @@ ghu () {
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
         && open "$(echo "$remote" | sed 's,^.*@\(.*\):\(.*\).git$,https://\1/\2,')"
 }
+gyo () {
+    # Like `gyp` but opens the PR in browser.
+    gyp "${1:-HEAD}" --web
+}
 gyp () {
     # Show the pull request where the given commit was merged.
     # Some reference from: https://stackoverflow.com/a/30998048/9835872
@@ -520,7 +524,7 @@ gyp () {
             pr="$(git log --format=%B -n 1 "$merge_commit" | sed -nE 's/^.*#([0-9]+).*$/\1/p')"
         fi
     fi
-    gh pr view "$pr"
+    gh pr view "$pr" "${@:2}"
 }
 
 __git_complete gba _git_branch
