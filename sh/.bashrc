@@ -518,7 +518,8 @@ gyp () {
 
         if [ -z "$merge_commit" ]; then
             # The commit is still unmerged, so just show PRs from the branch it belongs to.
-            pr="$(git branch --contains "$commit" | head -n 1 | sed -nE 's/\*? *([^[:space:]]+)/\1/p')"
+            remote="$(__git_default_remote)"
+            pr="$(git branch --remotes --contains "$commit" | head -n 1 | sed -nE "s/ *${remote}\/([^[:space:]]+)/\1/p")"
         else
             # The commit was merged, so find the PR number from commit the commit it was merged in.
             pr="$(git log --format=%B -n 1 "$merge_commit" | sed -nE 's/^.*#([0-9]+).*$/\1/p')"
