@@ -385,7 +385,7 @@ gmm () {
     local current
     head=$(__git_default_branch)
     current="$(git branch --show-current)"
-    [ "$head" != "$current" ] && git switch "$head" && gub && gbd "$current"
+    [ "$head" != "$current" ] && git switch "$head" && gub && gbdf "$current"
 }
 gms () {
     # Copy the commit message of the specified revision to the clipboard.
