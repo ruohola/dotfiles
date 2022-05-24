@@ -245,6 +245,9 @@ alias glp='_gl --format=fuller --patch'
 alias glg='glf --regexp-ignore-case --grep'
 alias glG='glp -G'
 alias glS='glp -S'
+alias gm='git merge'
+alias gma='git merge --abort'
+alias gmc='git merge --continue'
 alias gmf='git merge --ff-only'
 alias gmt='git mergetool'
 alias gpl='git pull --all --tags --prune'
@@ -282,7 +285,7 @@ alias gsl='git shortlog'
 alias gsm='git submodule'
 alias gsml='git submodule foreach '\''git log $sha1..'\'''
 alias gsms='git submodule summary'
-alias gsmu="export -f gub gm; git submodule foreach 'gm && gub &'"
+alias gsmu="export -f gub gwm; git submodule foreach 'gwm && gub &'"
 alias gst='git stash'
 alias gsty='git stash show --patch --format=fuller'
 alias gstl='git stash list --format=medium --stat'
@@ -374,20 +377,6 @@ gini () {
     git rev-parse --git-dir > /dev/null 2>&1 && return
     git init "$1" && if [ "$1" != . ]; then cd "$1"; fi && git commit --allow-empty --message 'Initial commit'
 }
-gm () {
-    # Switch to the default branch.
-    # This is a function so that it can be exported in `gsmu` alias.
-    git switch "$(__git_default_branch)"
-}
-gmm () {
-    # Switch to the default branch, update it, and delete the feature branch that you changed from.
-    [ -n "$(git status --porcelain --ignore-submodules)" ] && echo 'not clean' && return
-    local head
-    local current
-    head=$(__git_default_branch)
-    current="$(git branch --show-current)"
-    [ "$head" != "$current" ] && git switch "$head" && gub && gbdf "$current"
-}
 gms () {
     # Copy the commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
@@ -456,6 +445,20 @@ gvi () {
     # Open the specified file at the given revision in vim.
     # Usage: $ gvi HEAD~10 foo/bar.txt
     [ $# -ne 0 ] && vim -c "Gedit $1:$2"
+}
+gwm () {
+    # Switch to the default branch.
+    # This is a function so that it can be exported in `gsmu` alias.
+    git switch "$(__git_default_branch)"
+}
+gwmm () {
+    # Switch to the default branch, update it, and delete the feature branch that you changed from.
+    [ -n "$(git status --porcelain --ignore-submodules)" ] && echo 'not clean' && return
+    local head
+    local current
+    head=$(__git_default_branch)
+    current="$(git branch --show-current)"
+    [ "$head" != "$current" ] && git switch "$head" && gub && gbdf "$current"
 }
 gyn () {
     # Show the commit like with `gy`, but disable delta's line numbers for easier copying.
@@ -540,6 +543,7 @@ __git_complete gcp _git_cherry_pick
 __git_complete gd _git_diff
 __git_complete gdg _git_diff
 __git_complete gdn _git_diff
+__git_complete gm _git_merge
 __git_complete gmf _git_merge
 __git_complete gn _git_switch
 __git_complete gps _git_push
