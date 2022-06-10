@@ -480,11 +480,7 @@ ghpr () {
     remote="$(__git_default_remote)"
     head="$(__git_default_branch "$remote")"
 
-    if [ "$(git rev-list "${remote}/${head}".. --count)" -eq 1 ]; then
-        gh pr create --fill "$@"
-    else
-        gh pr create "$@"
-    fi
+    gh pr create "$@"
 
     # Copy the PR URL to clipboard.
     gh pr view | awk '/^url/ {print $2}' | pbcopyn
