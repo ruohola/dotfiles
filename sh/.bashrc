@@ -686,6 +686,9 @@ export BAT_THEME='Solarized (dark)'
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
+export NEXT_TELEMETRY_DISABLED=1
+export SCARF_ANALYTICS=false
+
 # Need to be after all PATH settings.
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PYENV_ROOT="${HOME}/.pyenv"
