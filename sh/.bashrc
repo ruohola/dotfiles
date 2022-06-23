@@ -432,13 +432,17 @@ gub () {
         git switch "$head"
         gpl
         git switch -
-        git rebase "$head"
+        git "${1:-rebase}" "$head"
     else
         gpl
     fi
     if [ -n "$status" ]; then
         git stash pop
     fi
+}
+gubm () {
+    # Like `gub`, but use git merge instead of rebase.
+    gub merge
 }
 gvi () {
     # Open the specified file at the given revision in vim.
