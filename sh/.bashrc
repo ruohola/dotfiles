@@ -423,7 +423,6 @@ gub () {
     local head
     local current
 
-    gpl 2> /dev/null
     status="$(git status --porcelain --ignore-submodules)"
     [ -n "$status" ] && git stash push --include-untracked
     remote="$(__git_default_remote)"
@@ -431,11 +430,11 @@ gub () {
     current="$(git branch --show-current)"
     if [ "$current" != "$head" ]; then
         git switch "$head"
-        git rebase "${remote}/${head}"
+        gpl
         git switch -
         git rebase "$head"
     else
-        git rebase "${remote}/${head}"
+        gpl
     fi
     if [ -n "$status" ]; then
         git stash pop
