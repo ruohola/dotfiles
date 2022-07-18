@@ -658,6 +658,14 @@ gz () {
   done
   clear
 }
+__fzf_branch__ () {
+    # Git branch browser. Reference from:
+    # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L34
+    local selected
+    selected="$(gba | grep -v ' -> ' | sed -e 's/^[* ]*//' -e 's#^remotes/[^/]*/##' -e 's/ *$/ /' | sort -u | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" fzf)"
+    READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
+    READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
+}
 
 # FIXME: These ignores don't work in MacVim, since it doesn't see the FZF_DEFAULT_COMMAND env variable.
 export FZF_IGNORES=Applications,Library,Movies,Music,Pictures,Qt,node_modules,venv,.DS_Store,.Trash,.cache,.gradle,.git,.m2,.mypy_cache,.next,.npm,.pyenv,.pytest_cache,.stack,.temp,__pycache__
@@ -735,16 +743,20 @@ fi
 
 # Bash specific binds (`.inputrc` only has universal ones).
 
-# Make CTRL-L clear the screen while also refreshing the prompt.
+bind '"\C-x\C-b": backward-char'
 bind '"\C-x\C-l": clear-screen'
-bind '"\C-l": " \C-b\C-k \C-u\C-m\C-x\C-l\C-y\C-h\C-y\ey\C-x\C-x\C-d"'
+bind '"\C-x\C-v": quoted-insert'
+
+# Make CTRL-L clear the screen while also refreshing the prompt.
+bind '"\C-l": " \C-x\C-b\C-k \C-u\C-m\C-x\C-l\C-y\C-h\C-y\ey\C-x\C-x\C-d"'
 
 # Open file in vim with fzf. Reference from:
 # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L92
-bind '"\C-v": " \C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+bind '"\C-v": " \C-x\C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
-# Remap CTRL-X_CTRL-V to CTRL-V's default behavior.
-bind '"\C-x\C-v": quoted-insert'
+# Fzf complete a Git branch. Reference from:
+# https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L81
+bind -x '"\C-b": __fzf_branch__'
 
-# Remap fzf cd to dir from ALT-C to CTRL-F.
-bind '"\C-f": "\ec"'
+# Remap fzf cd to dir from ALT-C to CTRL-F. We need to copy the whole command here to fix \C-b mapping.
+bind '"\C-f": " \C-x\C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
