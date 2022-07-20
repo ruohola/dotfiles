@@ -316,6 +316,9 @@ __git_default_remote () {
 __git_default_branch () {
     git remote show "${1-$(__git_default_remote)}" | awk '/HEAD branch/ {print $NF}'
 }
+__git_pr_from_commit () {
+    git log --format=%s -n 1 "$1" | sed -nE 's/Merge pull request #([0-9]+) from .*|.*\(#([0-9]+)\)$/\1\2/p'
+}
 gbdp () {
     # Delete local and remote branch.
     git branch --delete "$1"; git push --delete origin "$1"
@@ -512,8 +515,10 @@ gyo () {
 gyp () {
     # Show the pull request where the given commit was merged.
     # Some reference from: https://stackoverflow.com/a/30998048/9835872
+    local commit pr merge_commit remote
+
     commit="$(git rev-parse "${1:-HEAD}")"
-    pr="$(git log --format=%s -n 1 "$commit" | sed -En 's/Merge pull request #([0-9][0-9]*) from .*|.*\(#([0-9][0-9]*)\)$/\1\2/p')"
+    pr="$(__git_pr_from_commit "$commit")"
 
     if [ -z "$pr" ]; then
         merge_commit="$( (git rev-list "$commit..HEAD" --ancestry-path | cat -n; git rev-list "$commit..HEAD" --first-parent | cat -n) \
@@ -522,10 +527,10 @@ gyp () {
         if [ -z "$merge_commit" ]; then
             # The commit is still unmerged, so just show PRs from the branch it belongs to.
             remote="$(__git_default_remote)"
-            pr="$(git branch --remotes --contains "$commit" | head -n 1 | sed -nE "s/ *${remote}\/([^[:space:]]+)/\1/p")"
+            pr="$(git branch --remotes --contains "$commit" | head -n 1 | sed -nE "s/ *${remote}\/([^ ]+)/\1/p")"
         else
             # The commit was merged, so find the PR number from commit the commit it was merged in.
-            pr="$(git log --format=%B -n 1 "$merge_commit" | sed -nE 's/^.*#([0-9]+).*$/\1/p')"
+            pr="$(__git_pr_from_commit "$merge_commit")"
         fi
     fi
     gh pr view "$pr" "${@:2}"
