@@ -327,8 +327,7 @@ gbr () {
     # Force move a branch pointer.
     # Usage: `$ gbr @~2` or `$ gbr master af1bc21`.
 
-    local branchname
-    local startpoint
+    local branchname startpoint
 
     if [ $# -eq 1 ]; then
         branchname="$(git branch --show-current)"
@@ -421,10 +420,7 @@ gtp () {
 }
 gub () {
     # Update the curent branch to the latest primary remote HEAD.
-    local status
-    local remote
-    local head
-    local current
+    local status remote head current
 
     status="$(git status --porcelain --ignore-submodules)"
     [ -n "$status" ] && git stash push --include-untracked
@@ -460,8 +456,7 @@ gwm () {
 gwmm () {
     # Switch to the default branch, update it, and delete the feature branch that you changed from.
     [ -n "$(git status --porcelain --ignore-submodules)" ] && echo 'not clean' && return
-    local head
-    local current
+    local head current
     head=$(__git_default_branch)
     current="$(git branch --show-current)"
     [ "$head" != "$current" ] && git switch "$head" && gub && gbdf "$current"
@@ -480,8 +475,7 @@ ghpr () {
     # Open a pull request.
     gps
 
-    local remote
-    local head
+    local remote head
 
     remote="$(__git_default_remote)"
     head="$(__git_default_branch "$remote")"
