@@ -25,9 +25,6 @@ nmap Ö <PLug>ReplaceWithRegisterOperator$
 nmap öö <PLug>ReplaceWithRegisterLine
 xmap ö <PLug>ReplaceWithRegisterVisual
 
-" emulates wellle/targets.vim
-nnoremap ci) %ci)
-nnoremap di) %di)
 " text objects for delimiters
 nnoremap ci/ T/ct/
 nnoremap ca/ F/ct/
