@@ -461,6 +461,10 @@ gwmm () {
     current="$(git branch --show-current)"
     [ "$head" != "$current" ] && git switch "$head" && gub && gbdf "$current"
 }
+gwmp () {
+    # Switch to the default branch and pull latest changes.
+    gwm && gpl
+}
 gyn () {
     # Show the commit like with `gy`, but disable delta's line numbers for easier copying.
 
