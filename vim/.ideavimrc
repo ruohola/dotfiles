@@ -286,7 +286,7 @@ nmap <Leader>7 <Action>(ReplaceInPath)
 nmap <Leader>8 <Action>(ToggleBreakpointEnabled)
 nmap <Leader>9 <Action>(GotoImplementation)
 
-nmap <Leader><Esc> <Action>(MarkNotificationsAsRead)
+nmap <Leader><Esc> <Action>(ClearAllNotifications)
 
 nnoremap <S-Space>J "zdiWi{{<Esc>"zp
 vnoremap <S-Space>J "zdi{{<Esc>"zp
