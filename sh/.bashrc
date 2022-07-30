@@ -115,13 +115,6 @@ alias lt='languagetool --language en-US'
 
 alias nq='networkQuality'
 
-pc () {
-    pycharm "${1:-.}"
-}
-ws () {
-    webstorm "${1:-.}"
-}
-
 trail () {
     # Use as a pipe to remove all trailing newlines from the input.
     printf '%s' "$(< /dev/stdin)"
