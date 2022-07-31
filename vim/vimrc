@@ -95,6 +95,8 @@ inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 
 nmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc>' : '<Plug>(coc-diagnostic-next)'
 nmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc>' : '<Plug>(coc-diagnostic-prev)'
+xmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc><Esc>gv' : '<Plug>(coc-diagnostic-next)'
+xmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc><Esc>gv' : '<Plug>(coc-diagnostic-prev)'
 
 nmap <silent> gd <Plug>(coc-definition)
 
