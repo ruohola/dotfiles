@@ -706,7 +706,7 @@ eval "$(pyenv init --path --no-rehash)"
 eval "$(pyenv virtualenv-init -)"
 
 pyenv () {
-    if [ "$*" == "list" ]; then
+    if [ "$*" == "available" ]; then
         local versions
         versions="$(pyenv install --list)"
         for version in 6 7 8 9 10
