@@ -700,6 +700,8 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export NEXT_TELEMETRY_DISABLED=1
 export SCARF_ANALYTICS=false
 
+export CYPRESS_WATCH_FOR_FILE_CHANGES=false
+
 # Need to be after all PATH settings.
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PYENV_ROOT="${HOME}/.pyenv"
