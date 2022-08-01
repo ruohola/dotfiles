@@ -659,6 +659,7 @@ gz () {
 __fzf_branch__ () {
     # Git branch browser. Reference from:
     # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L34
+    # TODO: Add keybinding (like in `gz`) for directly switching to the selected branch.
     local selected
     selected="$(gba | grep -v ' -> ' | sed -e 's/^[* ]*//' -e 's#^remotes/[^/]*/##' -e 's/ *$/ /' | sort -u | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" fzf)"
     READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
