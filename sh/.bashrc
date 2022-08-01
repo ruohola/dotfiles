@@ -320,6 +320,7 @@ gbdp () {
 gbr () {
     # Force move a branch pointer.
     # Usage: `$ gbr @~2` or `$ gbr master af1bc21`.
+    # (You can note that passing one vs. two arguments logic is same as with `git branch --move`)
 
     local branchname startpoint
 
