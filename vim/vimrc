@@ -71,6 +71,8 @@ call plug#end()
 
 
 " neoclide/coc.nvim
+let g:coc_start_at_startup=0  " So we don't start Coc in vimdiff.
+
 let g:coc_global_extensions = [
     \ 'coc-clangd',
     \ 'coc-docker',
@@ -236,21 +238,6 @@ if !exists('g:notfirstopen')
             call mkdir(PathToTempFolder . folder, 'p')
         endif
     endfor
-
-    if !&diff
-        " Rebuild the spell file if the word list has changed
-        " but only if not using vim as git mergetool.
-        " This avoids an annoying error when the spell file has
-        " conflict markers which result in a syntax error.
-        for d in glob(PathToSpellFolder . '/*.add', 1, 1)
-            if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
-                silent execute 'mkspell! ' . fnameescape(d)
-            endif
-        endfor
-    else
-        " Diff mode specifc settings.
-        syntax off
-    endif
 endif
 
 if has('gui_running')
@@ -330,8 +317,6 @@ set backspace=indent,eol,start " Make backspace behave normally
 set hidden                     " Switch to another buffer without saving
 set autoread                   " Update changes to file automatically
 set scrolloff=1                " Pad cursor row with lines
-set splitright                 " Open splits to the right
-set splitbelow                 " Open splits to the bottom
 set wildmode=list:longest,full " Better tab completion on command line mode
 set undofile                   " Use an undofile for persistent undo
 set undolevels=1000000000      " Remember more undo history
@@ -601,6 +586,39 @@ function! ChangeReg(x) abort
 endfunction
 
 
+" Settings that are ran after vim -c '<command>' is exeuted, so after git mergetool has finished its setup.
+function! NewPostLaunchSettings(pathToSpellFolder) abort
+    let context = {'pathToSpellFolder': a:pathToSpellFolder}
+
+    function! context.f()
+        if !&diff
+            " Rebuild the spell file if the word list has changed
+            " but only if not using vim as git mergetool.
+            " This avoids an annoying error when the spell file has
+            " conflict markers which result in a syntax error.
+            for d in glob(self.pathToSpellFolder . '/*.add', 1, 1)
+                if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
+                    silent execute 'mkspell! ' . fnameescape(d)
+                endif
+            endfor
+
+            " Enable coc.nvim only when not running vimdiff, so it doesn't complain about conflict markers.
+            CocStart
+
+            set splitright  " Open splits to the right
+            set splitbelow  " Open splits to the bottom
+        else
+            syntax off
+
+            " Patches in: https://github.com/git/git/commit/f3d7623a13566048c4a48b9db6bb09765588a735
+            set nosplitright
+            set nosplitbelow
+        endif
+    endfunction
+
+    return context
+endfunction
+
 
 " ============= AUTOCMD =============
 
@@ -650,20 +668,21 @@ augroup FileTypes
     autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
 augroup END
 
-" Disable coc.nvim when running vimdiff.
-" This is not toggled back, because the diff might be toggled off and on when we
-" still have conflict markers in the file, and we don't want coc to complain about them.
-augroup DisableCocInDiff
-  autocmd!
-  autocmd DiffUpdated * let b:coc_enabled=0
-augroup END
 
 " Toggle syntax highlighting together with diff mode.
 augroup DiffSettings
   autocmd!
-  autocmd OptionSet diff if &diff
+  autocmd DiffUpdated * if &diff
           \| syntax off
           \| else
           \| syntax enable
           \| endif
+augroup END
+
+
+let PostLaunchSettings = NewPostLaunchSettings(PathToSpellFolder)
+
+augroup SetPostLaunchSettings
+  autocmd!
+  autocmd VimEnter * call PostLaunchSettings.f()
 augroup END
