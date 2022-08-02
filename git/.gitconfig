@@ -18,6 +18,7 @@
 	line-numbers = true
 	pager = less --no-init --quit-if-one-screen
 [diff]
+	algorithm = histogram
 	colorMoved = default
 	tool = vimdiff
 [diff "utf16"]
