@@ -245,7 +245,7 @@ nmap <Leader>e <Action>(Run)
 nmap <Leader>f <Action>(GotoFile)
 nmap <Leader>g <Action>(ManageRecentProjects)
 nmap <Leader>h <Action>(FileStructurePopup)
-nmap <Leader>i <Action>(QuickImplementations)
+nmap <Leader>i <Action>(GotoImplementation)
 nmap <Leader>j <Action>(ShowNavBar)
 noremap  <Leader>k mo:action KJumpAction<CR>
 nmap <Leader>l <Action>(FindInPath)
@@ -284,7 +284,7 @@ nmap <Leader>5 <Action>(Annotate)
 nmap <Leader>6 <Action>(Compare.SameVersion)
 nmap <Leader>7 <Action>(ReplaceInPath)
 nmap <Leader>8 <Action>(ToggleBreakpointEnabled)
-nmap <Leader>9 <Action>(GotoImplementation)
+nmap <Leader>9 <Action>(QuickImplementations)
 
 nmap <Leader><Esc> <Action>(ClearAllNotifications)
 
