@@ -1,2 +1,4 @@
+shell=sh
+
 # Can't follow non-constant source. Use a directive to specify location.
 disable=SC1090
