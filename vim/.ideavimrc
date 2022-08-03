@@ -25,7 +25,7 @@ nmap Ö <PLug>ReplaceWithRegisterOperator$
 nmap öö <PLug>ReplaceWithRegisterLine
 xmap ö <PLug>ReplaceWithRegisterVisual
 
-" text objects for delimiters
+" Text objects for delimiters.
 nnoremap ci/ T/ct/
 nnoremap ca/ F/ct/
 nnoremap ci, T,ct,
@@ -110,7 +110,7 @@ nnoremap ya& F&yt&
 
 " ============= GENERAL =============
 
-" search settings
+" Search settings.
 set incsearch hlsearch ignorecase smartcase gdefault
 
 set ideajoin                  " use the IDE's join/J behavior
@@ -125,13 +125,13 @@ set visualbell                " removes errorbells
 
 " ============= MAPPINGS =============
 
-" move between splits
+" Move between splits.
 nnoremap <A-L> <C-W>l
 nnoremap <A-H> <C-W>h
 nnoremap <A-J> <C-W>j
 nnoremap <A-K> <C-W>k
 
-" makes these easier to use
+" Makes these easier to use.
 noremap , :
 noremap : ;
 noremap ; ,
@@ -139,86 +139,90 @@ noremap ; ,
 nnoremap + $
 xnoremap + $
 
-" make Y behave the same way as D and C
+" Make Y behave the same way as D and C.
 nnoremap Y y$
 
-" makes v and V more consistent with other commands
+" Makes v and V more consistent with other commands.
 nnoremap vv V
 nnoremap V <C-V>$
 
-" cleaner to use when cursor doesn't move
+" Cleaner to use when cursor doesn't move.
 nnoremap J Jh
 
-" make K the logical opposite of J
+" Make K the logical opposite of J.
 nnoremap K a<CR><Esc>k$
 
-" change enter behavior
+" Change enter behavior.
 nnoremap <CR> mqo<Esc>`q
 nnoremap <S-Enter> mqO<Esc>`q
 
-" better way to indent
+" Better way to indent.
 nnoremap <BS> <<
 nnoremap <TAB> >>
 xnoremap <BS> <gv
 xnoremap <TAB> >gv
 
-" persistent visuals
+" Persistent visuals.
 xnoremap > >gv
 xnoremap < <gv
 xnoremap <C-X> <C-X>gv
 xnoremap <C-A> <C-A>gv
 
-" Q plays back q macro
+" Q plays back q macro.
 nnoremap Q @q
 
-" repeat the last substitution
+" Repeat the last substitution.
 nnoremap & :&&<CR>
 xnoremap & :s//~/&<CR>:noh<CR>
 
-" search for selected text
+" Search for selected text.
 xnoremap * "zy/<C-R>z<CR>
 xnoremap # "zy?<C-R>z<CR>
 
-" easier substitution
+" Easier substitution.
 nnoremap <Leader>, :%s/
 xnoremap <Leader>, :s/
 
-" split line on a comma
+" Split line on a comma.
 nnoremap \ f,a<CR><Esc>^
 
-" split function arguments or list members into their own lines
+" Split function arguments or list members into their own lines.
 nnoremap <Leader>\ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:noh<CR>`qv%=`q
 
-" type a delimiter for splitting the line into separate lines
+" Type a delimiter for splitting the line into separate lines.
 nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 
-" clear highlights
+" Clear highlights.
 nnoremap <Esc> <Esc>:noh<CR>
 
-" change eol comment to line comment and vice versa
+" Change eol comment to line comment and vice versa.
 nnoremap ä :s,^\(\s*\)\(\S.\{-}\)\s*\(\(#\\\|//\).*\)$,\1\3\r\1\2<CR>:noh<CR>
 nnoremap Ä :s,^\s*\(\(#\\\|//\).*\)$\n\(.\{-}\)\s*$,\3  \1<CR>:noh<CR>
 
-" select previously yanked text
+" Select previously yanked text.
 nnoremap gb `[v`]
 
-" paste to the next or previous line
+" Paste to the next or previous line.
 nnoremap gp o<Esc>p^
 nnoremap gP O<Esc>p^
 
 
 " =========== IDEAVIM MAPPINGS ===========
 
+" Go to the first occurance of the symbol in the file.
 nnoremap gf "zyiwgg/\C\\<\\><Left><Left><BS><C-R>z<CR>:noh<CR>
+
+" Go to the declaration of the first inherited parent class in Python.
+nnoremap go ?^class <CR>f(/[A-Z]<CR>:action GotoDeclarationOnly<CR>:noh<CR>
+
 nmap gd <Action>(GotoDeclarationOnly)
 nmap gr <Action>(GotoRelated)
 nmap gs <Action>(GotoSuperMethod)
 nmap gt <Action>(GotoTypeDeclaration)
 nmap gy <Action>(GotoTest)
-nnoremap go ?^class <CR>f(/[A-Z]<CR>:action GotoDeclarationOnly<CR>:noh<CR>
 
-" motions around jinja tags, these don't work perfectly, pretty rard to improve though
+" Motions around jinja tags, these don't work perfectly, pretty rard to improve though.
 nnoremap cij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR>
 nnoremap caj /{%<CR>/%}<CR>f}a<C-O>2c?{%<CR><C-O>:noh<CR>
 nnoremap dij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR><Esc>l
@@ -228,12 +232,11 @@ nnoremap vaj /{%<CR>/%}<CR>f}v2?{%<CR><Esc>:noh<CR>gvo
 nmap yij vijy
 nmap yaj vajy
 
-" makes using marks a lot better, ` mapping clashes with surround
+" Makes using marks a lot better, ` mapping clashes with surround.
 nmap ' <Action>(ShowBookmarks)
 nmap m <Action>(ToggleBookmarkWithMnemonic)
 
-" these only make sense as ideavim mappings,
-" since vim defines so many ]x mappings
+" These only make sense as IdeaVim mappings, since Vim defines so many ]x mappings.
 nmap [ <Action>(MethodUp)
 nmap ] <Action>(MethodDown)
 
