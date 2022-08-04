@@ -534,6 +534,42 @@ gyp () {
     fi
     gh pr view "$pr" "${@:2}"
 }
+gz () {
+    # Git commit browser
+    # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
+    # Enter to show commit
+    # CTRL-D to diff to current
+    # CTRL-N to copy commit message
+    # CTRL-H to copy commit hash
+    local out shas sha selected key
+
+    while out="$(
+        git log --graph --color=always "$@" \
+            | fzf --ansi --multi --no-sort --reverse --query="$selected" --print-query --expect=ctrl-d,ctrl-n,ctrl-h)"
+    do
+        selected="$(head -1 <<< "$out")"
+        key="$(head -2 <<< "$out" | tail -1)"
+        shas="$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')"
+        [ -z "$shas" ] && continue
+        if [ "$key" = ctrl-d ]; then
+            clear
+            git diff --color=always "$shas" | delta --paging=always
+        elif [ "$key" = ctrl-n ]; then
+            git log --format=%B -n 1 "$shas" | pbcopyn
+            break
+        elif [ "$key" = ctrl-h ]; then
+            echo -n "$shas" | pbcopyn
+            break
+        else
+            clear
+            for sha in $shas; do
+                gy --color=always "$sha" | delta --paging=always
+            done
+        fi
+    done
+
+    clear
+}
 
 __git_complete gba _git_branch
 __git_complete gbd _git_branch
@@ -628,40 +664,6 @@ __fzf_vim__ () {
     file=$(__fzf_select__)
     file="$(echo "${file}" | sed 's/ $//')"
     [ -z "${file}" ] || echo vim "${file}"
-}
-gz () {
-    # Git commit browser
-    # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
-    # Enter to show commit
-    # CTRL-D to diff to current
-    # CTRL-N to copy commit message
-    # CTRL-H to copy commit hash
-    local out shas sha q k
-    while out=$(
-        git log --graph --color=always "$@" |
-        fzf --ansi --multi --no-sort --reverse --query="$q" \
-            --print-query --expect=ctrl-d,ctrl-n,ctrl-h); do
-    q=$(head -1 <<< "$out")
-    k=$(head -2 <<< "$out" | tail -1)
-    shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
-    [ -z "$shas" ] && continue
-    if [ "$k" = ctrl-d ]; then
-        clear
-        git diff --color=always "$shas" | delta --paging=always
-    elif [ "$k" = ctrl-n ]; then
-        git log --format=%B -n 1 "$shas" | pbcopyn
-        break
-    elif [ "$k" = ctrl-h ]; then
-        echo -n "$shas" | pbcopyn
-        break
-    else
-        clear
-        for sha in $shas; do
-            gy --color=always "$sha" | delta --paging=always
-        done
-    fi
-  done
-  clear
 }
 __fzf_branch__ () {
     # Git branch browser. Reference from:
