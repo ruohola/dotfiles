@@ -303,7 +303,6 @@ alias gua='git restore --staged :/'
 alias gup='git restore --staged --patch'
 alias guin='git update-index --no-skip-worktree'
 alias guis='git update-index --skip-worktree'
-alias gw='git switch'
 alias gwd='git switch --detach'
 alias gy='git show --format=fuller --first-parent'
 alias gyg='gy --compact-summary'
@@ -448,6 +447,15 @@ gvi () {
     # Open the specified file at the given revision in vim.
     # Usage: $ gvi HEAD~10 foo/bar.txt
     [ $# -ne 0 ] && vim -c "Gedit $1:$2"
+}
+gw () {
+    local selected
+    if [ $# -ne 0 ]; then
+        git switch "$1"
+    else
+        selected="$(__fzf_select_branch__ | sed 's#^[^/]*/##')"
+        [ -n "$selected" ] && git switch "$selected"
+    fi
 }
 gwm () {
     # Switch to the default branch.
@@ -665,12 +673,15 @@ __fzf_vim__ () {
     file="$(echo "${file}" | sed 's/ $//')"
     [ -z "${file}" ] || echo vim "${file}"
 }
-__fzf_branch__ () {
+__fzf_select_branch__ () {
     # Git branch browser. Reference from:
     # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L34
-    # TODO: Add keybinding (like in `gz`) for directly switching to the selected branch.
     local selected
-    selected="$(gba | grep -v ' -> ' | sed -e 's/^[* ]*//' -e 's#^remotes/[^/]*/##' -e 's/ *$/ /' | sort -u | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" fzf)"
+    git branch --all --color=always | fzf --height=40% --reverse --ansi | sed -e 's/^[* ]*//' -e 's/^.* -> //' -e 's/^remotes\///' -e 's/ *$//'
+}
+__fzf_branch__ () {
+    local selected
+    selected="$(__fzf_select_branch__)"
     READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
     READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
