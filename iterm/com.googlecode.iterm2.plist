@@ -2441,6 +2441,25 @@
 					<key>regex</key>
 					<string>File "(.+)", line ([0-9]+)(?:, in .+)?</string>
 				</dict>
+				<dict>
+					<key>actions</key>
+					<array>
+						<dict>
+							<key>action</key>
+							<integer>4</integer>
+							<key>parameter</key>
+							<string>gh pr view --web \1\2\n</string>
+							<key>title</key>
+							<string>Open PR in GitHub</string>
+						</dict>
+					</array>
+					<key>notes</key>
+					<string>GitHub PR #</string>
+					<key>precision</key>
+					<string>normal</string>
+					<key>regex</key>
+					<string>(?&lt;=Merge pull request )#([0-9]+)(?= from )|(?&lt;=\()#(\d+)(?=\))</string>
+				</dict>
 			</array>
 			<key>Space</key>
 			<integer>0</integer>
