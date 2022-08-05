@@ -659,13 +659,15 @@ augroup END
 " Automatically activate some filetypes.
 augroup FileTypes
     autocmd!
-    autocmd BufRead,BufNewFile Dockerfile* set filetype=dockerfile
-    autocmd BufRead,BufNewFile .env*,env,bookmarks set filetype=sh
-    autocmd BufRead,BufNewFile *.tfstate set filetype=json
     autocmd BufRead,BufNewFile .bashrc,.bash_profile set filetype=bash
+    autocmd BufRead,BufNewFile Dockerfile* set filetype=dockerfile
     autocmd BufRead,BufNewFile .gitconfig* set filetype=gitconfig
-    autocmd BufRead,BufNewFile poetry.lock set filetype=toml
+    autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
+    autocmd BufRead,BufNewFile *.tfstate set filetype=json
     autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
+    autocmd BufRead,BufNewFile .env*,env,bookmarks set filetype=sh
+    autocmd BufRead,BufNewFile poetry.lock set filetype=toml
+    autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
 augroup END
 
 
