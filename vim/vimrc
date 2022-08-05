@@ -56,7 +56,7 @@ Plug 'rhysd/vim-grammarous'            " Use LanguageTool to check spelling and 
 
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for LaTeX
 Plug 'lervag/vimtex',                 { 'for': 'tex' } " LaTeX automompletion and more
-Plug 'neoclide/coc.nvim', {'branch': 'release'}        " Language-server plugin
+Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}           " Language-server plugin, FIXME: handle v0.0.82 breaking mapping changes.
 
 " Filetypes
 Plug 'jparise/vim-graphql'
