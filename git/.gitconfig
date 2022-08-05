@@ -51,6 +51,7 @@
 	default = simple
 [rebase]
 	autoStash = true
+	instructionFormat = %<(14)%ar %<(8,trunc)%aN %s
 [tag]
 	forceSignAnnotated = true
 [user]
