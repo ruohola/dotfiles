@@ -271,7 +271,7 @@ nmap <Leader>z <Action>(RenameFile)
 nnoremap <Leader>ä :s,^\(.\{-}\)\s*\(\(#\\\|//\).*\)$,\1<CR>:noh<CR>
 nmap <Leader>ö <Action>(HighlightUsagesInFile)
 
-nmap <Leader>< <Action>(NewFile)
+nmap <Leader>< <Action>(CopyReferencePopupGroup)
 map  <Leader>] <Action>(SurroundWith)
 map  <Leader>[ <Action>(Unwrap)
 nmap <Leader>' <Action>(Generate)
