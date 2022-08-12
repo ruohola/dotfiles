@@ -453,7 +453,7 @@ gw () {
     if [ $# -ne 0 ]; then
         git switch "$1"
     else
-        selected="$(__fzf_select_branch__ | sed 's#^[^/]*/##')"
+        selected="$(__fzf_select_branch__ | sed 's#^remotes/[^/]*/##')"
         [ -n "$selected" ] && git switch "$selected"
     fi
 }
@@ -677,11 +677,11 @@ __fzf_select_branch__ () {
     # Git branch browser. Reference from:
     # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L34
     local selected
-    git branch --all --color=always | fzf --height=40% --reverse --ansi | sed -e 's/^[* ]*//' -e 's/^.* -> //' -e 's/^remotes\///' -e 's/ *$//'
+    git branch --all --color=always | fzf --height=40% --reverse --ansi | sed -e 's/^[* ]*//' -e 's#\(^remotes/\).* -> \(.*$\)#\1\2#'
 }
 __fzf_branch__ () {
     local selected
-    selected="$(__fzf_select_branch__)"
+    selected="$(__fzf_select_branch__ | sed -e 's#^remotes/##' -e 's/ *$/ /')"
     READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
     READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
