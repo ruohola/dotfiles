@@ -306,6 +306,7 @@ alias guis='git update-index --skip-worktree'
 alias gwd='git switch --detach'
 alias gy='git show --format=fuller --first-parent'
 alias gyg='gy --compact-summary'
+alias gyn='git -c delta.line-numbers=false show --format=fuller --first-parent'
 alias gyr='gy --pretty=raw'
 
 # Git functions
@@ -474,15 +475,6 @@ gwmp () {
     # Switch to the default branch and pull latest changes.
     gwm && gpl
 }
-gyn () {
-    # Show the commit like with `gy`, but disable delta's line numbers for easier copying.
-
-    # For some reason `git -c` doesn't work with delta.
-    git config --global --replace-all delta.line-numbers false
-    gy "$@"
-    git config --global delta.line-numbers true
-}
-
 # GitHub/GitLab functions
 ghpr () {
     # Open a pull request.
