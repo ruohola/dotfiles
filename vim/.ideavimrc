@@ -214,7 +214,7 @@ nnoremap gP O<Esc>p^
 nnoremap gf "zyiwgg/\C\\<\\><Left><Left><BS><C-R>z<CR>:noh<CR>
 
 " Go to the declaration of the first inherited parent class in Python.
-nnoremap go ?^class <CR>f(/[A-Z]<CR>:action GotoDeclarationOnly<CR>:noh<CR>
+nmap go ?^class <CR>f(/[A-Z]<CR><Action>(GotoDeclarationOnly),noh<CR>
 
 nmap gd <Action>(GotoDeclarationOnly)
 nmap gr <Action>(GotoRelated)
