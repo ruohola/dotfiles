@@ -755,6 +755,8 @@ if [ ! -z "$__node_bin_dir" ]; then
     export PATH="${__node_bin_dir}:${PATH}"
 fi
 
+alias ghci='TERM=dump command ghci'
+
 # Bash specific binds (`.inputrc` only has universal ones).
 
 bind '"\C-x\C-b": backward-char'
