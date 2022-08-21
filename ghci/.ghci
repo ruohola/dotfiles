@@ -1,0 +1,2 @@
+-- Enable multiline mode.
+:set +m

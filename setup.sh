@@ -13,6 +13,8 @@ cd ~ || exit  # Makes sure that the symlinks are shown as relative to `~` with `
 
 [ ! -L .shellcheckrc ] && ln -sfv dotfiles/shellcheck/.shellcheckrc .shellcheckrc
 
+[ ! -L .ghci ] && ln -sfv dotfiles/ghci/.ghci .ghci
+
 for file in .bashrc .bash_profile .zshrc .zprofile .inputrc .hushlogin; do
     [ ! -L "$file" ] && ln -sfv dotfiles/sh/"$file" "$file"
 done
