@@ -108,6 +108,10 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias grep='grep --color'
 
+diff () {
+    command diff --unified "$@" | delta
+}
+
 export GREP_COLOR='1;91'
 export LESS='--chop-long-lines --RAW-CONTROL-CHARS'
 
@@ -234,7 +238,6 @@ alias gdm='git diff "$(__git_default_branch)"'
 alias gdg='git diff --compact-summary'
 alias gdgm='git diff --compact-summary "$(__git_default_branch)"'
 alias gdl='git -c delta.line-numbers=false diff'
-alias gdn='git diff --no-index'
 alias gds='git diff --staged'
 alias gf='git fetch --all --tags --prune'
 alias _gl='git log'
@@ -582,7 +585,6 @@ __git_complete gbsu _git_branch
 __git_complete gcp _git_cherry_pick
 __git_complete gd _git_diff
 __git_complete gdg _git_diff
-__git_complete gdn _git_diff
 __git_complete gm _git_merge
 __git_complete gmf _git_merge
 __git_complete gn _git_switch
