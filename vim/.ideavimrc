@@ -154,6 +154,7 @@ nnoremap K a<CR><Esc>k$
 
 " Change enter behavior.
 nnoremap <CR> mqo<Esc>`q
+" FIXME: This doesn't keep cursor on the same place.
 nnoremap <S-Enter> mqO<Esc>`q
 
 " Better way to indent.
