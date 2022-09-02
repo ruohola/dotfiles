@@ -511,6 +511,24 @@ ghu () {
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
         && open "$(echo "$remote" | sed 's,^.*@\(.*\):\(.*\).git$,https://\1/\2,')"
 }
+grboa () {
+    # Rebase onto a branch using the first common commit as the starting point.
+    # Mnemonic: git rebase onto auto
+    local newbase branch remote head commit_subject_of_newbase start_from
+
+    newbase="$1"
+
+    branch="$2"  # Optional argument.
+    [ -n "$branch" ] && git switch "$branch"
+
+    remote="$(__git_default_remote)"
+    head="$(__git_default_branch "$remote")"
+
+    commit_subject_of_newbase="$(git log --format=%s --max-count=1 "$newbase")"
+    start_from="$(git log --format=%H --max-count=1 --grep="$commit_subject_of_newbase" "${remote}/${head}..")"
+
+    git rebase --onto "$newbase" "$start_from"
+}
 gyo () {
     # Like `gyp` but opens the PR in browser.
     gyp "${1:-HEAD}" --web
@@ -595,6 +613,7 @@ __git_complete grb _git_rebase
 __git_complete grbi _git_rebase
 __git_complete grbia _git_rebase
 __git_complete grbo _git_rebase
+__git_complete grboa _git_rebase
 __git_complete gre _git_remote
 __git_complete grer _git_remote
 __git_complete grey _git_remote
