@@ -266,6 +266,7 @@ alias grbi='git rebase --interactive'
 alias grbia='GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash'
 alias grbid='git rebase --interactive --committer-date-is-author-date'
 alias grbo='git rebase --onto'
+alias grd='git range-diff'
 alias gre='git remote'
 alias grea='git remote add'
 alias greao='git remote add origin'
@@ -614,6 +615,7 @@ __git_complete grbi _git_rebase
 __git_complete grbia _git_rebase
 __git_complete grbo _git_rebase
 __git_complete grboa _git_rebase
+__git_complete grd _git_range_diff
 __git_complete gre _git_remote
 __git_complete grer _git_remote
 __git_complete grey _git_remote
