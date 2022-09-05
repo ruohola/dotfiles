@@ -252,7 +252,6 @@ alias gm='git merge'
 alias gma='git merge --abort'
 alias gmc='git merge --continue'
 alias gmf='git merge --ff-only'
-alias gmt='git mergetool'
 alias gpl='git pull --all --tags --prune'
 alias gpsf='git push --force-with-lease'
 alias gpsfu='git push --force-with-lease --set-upstream origin HEAD'
@@ -395,6 +394,16 @@ gms2 () {
     # Copy everything but the subject line of commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
     git log --format=%B -n 1 "${1:-HEAD}" | tail -n +3 | pbcopyn
+}
+gmt () {
+    if git diff --check | grep --quiet 'leftover conflict marker'; then
+        git mergetool  # Must be after the if-check since this affects its evaluation.
+    else
+        git mergetool  # Get the 'No files need merging' output and be really really sure that everything is resolved.
+        git ls-files --unmerged | cut -f2 | sort -u | xargs git add
+        gs
+        gdh
+    fi
 }
 gn () {
     # Create a new branch with the given name or switch to if it already exists.
