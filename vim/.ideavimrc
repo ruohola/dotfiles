@@ -303,13 +303,6 @@ imap <C-J> <Action>(EditorCloneCaretBelow)
 imap <C-K> <Action>(EditorCloneCaretAbove)
 imap <C-X> <Action>(CodeCompletion)
 
-" mapped in the IDE
-" -----------------
-" <C-C> stop execution
-" <C-L> complete current statement
-" <C-M> clone caret to next occurrence
-" <C-,> unclone caret from occurrence
-
 nmap <C-P> <Action>(GotoPreviousError)
 nmap <C-N> <Action>(GotoNextError)
 
@@ -319,16 +312,22 @@ nmap <C-S-N> <Action>(VcsShowNextChangeMarker)
 nmap <C-O> <Action>(Back)
 nmap <C-I> <Action>(Forward)
 
-nmap <C-2> <Action>(ActivateProjectToolWindow)
-nmap <C-3> <Action>(ActivateRunToolWindow)
-nmap <C-4> <Action>(ActivateDebugToolWindow)
-nmap <C-5> <Action>(ActivateTerminalToolWindow)
-nmap <C-6> <Action>(ActivatePythonConsoleToolWindow)
-nmap <C-7> <Action>(ActivateVersionControlToolWindow)
-nmap <C-8> <Action>(CallHierarchy)
-nmap <C-9> <Action>(TypeHierarchy)
-nmap <C-0> <Action>(Django.RunManageTaskAction)
-
 nmap <F10> <Action>(ExportSettings)
 nmap <F11> <Action>(ImportSettings)
 nnoremap <F12> :source ~/.ideavimrc<CR>
+
+sethandler a:vim
+sethandler <C-C> a:ide  " Stop (execution)
+sethandler <C-L> a:ide  " Complete Current Statement
+sethandler <C-M> a:ide  " Add Selection for Next Occurence (clone caret)
+sethandler <C-,> a:ide  " Unselect Occurence (unclone caret)
+sethandler <C-1> a:ide  " Hide All Tool Windows
+sethandler <C-2> a:ide  " Project (tool window)
+sethandler <C-3> a:ide  " Run (tool window)
+sethandler <C-4> a:ide  " Debug (tool window)
+sethandler <C-5> a:ide  " Terminal (tool window)
+sethandler <C-6> a:ide  " Python or Debug Console (tool window)
+sethandler <C-7> a:ide  " Git (tool window)
+sethandler <C-8> a:ide  " Call Hierarchy (sidebar)
+sethandler <C-9> a:ide  " Type Hierarchy (sidebar)
+sethandler <C-0> a:ide  " Run manage.py Task...
