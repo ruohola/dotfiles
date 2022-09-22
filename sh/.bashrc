@@ -314,10 +314,19 @@ alias gyr='gy --pretty=raw'
 
 # Git functions
 __git_default_remote () {
+    # Echo e.g. "origin"
     git remote | grep -E '(upstream|origin)' | tail -1
 }
 __git_default_branch () {
+    # Echo e.g. "master"
     git remote show "${1-$(__git_default_remote)}" | awk '/HEAD branch/ {print $NF}'
+}
+__git_default_remote_branch () {
+    # Echo e.g. "origin/master"
+    local remote head
+    remote="$(__git_default_remote)"
+    head="$(__git_default_branch "$remote")"
+    echo "${remote}/${head}"
 }
 gbdp () {
     # Delete local and remote branch.
@@ -520,18 +529,15 @@ ghu () {
 grboa () {
     # Rebase onto a branch using the first common commit as the starting point.
     # Mnemonic: git rebase onto auto
-    local newbase branch remote head commit_subject_of_newbase start_from
+    local newbase branch commit_subject_of_newbase start_from
 
     newbase="$1"
 
     branch="$2"  # Optional argument.
     [ -n "$branch" ] && git switch "$branch"
 
-    remote="$(__git_default_remote)"
-    head="$(__git_default_branch "$remote")"
-
     commit_subject_of_newbase="$(git log --format=%s --max-count=1 "$newbase")"
-    start_from="$(git log --format=%H --max-count=1 --grep="$commit_subject_of_newbase" "${remote}/${head}..")"
+    start_from="$(git log --format=%H --max-count=1 --grep="$commit_subject_of_newbase" "$(__git_default_remote_branch)..")"
 
     git rebase --onto "$newbase" "$start_from"
 }
