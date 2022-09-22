@@ -389,6 +389,24 @@ gini () {
     git rev-parse --git-dir > /dev/null 2>&1 && return
     git init "$1" && if [ "$1" != . ]; then cd "$1"; fi && git commit --allow-empty --message 'Initial commit'
 }
+gld () {
+    # "Diff" the logs of two branches.
+    # Mnemonic: git log diff
+    local first second
+
+    if [ "$#" -eq 0 ]; then
+        first="$(__git_default_remote_branch)"
+        second=HEAD
+    elif [ "$#" -eq 1 ]; then
+        first="$(__git_default_remote_branch)"
+        second="$1"
+    else
+        first="$1"
+        second="$2"
+    fi
+
+    git log --graph "$first" "$second" "$(git merge-base "$first" "$second")"^!
+}
 gms () {
     # Copy the commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
@@ -605,6 +623,7 @@ __git_complete gl _git_log
 __git_complete gl _git_log
 __git_complete gll _git_log
 __git_complete glll _git_log
+__git_complete gld _git_log
 __git_complete glf _git_log
 __git_complete glp _git_log
 __git_complete glg _git_log
