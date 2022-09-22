@@ -595,6 +595,15 @@ __git_complete gbsu _git_branch
 __git_complete gcp _git_cherry_pick
 __git_complete gd _git_diff
 __git_complete gdg _git_diff
+__git_complete gl _git_log
+__git_complete gl _git_log
+__git_complete gll _git_log
+__git_complete glll _git_log
+__git_complete glf _git_log
+__git_complete glp _git_log
+__git_complete glg _git_log
+__git_complete glG _git_log
+__git_complete glS _git_log
 __git_complete gm _git_merge
 __git_complete gmf _git_merge
 __git_complete gn _git_switch
