@@ -97,6 +97,10 @@ alias bbbb='cd ../../../..'
 alias ls='gls --color=auto --group-directories-first --classify'
 alias ll='ls -l --almost-all --human-readable --time-style=long-iso'
 
+mkcd () {
+    mkdir "$@" && cd "${@: -1}"
+}
+
 alias F='open .'  # Open Finder in the current directory.
 
 op () {
