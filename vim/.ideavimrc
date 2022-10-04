@@ -289,6 +289,7 @@ nmap <Leader>6 <Action>(Compare.SameVersion)
 nmap <Leader>7 <Action>(ReplaceInPath)
 nmap <Leader>8 <Action>(ToggleBreakpointEnabled)
 nmap <Leader>9 <Action>(QuickImplementations)
+nmap <Leader>0 <Action>(Django.RunManageTaskAction)
 
 nmap <Leader><Esc> <Action>(ClearAllNotifications)
 
@@ -328,6 +329,6 @@ sethandler <C-4> a:ide  " Debug (tool window)
 sethandler <C-5> a:ide  " Terminal (tool window)
 sethandler <C-6> a:ide  " Python or Debug Console (tool window)
 sethandler <C-7> a:ide  " Git (tool window)
-sethandler <C-8> a:ide  " Call Hierarchy (sidebar)
+sethandler <C-8> a:ide  " Build (tool window)
 sethandler <C-9> a:ide  " Type Hierarchy (sidebar)
-sethandler <C-0> a:ide  " Run manage.py Task...
+sethandler <C-0> a:ide  " Call Hierarchy (sidebar)
