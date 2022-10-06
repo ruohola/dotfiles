@@ -8,3 +8,9 @@ nnoremap <buffer> <Leader>e :<C-U>write<BAR>execute 'silent !' .
 command! -buffer SOT so ~/.vim/after/ftplugin/markdown.vim
 
 let g:markdown_fenced_languages = ['python', 'ruby']
+
+" Enable spell checking when editing pull request body with GitHub CLI tool.
+" The file is created as a temp file with a name like: 123456789.md
+if @% =~# '\d\+\.md'
+    setlocal spell
+endif
