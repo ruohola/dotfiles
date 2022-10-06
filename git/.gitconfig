@@ -51,6 +51,7 @@
 	default = simple
 [rebase]
 	autoStash = true
+	updateRefs = true
 [rerere]
 	enabled = true
 [tag]
