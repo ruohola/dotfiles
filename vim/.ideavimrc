@@ -278,6 +278,7 @@ map  <Leader>[ <Action>(Unwrap)
 nmap <Leader>' <Action>(Generate)
 nmap <Leader>` <Action>(RerunFailedTests)
 nmap <Leader>% <Action>(TypeScript.Restart.Service)
+nmap <Leader>& <Action>(Git.ResolveConflicts)
 
 nmap <Leader>1 <Action>(InspectCode)
 nmap <Leader>2 <Action>(DebugClass)
