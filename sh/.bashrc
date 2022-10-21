@@ -436,6 +436,26 @@ gn () {
     # The `$@` on the create call allows to pass `<branchname> <hash>` as the arguments.
     git switch --create "$@" || git switch "$1"
 }
+gplm () {
+    # Pull the default branch without switching to it.
+    local status remote head current
+
+    status="$(git status --porcelain --ignore-submodules)"
+    [ -n "$status" ] && git stash push --include-untracked
+    remote="$(__git_default_remote)"
+    head="$(__git_default_branch "$remote")"
+    current="$(git branch --show-current)"
+    if [ "$current" != "$head" ]; then
+        git switch "$head"
+        gpl
+        git switch -
+    else
+        gpl
+    fi
+    if [ -n "$status" ]; then
+        git stash pop
+    fi
+}
 gps () {
     # Push the current branch.
     git push --follow-tags "$@" || { [ "$?" -eq 128 ] && git push --follow-tags --set-upstream origin HEAD; }
