@@ -67,7 +67,6 @@ export Downloads="${HOME}/Downloads"
 export tmp="${HOME}/tmp"
 export stdlib="${HOME}/.pyenv/versions/${__global_python}/lib/python${__global_python%.*}"
 source ~/dotfiles/sh/bookmarks 2> /dev/null
-source ~/dotfiles/sh/env 2> /dev/null
 
 [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 [ -r ~/.local/share/bash-completion/completions/git ] && . ~/.local/share/bash-completion/completions/git
@@ -843,3 +842,6 @@ bind -x '"\C-b": __fzf_branch__'
 
 # Remap fzf cd to dir from ALT-C to CTRL-F. We need to copy the whole command here to fix \C-b mapping.
 bind '"\C-f": " \C-x\C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+
+# Finally load system specific environment variables and other possible overrides.
+source ~/dotfiles/sh/env 2> /dev/null
