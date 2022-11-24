@@ -277,6 +277,7 @@ map  <Leader>] <Action>(SurroundWith)
 map  <Leader>[ <Action>(Unwrap)
 nmap <Leader>' <Action>(Generate)
 nmap <Leader>` <Action>(RerunFailedTests)
+nmap <Leader># <Action>(ActivateDatabaseToolWindow)
 nmap <Leader>% <Action>(TypeScript.Restart.Service)
 nmap <Leader>& <Action>(Git.ResolveConflicts)
 
