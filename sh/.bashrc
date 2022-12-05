@@ -405,6 +405,10 @@ gld () {
 
     git log --graph "$first" "$second" "$(git merge-base "$first" "$second")"^!
 }
+gmm () {
+    # Merge the default branch into the current one.
+    git merge "$(__git_default_branch)"
+}
 gms () {
     # Copy the commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
