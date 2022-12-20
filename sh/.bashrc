@@ -703,6 +703,9 @@ dssh () {
         bash"
 }
 
+alias kugp='kubectl get pods'
+kush () { kubectl exec --stdin --tty "$1" -- sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
+
 alias yif='yarn install --frozen-lockfile'
 
 alias tff='terraform fmt -recursive'
