@@ -781,6 +781,7 @@ export NODE_OPTIONS='--experimental-repl-await'
 export BAT_THEME='Solarized (dark)'
 
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_ANALYTICS=1
 
 export NEXT_TELEMETRY_DISABLED=1
 export SCARF_ANALYTICS=false
