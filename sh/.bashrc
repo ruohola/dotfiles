@@ -287,7 +287,7 @@ alias gsl='git shortlog'
 alias gsm='git submodule'
 alias gsml='git submodule foreach '\''git log $sha1..'\'''
 alias gsms='git submodule summary'
-alias gsmu="export -f gub gwm; git submodule foreach 'gwm && gub &'"
+alias gsmu="export -f __git_default_remote __git_default_branch gub gwm; git submodule foreach 'gwm && gub &'"
 alias gst='git stash'
 alias gsty='git stash show --patch --format=fuller'
 alias gstl='git stash list --format=medium --stat'
