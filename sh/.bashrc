@@ -406,6 +406,26 @@ gld () {
 
     git log --graph "$first" "$second" "$(git merge-base "$first" "$second")"^!
 }
+gmb () {
+    # Return the merge base of the two branches.
+    # With zero arguments passed, defaults to HEAD and master.
+    # With a single argument passed, defaults to the passed and master.
+    # Mnemonic: git merge-base
+    local first second
+
+    if [ "$#" -eq 0 ]; then
+        first="$(__git_default_remote_branch)"
+        second=HEAD
+    elif [ "$#" -eq 1 ]; then
+        first="$(__git_default_remote_branch)"
+        second="$1"
+    else
+        first="$1"
+        second="$2"
+    fi
+
+    git merge-base "$first" "$second"
+}
 gmm () {
     # Merge the default branch into the current one.
     git merge "$(__git_default_branch)"
