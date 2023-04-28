@@ -118,6 +118,8 @@ alias lt='languagetool --language en-US'
 
 alias nq='networkQuality'
 
+alias jvim='jq | vim -c "set filetype=json" -'
+
 fixpy () {
     local path
     path="${1-.}"
