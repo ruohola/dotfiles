@@ -392,6 +392,8 @@ gini () {
 }
 gld () {
     # "Diff" the logs of two branches.
+    # With zero arguments passed, defaults to HEAD and master.
+    # With a single argument passed, defaults to the passed and master.
     # Mnemonic: git log diff
     local first second
 
