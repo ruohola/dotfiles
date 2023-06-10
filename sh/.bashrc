@@ -107,10 +107,6 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias grep='grep --color'
 
-diff () {
-    command diff --unified "$@" | delta
-}
-
 export GREP_COLOR='1;91'
 export LESS='--chop-long-lines --RAW-CONTROL-CHARS'
 
