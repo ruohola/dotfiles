@@ -70,9 +70,9 @@ target=~/.local/share/bash-completion/completions/npm
     && sudo ln -sfv ~/dotfiles/keylayouts/finner/Finner.keylayout '/Library/Keyboard Layouts/Finner.keylayout'
 
 [ ! -L ~/.config/karabiner ] \
-    && rm -rf ~/.config/karabiner && ln -sv ~/dotfiles/karabiner ~/.config/karabiner
+    && rm -rf ~/.config/karabiner && mkdir -p ~/.config/ && ln -sv ~/dotfiles/karabiner ~/.config/karabiner
 
-[ ! -L ~/.config/pgcli/config ] && ln -sfv ~/dotfiles/pgcli/config ~/.config/pgcli/config
+[ ! -L ~/.config/pgcli/config ] && mkdir -p ~/.config/pgcli/ && ln -sfv ~/dotfiles/pgcli/config ~/.config/pgcli/config
 
 [ ! -L "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt" ] \
     && ln -sfv ~/dotfiles/vim/spell/en.utf-8.add "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt"
@@ -80,7 +80,7 @@ target=~/.local/share/bash-completion/completions/npm
 [ ! -L ~/.gnupg/gpg.conf ] && ln -sfv ~/dotfiles/gpg/gpg.conf ~/.gnupg/gpg.conf
 [ ! -L ~/.gnupg/gpg-agent.conf ] && ln -sfv ~/dotfiles/gpg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
 
-[ -f "$(brew --prefix)/bin/pinentry-mac" ] && [ ! -L /usr/local/bin/pinentry ] && sudo ln -sfv "$(brew --prefix)/bin/pinentry-mac" /usr/local/bin/pinentry
+[ -f "$(brew --prefix)/bin/pinentry-mac" ] && [ ! -L /usr/local/bin/pinentry ] && sudo mkdir -p /usr/local/bin/ && sudo ln -sfv "$(brew --prefix)/bin/pinentry-mac" /usr/local/bin/pinentry
 
 
 # Remove delay from Dock.
