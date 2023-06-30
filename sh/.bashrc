@@ -177,7 +177,7 @@ export LESS_TERMCAP_ue=$_reset
 export LESS_TERMCAP_us=$_green
 
 alias rg='rg --hidden --follow --colors="match:fg:9" --glob "!**/.git/"'
-alias fd='fd --hidden --follow --exclude=.git'
+alias fd='fd --hidden --follow --exclude=.git/ --exclude /Volumes/'
 alias rgi='rg --ignore-case'
 alias fdi='fd --ignore-case'
 alias rgn='rg --no-ignore'
