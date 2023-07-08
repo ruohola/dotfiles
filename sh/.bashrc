@@ -817,6 +817,8 @@ export PATH="${PYENV_ROOT}/bin:${PATH}"
 eval "$(pyenv init --path --no-rehash)"
 eval "$(pyenv virtualenv-init -)"
 
+export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I$(brew --prefix tcl-tk)/include' --with-tcltk-libs='-L$(brew --prefix tcl-tk)/lib -ltcl8.6 -ltk8.6'"
+
 pyenv () {
     if [ "$*" == "available" ]; then
         local versions
