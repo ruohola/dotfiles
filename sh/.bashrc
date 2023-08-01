@@ -875,5 +875,5 @@ bind -x '"\C-b": __fzf_branch__'
 # Remap fzf cd to dir from ALT-C to CTRL-F. We need to copy the whole command here to fix \C-b mapping.
 bind '"\C-f": " \C-x\C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
-# Finally load system specific environment variables and other possible overrides.
+# Finally, load system specific environment variables and other possible overrides.
 source ~/dotfiles/sh/env 2> /dev/null
