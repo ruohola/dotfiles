@@ -131,6 +131,8 @@ nnoremap <A-H> <C-W>h
 nnoremap <A-J> <C-W>j
 nnoremap <A-K> <C-W>k
 
+nmap <C-W>= <Action>(MaximizeEditorInSplit)
+
 " Makes these easier to use.
 noremap , :
 noremap : ;
