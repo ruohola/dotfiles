@@ -769,7 +769,7 @@ __fzf_select_branch__ () {
     # Git branch browser. Reference from:
     # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L34
     local selected
-    git branch --all --color=always | fzf --height=40% --reverse --ansi | sed -e 's/^[* ]*//' -e 's#\(^remotes/\).* -> \(.*$\)#\1\2#'
+    git branch --all --color=always | fzf --height=40% --reverse --ansi --tiebreak=index | sed -e 's/^[* ]*//' -e 's#\(^remotes/\).* -> \(.*$\)#\1\2#'
 }
 __fzf_branch__ () {
     local selected
