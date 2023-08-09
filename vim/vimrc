@@ -529,7 +529,7 @@ nnoremap <silent> <Leader>[ :windo diffoff<CR>
 " `vim-plug` commands.
 command! PI silent! w | PlugInstall
 command! PC silent! w | PlugClean!
-command! PU w | PlugUpgrade | PlugUpdate
+command! PU w | PlugUpgrade | PlugUpdate | CocUpdate
 
 " Source vimrc.
 command! SO so $MYVIMRC
