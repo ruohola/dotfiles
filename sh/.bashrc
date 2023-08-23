@@ -160,6 +160,38 @@ alert () {
     terminal-notifier -sender com.googlecode.iterm2 -message "$@"
 }
 
+base64url () {
+    local string count
+
+    if [ "$1" = '-d' ] || [ "$1" = '--decode' ]; then
+        read -r string
+        string="$(echo -n "$string" | tr -- '-_' '+/')"
+
+        count="$(echo -n "$string" | wc -c)"
+        while [ $(( count % 4 )) != 0 ]; do
+            string="${string}="
+            count="$(echo -n "$string" | wc -c)"
+        done
+
+        base64 --decode <<< "$string"
+    else
+        base64 | tr -d -- '=' | tr -- '+/' '-_'
+    fi
+}
+
+jwt () {
+    # Decode a JSON Web Token and output its header and signature.
+    # Reference from: https://gist.github.com/angelo-v/e0208a18d455e2e6ea3c40ad637aac53?permalink_comment_id=3467741#gistcomment-3467741
+    local token header payload _signature
+
+    read -r token
+    read -r header payload _signature <<< "${token//./ }"
+
+    echo -n "$header" | base64url --decode | jq
+    echo -n "$payload" | base64url --decode | jq
+}
+
+
 # Colored man pages and `less`'s help.
 # mb = start blink
 # md = start bold
