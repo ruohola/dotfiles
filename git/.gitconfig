@@ -48,6 +48,7 @@
 	rebase = true
 	twohead = ort
 [push]
+	autoSetupRemote = true
 	default = simple
 [rebase]
 	autoStash = true

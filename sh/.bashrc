@@ -288,6 +288,7 @@ alias gma='git merge --abort'
 alias gmc='git merge --continue'
 alias gmf='git merge --ff-only'
 alias gpl='git pull --all --tags --prune'
+alias gps='git push --follow-tags'
 alias gpsf='git push --force-with-lease'
 alias gpsfu='git push --force-with-lease --set-upstream origin HEAD'
 alias gpsu='git push --follow-tags upstream HEAD'
@@ -517,10 +518,6 @@ gplm () {
     if [ -n "$status" ]; then
         git stash pop
     fi
-}
-gps () {
-    # Push the current branch.
-    git push --follow-tags "$@" || { [ "$?" -eq 128 ] && git push --follow-tags --set-upstream origin HEAD; }
 }
 gpsd () {
     # Delete a remote branch or tag.
