@@ -856,13 +856,13 @@ pyenv () {
     if [ "$*" == "available" ]; then
         local versions
         versions="$(pyenv install --list)"
-        for version in 6 7 8 9 10 11
+        for version in 6 7 8 9 10 11 12
         do
-             echo "${versions}" | command grep -E "^\s+3\.${version}" | tail -1
+            echo "${versions}" | command grep -E "^\s+3\.${version}(\.\d+)?$" | tail -1
         done
-        for version in 12
+        for version in 13
         do
-             echo "${versions}" | command grep -E "^\s+3\.${version}"
+            echo "${versions}" | command grep -E "^\s+3\.${version}"
         done
     else
         command pyenv "$@"
