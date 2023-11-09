@@ -443,7 +443,7 @@ gld () {
         second="$2"
     fi
 
-    git log --graph "$first" "$second" "$(git merge-base "$first" "$second")"^!
+    git log --graph "$first" "$second" "$(git merge-base "$first" "$second")"^! "${@:3}"
 }
 gmb () {
     # Return the merge base of the two branches.
