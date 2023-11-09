@@ -26,6 +26,9 @@ brew --version > /dev/null 2>&1 \
         && { brew bundle install --file=~/dotfiles/brew/Brewfile;
             "$(brew --prefix)/opt/fzf/install"; }; }
 
+mkdir -p ~/.docker/cli-plugins
+ln -sfn "${HOMEBREW_PREFIX}/opt/docker-buildx/bin/docker-buildx" ~/.docker/cli-plugins/docker-buildx
+
 # Link gitconfig only after modern git from brew is installed.
 for file in .gitconfig .gitignore_global; do
     [ ! -L "$file" ] && ln -sfv dotfiles/git/"$file" "$file"
