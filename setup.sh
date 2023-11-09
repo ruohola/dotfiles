@@ -27,6 +27,7 @@ brew --version > /dev/null 2>&1 \
             "$(brew --prefix)/opt/fzf/install"; }; }
 
 mkdir -p ~/.docker/cli-plugins
+ln -sfn "${HOMEBREW_PREFIX}/opt/docker-compose/bin/docker-compose" ~/.docker/cli-plugins/docker-compose
 ln -sfn "${HOMEBREW_PREFIX}/opt/docker-buildx/bin/docker-buildx" ~/.docker/cli-plugins/docker-buildx
 
 # Link gitconfig only after modern git from brew is installed.

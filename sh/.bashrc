@@ -732,24 +732,24 @@ __git_complete gy _git_show
 __git_complete gyg _git_show
 
 
-alias dc='docker-compose'
-alias dcf='docker-compose --file'
-alias dcb='docker-compose build '
-dcbf () { docker-compose --file "$1" build; }
-alias dcbn='docker-compose build --no-cache'
-alias dcu='docker-compose up'
-alias dcud='docker-compose up --detach'
-dcuf () { docker-compose --file "$1" up; }
-dcudf () { docker-compose --file "$1" up --detach; }
-dcub () { docker-compose build "$@" && docker-compose up "$@"; }
-dcubf () { docker-compose --file "$1" build && docker-compose --file "$1" up; }
-alias dcubn='docker-compose build --no-cache && docker-compose up'
-alias dcd='docker-compose down'
-alias dcr='docker-compose run --rm'
-dcrf () { docker-compose --file "$1" run --rm "$2"; }
-alias dcs='docker-compose stop'
-dcsh () { docker-compose run --rm "$1" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
-dcshf () { docker-compose --file "$1" run --rm "$2" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
+alias dc='docker compose'
+alias dcf='docker compose --file'
+alias dcb='docker compose build '
+dcbf () { docker compose --file "$1" build; }
+alias dcbn='docker compose build --no-cache'
+alias dcu='docker compose up'
+alias dcud='docker compose up --detach'
+dcuf () { docker compose --file "$1" up; }
+dcudf () { docker compose --file "$1" up --detach; }
+dcub () { docker compose build "$@" && docker compose up "$@"; }
+dcubf () { docker compose --file "$1" build && docker compose --file "$1" up; }
+alias dcubn='docker compose build --no-cache && docker compose up'
+alias dcd='docker compose down'
+alias dcr='docker compose run --rm'
+dcrf () { docker compose --file "$1" run --rm "$2"; }
+alias dcs='docker compose stop'
+dcsh () { docker compose run --rm "$1" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
+dcshf () { docker compose --file "$1" run --rm "$2" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
 
 desh () { docker exec --interactive --tty "$1" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
 dssh () {
