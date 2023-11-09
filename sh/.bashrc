@@ -187,7 +187,7 @@ jwt () {
     read -r token
     read -r header payload _signature <<< "${token//./ }"
 
-    echo -n "$header" | base64url --decode | jq
+    echo -n "$header" | sed 's/.*[^a-zA-Z0-9_-]//' | base64url --decode | jq
     echo -n "$payload" | base64url --decode | jq
 }
 
