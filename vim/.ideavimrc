@@ -225,16 +225,6 @@ nmap gs <Action>(GotoSuperMethod)
 nmap gt <Action>(GotoTypeDeclaration)
 nmap gy <Action>(GotoTest)
 
-" Motions around jinja tags, these don't work perfectly, pretty rard to improve though.
-nnoremap cij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR>
-nnoremap caj /{%<CR>/%}<CR>f}a<C-O>2c?{%<CR><C-O>:noh<CR>
-nnoremap dij /{%<CR>?%}<CR>f}a<C-O>c/{%<CR><C-O>:noh<CR><Esc>l
-nnoremap daj /{%<CR>/%}<CR>f}a<C-O>2c?{%<CR><C-O>:noh<CR><Esc>
-nnoremap vij /{%<CR>?%}<CR>f}a<C-O>v/{%<CR>get{<Esc><Esc>:noh<CR>gv
-nnoremap vaj /{%<CR>/%}<CR>f}v2?{%<CR><Esc>:noh<CR>gvo
-nmap yij vijy
-nmap yaj vajy
-
 " Makes using marks a lot better, ` mapping clashes with surround.
 nmap ' <Action>(ShowBookmarks)
 nmap m <Action>(ToggleBookmarkWithMnemonic)
@@ -296,9 +286,6 @@ nmap <Leader>9 <Action>(QuickImplementations)
 nmap <Leader>0 <Action>(Django.RunManageTaskAction)
 
 nmap <Leader><Esc> <Action>(ClearAllNotifications)
-
-nnoremap <S-Space>J "zdiWi{{<Esc>"zp
-vnoremap <S-Space>J "zdi{{<Esc>"zp
 
 nmap <C-H> <Action>(ParameterInfo)
 nmap <C-J> <Action>(EditorCloneCaretBelow)
