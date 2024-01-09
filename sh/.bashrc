@@ -237,6 +237,7 @@ alias gap='git add --patch'
 alias gau="git status -s | grep '??' | awk '{ print \$2 }' | xargs git add"  # Mnemonic: git add untracked
 alias gb='git branch'
 alias gba='git branch --all'
+alias gbc='gba --contains'
 alias gbd='git branch --delete'
 alias gbdf='git branch --delete --force'
 alias gbm='git branch --move'
