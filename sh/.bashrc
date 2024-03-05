@@ -882,6 +882,9 @@ if [ ! -z "$__node_bin_dir" ]; then
     export PATH="${__node_bin_dir}:${PATH}"
 fi
 
+export SDKMAN_DIR="${HOME}/.sdkman"
+[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
+
 alias ghci='TERM=dump command ghci'
 
 # Bash specific binds (`.inputrc` only has universal ones).
