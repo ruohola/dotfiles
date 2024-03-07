@@ -116,6 +116,15 @@ alias nq='networkQuality'
 
 alias jvim='jq | vim -c "set filetype=json" -'
 
+epoch () {
+    # Print the current epoch seconds or convert the passed epoch seconds into a human readable format.
+    if [ "$#" -eq 0 ]; then
+        date +%s
+    else
+        date -r "$1"
+    fi
+}
+
 trail () {
     # Use as a pipe to remove all trailing newlines from the input.
     printf '%s' "$(< /dev/stdin)"
