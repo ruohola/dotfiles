@@ -425,7 +425,7 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>https://cs.github.com/?q={query}</string>
+				<string>https://github.com/search?type=code&amp;q={query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
