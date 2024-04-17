@@ -15,5 +15,4 @@ if @% =~# '\d\+\.md'
     setlocal spell
     setlocal textwidth=72
     setlocal colorcolumn=73
-    setlocal formatprg=par
 endif
