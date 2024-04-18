@@ -2460,6 +2460,25 @@
 					<key>regex</key>
 					<string>(?&lt;=Merge pull request )#([0-9]+)(?= from )|(?&lt;=\()#(\d+)(?=\))</string>
 				</dict>
+				<dict>
+					<key>actions</key>
+					<array>
+						<dict>
+							<key>action</key>
+							<integer>5</integer>
+							<key>parameter</key>
+							<string>git -c core.pager='/opt/homebrew/bin/delta --syntax-theme="Solarized (dark)"' show --format=fuller --first-parent \1</string>
+							<key>title</key>
+							<string>Show commit</string>
+						</dict>
+					</array>
+					<key>notes</key>
+					<string>Git commit hash</string>
+					<key>precision</key>
+					<string>normal</string>
+					<key>regex</key>
+					<string>\b([0-9a-f]{7,40})\b</string>
+				</dict>
 			</array>
 			<key>Space</key>
 			<integer>0</integer>
@@ -2557,6 +2576,8 @@
 	<real>0.15673758865248233</real>
 	<key>StatusBarPosition</key>
 	<integer>0</integer>
+	<key>SuppressRestartAnnouncement</key>
+	<true/>
 	<key>SwitchPaneModifier</key>
 	<integer>6</integer>
 	<key>SwitchTabModifier</key>
