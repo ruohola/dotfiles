@@ -185,7 +185,7 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>https://www.google.com/search?q=site:https://docs.python.org/3/+{query}</string>
+				<string>https://kagi.com/search?q=site:https://docs.python.org/3/+{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
@@ -225,7 +225,7 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>https://www.google.com/search?q=site:docs.djangoproject.com/en/+{query}</string>
+				<string>https://kagi.com/search?q=site:docs.djangoproject.com/en/+{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
@@ -265,7 +265,7 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>https://www.google.com/search?q=site:pypi.org+{query}</string>
+				<string>https://kagi.com/search?q=site:pypi.org+{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
@@ -305,7 +305,7 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>https://www.google.com/search?q=site:developer.mozilla.org/en-US/docs/Web/JavaScript+{query}</string>
+				<string>https://kagi.com/search?q=site:developer.mozilla.org/en-US/docs/Web/JavaScript+{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
@@ -345,7 +345,7 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>https://www.google.com/search?q=site:www.typescriptlang.org/docs/+{query}</string>
+				<string>https://kagi.com/search?q=site:www.typescriptlang.org/docs/+{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
@@ -385,7 +385,7 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>https://www.google.com/search?q=site:https://www.django-rest-framework.org+{query}</string>
+				<string>https://kagi.com/search?q=site:https://www.django-rest-framework.org+{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
