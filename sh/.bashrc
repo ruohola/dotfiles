@@ -121,7 +121,7 @@ epoch () {
     if [ "$#" -eq 0 ]; then
         date +%s
     else
-        date -r "$1"
+        date -u -r "$1"
     fi
 }
 
