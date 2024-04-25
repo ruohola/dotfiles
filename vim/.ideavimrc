@@ -323,6 +323,6 @@ sethandler <C-7> a:ide  " Git (tool window)
 sethandler <C-8> a:ide  " Build (tool window)
 sethandler <C-9> a:ide  " Type Hierarchy (sidebar)
 sethandler <C-0> a:ide  " Call Hierarchy (sidebar)
-sethandler <S-Tab> a:ide  " Copilot: Apply Completions to Editor / Copilot: Show Completions
+sethandler <S-Tab> a:ide  " Copilot: Apply Completions to Editor / Copilot: Show Completions / Insert Inline Proposal
 sethandler <C-[> a:ide  " Copilot: Show Previous Completions
 sethandler <C-]> a:ide  " Copilot: Show Next Completions
