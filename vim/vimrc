@@ -200,6 +200,10 @@ augroup FugitiveBlameMappings
             \| endif
 augroup END
 
+" wellle/targets.vim
+" Prefer multiline targets around cursor over distant targets within cursor line.
+let g:targets_seekRanges = 'cc cr cb cB lc ac Ac lr lb ar ab lB Ar aB Ab AB rr ll rb al rB Al bb aa bB Aa BB AA'
+
 " darfink/vim-plist
 " nttps://yous.be/2018/12/02/how-to-open-binary-plist-files-using-vim-plist/
 function! s:ConvertBinaryPlist()
