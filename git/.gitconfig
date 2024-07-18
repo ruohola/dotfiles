@@ -32,6 +32,10 @@
 	smudge = git-lfs smudge -- %f
 [format]
 	pretty = format:%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(8,trunc)%aN%x08%x08 %C(auto)%s %D
+[gc]
+	auto = 0
+	reflogExpire = never
+	reflogExpireUnreachable = never
 [init]
 	defaultBranch = master
 [interactive]
