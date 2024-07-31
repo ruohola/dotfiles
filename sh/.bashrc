@@ -195,6 +195,10 @@ jwt () {
 }
 
 
+# Decompress a zlib stream.
+alias zunzip='python -c "import sys,zlib;sys.stdout.buffer.write(zlib.decompress(sys.stdin.buffer.read()))"'
+
+
 # Colored man pages and `less`'s help.
 # mb = start blink
 # md = start bold
