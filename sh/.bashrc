@@ -183,14 +183,17 @@ base64url () {
 }
 
 jwt () {
-    # Decode a JSON Web Token and output its header and signature.
+    # Decode a JSON Web Token and output its header and payload.
+    # Pass -n or --no-header to just output the payload.
     # Reference from: https://gist.github.com/angelo-v/e0208a18d455e2e6ea3c40ad637aac53?permalink_comment_id=3467741#gistcomment-3467741
     local token header payload _signature
 
     read -r token
     read -r header payload _signature <<< "${token//./ }"
 
-    echo -n "$header" | sed 's/.*[^a-zA-Z0-9_-]//' | base64url --decode | jq
+    if [ "$1" != '-n' ] && [ "$1" != '--no-header' ]; then
+        echo -n "$header" | sed 's/.*[^a-zA-Z0-9_-]//' | base64url --decode | jq
+    fi
     echo -n "$payload" | base64url --decode | jq
 }
 
