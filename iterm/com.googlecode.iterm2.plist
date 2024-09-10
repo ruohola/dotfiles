@@ -2458,7 +2458,7 @@
 					<key>precision</key>
 					<string>normal</string>
 					<key>regex</key>
-					<string>(?&lt;=Merge pull request )#([0-9]+)(?= from )|(?&lt;=\()#(\d+)(?=\))</string>
+					<string>(?&lt;=Merge pull request )#([0-9]+)(?= from )|(?&lt;=\()#([0-9]+)(?=\))</string>
 				</dict>
 				<dict>
 					<key>actions</key>
