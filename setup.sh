@@ -32,9 +32,9 @@ for file in .gitconfig .gitignore_global; do
 done
 
 # Install nvm.
-default_node=lts/fermium  # v14
+default_node=lts/iron  # v20
 [ ! -f ~/.nvm/nvm.sh ] \
-    && curl --fail https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
+    && curl --fail https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
     && . ~/.nvm/nvm.sh \
     && nvm install "$default_node" \
     && nvm alias default "$default_node" \
