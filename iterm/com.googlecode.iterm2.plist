@@ -2467,7 +2467,7 @@
 							<key>action</key>
 							<integer>5</integer>
 							<key>parameter</key>
-							<string>git -c core.pager='/opt/homebrew/bin/delta --syntax-theme="Solarized (dark)"' show --format=fuller --first-parent \1</string>
+							<string>/opt/homebrew/bin/git -c core.pager='/opt/homebrew/bin/delta --syntax-theme="Solarized (dark)"' show --format=fuller --first-parent \1</string>
 							<key>title</key>
 							<string>Show commit</string>
 						</dict>
