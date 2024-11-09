@@ -101,6 +101,8 @@ mkcd () {
     mkdir "$@" && cd "${@: -1}"
 }
 
+alias rm='rm -I'
+
 alias F='open .'  # Open Finder in the current directory.
 
 alias cp='cp -v'
