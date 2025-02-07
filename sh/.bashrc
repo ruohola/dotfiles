@@ -635,7 +635,7 @@ ghrf () {
 ghu () {
     # Open the GitHub/GitLab link for the current repo in the browser.
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
-        && open "$(echo "$remote" | sed 's,^.*@\(.*\):\(.*\).git$,https://\1/\2,')"
+        && open "$(echo "$remote" | sed 's,^.*@\(.*\):\(.*\)\.git$,https://\1/\2,')"
 }
 grboa () {
     # Rebase onto a branch using the first common commit as the starting point.
