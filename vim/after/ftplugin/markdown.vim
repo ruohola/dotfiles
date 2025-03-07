@@ -1,5 +1,6 @@
 setlocal formatoptions=jt
 setlocal nowrap
+setlocal softtabstop=2 shiftwidth=2
 
 nnoremap <buffer> <Leader>e :<C-U>write<BAR>execute 'silent !' .
     \ 'pandoc --output=' . shellescape(expand('%:p:r')) . '.pdf ' . shellescape(expand('%:p')) . ' && open ' . shellescape(expand('%:p:r')) . '.pdf &'
