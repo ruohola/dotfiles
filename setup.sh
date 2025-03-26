@@ -104,3 +104,6 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 # Disable the keyboard language switcher in input fields
 # https://discussions.apple.com/thread/255161577?answerId=259780226022&sortBy=best#259780226022
 defaults write kCFPreferencesAnyApplication TSMLanguageIndicatorEnabled 0
+
+# Disable clipboard history in Keyboard Maestro.
+defaults write com.stairways.keyboardmaestro.engine MaxClipboardHistory -int 1
