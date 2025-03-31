@@ -610,11 +610,6 @@ ghpr () {
     # Open a pull request.
     gps
 
-    local remote head
-
-    remote="$(__git_default_remote)"
-    head="$(__git_default_branch "$remote")"
-
     gh pr create "$@"
 
     # Copy the PR URL to clipboard.
