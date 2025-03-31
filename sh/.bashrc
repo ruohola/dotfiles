@@ -608,12 +608,17 @@ gwmp () {
 # GitHub/GitLab functions
 ghpr () {
     # Open a pull request.
+    local output title url
+
     gps
 
     gh pr create "$@"
 
-    # Copy the PR URL to clipboard.
-    gh pr view | awk '/^url/ {print $2}' | pbcopyn
+    # Copy the PR title + URL to clipboard.
+    output="$(gh pr view)"
+    title="$(echo "$output" | awk '/^title/ {$1=""; print substr($0,2)}')"
+    url="$(echo "$output" | awk '/^url/ {print $2}')"
+    echo -n "${title}: ${url}" | pbcopy
 
     gh pr view
 }
