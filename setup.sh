@@ -19,12 +19,14 @@ for file in .bashrc .bash_profile .zshrc .zprofile .inputrc .hushlogin; do
     [ ! -L "$file" ] && ln -sfv dotfiles/sh/"$file" "$file"
 done
 
-# Install homebrew and all brew packages.
+# Install homebrew.
 brew --version > /dev/null 2>&1 \
-    || { /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" \
-        && brew tap homebrew/bundle \
-        && { brew bundle install --file=~/dotfiles/brew/Brewfile;
-            "$(brew --prefix)/opt/fzf/install"; }; }
+    || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+# Install all brew packages (use fzf as a proxy for checking if they have been installed).
+fzf --version > /dev/null 2>&1 \
+    || { brew bundle install --file=~/dotfiles/brew/Brewfile;
+            "$(brew --prefix)/opt/fzf/install"; }
 
 # Link gitconfig only after modern git from brew is installed.
 for file in .gitconfig .gitignore_global; do
