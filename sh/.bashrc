@@ -302,6 +302,7 @@ alias gm='git merge'
 alias gma='git merge --abort'
 alias gmc='git merge --continue'
 alias gmf='git merge --ff-only'
+alias gmm='git merge "$(__git_default_branch)"'
 alias gpl='git pull --all --tags --prune'
 alias gps='git push --follow-tags'
 alias gpsf='git push --force-with-lease'
@@ -339,7 +340,7 @@ alias gsl='git shortlog'
 alias gsm='git submodule'
 alias gsml='git submodule foreach '\''git log $sha1..'\'''
 alias gsms='git submodule summary'
-alias gsmu="export -f __git_default_remote __git_default_branch gub gwm; git submodule foreach 'gwm && gub &'"
+alias gsmu="export -f __git_default_branch gub gwm; git submodule foreach 'gwm && gub &'"
 alias gst='git stash'
 alias gsty='git stash show --patch --format=fuller'
 alias gstl='git stash list --format=medium --stat'
@@ -364,20 +365,13 @@ alias gyl='git -c delta.line-numbers=false show --format=fuller --first-parent'
 alias gyr='gy --pretty=raw'
 
 # Git functions
-__git_default_remote () {
-    # Echo e.g. "origin"
-    git remote | grep -E '(upstream|origin)' | tail -1
-}
 __git_default_branch () {
     # Echo e.g. "master"
-    git remote show "${1-$(__git_default_remote)}" | awk '/HEAD branch/ {print $NF}'
+    __git_default_remote_branch | cut -d '/' -f 2-
 }
 __git_default_remote_branch () {
     # Echo e.g. "origin/master"
-    local remote head
-    remote="$(__git_default_remote)"
-    head="$(__git_default_branch "$remote")"
-    echo "${remote}/${head}"
+    git symbolic-ref --short --quiet refs/remotes/upstream/HEAD || git symbolic-ref --short --quiet refs/remotes/origin/HEAD
 }
 gbdp () {
     # Delete local and remote branch.
@@ -480,10 +474,6 @@ gmb () {
 
     git merge-base "$first" "$second"
 }
-gmm () {
-    # Merge the default branch into the current one.
-    git merge "$(__git_default_branch)"
-}
 gms () {
     # Copy the commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
@@ -520,8 +510,7 @@ gplm () {
 
     status="$(git status --porcelain --ignore-submodules)"
     [ -n "$status" ] && git stash push --include-untracked
-    remote="$(__git_default_remote)"
-    head="$(__git_default_branch "$remote")"
+    head="$(__git_default_branch)"
     current="$(git branch --show-current)"
     if [ "$current" != "$head" ]; then
         git switch "$head"
@@ -555,8 +544,7 @@ gub () {
 
     status="$(git status --porcelain --ignore-submodules)"
     [ -n "$status" ] && git stash push --include-untracked
-    remote="$(__git_default_remote)"
-    head="$(__git_default_branch "$remote")"
+    head="$(__git_default_branch)"
     current="$(git branch --show-current)"
     if [ "$current" != "$head" ]; then
         git switch "$head"
