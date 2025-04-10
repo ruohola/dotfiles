@@ -94,6 +94,10 @@ defaults write com.apple.dock autohide-delay -int 0
 defaults write com.apple.dock autohide-time-modifier -int 0
 killall Dock
 
+# Always show hidden files in Finder.
+defaults write com.apple.finder AppleShowAllFiles true
+killall Finder
+
 # Disable mouse acceleration
 # (also needs https://downloads.steelseriescdn.com/drivers/tools/steelseries-exactmouse-tool.dmg)
 # https://apple.stackexchange.com/a/151552/321512
