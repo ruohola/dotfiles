@@ -127,6 +127,15 @@ epoch () {
     fi
 }
 
+mepoch () {
+    # Print the current epoch milliseconds or convert the passed epoch milliseconds into a human readable format.
+    if [ "$#" -eq 0 ]; then
+        echo $(("$(date +%s%N)" / 1000000))
+    else
+        date -u -r $(("$1" / 1000))
+    fi
+}
+
 trail () {
     # Use as a pipe to remove all trailing newlines from the input.
     printf '%s' "$(< /dev/stdin)"
