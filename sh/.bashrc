@@ -119,7 +119,7 @@ alias nq='networkQuality'
 alias jvim='jq | vim -c "set filetype=json" -'
 
 epoch () {
-    # Print the current epoch seconds or convert the passed epoch seconds into a human readable format.
+    # Print the current epoch seconds or convert the passed epoch seconds into a human-readable format.
     if [ "$#" -eq 0 ]; then
         date +%s
     else
@@ -128,7 +128,7 @@ epoch () {
 }
 
 mepoch () {
-    # Print the current epoch milliseconds or convert the passed epoch milliseconds into a human readable format.
+    # Print the current epoch milliseconds or convert the passed epoch milliseconds into a human-readable format.
     if [ "$#" -eq 0 ]; then
         echo $(("$(date +%s%N)" / 1000000))
     else
