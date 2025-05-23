@@ -293,6 +293,7 @@ alias gdl='git -c delta.line-numbers=false diff'
 alias gd2='git -c delta.side-by-side=true diff'
 alias gds='git diff --staged'
 alias gf='git fetch --all --tags --prune'
+alias gff='gf --force'  # Allow clobbering existing tags.
 alias gfu='git fsck --unreachable --no-reflogs'
 alias gfuc='gfu | sed -n "s/.*commit \(.*\)/\1/p" | xargs git log'
 alias gl='git log --graph --branches --tags --remotes'
