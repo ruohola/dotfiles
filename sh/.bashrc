@@ -416,10 +416,10 @@ gdh () {
     # Show the diff of the currently staged and unstaged files compared to HEAD.
     # The speciality is that this also shows the diff for newly created files.
     (
-        git diff HEAD
+        git diff --color=always HEAD
         git ls-files --others --exclude-standard :/ |
             while read -r file; do
-                git diff -- /dev/null "$file"
+                git diff --color=always -- /dev/null "$file"
             done
     ) | delta
 }
@@ -427,10 +427,10 @@ gdu () {
     # Show the diff of the currently unstaged files compared to HEAD.
     # The speciality is that this also show the diff for newly created files.
     (
-        git diff
+        git diff --color=always
         git ls-files --others --exclude-standard :/ |
             while read -r file; do
-                git diff -- /dev/null "$file"
+                git diff --color=always -- /dev/null "$file"
             done
     ) | delta
 }
