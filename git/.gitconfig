@@ -1,4 +1,5 @@
 [alias]
+	forget = !rm -rI \"$(git rev-parse --git-dir)/rr-cache/\"
 	recommit = !git commit --file=\"$(git rev-parse --git-dir)/COMMIT_EDITMSG\" --edit
 [blame]
 	date = format-local:%a %Y-%m-%d %H:%M
