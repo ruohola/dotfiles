@@ -836,8 +836,6 @@ export PATH="${HOME}/.local/bin:${PATH}"
 
 export PATH="${HOME}/.flutter/bin:${PATH}"
 
-export DOCKER_BUILDKIT=1
-export COMPOSE_DOCKER_CLI_BUILD=1
 export BUILDKIT_PROGRESS=plain
 export DOCKER_SCAN_SUGGEST=false
 
