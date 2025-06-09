@@ -119,11 +119,15 @@ alias nq='networkQuality'
 alias jvim='jq | vim -c "set filetype=json" -'
 
 epoch () {
-    # Print the current epoch seconds or convert the passed epoch seconds into a human-readable format.
-    if [ "$#" -eq 0 ]; then
+    # Print the current epoch seconds, convert the passed epoch seconds into a human-readable format, or convert the passed ISO date/datetime into epoch seconds.
+    if [[ "$1" == *T* ]]; then
+        date -u -j -f "%Y-%m-%dT%H:%M:%S" "$1" "+%s"
+    elif [[ "$1" == *-* ]]; then
+        date -u -j -f "%Y-%m-%dT%H:%M:%S" "${1}T00:00:00" "+%s"
+    elif [ "$#" -eq 0 ]; then
         date +%s
     else
-        date -u -r "$1"
+        date -u -r "$1" "+%a %Y-%m-%dT%H:%M:%SZ"
     fi
 }
 
