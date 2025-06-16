@@ -868,12 +868,19 @@ pyenv () {
         local versions
         versions="$(pyenv install --list)"
         for version in 6 7 8 9 10 11 12 13
+            # Latest stable version.
         do
-            echo "${versions}" | command grep -E "^\s+3\.${version}(\.\d+)?$" | tail -1
+            echo "${versions}" | grep -E "^\s+3\.${version}(\.\d+)?$" | tail -1
+        done
+        for version in 13
+            # Latest noGIL version.
+        do
+            echo "${versions}" | grep -E "^\s+3\.${version}(\.\d+)?t$" | tail -1
         done
         for version in 14
+            # Dev versions.
         do
-            echo "${versions}" | command grep -E "^\s+3\.${version}"
+            echo "${versions}" | grep -E "^\s+3\.${version}"
         done
     else
         command pyenv "$@"
