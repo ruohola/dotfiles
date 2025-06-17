@@ -143,6 +143,11 @@ mepoch () {
     fi
 }
 
+iso () {
+    # Print the current ISO timestamp.
+    gdate --utc '+%a %Y-%m-%dT%H:%M:%SZ'
+}
+
 trail () {
     # Use as a pipe to remove all trailing newlines from the input.
     printf '%s' "$(< /dev/stdin)"
