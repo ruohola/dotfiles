@@ -66,5 +66,5 @@
 	email = eero@ruohola.dev
 	name = Eero Ruohola
 	signingKey = 6FBF8A6897FE618FE7C3E01FDC40A970DAB939A5
-[includeIf "gitdir:~/reaktor/"]
-	path = ~/dotfiles/git/.gitconfig_reaktor
+[includeIf "gitdir:~/work/"]
+	path = ~/dotfiles/git/.gitconfig_work
