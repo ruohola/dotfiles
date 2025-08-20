@@ -921,25 +921,26 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 
 alias ghci='TERM=dump command ghci'
 
-# Bash specific binds (`.inputrc` only has universal ones).
+if [[ $- == *i* ]]; then
+    # Bash specific binds (`.inputrc` only has universal ones).
+    bind '"\C-x\C-b": backward-char'
+    bind '"\C-x\C-l": clear-screen'
+    bind '"\C-x\C-v": quoted-insert'
 
-bind '"\C-x\C-b": backward-char'
-bind '"\C-x\C-l": clear-screen'
-bind '"\C-x\C-v": quoted-insert'
+    # Make CTRL-L clear the screen while also refreshing the prompt.
+    bind '"\C-l": " \C-x\C-b\C-k \C-u\C-m\C-x\C-l\C-y\C-h\C-y\ey\C-x\C-x\C-d"'
 
-# Make CTRL-L clear the screen while also refreshing the prompt.
-bind '"\C-l": " \C-x\C-b\C-k \C-u\C-m\C-x\C-l\C-y\C-h\C-y\ey\C-x\C-x\C-d"'
+    # Open file in vim with fzf. Reference from:
+    # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L92
+    bind '"\C-v": " \C-x\C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
-# Open file in vim with fzf. Reference from:
-# https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L92
-bind '"\C-v": " \C-x\C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+    # Fzf complete a Git branch. Reference from:
+    # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L81
+    bind -x '"\C-b": __fzf_branch__'
 
-# Fzf complete a Git branch. Reference from:
-# https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L81
-bind -x '"\C-b": __fzf_branch__'
-
-# Remap fzf cd to dir from ALT-C to CTRL-F. We need to copy the whole command here to fix \C-b mapping.
-bind '"\C-f": " \C-x\C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+    # Remap fzf cd to dir from ALT-C to CTRL-F. We need to copy the whole command here to fix \C-b mapping.
+    bind '"\C-f": " \C-x\C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+fi
 
 # Finally, load system specific environment variables and other possible overrides.
 source ~/dotfiles/sh/env 2> /dev/null
