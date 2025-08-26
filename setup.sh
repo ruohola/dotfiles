@@ -87,6 +87,14 @@ target=~/.local/share/bash-completion/completions/npm
 
 [ -f "$(brew --prefix)/bin/pinentry-mac" ] && [ ! -L /usr/local/bin/pinentry ] && sudo mkdir -p /usr/local/bin/ && sudo ln -sfv "$(brew --prefix)/bin/pinentry-mac" /usr/local/bin/pinentry
 
+# Use Homebrew Bash
+homebrew_bash='/opt/homebrew/bin/bash'
+if [ -f "$homebrew_bash" ] && [ "$homebrew_bash" != "$SHELL" ]; then
+    if ! grep -q "$homebrew_bash" /etc/shells; then
+        echo "$homebrew_bash" | sudo tee -a /etc/shells
+    fi
+    chsh -s "$homebrew_bash"
+fi
 
 # Remove delay from Dock.
 # https://apple.stackexchange.com/a/70598/321512
