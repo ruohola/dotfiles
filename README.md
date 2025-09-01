@@ -11,5 +11,7 @@ The most interesting files:
 
 Installation:
 ```
-cd && git clone --recurse-submodules git@github.com:ruohola/dotfiles.git && dotfiles/setup.sh
+cd && git clone --recurse-submodules git@github.com:ruohola/dotfiles.git && bash dotfiles/setup.sh
+# New terminal session
+cd && bash dotfiles/setup.sh
 ```
