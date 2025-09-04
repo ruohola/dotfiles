@@ -668,10 +668,32 @@ gyo () {
 }
 gyp () {
     # Show the pull request where the given commit belongs to.
-    local commit pr
+    local commit subject repo pr
 
-    commit="$(git rev-parse "${1:-HEAD}")"
-    pr="$(gh pr list --state=all --limit=1 --json=number --jq='.[0].number' --search="$commit")"
+    commit="$(git rev-parse "${1:-HEAD}")" || return 1
+    subject="$(git show --no-patch --format=%s "$commit")"
+
+    # Try to read `(org/repo#123)` from the subject line.
+    read -r repo pr <<<"$(
+        sed -nE 's/.*[( ]([A-Za-z0-9_-]+\/[A-Za-z0-9_.-]+)#([0-9]+)(\)$| .*)/\1 \2/p' <<< "$subject"
+    )"
+    if [ -n "$repo" ]; then
+        gh pr view --repo "$repo" "$pr" "${@:2}" 
+        return
+    fi
+
+    # If no repo in the subject, try to read `(#123)` from the subject line.
+    pr="$(sed -nE 's/.*[( ]#([0-9]+)(\)$| .*)/\1/p' <<< "$subject")"
+
+    if [ -z "$pr" ]; then
+        # If no PR number in subject, search for the latest PR that contains the commit.
+        pr="$(gh pr list --state=all --limit=1 --json=number --jq '.[0].number' --search="$commit")"
+    fi
+
+    if [ -z "$pr" ]; then
+        printf 'No pull request found for commit %s\n' "$commit" >&2
+        return 1
+    fi
 
     gh pr view "$pr" "${@:2}"
 }
