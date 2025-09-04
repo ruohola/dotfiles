@@ -499,17 +499,17 @@ gmb () {
 gms () {
     # Copy the commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
-    git log --format=%B -n 1 "${1:-HEAD}" | pbcopyn
+    git show --no-patch --format=%B "${1:-HEAD}" | pbcopyn
 }
 gms1 () {
     # Copy the subject line of commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
-    git log --format=%s -n 1 "${1:-HEAD}" | pbcopyn
+    git show --no-patch --format=%s "${1:-HEAD}" | pbcopyn
 }
 gms2 () {
     # Copy everything but the subject line of commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
-    git log --format=%B -n 1 "${1:-HEAD}" | tail -n +3 | pbcopyn
+    git show --no-patch --format=%b "${1:-HEAD}" | pbcopyn
 }
 gmt () {
     if git diff --check | grep --quiet 'leftover conflict marker'; then
@@ -696,7 +696,7 @@ gz () {
             clear
             git diff --color=always "$shas" | delta --paging=always
         elif [ "$key" = ctrl-n ]; then
-            git log --format=%B -n 1 "$shas" | pbcopyn
+            git show --no-patch --format=%B "$shas" | pbcopyn
             break
         elif [ "$key" = ctrl-h ]; then
             echo -n "$shas" | pbcopyn
