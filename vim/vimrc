@@ -509,6 +509,10 @@ nnoremap <Leader>\ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:no
 nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 
+" Strip away all ANSI color codes from the buffer/selection.
+nnoremap <Leader><Leader>a :%s/\e\[[0-9;]\+[mK]/<CR>
+xnoremap <Leader><Leader>a :s/\e\[[0-9;]\+[mK]/<CR>
+
 " Clear highlights.
 " We need this noop mapping before, otherwise
 " the esc mapping will just *completely* break.
