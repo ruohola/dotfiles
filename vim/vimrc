@@ -513,6 +513,9 @@ xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 nnoremap <Leader><Leader>a :%s/\e\[[0-9;]\+[mK]/<CR>
 xnoremap <Leader><Leader>a :s/\e\[[0-9;]\+[mK]/<CR>
 
+" Find all characters that are not printable ASCII (incl. space & tab)
+nnoremap <Leader><Leader>u /[^ -~\t]<CR>
+
 " Clear highlights.
 " We need this noop mapping before, otherwise
 " the esc mapping will just *completely* break.
