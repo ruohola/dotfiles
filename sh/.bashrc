@@ -148,6 +148,11 @@ iso () {
     gdate --utc '+%a %Y-%m-%dT%H:%M:%SZ'
 }
 
+uuid () {
+    # Generate a lowercased UUID v4
+    uuidgen | tr '[:upper:]' '[:lower:]'
+}
+
 trail () {
     # Use as a pipe to remove all trailing newlines from the input.
     printf '%s' "$(< /dev/stdin)"
