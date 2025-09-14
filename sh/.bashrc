@@ -114,7 +114,10 @@ export LESS='--chop-long-lines --RAW-CONTROL-CHARS'
 
 alias lt='languagetool --language en-US'
 
-alias nq='networkQuality'
+alias nq='networkQuality -s'   # Sequential
+alias nqd='networkQuality -u'  # Download
+alias nqu='networkQuality -d'  # Upload
+alias nqp='networkQuality'     # Parallel
 
 alias jvim='jq | vim -c "set filetype=json" -'
 
