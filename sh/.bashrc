@@ -9,10 +9,6 @@ _yellow=$(tput setaf 3);  _orange=$(tput setaf 9);  _red=$(tput setaf 1);     _m
 _violet=$(tput setaf 13); _blue=$(tput setaf 4);    _cyan=$(tput setaf 6);    _green=$(tput setaf 2);
 _bold=$(tput bold);       _underlined=$(tput smul); _reset=$(tput sgr0);      tput sgr0;
 
-__global_python="$(cat ~/.pyenv/version)"
-__ps1_venv () {
-    pyenv version-name | grep --invert-match "^${__global_python}$" | sed -E 's/(.*)/(\1) /'
-}
 __ps1_git_branch () {
     # This doesn't use `git branch --show-current` because
     # it doesn't work with a detached HEAD.
@@ -66,7 +62,6 @@ export Documents="${HOME}/Documents"
 export Downloads="${HOME}/Downloads"
 export tmp="${HOME}/tmp"
 export bin="${HOME}/.local/bin"
-export stdlib="${HOME}/.pyenv/versions/${__global_python}/lib/python${__global_python%.*}"
 source ~/dotfiles/sh/bookmarks 2> /dev/null
 
 [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
@@ -900,15 +895,20 @@ export CYPRESS_WATCH_FOR_FILE_CHANGES=false
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PYENV_ROOT="${HOME}/.pyenv"
 export PATH="${PYENV_ROOT}/bin:${PATH}"
-eval "$(pyenv init --path --no-rehash)"
-eval "$(pyenv virtualenv-init -)"
 
 export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I$(brew --prefix tcl-tk)/include' --with-tcltk-libs='-L$(brew --prefix tcl-tk)/lib -ltcl8.6 -ltk8.6'"
 
+__pyenv_loaded=0
 pyenv () {
+    if [ "$__pyenv_loaded" -eq 0 ]; then
+        eval "$(command pyenv init --path --no-rehash)"
+        eval "$(command pyenv virtualenv-init -)"
+        __pyenv_loaded=1
+    fi
+
     if [ "$*" == "available" ]; then
         local versions
-        versions="$(pyenv install --list)"
+        versions="$(command pyenv install --list)"
         for version in 6 7 8 9 10 11 12 13
             # Latest stable version.
         do
@@ -927,6 +927,15 @@ pyenv () {
     else
         command pyenv "$@"
     fi
+}
+python () {
+    if [ "$__pyenv_loaded" -eq 0 ]; then
+        eval "$(command pyenv init --path --no-rehash)"
+        eval "$(command pyenv virtualenv-init -)"
+        __pyenv_loaded=1
+    fi
+    unset -f python
+    command python "$@"
 }
 
 # Lazy load nvm https://blog.yo1.dog/better-nvm-lazy-loading/
