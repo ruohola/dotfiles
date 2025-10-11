@@ -949,7 +949,7 @@ nvm () {
 
 [ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"
 
-__node_bin_dir="$(dirname "$(~/dotfiles/scripts/node_path.sh)")"
+__node_bin_dir="${NVM_DIR}/versions/node/$(< "${NVM_DIR}/alias/$(< "${NVM_DIR}/alias/default")")/bin"
 
 if [ ! -z "$__node_bin_dir" ]; then
     export PATH="${__node_bin_dir}:${PATH}"
