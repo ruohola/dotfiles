@@ -64,7 +64,7 @@ export tmp="${HOME}/tmp"
 export bin="${HOME}/.local/bin"
 source ~/dotfiles/sh/bookmarks 2> /dev/null
 
-[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ] && . "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
 [ -r ~/.local/share/bash-completion/completions/git ] && . ~/.local/share/bash-completion/completions/git
 
 alias vvrc='vim ~/dotfiles/vim/vimrc'
@@ -896,7 +896,7 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PYENV_ROOT="${HOME}/.pyenv"
 export PATH="${PYENV_ROOT}/bin:${PATH}"
 
-export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I$(brew --prefix tcl-tk)/include' --with-tcltk-libs='-L$(brew --prefix tcl-tk)/lib -ltcl8.6 -ltk8.6'"
+export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I${HOMEBREW_PREFIX}/opt/tcl-tk/include' --with-tcltk-libs='-L${HOMEBREW_PREFIX}/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
 
 __pyenv_loaded=0
 pyenv () {
