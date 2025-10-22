@@ -151,6 +151,17 @@ uuid () {
     uuidgen | tr '[:upper:]' '[:lower:]'
 }
 
+uni() {
+    # Print out the Unicode codepoint names of the characters in the passed input.
+    python -c $'
+import sys
+import unicodedata
+
+for char in sys.argv[1]:
+    print(f"{char}  U+{ord(char):04X}  {unicodedata.name(char)}")
+' "$1"
+}
+
 trail () {
     # Use as a pipe to remove all trailing newlines from the input.
     printf '%s' "$(< /dev/stdin)"
