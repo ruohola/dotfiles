@@ -374,7 +374,6 @@ alias gs='git status --untracked-files'
 alias gsk='git ls-files -v | grep --color "^[Sa-z]"'
 alias gsl='git shortlog'
 alias gsm='git submodule'
-alias gsml='git submodule foreach '\''git log $sha1..'\'''
 alias gsms='git submodule summary'
 alias gsmu="export -f __git_default_branch gub gwm; git submodule foreach 'gwm && gub &'"
 alias gst='git stash'
