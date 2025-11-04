@@ -758,7 +758,6 @@ __git_complete gcp _git_cherry_pick
 __git_complete gd _git_diff
 __git_complete gdg _git_diff
 __git_complete gl _git_log
-__git_complete gl _git_log
 __git_complete gll _git_log
 __git_complete glll _git_log
 __git_complete gld _git_log
