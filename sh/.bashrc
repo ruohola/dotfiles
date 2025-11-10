@@ -238,6 +238,12 @@ jwt () {
 # Decompress a zlib stream.
 alias zunzip='python -c "import sys,zlib;sys.stdout.buffer.write(zlib.decompress(sys.stdin.buffer.read()))"'
 
+diffpdf () {
+    # Diff two PDF files as text.
+    # Accepts any additional arguments for `delta` (e.g. -s for side-by-side) in the end.
+    delta <(pdftotext "$1" -) <(pdftotext "$2" -) "${@:3}"
+}
+
 
 # Colored man pages and `less`'s help.
 # mb = start blink
