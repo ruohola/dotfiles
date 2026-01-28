@@ -399,12 +399,18 @@ alias gup='git restore --staged --patch'
 alias guin='git update-index --no-skip-worktree'
 alias guis='git update-index --skip-worktree'
 alias gwd='git switch --detach'
+alias gwtl='git worktree list --verbose'
 alias gy='git show --format=fuller --first-parent'
 alias gyg='gy --compact-summary'
 alias gyl='git -c delta.line-numbers=false show --format=fuller --first-parent'
 alias gyr='gy --pretty=raw'
 
 # Git functions
+__git_root_dir () {
+    # Echo the (absolute) path of the repo root directory.
+    # (Works also in a nested worktree.)
+    dirname "$(git rev-parse --git-common-dir)"
+}
 __git_default_branch () {
     # Echo e.g. "master"
     __git_default_remote_branch | cut -d '/' -f 2-
@@ -412,6 +418,26 @@ __git_default_branch () {
 __git_default_remote_branch () {
     # Echo e.g. "origin/master"
     git symbolic-ref --short --quiet refs/remotes/upstream/HEAD || git symbolic-ref --short --quiet refs/remotes/origin/HEAD
+}
+__git_worktree_path () {
+    # Echo the (absolute) directory path of a git worktree, ignoring the default one.
+    git worktree list --porcelain \
+        | tail -n +5 \
+        | grep -E "^worktree .*\b${1}\$" \
+        | awk '{print $2}'
+}
+__git_switch_to_branch_or_worktree () {
+    local possible_worktree
+
+    possible_worktree="$(__git_worktree_path "$1")"
+
+    if [ -n "$possible_worktree" ]; then
+        cd "$possible_worktree"
+    elif [ "$1" = '-' ]; then
+        git switch - 2> /dev/null || cd -
+    else
+        git switch "$1"
+    fi
 }
 gbdp () {
     # Delete local and remote branch.
@@ -625,10 +651,10 @@ gvi () {
 gw () {
     local selected
     if [ $# -ne 0 ]; then
-        git switch "$1"
+        __git_switch_to_branch_or_worktree "$1"
     else
         selected="$(__fzf_select_branch__ | sed 's#^remotes/[^/]*/##')"
-        [ -n "$selected" ] && git switch "$selected"
+        [ -n "$selected" ] && __git_switch_to_branch_or_worktree "$selected"
     fi
 }
 gwm () {
@@ -647,6 +673,30 @@ gwmm () {
 gwmp () {
     # Switch to the default branch and pull latest changes.
     gwm && gpl
+}
+gwtn () {
+    # Create a new worktree and switch to it.
+    local repo_root path
+
+    repo_root="$(__git_root_dir)"
+    path="${repo_root}/worktrees/${1}"
+
+    git worktree add "$path" -b "$1" "${@:2}" && cd "$path"
+}
+gwtr () {
+    # Remove a worktree and its associated branch.
+    # Can pass --force as the 2nd argument to delete even uncommited changes.
+    # (cd's back to the repo root dir if we were in the deleted worktree.)
+    local repo_root path relative_path
+
+    repo_root="$(__git_root_dir)"
+    path="$(__git_worktree_path "$1")"
+    relative_path="$(grealpath --no-symlinks --relative-to="$repo_root" "$path")"
+
+    git worktree remove "$1" "${@:2}" \
+        && echo "Deleted worktree ${1} (${relative_path})." \
+        && if [ "$PWD" = "$path" ]; then cd "$repo_root"; fi \
+        && gbd "$1"
 }
 # GitHub/GitLab functions
 ghpr () {
@@ -792,6 +842,8 @@ __git_complete grv _git_revert
 __git_complete gtd _git_tag
 __git_complete gw _git_switch
 __git_complete gwd _git_switch
+__git_complete gwtn _git_branch  # sic, autocompleting *branch* names as the second argument creates a worktree from an existing branch.
+__git_complete gwtr _git_branch  # sic, autocompleting *branch* names as they correlate with worktrees and `_git_workree` woudl autocomplete the subcommand.
 __git_complete gy _git_show
 __git_complete gyg _git_show
 
@@ -863,7 +915,7 @@ __fzf_select_branch__ () {
     # Git branch browser. Reference from:
     # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L34
     local selected
-    git branch --all --color=always | fzf --height=40% --reverse --ansi --tiebreak=index | sed -e 's/^[* ]*//' -e 's#\(^remotes/\).* -> \(.*$\)#\1\2#'
+    git branch --all --color=always | fzf --height=40% --reverse --ansi --tiebreak=index | sed -e 's/^[*+ ]*//' -e 's#\(^remotes/\).* -> \(.*$\)#\1\2#'
 }
 __fzf_branch__ () {
     local selected
