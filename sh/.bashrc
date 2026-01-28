@@ -574,6 +574,21 @@ gpsd () {
         git push --delete "$@"
     fi
 }
+grboa () {
+    # Rebase onto a branch using the first common commit as the starting point.
+    # Mnemonic: git rebase onto auto
+    local newbase branch commit_subject_of_newbase start_from
+
+    newbase="$1"
+
+    branch="$2"  # Optional argument.
+    [ -n "$branch" ] && git switch "$branch"
+
+    commit_subject_of_newbase="$(git log --format=%s --max-count=1 "$newbase")"
+    start_from="$(git log --format=%H --max-count=1 --grep="$commit_subject_of_newbase" "$(__git_default_remote_branch)..")"
+
+    git rebase --onto "$newbase" "$start_from"
+}
 gtp () {
     # Tag a commit in the past.
     # Usage: $ gtp v1.0.1 af1bc21
@@ -666,21 +681,6 @@ ghu () {
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
         && open "$(echo "$remote" | sed 's,^.*@\(.*\):\(.*\)\.git$,https://\1/\2,')"
 }
-grboa () {
-    # Rebase onto a branch using the first common commit as the starting point.
-    # Mnemonic: git rebase onto auto
-    local newbase branch commit_subject_of_newbase start_from
-
-    newbase="$1"
-
-    branch="$2"  # Optional argument.
-    [ -n "$branch" ] && git switch "$branch"
-
-    commit_subject_of_newbase="$(git log --format=%s --max-count=1 "$newbase")"
-    start_from="$(git log --format=%H --max-count=1 --grep="$commit_subject_of_newbase" "$(__git_default_remote_branch)..")"
-
-    git rebase --onto "$newbase" "$start_from"
-}
 gyo () {
     # Open the pull request where the given commit belongs to in a browser.
     gyp "${1:-HEAD}" --web
@@ -716,6 +716,7 @@ gyp () {
 
     gh pr view "$pr" "${@:2}"
 }
+
 gz () {
     # Git commit browser
     # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
