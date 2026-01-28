@@ -297,8 +297,7 @@ alias gau="git status -s | grep '??' | awk '{ print \$2 }' | xargs git add"  # M
 alias gb='git branch'
 alias gba='git branch --all'
 alias gbc='gba --contains'
-alias gbd='git branch --delete'
-alias gbdf='git branch --delete --force'
+alias gbd='git branch --delete --force'
 alias gbm='git branch --move'
 alias gbsu='git branch --set-upstream-to'
 alias gbl='git blame'
@@ -643,7 +642,7 @@ gwmm () {
     local head current
     head=$(__git_default_branch)
     current="$(git branch --show-current)"
-    [ "$head" != "$current" ] && git switch "$head" && gub && gbdf "$current"
+    [ "$head" != "$current" ] && git switch "$head" && gub && gbd "$current"
 }
 gwmp () {
     # Switch to the default branch and pull latest changes.
@@ -756,7 +755,6 @@ gz () {
 
 __git_complete gba _git_branch
 __git_complete gbd _git_branch
-__git_complete gbdf _git_branch
 __git_complete gbdp _git_branch
 __git_complete gbm _git_branch
 __git_complete gbr _git_branch
