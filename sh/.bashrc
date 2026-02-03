@@ -675,8 +675,7 @@ gw () {
 }
 gwm () {
     # Switch to the default branch.
-    # This is a function so that it can be exported in `gsmu` alias.
-    git switch "$(__git_default_branch)"
+    __git_switch_to_branch_or_worktree "$(__git_default_branch)"
 }
 gwmm () {
     # Switch to the default branch, update it, and delete the feature branch that you changed from.
