@@ -409,7 +409,7 @@ alias gyr='gy --pretty=raw'
 __git_root_dir () {
     # Echo the (absolute) path of the repo root directory.
     # (Works also in a nested worktree.)
-    dirname "$(git rev-parse --git-common-dir)"
+    realpath "$(dirname "$(git rev-parse --git-common-dir)")"
 }
 __git_default_branch () {
     # Echo e.g. "master"
@@ -419,22 +419,34 @@ __git_default_remote_branch () {
     # Echo e.g. "origin/master"
     git symbolic-ref --short --quiet refs/remotes/upstream/HEAD || git symbolic-ref --short --quiet refs/remotes/origin/HEAD
 }
+__git_is_nondefault_worktree () {
+    # Return success if the argument is the name or associated branch of a non-default worktree.
+    git worktree list | tail -n +2 | grep --quiet "^.*/$1 \|\[$1\]"
+}
 __git_worktree_path () {
-    # Echo the (absolute) directory path of a git worktree, ignoring the default one.
-    git worktree list --porcelain \
-        | tail -n +5 \
-        | grep -E "^worktree .*\b${1}\$" \
-        | awk '{print $2}'
+    # Echo the (absolute) directory path of a git worktree based on the workree or branch name.
+    git worktree list \
+        | grep "^.*/$1 \|\[$1\]" \
+        | awk '{print $1}'
+}
+__git_current_worktree () {
+    # Echo the name of the current worktree.
+    basename "$(git rev-parse --show-toplevel)"
 }
 __git_switch_to_branch_or_worktree () {
-    local possible_worktree
+    local worktree_path current_worktree
 
-    possible_worktree="$(__git_worktree_path "$1")"
+    current_worktree="$(__git_current_worktree)"
 
-    if [ -n "$possible_worktree" ]; then
-        cd "$possible_worktree"
+    worktree_path="$(__git_worktree_path "$1")"
+
+    if __git_is_nondefault_worktree "$1"; then
+        cd "$worktree_path" || exit
     elif [ "$1" = '-' ]; then
-        git switch - 2> /dev/null || cd -
+        git switch - 2> /dev/null || cd - || exit
+    elif __git_is_nondefault_worktree "$current_worktree"; then
+        # If one is already in a worktree, don't allow switching branches - it just gets confusing, just try to cd instead.
+        [ -n "$worktree_path" ] && cd "$worktree_path" 2> /dev/null || echo "Shouldn't switch branches in a worktree!"
     else
         git switch "$1"
     fi
@@ -690,7 +702,7 @@ gwtm () {
     # (cd's back to the repo root dir if we were in the deleted worktree.)
     local worktree current_worktree repo_root path relative_path
 
-    current_worktree="$(basename "$(git rev-parse --show-toplevel)")"
+    current_worktree="$(__git_current_worktree)"
 
     if [[ "$1" == '' || "$1" == '--' ]]; then
         worktree="$current_worktree"
