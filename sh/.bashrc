@@ -686,20 +686,36 @@ gwtn () {
 gwtm () {
     # Remove a worktree.
     # Can pass `--force` as the 2nd argument to delete even uncommited changes.
+    # Without any arguments (or -- as the 1st argument), deletes the current worktree.
     # (cd's back to the repo root dir if we were in the deleted worktree.)
-    local repo_root path relative_path
+    local worktree current_worktree repo_root path relative_path
 
+    current_worktree="$(basename "$(git rev-parse --show-toplevel)")"
+
+    if [[ "$1" == '' || "$1" == '--' ]]; then
+        worktree="$current_worktree"
+    else
+        worktree="$1"
+    fi
     repo_root="$(__git_root_dir)"
-    path="$(__git_worktree_path "$1")"
+    path="$(__git_worktree_path "$worktree")"
     relative_path="$(grealpath --no-symlinks --relative-to="$repo_root" "$path")"
 
-    git worktree remove "$1" "${@:2}" \
-        && echo "Deleted worktree ${1} (${relative_path})." \
-        && if [ "$PWD" = "$path" ]; then cd "$repo_root"; fi
+    git worktree remove "$worktree" "${@:2}" \
+        && echo "Deleted worktree ${worktree} (${relative_path})." \
+        && if [ "$(basename "$worktree")" = "$current_worktree" ]; then cd "$repo_root" || exit; fi
 }
 gwtr () {
     # Like `gwtm` but also deletes the associated branch.
-    gwtm "$@" && gbd "$1"
+    local branch
+
+    if [[ "$1" == '' || "$1" == '--' ]]; then
+        branch="$(git branch --show-current)"
+    else
+        branch="$1"
+    fi
+
+    gwtm "$@" && gbd "$branch"
 }
 # GitHub/GitLab functions
 ghpr () {
