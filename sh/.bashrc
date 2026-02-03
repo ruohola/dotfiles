@@ -580,7 +580,11 @@ gmt () {
 gn () {
     # Create a new branch with the given name or switch to if it already exists.
     # The `$@` on the create call allows to pass `<branchname> <hash>` as the arguments.
-    git switch --create "$@" || git switch "$1"
+    if ! __git_is_nondefault_worktree "$(__git_current_worktree)"; then
+        git switch --create "$@" || git switch "$1"
+    else
+        echo "Shouldn't create branches in a worktree!"
+    fi
 }
 gplm () {
     # Pull the default branch without switching to it.
