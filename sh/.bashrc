@@ -683,9 +683,9 @@ gwtn () {
 
     git worktree add "$path" -b "$1" "${@:2}" && cd "$path"
 }
-gwtr () {
-    # Remove a worktree and its associated branch.
-    # Can pass --force as the 2nd argument to delete even uncommited changes.
+gwtm () {
+    # Remove a worktree.
+    # Can pass `--force` as the 2nd argument to delete even uncommited changes.
     # (cd's back to the repo root dir if we were in the deleted worktree.)
     local repo_root path relative_path
 
@@ -695,8 +695,11 @@ gwtr () {
 
     git worktree remove "$1" "${@:2}" \
         && echo "Deleted worktree ${1} (${relative_path})." \
-        && if [ "$PWD" = "$path" ]; then cd "$repo_root"; fi \
-        && gbd "$1"
+        && if [ "$PWD" = "$path" ]; then cd "$repo_root"; fi
+}
+gwtr () {
+    # Like `gwtm` but also deletes the associated branch.
+    gwtm "$@" && gbd "$1"
 }
 # GitHub/GitLab functions
 ghpr () {
@@ -843,7 +846,8 @@ __git_complete gtd _git_tag
 __git_complete gw _git_switch
 __git_complete gwd _git_switch
 __git_complete gwtn _git_branch  # sic, autocompleting *branch* names as the second argument creates a worktree from an existing branch.
-__git_complete gwtr _git_branch  # sic, autocompleting *branch* names as they correlate with worktrees and `_git_workree` woudl autocomplete the subcommand.
+__git_complete gwtm _git_branch  # sic, autocompleting *branch* names as they correlate with worktrees and `_git_workree` would autocomplete the subcommand.
+__git_complete gwtr _git_branch  # sic, autocompleting *branch* names as they correlate with worktrees and `_git_workree` would autocomplete the subcommand.
 __git_complete gy _git_show
 __git_complete gyg _git_show
 
