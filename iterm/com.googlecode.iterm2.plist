@@ -2255,6 +2255,50 @@
 					<key>Text</key>
 					<string>0x0d</string>
 				</dict>
+				<key>0xf700-0x240000-0x7e</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>0x1b 0x5b 0x31 0x3b 0x35 0x41</string>
+					<key>Version</key>
+					<integer>1</integer>
+				</dict>
+				<key>0xf701-0x240000-0x7d</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>0x1b 0x5b 0x31 0x3b 0x35 0x42</string>
+					<key>Version</key>
+					<integer>1</integer>
+				</dict>
+				<key>0xf702-0x240000-0x7b</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>0x1b 0x5b 0x31 0x3b 0x35 0x44</string>
+					<key>Version</key>
+					<integer>1</integer>
+				</dict>
+				<key>0xf703-0x240000-0x7c</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>0x1b 0x5b 0x31 0x3b 0x35 0x43</string>
+					<key>Version</key>
+					<integer>1</integer>
+				</dict>
 			</dict>
 			<key>Link Color</key>
 			<dict>
@@ -2473,11 +2517,11 @@
 						</dict>
 					</array>
 					<key>notes</key>
-                                        <string>GitHub PR org/repo#</string>
+					<string>GitHub PR org/repo#</string>
 					<key>precision</key>
 					<string>normal</string>
 					<key>regex</key>
-                                        <string>([A-Za-z0-9_-]+/[A-Za-z0-9_.-]+)#([0-9]+)</string>
+					<string>([A-Za-z0-9_-]+/[A-Za-z0-9_.-]+)#([0-9]+)</string>
 				</dict>
 				<dict>
 					<key>actions</key>
