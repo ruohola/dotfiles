@@ -683,7 +683,7 @@ gwmm () {
     local head current
     head=$(__git_default_branch)
     current="$(git branch --show-current)"
-    [ "$head" != "$current" ] && git switch "$head" && gub && gbd "$current"
+    [ "$head" != "$current" ] && git switch "$head" && gpl && gbd "$current"
 }
 gwmp () {
     # Switch to the default branch and pull latest changes.
