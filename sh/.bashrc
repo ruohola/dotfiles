@@ -62,7 +62,7 @@ export Documents="${HOME}/Documents"
 export Downloads="${HOME}/Downloads"
 export tmp="${HOME}/tmp"
 export bin="${HOME}/.local/bin"
-source ~/dotfiles/sh/bookmarks 2> /dev/null
+source ~/.sourced/bookmarks 2> /dev/null
 
 [ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ] && . "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
 [ -r ~/.local/share/bash-completion/completions/git ] && . ~/.local/share/bash-completion/completions/git
@@ -76,8 +76,8 @@ alias vinp='vim ~/dotfiles/sh/.inputrc && bind -f ~/dotfiles/sh/.inputrc'
 alias virc='vim ~/dotfiles/vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
 alias vgit='vim ~/dotfiles/git/.gitconfig'
-alias vbok='vim ~/dotfiles/sh/bookmarks && source ~/dotfiles/sh/bookmarks'
-alias venv='vim ~/dotfiles/sh/env && source ~/dotfiles/sh/env'
+alias vbok='vim ~/.sourced/bookmarks && source ~/.sourced/bookmarks'
+alias venv='vim ~/.sourced/env && source ~/.sourced/env'
 alias vlig='vim ~/dotfiles/vim/spell/en.utf-8.add'
 
 vims () {
@@ -1084,4 +1084,4 @@ if [[ $- == *i* ]]; then
 fi
 
 # Finally, load system specific environment variables and other possible overrides.
-source ~/dotfiles/sh/env 2> /dev/null
+source ~/.sourced/env 2> /dev/null
