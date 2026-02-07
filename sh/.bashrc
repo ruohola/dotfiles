@@ -62,9 +62,12 @@ export Documents="${HOME}/Documents"
 export Downloads="${HOME}/Downloads"
 export tmp="${HOME}/tmp"
 export bin="${HOME}/.local/bin"
+# shellcheck source=/dev/null
 source ~/.sourced/bookmarks 2> /dev/null
 
+# shellcheck source=/dev/null
 [ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ] && . "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+# shellcheck source=/dev/null
 [ -r ~/.local/share/bash-completion/completions/git ] && . ~/.local/share/bash-completion/completions/git
 
 alias vvrc='vim ~/dotfiles/vim/vimrc'
@@ -93,7 +96,7 @@ alias ls='gls --color=auto --group-directories-first --classify'
 alias ll='ls -l --almost-all --human-readable --time-style=long-iso'
 
 mkcd () {
-    mkdir "$@" && cd "${@: -1}"
+    mkdir "$@" && cd "${@: -1}" || return
 }
 
 alias rm='rm -I'
@@ -257,7 +260,8 @@ export LESS_TERMCAP_mb=$_blue
 export LESS_TERMCAP_md=$_orange
 export LESS_TERMCAP_me=$_reset
 export LESS_TERMCAP_se=$_reset
-export LESS_TERMCAP_so=$_base03$(tput setab 12)
+LESS_TERMCAP_so=$_base03$(tput setab 12)
+export LESS_TERMCAP_so
 export LESS_TERMCAP_ue=$_reset
 export LESS_TERMCAP_us=$_green
 
@@ -293,6 +297,7 @@ alias gai='git add --interactive'
 alias gam='git add --update'  # Mnemonic: git add modified
 alias gan='git add --intent-to-add'
 alias gap='git add --patch'
+# shellcheck disable=SC2142  # \$2 is for awk, not a positional parameter.
 alias gau="git status -s | grep '??' | awk '{ print \$2 }' | xargs git add"  # Mnemonic: git add untracked
 alias gb='git branch'
 alias gba='git branch --all'
@@ -441,9 +446,9 @@ __git_switch_to_branch_or_worktree () {
     worktree_path="$(__git_worktree_path "$1")"
 
     if __git_is_nondefault_worktree "$1"; then
-        cd "$worktree_path" || exit
+        cd "$worktree_path" || return
     elif [ "$1" = '-' ]; then
-        git switch - 2> /dev/null || cd - || exit
+        git switch - 2> /dev/null || cd - || return
     elif __git_is_nondefault_worktree "$current_worktree"; then
         # If one is already in a worktree, don't allow switching branches - it just gets confusing, just try to cd instead.
         [ -n "$worktree_path" ] && cd "$worktree_path" 2> /dev/null || echo "Shouldn't switch branches in a worktree!"
@@ -610,7 +615,8 @@ gpsd () {
     # Usage: `$ gpsd origin foo` or `$ gpsd origin/foo` or `$ gpsd remotes/origin/foo`.
     # Useful for copying the branch name arg from `git log` or `git branch` output.
     if [ "$#" -eq 1 ]; then
-        git push --delete $(echo "$1" | sed -e 's#^remotes/\(.*/\)#\1#' -e 's#/# #')  # This cannot be quoted.
+        # shellcheck disable=SC2046  # Intentional word splitting.
+        git push --delete $(echo "$1" | sed -e 's#^remotes/\(.*/\)#\1#' -e 's#/# #')
     else
         git push --delete "$@"
     fi
@@ -696,7 +702,7 @@ gwtn () {
     repo_root="$(__git_root_dir)"
     path="${repo_root}/worktrees/${1}"
 
-    git worktree add "$path" -b "$1" "${@:2}" && cd "$path"
+    git worktree add "$path" -b "$1" "${@:2}" && cd "$path" || return
 }
 gwtm () {
     # Remove a worktree.
@@ -718,7 +724,7 @@ gwtm () {
 
     git worktree remove "$worktree" "${@:2}" \
         && echo "Deleted worktree ${worktree} (${relative_path})." \
-        && if [ "$(basename "$worktree")" = "$current_worktree" ]; then cd "$repo_root" || exit; fi
+        && if [ "$(basename "$worktree")" = "$current_worktree" ]; then cd "$repo_root" || return; fi
 }
 gwtr () {
     # Like `gwtm` but also deletes the associated branch.
@@ -761,6 +767,7 @@ ghrf () {
 }
 ghu () {
     # Open the GitHub/GitLab link for the current repo in the browser.
+    # shellcheck disable=SC2001
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
         && open "$(echo "$remote" | sed 's,^.*@\(.*\):\(.*\)\.git$,https://\1/\2,')"
 }
@@ -938,12 +945,13 @@ poetry () {
 }
 
 
+# shellcheck source=/dev/null
 source ~/.fzf.bash
 
 __fzf_vim__ () {
     local file
     file=$(__fzf_select__)
-    file="$(echo "${file}" | sed 's/ $//')"
+    file="${file% }"
     [ -z "${file}" ] || echo vim "${file}"
 }
 __fzf_select_branch__ () {
@@ -960,7 +968,9 @@ __fzf_branch__ () {
 }
 
 export FZF_IGNORES='Applications,Library,Movies,Music,Pictures,Qt,node_modules,venv,.DS_Store,.Trash,.cache,.gradle,.git,.m2,.mypy_cache,.next,.npm,.pyenv,.pytest_cache,.stack,.temp,__pycache__,build'
+# shellcheck disable=SC2016  # $FZF_IGNORES expands at runtime when fzf evaluates the command.
 export FZF_DEFAULT_COMMAND='command fd --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
+# shellcheck disable=SC2016
 export FZF_ALT_C_COMMAND='command fd --type d --type l --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_COMPLETION_TRIGGER='*'
@@ -1016,11 +1026,13 @@ pyenv () {
         do
             echo "${versions}" | grep -E "^\s+3\.${version}(\.\d+)?$" | tail -1
         done
+        # shellcheck disable=SC2043
         for version in 13
             # Latest noGIL version.
         do
             echo "${versions}" | grep -E "^\s+3\.${version}(\.\d+)?t$" | tail -1
         done
+        # shellcheck disable=SC2043
         for version in 14
             # Dev versions.
         do
@@ -1045,19 +1057,22 @@ export NVM_DIR="${HOME}/.nvm"
 
 nvm () {
     unset -f nvm
+    # shellcheck source=/dev/null
     [ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh" --no-use
-    nvm $@
+    nvm "$@"
 }
 
+# shellcheck source=/dev/null
 [ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"
 
 __node_bin_dir="${NVM_DIR}/versions/node/$(< "${NVM_DIR}/alias/$(< "${NVM_DIR}/alias/default")")/bin"
 
-if [ ! -z "$__node_bin_dir" ]; then
+if [ -n "$__node_bin_dir" ]; then
     export PATH="${__node_bin_dir}:${PATH}"
 fi
 
 export SDKMAN_DIR="${HOME}/.sdkman"
+# shellcheck source=/dev/null
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
 alias ghci='TERM=dump command ghci'
@@ -1073,6 +1088,7 @@ if [[ $- == *i* ]]; then
 
     # Open file in vim with fzf. Reference from:
     # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L92
+    # shellcheck disable=SC2016  # Backticks are for readline, not shell expansion.
     bind '"\C-v": " \C-x\C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
     # Fzf complete a Git branch. Reference from:
@@ -1080,8 +1096,10 @@ if [[ $- == *i* ]]; then
     bind -x '"\C-b": __fzf_branch__'
 
     # Remap fzf cd to dir from ALT-C to CTRL-F. We need to copy the whole command here to fix \C-b mapping.
+    # shellcheck disable=SC2016
     bind '"\C-f": " \C-x\C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 fi
 
 # Finally, load system specific environment variables and other possible overrides.
+# shellcheck source=/dev/null
 source ~/.sourced/env 2> /dev/null
