@@ -3,11 +3,25 @@
 [ -f /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"
 
 # Solarized colors for coloring the prompt and man pages in iTerm.
-_base03=$(tput setaf 8);  _base02=$(tput setaf 0);  _base01=$(tput setaf 10); _base00=$(tput setaf 11);
-_base0=$(tput setaf 12);  _base1=$(tput setaf 14);  _base2=$(tput setaf 7);   _base3=$(tput setaf 15);
-_yellow=$(tput setaf 3);  _orange=$(tput setaf 9);  _red=$(tput setaf 1);     _magenta=$(tput setaf 5);
-_violet=$(tput setaf 13); _blue=$(tput setaf 4);    _cyan=$(tput setaf 6);    _green=$(tput setaf 2);
-_bold=$(tput bold);       _underlined=$(tput smul); _reset=$(tput sgr0);      tput sgr0;
+_base03=$'\e[90m'
+# _base02=$'\e[30m'
+# _base01=$'\e[92m'
+# _base00=$'\e[93m'
+# _base0=$'\e[94m'
+# _base1=$'\e[96m'
+# _base2=$'\e[37m'
+# _base3=$'\e[97m'
+# _yellow=$'\e[33m'
+_orange=$'\e[91m'
+# _red=$'\e[31m'
+_magenta=$'\e[35m'
+# _violet=$'\e[95m'
+_blue=$'\e[34m'
+_cyan=$'\e[36m'
+_green=$'\e[32m'
+# _bold=$'\e[1m'
+# _underlined=$'\e[4m'
+_reset=$'\e[0m'
 
 __ps1_git_branch () {
     # This doesn't use `git branch --show-current` because
