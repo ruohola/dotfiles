@@ -1000,6 +1000,7 @@ export PATH="${HOME}/.flutter/bin:${PATH}"
 
 export BUILDKIT_PROGRESS=plain
 export DOCKER_SCAN_SUGGEST=false
+export DOCKER_CLI_HINTS=false
 
 export PYTHONPYCACHEPREFIX="${HOME}/.cache/pycache/"
 
