@@ -1113,6 +1113,8 @@ if [[ $- == *i* ]]; then
     # Remap fzf cd to dir from ALT-C to CTRL-F. We need to copy the whole command here to fix \C-b mapping.
     # shellcheck disable=SC2016
     bind '"\C-f": " \C-x\C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+
+    [ -r ~/.local/share/iterm2/shell_integration.bash ] && source ~/.local/share/iterm2/shell_integration.bash
 fi
 
 # Finally, load system specific environment variables and other possible overrides.
