@@ -2,8 +2,32 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AIFeatureFunctionCalling</key>
+	<true/>
+	<key>AIFeatureHostedCodeInterpeter</key>
+	<false/>
+	<key>AIFeatureHostedFileSearch</key>
+	<false/>
+	<key>AIFeatureHostedWebSearch</key>
+	<false/>
+	<key>AIFeatureStreamingResponses</key>
+	<true/>
+	<key>AITermAPI</key>
+	<integer>5</integer>
+	<key>AIVectorStore</key>
+	<integer>0</integer>
+	<key>AIVendor</key>
+	<integer>3</integer>
 	<key>AdjustWindowForFontSizeChange</key>
 	<false/>
+	<key>AiMaxTokens</key>
+	<integer>10000000</integer>
+	<key>AiModel</key>
+	<string>llama4:latest</string>
+	<key>AiResponseMaxTokens</key>
+	<integer>10000000</integer>
+	<key>AitermURL</key>
+	<string>http://localhost:11434/api/chat</string>
 	<key>AlternateMouseScroll</key>
 	<true/>
 	<key>BootstrapDaemon</key>
@@ -1876,6 +1900,8 @@
 	<true/>
 	<key>LeftOption</key>
 	<integer>2</integer>
+	<key>MaxVertically</key>
+	<false/>
 	<key>NeverWarnAboutMeta</key>
 	<true/>
 	<key>NeverWarnAboutMeta_selection</key>
@@ -2651,6 +2677,8 @@
 	<integer>4</integer>
 	<key>UseBorder</key>
 	<false/>
+	<key>UseLionStyleFullscreen</key>
+	<true/>
 	<key>UseMetal</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
