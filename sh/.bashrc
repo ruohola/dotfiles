@@ -432,7 +432,17 @@ __git_root_dir () {
 }
 __git_default_branch () {
     # Echo e.g. "master"
-    __git_default_remote_branch | cut -d '/' -f 2-
+    local remote_branch
+    remote_branch="$(__git_default_remote_branch)"
+    if [ $? -ne 128 ]; then
+        # Was a valid repo.
+        if [ -n "$remote_branch" ]; then
+            echo "$remote_branch" | cut -d '/' -f 2-
+        else
+            # No remotes configured.
+            git config init.defaultBranch
+        fi
+    fi
 }
 __git_default_remote_branch () {
     # Echo e.g. "origin/master"
