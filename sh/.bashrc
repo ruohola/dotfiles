@@ -35,10 +35,9 @@ __ps1_reset_title () {
     # https://gitlab.com/gnachman/iterm2/-/issues/5659#note_553863324
     printf '\e]0;\7'
 }
-# Solarized colored prompt: (venv) path/to/dir (branch)*$
+# Solarized colored prompt: path/to/dir (branch)*$
 export PS1="\
 \[\$(__ps1_reset_title)\]\
-\$(__ps1_venv 2> /dev/null)\
 \[$_cyan\]\w \
 \[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
 \[$_reset\]\[\$(__ps1_git_status 2> /dev/null)\]\
@@ -168,7 +167,7 @@ uuid () {
     uuidgen | tr '[:upper:]' '[:lower:]'
 }
 
-uni() {
+uni () {
     # Print out the Unicode codepoint names of the characters in the passed input.
     python -c $'
 import sys
@@ -434,7 +433,7 @@ __git_default_branch () {
     # Echo e.g. "master"
     local remote_branch
     remote_branch="$(__git_default_remote_branch)"
-    if [ $? -ne 128 ]; then
+    if [ "$?" -ne 128 ]; then
         # Was a valid repo.
         if [ -n "$remote_branch" ]; then
             echo "$remote_branch" | cut -d '/' -f 2-
@@ -491,7 +490,7 @@ gbr () {
 
     local branchname startpoint
 
-    if [ $# -eq 1 ]; then
+    if [ "$#" -eq 1 ]; then
         branchname="$(git branch --show-current)"
         startpoint="$1"
     else
@@ -692,11 +691,11 @@ gubm () {
 gvi () {
     # Open the specified file at the given revision in vim.
     # Usage: $ gvi HEAD~10 foo/bar.txt
-    [ $# -ne 0 ] && vim -c "Gedit $1:$2"
+    [ "$#" -ne 0 ] && vim -c "Gedit $1:$2"
 }
 gw () {
     local selected
-    if [ $# -ne 0 ]; then
+    if [ "$#" -ne 0 ]; then
         __git_switch_to_branch_or_worktree "$1"
     else
         selected="$(__fzf_select_branch__ | sed 's#^remotes/[^/]*/##')"
@@ -1121,7 +1120,7 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 
 alias ghci='TERM=dump command ghci'
 
-if [[ $- == *i* ]]; then
+if [[ "$-" == *i* ]]; then
     # Bash specific binds (`.inputrc` only has universal ones).
     bind '"\C-x\C-b": backward-char'
     bind '"\C-x\C-l": clear-screen'
