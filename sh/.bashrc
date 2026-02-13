@@ -721,12 +721,31 @@ gwmp () {
 }
 gwtn () {
     # Create a new worktree and switch to it.
-    local repo_root path
+    # If already on the passed branch, extracts the branch into a new worktree.
+    local status current repo_root path
 
+    if [ "$#" -eq 0 ]; then
+        echo "Usage: gwtn <new-or-existing-branch> [<commit-ish>]" 1>&2
+        return 1
+    fi
+
+    status="$(git status --porcelain --ignore-submodules)"
+    [ -n "$status" ] && git stash push --include-untracked
+
+    current="$(git branch --show-current)"
     repo_root="$(__git_root_dir)"
     path="${repo_root}/worktrees/${1}"
 
-    git worktree add "$path" -b "$1" "${@:2}" && cd "$path" || return
+    if [ "$current" = "$1" ]; then
+        git switch "$(__git_default_branch)"
+    fi
+
+    # Either create a new worktree and a matching branch or checkout the existing branch in the new worktree.
+    { git worktree add "$path" -b "$1" "${@:2}" || git worktree add "$path" -B "$1" "$1"; } && cd "$path" || return
+
+    if [ -n "$status" ]; then
+        git stash pop
+    fi
 }
 gwtm () {
     # Remove a worktree.
