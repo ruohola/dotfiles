@@ -12,7 +12,7 @@ vim/.temp/
 vim/autoload/plug.vim
 vim/autoload/plug.vim.old
 vim/plugins/
-vim/spell/*.spl
+vim/spell/
 
 git/.gitconfig_*
 
