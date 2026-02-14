@@ -728,7 +728,7 @@ gwtn () {
         return 1
     fi
 
-    status="$(git status --porcelain --ignore-submodules)"
+    status="$(git status --porcelain --ignore-submodules)" || return
     [ -n "$status" ] && git stash push --include-untracked
 
     current="$(git branch --show-current)"
@@ -745,6 +745,11 @@ gwtn () {
     if [ -n "$status" ]; then
         git stash pop
     fi
+
+    git -C "$repo_root" status --porcelain --ignored -z \
+        | grep --invert-match --extended-regexp --null-data '^!! (worktrees/.*|(.*/)?\.DS_Store)$' \
+        | gsed --null-data -n 's/^!! //p' \
+        | xargs --null -I % command gcp -r --strip-trailing-slashes --recursive "${repo_root}/%" %
 }
 gwtm () {
     # Remove a worktree.
