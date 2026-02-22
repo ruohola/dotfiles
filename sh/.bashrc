@@ -627,22 +627,7 @@ gn () {
 }
 gplm () {
     # Pull the default branch without switching to it.
-    local status remote head current
-
-    status="$(git status --porcelain --ignore-submodules)"
-    [ -n "$status" ] && git stash push --include-untracked
-    head="$(__git_default_branch)"
-    current="$(git branch --show-current)"
-    if [ "$current" != "$head" ]; then
-        git switch "$head"
-        gpl
-        git switch -
-    else
-        gpl
-    fi
-    if [ -n "$status" ]; then
-        git stash pop
-    fi
+    gub --dont-update-current-branch
 }
 gpsd () {
     # Delete a remote branch or tag.
@@ -687,7 +672,9 @@ gub () {
         git switch "$head"
         gpl
         git switch -
-        git "${1:-rebase}" "$head"
+        if [ "$1" != '--dont-update-current-branch' ]; then
+            git "${1:-rebase}" "$head"
+        fi
     else
         gpl
     fi
