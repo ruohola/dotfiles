@@ -669,9 +669,14 @@ gub () {
     head="$(__git_default_branch)"
     current="$(git branch --show-current)"
     if [ "$current" != "$head" ]; then
-        git switch "$head"
-        gpl
-        git switch -
+        git switch "$head" 2> /dev/null
+        if [ "$?" -eq 128 ]; then
+            # The default branch was in use by another worktree.
+            git -C "$(__git_worktree_path "$head")" pull --all --tags --prune
+        else
+            git pull --all --tags --prune
+            git switch -
+        fi
         if [ "$1" != '--dont-update-current-branch' ]; then
             git "${1:-rebase}" "$head"
         fi
