@@ -499,7 +499,7 @@ gbr () {
     # Usage: `$ gbr @~2` or `$ gbr master af1bc21`.
     # (You can note that passing one vs. two arguments logic is same as with `git branch --move`)
 
-    local branchname startpoint
+    local branchname startpoint worktree_path
 
     if [ "$#" -eq 1 ]; then
         branchname="$(git branch --show-current)"
@@ -509,9 +509,11 @@ gbr () {
         startpoint="$2"
     fi
 
+    worktree_path="$(__git_worktree_path "$branchname")"
+
     # `git branch --force` will fail if $1 is the current branch, thus the fallback.
-    git branch --force "$branchname" "$startpoint" 2> /dev/null \
-        || { [ "$?" -eq 128 ] && git switch --force-create "$branchname" "$startpoint"; }
+    git -C "$worktree_path" branch --force "$branchname" "$startpoint" 2> /dev/null \
+        || { [ "$?" -eq 128 ] && git -C "$worktree_path" switch --force-create "$branchname" "$startpoint"; }
 }
 gcf () {
     # Squash staged changes to the given commit.
