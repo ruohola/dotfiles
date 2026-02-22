@@ -745,11 +745,6 @@ gwtn () {
     if [ -n "$status" ]; then
         git stash pop
     fi
-
-    git -C "$repo_root" status --porcelain --ignored -z \
-        | grep --invert-match --extended-regexp --null-data '^!! (worktrees/.*|(.*/)?\.DS_Store)$' \
-        | gsed --null-data -n 's/^!! //p' \
-        | xargs --null -I % command gcp -r --strip-trailing-slashes --recursive "${repo_root}/%" %
 }
 gwtm () {
     # Remove a worktree.
