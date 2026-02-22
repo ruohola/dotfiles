@@ -462,21 +462,32 @@ __git_current_worktree () {
     basename "$(git rev-parse --show-toplevel)"
 }
 __git_switch_to_branch_or_worktree () {
-    local worktree_path current_worktree
+    local target worktree_path current_worktree
+
+    if [ "$1" = '--default' ]; then
+        target="$(__git_default_branch)"
+    else
+        target="$1"
+    fi
 
     current_worktree="$(__git_current_worktree)"
 
-    worktree_path="$(__git_worktree_path "$1")"
+    worktree_path="$(__git_worktree_path "$target")"
 
-    if __git_is_nondefault_worktree "$1"; then
+    if __git_is_nondefault_worktree "$target"; then
         cd "$worktree_path" || return
-    elif [ "$1" = '-' ]; then
+    elif [ "$target" = '-' ]; then
         git switch - 2> /dev/null || cd - || return
     elif __git_is_nondefault_worktree "$current_worktree"; then
-        # If one is already in a worktree, don't allow switching branches - it just gets confusing, just try to cd instead.
-        [ -n "$worktree_path" ] && cd "$worktree_path" 2> /dev/null || echo "Shouldn't switch branches in a worktree!"
+        if [ "$1" = '--default' ]; then
+            # If switching to the default branch (with `gwm`), cd to the repo root regardless of which branch is checked out there.
+            cd "$(__git_root_dir)" || return
+        else
+            # If one is already in a worktree, don't allow switching branches - it just gets confusing, just try to cd instead.
+            [ -n "$worktree_path" ] && cd "$worktree_path" 2> /dev/null || echo "Shouldn't switch branches in a worktree!"
+        fi
     else
-        git switch "$1"
+        git switch "$target"
     fi
 }
 gbdp () {
@@ -704,7 +715,7 @@ gw () {
 }
 gwm () {
     # Switch to the default branch.
-    __git_switch_to_branch_or_worktree "$(__git_default_branch)"
+    __git_switch_to_branch_or_worktree --default
 }
 gwmm () {
     # Switch to the default branch, update it, and delete the feature branch that you changed from.
