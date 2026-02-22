@@ -44,6 +44,7 @@
 [log]
 	date = format-local:%a %Y-%m-%d %H:%M
 [merge]
+	autoStash = true
 	conflictstyle = zdiff3
 	tool = vimdiff
 [mergetool]
