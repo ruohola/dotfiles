@@ -32,6 +32,8 @@
 	<true/>
 	<key>BootstrapDaemon</key>
 	<false/>
+	<key>BrowserProfiles</key>
+	<false/>
 	<key>CopySelection</key>
 	<false/>
 	<key>Custom Color Presets</key>
