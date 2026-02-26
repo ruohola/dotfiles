@@ -1,5 +1,3 @@
-setlocal formatoptions=jt
-setlocal nowrap
 setlocal softtabstop=2 shiftwidth=2
 
 nnoremap <buffer> <Leader>e :<C-U>write<BAR>execute 'silent !' .
@@ -13,6 +11,8 @@ let g:markdown_fenced_languages = ['python', 'ruby']
 " Enable spell checking and line length checking when editing pull request body with GitHub CLI tool.
 " The file is created as a temp file with a name like: 123456789.md
 if expand('%:p') =~# '^\(/private\)\?' . $TMPDIR . '\d\+\.md$'
+    setlocal formatoptions=jt
+    setlocal wrap
     setlocal spell
     setlocal textwidth=72
     setlocal colorcolumn=73
