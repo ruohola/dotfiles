@@ -400,7 +400,7 @@ alias gsm='git submodule'
 alias gsms='git submodule summary'
 alias gsmu="export -f __git_default_branch gub gwm; git submodule foreach 'gwm && gub &'"
 alias gst='git stash'
-alias gsty='git stash show --patch --format=fuller'
+alias gsty='git stash show'
 alias gstl='git stash list --format=medium --stat'
 alias gstp='git stash pop'
 alias gsts='git stash push --include-untracked'
