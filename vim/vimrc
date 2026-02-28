@@ -293,7 +293,6 @@ set number
 set showmode showcmd
 set report=1
 set cmdheight=2
-set hlsearch
 
 " Statusline
 set laststatus=2                                           " Always show statusline
