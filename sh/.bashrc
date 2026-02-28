@@ -733,9 +733,6 @@ gwtn () {
         return 1
     fi
 
-    status="$(git status --porcelain --ignore-submodules)" || return
-    [ -n "$status" ] && git stash push --include-untracked
-
     current="$(git branch --show-current)"
     repo_root="$(__git_root_dir)"
     path="${repo_root}/worktrees/${1}"
@@ -746,10 +743,6 @@ gwtn () {
 
     # Either create a new worktree and a matching branch or checkout the existing branch in the new worktree.
     { git worktree add "$path" -b "$1" "${@:2}" || git worktree add "$path" -B "$1" "$1"; } && cd "$path" || return
-
-    if [ -n "$status" ]; then
-        git stash pop
-    fi
 }
 gwtm () {
     # Remove a worktree.
