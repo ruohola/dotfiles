@@ -1125,7 +1125,7 @@ if [[ "$-" == *i* ]]; then
     # Open file in vim with fzf. Reference from:
     # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L92
     # shellcheck disable=SC2016  # Backticks are for readline, not shell expansion.
-    bind '"\C-v": " \C-x\C-b\C-k \C-u`__fzf_vim__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+    bind '"\C-v": " \C-x\C-b\C-k \C-u`__fzf_vim__`\e\C-e\C-\e(\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
     # Fzf complete a Git branch. Reference from:
     # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L81
@@ -1133,7 +1133,7 @@ if [[ "$-" == *i* ]]; then
 
     # Remap fzf cd to dir from ALT-C to CTRL-F. We need to copy the whole command here to fix \C-b mapping.
     # shellcheck disable=SC2016
-    bind '"\C-f": " \C-x\C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+    bind '"\C-f": " \C-x\C-b\C-k \C-u`__fzf_cd__`\e\C-e\C-\e(\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
     [ -r ~/.local/share/iterm2/shell_integration.bash ] && source ~/.local/share/iterm2/shell_integration.bash
 fi
