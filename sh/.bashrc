@@ -1101,9 +1101,17 @@ nvm () {
 # shellcheck source=/dev/null
 [ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"
 
-__node_bin_dir="${NVM_DIR}/versions/node/$(< "${NVM_DIR}/alias/$(< "${NVM_DIR}/alias/default")")/bin"
+__nvm_default="$(< "${NVM_DIR}/alias/default")"
+if [ -f "${NVM_DIR}/alias/${__nvm_default}" ]; then
+    # Was e.g. lts/krypton
+    __nvm_default="$(< "${NVM_DIR}/alias/${__nvm_default}")"
+else
+    # Was e.g. 24.0.1
+    __nvm_default="v${__nvm_default}"
+fi
+__node_bin_dir="${NVM_DIR}/versions/node/${__nvm_default}/bin"
 
-if [ -n "$__node_bin_dir" ]; then
+if [ -d "$__node_bin_dir" ]; then
     export PATH="${__node_bin_dir}:${PATH}"
 fi
 
