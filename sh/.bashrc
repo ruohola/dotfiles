@@ -306,6 +306,7 @@ alias g-b='git bisect bad'
 alias g-g='git bisect good'
 alias ga='git add'
 alias gaa='git add --all'
+alias gab='GIT_SEQUENCE_EDITOR=: git absorb --and-rebase'
 alias gai='git add --interactive'
 alias gam='git add --update'  # Mnemonic: git add modified
 alias gan='git add --intent-to-add'
