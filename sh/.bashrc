@@ -310,8 +310,7 @@ alias gai='git add --interactive'
 alias gam='git add --update'  # Mnemonic: git add modified
 alias gan='git add --intent-to-add'
 alias gap='git add --patch'
-# shellcheck disable=SC2142  # \$2 is for awk, not a positional parameter.
-alias gau="git status -s | grep '??' | awk '{ print \$2 }' | xargs git add"  # Mnemonic: git add untracked
+alias gau="git ls-files --others --exclude-standard -z | xargs -0 git add"  # Mnemonic: git add untracked
 alias gb='git branch'
 alias gba='git branch --all'
 alias gbc='gba --contains'
@@ -449,12 +448,14 @@ __git_default_remote_branch () {
 }
 __git_is_nondefault_worktree () {
     # Return success if the argument is the name or associated branch of a non-default worktree.
-    git worktree list | tail -n +2 | grep --quiet "^.*/$1 \|\[$1\]"
+    git worktree list \
+        | tail -n +2 \
+        | ggrep --quiet --perl-regexp "^.*/\Q$1\E |\Q[$1]\E"
 }
 __git_worktree_path () {
     # Echo the (absolute) directory path of a git worktree based on the workree or branch name.
     git worktree list \
-        | grep "^.*/$1 \|\[$1\]" \
+        | ggrep --perl-regexp "^.*/\Q$1\E |\Q[$1]\E" \
         | awk '{print $1}'
 }
 __git_current_worktree () {
@@ -524,21 +525,15 @@ gcf () {
 gdh () {
     # Show the diff of the currently staged and unstaged files compared to HEAD.
     # The speciality is that this also shows the diff for newly created files.
-    (
-        git diff --color=always HEAD
-        git ls-files --others --exclude-standard :/ |
-            while read -r file; do
-                git diff --color=always -- /dev/null "$file"
-            done
-    ) | delta
+    gdu HEAD
 }
 gdu () {
     # Show the diff of the currently unstaged files compared to HEAD.
     # The speciality is that this also show the diff for newly created files.
     (
-        git diff --color=always
-        git ls-files --others --exclude-standard :/ |
-            while read -r file; do
+        git diff --color=always "$@"
+        git ls-files --others --exclude-standard -z :/ |
+            while IFS= read -r -d '' file; do
                 git diff --color=always -- /dev/null "$file"
             done
     ) | delta
@@ -653,7 +648,7 @@ grboa () {
     [ -n "$branch" ] && git switch "$branch"
 
     commit_subject_of_newbase="$(git log --format=%s --max-count=1 "$newbase")"
-    start_from="$(git log --format=%H --max-count=1 --grep="$commit_subject_of_newbase" "$(__git_default_remote_branch)..")"
+    start_from="$(git log --format=%H --max-count=1 --grep="$commit_subject_of_newbase" --fixed-strings "$(__git_default_remote_branch)..")"
 
     git rebase --onto "$newbase" "$start_from"
 }
