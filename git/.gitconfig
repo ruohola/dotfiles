@@ -49,6 +49,7 @@
 	diffFilter = delta --color-only
 [log]
 	date = format-local:%a %Y-%m-%d %H:%M
+	follow = true
 [merge]
 	autoStash = true
 	conflictstyle = zdiff3
