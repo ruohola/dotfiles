@@ -410,7 +410,7 @@ alias gtn='git tag --annotate --message=""'
 alias gtd='git tag --delete'
 alias gtl="git tag --list --format='%(color:blue)%(taggerdate:format-local:%a %Y-%m-%d %H:%M)%09%(color:green)\
     %(taggername)%09%(color:red)%(refname:short)%09%(color:reset)%(contents:subject)' --color=always \
-    | column -ts $'\t' | sort -k2,3 --reverse | less --RAW-CONTROL-CHARS --no-init --quit-if-one-screen"
+    | column -ts $'\t' | less --RAW-CONTROL-CHARS --no-init --quit-if-one-screen"
 alias gu='git restore --staged'
 alias gua='git restore --staged :/'
 alias gup='git restore --staged --patch'

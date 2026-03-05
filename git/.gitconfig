@@ -66,6 +66,7 @@
 	showPatch = true
 [tag]
 	forceSignAnnotated = true
+	sort = -version:refname
 [user]
 	email = eero@ruohola.dev
 	name = Eero Ruohola
