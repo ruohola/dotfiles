@@ -60,6 +60,7 @@
 	autoStash = true
 	updateRefs = true
 [rerere]
+	autoUpdate = true
 	enabled = true
 [stash]
 	showIncludeUntracked = true
