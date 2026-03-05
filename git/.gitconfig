@@ -37,6 +37,8 @@
 	auto = 0
 	reflogExpire = never
 	reflogExpireUnreachable = never
+[help]
+	autoCorrect = prompt
 [init]
 	defaultBranch = master
 [interactive]
