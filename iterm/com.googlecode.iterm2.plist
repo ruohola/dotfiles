@@ -1879,6 +1879,32 @@ Resize Split Pane.Move Divider Up</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
+		<key>0xf700-0x300000-0x7e</key>
+		<dict>
+			<key>Action</key>
+			<integer>7</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0xf700-0x320000-0x7e</key>
+		<dict>
+			<key>Action</key>
+			<integer>9</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0xf701-0x2a0000-0x7d</key>
 		<dict>
 			<key>Action</key>
@@ -1890,6 +1916,32 @@ Resize Split Pane.Move Divider Up</string>
 			<key>Text</key>
 			<string>Move Divider Down
 Resize Split Pane.Move Divider Down</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0xf701-0x300000-0x7d</key>
+		<dict>
+			<key>Action</key>
+			<integer>6</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0xf701-0x320000-0x7d</key>
+		<dict>
+			<key>Action</key>
+			<integer>8</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string></string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
@@ -1923,6 +1975,19 @@ Resize Split Pane.Move Divider Left</string>
 			<key>Text</key>
 			<string>0x01</string>
 		</dict>
+		<key>0xf702-0x320000-0x7b</key>
+		<dict>
+			<key>Action</key>
+			<integer>5</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0xf703-0x280000-0x7c</key>
 		<dict>
 			<key>Action</key>
@@ -1954,6 +2019,19 @@ Resize Split Pane.Move Divider Right</string>
 			<string></string>
 			<key>Text</key>
 			<string>0x05</string>
+		</dict>
+		<key>0xf703-0x320000-0x7c</key>
+		<dict>
+			<key>Action</key>
+			<integer>4</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>HapticFeedbackForEsc</key>
