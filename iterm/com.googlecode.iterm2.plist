@@ -2554,6 +2554,8 @@ Resize Split Pane.Move Divider Right</string>
 			<false/>
 			<key>Shortcut</key>
 			<string></string>
+			<key>Show Offscreen Command line</key>
+			<false/>
 			<key>Silence Bell</key>
 			<true/>
 			<key>Smart Selection Rules</key>
