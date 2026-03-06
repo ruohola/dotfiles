@@ -6,7 +6,6 @@
 [color "grep"]
 	match = 9 bold
 [commit]
-	cleanup = scissors
 	gpgSign = true
 	verbose = true
 [core]
