@@ -32,6 +32,8 @@ call plug#begin(PathToPluginsFolder)
 
 Plug $HOMEBREW_PREFIX . '/opt/fzf'
 Plug 'junegunn/fzf.vim'                " Fuzzy file finding
+Plug 'lambdalisue/vim-fern'            " Project drawer file explorer
+Plug 'lambdalisue/vim-fern-hijack'     " Replace netrw with fern
 
 Plug 'google/vim-searchindex'          " Better search [x/y]
 Plug 'terryma/vim-smooth-scroll'       " Smooth scrolling
@@ -228,6 +230,30 @@ augroup END
 let g:loaded_plist = 1
 let g:plist_display_format = 'xml'
 let g:plist_save_format = ''
+
+" lambdalisue/vim-fern
+nnoremap <silent> <C-@> :Fern . -drawer -reveal=% -toggle<CR>
+let g:fern#default_hidden = 1
+let g:fern#keepalt_on_edit = 1
+let g:fern#keepjumps_on_edit = 1
+let g:fern#default_exclude = '^\%(\.git\|node_modules\|__pycache__\|\.DS_Store\)$'
+" TODO: add back if needed:
+" let g:fern#disable_drawer_hover_popup = 1  " Buggy, shows cut off file names in the popup.
+" function! s:auto_resize_fern(helper) abort
+"     let max_width = max(map(getline(1, '$'), 'strdisplaywidth(v:val)'))
+"     let new_width = max([max_width + 4, g:fern#drawer_width])
+"     execute 'vertical resize' new_width
+" endfunction
+" augroup FernAutoResize
+"     " Make fern automatically resize to fit the longest filename into view.
+"     autocmd!
+"     autocmd FileType fern call fern#hook#add('viewer:redraw', function('s:auto_resize_fern'))
+" augroup END
+" augroup FernScrolloff
+"     " Fix fern focus not starting from a consistent scroll spot.
+"     autocmd!
+"     autocmd FileType fern setlocal scrolloff=0
+" augroup END
 
 
 
