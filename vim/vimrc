@@ -257,23 +257,6 @@ augroup FernMappings
     " (Can close the preview window with native <C-W>z or :pc)
     autocmd FileType fern nnoremap <buffer> <silent> p :call FernPreviewWithSyntax()<CR>
 augroup END
-" TODO: add back if needed:
-" let g:fern#disable_drawer_hover_popup = 1  " Buggy, shows cut off file names in the popup.
-" function! s:auto_resize_fern(helper) abort
-"     let max_width = max(map(getline(1, '$'), 'strdisplaywidth(v:val)'))
-"     let new_width = max([max_width + 4, g:fern#drawer_width])
-"     execute 'vertical resize' new_width
-" endfunction
-" augroup FernAutoResize
-"     " Make fern automatically resize to fit the longest filename into view.
-"     autocmd!
-"     autocmd FileType fern call fern#hook#add('viewer:redraw', function('s:auto_resize_fern'))
-" augroup END
-" augroup FernScrolloff
-"     " Fix fern focus not starting from a consistent scroll spot.
-"     autocmd!
-"     autocmd FileType fern setlocal scrolloff=0
-" augroup END
 
 
 
