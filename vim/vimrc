@@ -237,6 +237,26 @@ let g:fern#default_hidden = 1
 let g:fern#keepalt_on_edit = 1
 let g:fern#keepjumps_on_edit = 1
 let g:fern#default_exclude = '^\%(\.git\|node_modules\|__pycache__\|\.DS_Store\)$'
+function! FernPreviewWithSyntax() abort
+    " Fix fern's native preview not triggering syntax highlighting autocommands.
+    " https://github.com/lambdalisue/vim-fern/issues/542
+    let node = fern#helper#new().sync.get_cursor_node()
+    if node.status isnot# g:fern#STATUS_NONE
+        " Was a directory.
+        return
+    endif
+    execute 'botright pedit ' . fnameescape(node.bufname)
+endfunction
+augroup FernMappings
+    autocmd!
+    " Fix regulard easymotion mapping `mo` marks breaking in fern.
+    autocmd FileType fern nnoremap <buffer> <Leader>k <Plug>(easymotion-bd-f)
+    autocmd FileType fern nnoremap <buffer> o <Plug>(fern-action-expand-tree:stay)
+    " (Default would be open-or-expand)
+    autocmd FileType fern nnoremap <buffer> l <Plug>(fern-action-expand)
+    " (Can close the preview window with native <C-W>z or :pc)
+    autocmd FileType fern nnoremap <buffer> <silent> p :call FernPreviewWithSyntax()<CR>
+augroup END
 " TODO: add back if needed:
 " let g:fern#disable_drawer_hover_popup = 1  " Buggy, shows cut off file names in the popup.
 " function! s:auto_resize_fern(helper) abort
