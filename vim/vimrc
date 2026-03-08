@@ -39,8 +39,12 @@ let __fern_patch =
     \ . " && gsed -i"
     \ . " 's/^    execute printf(\"noautocmd %s pedit %s\"/    execute printf(\"%s pedit %s\"/'"
     \ . " autoload/fern/scheme/file/mapping.vim"
+    \ . " && gsed -i"
+    \ . " '/fern#internal#node#children.*options)/s/$/\\n        \\\\.then(s:AsyncLambda.filter_f({ n -> empty(g:fern#default_exclude) || n.label !~# g:fern#default_exclude }))/'"
+    \ . " autoload/fern/internal/node.vim"
 " https://github.com/lambdalisue/vim-fern/issues/541
 " https://github.com/lambdalisue/vim-fern/issues/542
+" https://github.com/lambdalisue/vim-fern/issues/543
 Plug 'lambdalisue/vim-fern', { 'do': __fern_patch }  " Project drawer file explorer
 Plug 'lambdalisue/vim-fern-hijack'     " Replace netrw with fern
 
