@@ -32,7 +32,16 @@ call plug#begin(PathToPluginsFolder)
 
 Plug $HOMEBREW_PREFIX . '/opt/fzf'
 Plug 'junegunn/fzf.vim'                " Fuzzy file finding
-Plug 'lambdalisue/vim-fern'            " Project drawer file explorer
+let __fern_patch =
+    \ "gsed -i"
+    \ . " '/^    setlocal nowrap cursorline noswapfile nobuflisted buftype=nofile bufhidden=hide$/s/$/ tabstop=1/'"
+    \ . " autoload/fern/internal/drawer/hover_popup.vim"
+    \ . " && gsed -i"
+    \ . " 's/^    execute printf(\"noautocmd %s pedit %s\"/    execute printf(\"%s pedit %s\"/'"
+    \ . " autoload/fern/scheme/file/mapping.vim"
+" https://github.com/lambdalisue/vim-fern/issues/541
+" https://github.com/lambdalisue/vim-fern/issues/542
+Plug 'lambdalisue/vim-fern', { 'do': __fern_patch }  " Project drawer file explorer
 Plug 'lambdalisue/vim-fern-hijack'     " Replace netrw with fern
 
 Plug 'google/vim-searchindex'          " Better search [x/y]
@@ -237,16 +246,6 @@ let g:fern#default_hidden = 1
 let g:fern#keepalt_on_edit = 1
 let g:fern#keepjumps_on_edit = 1
 let g:fern#default_exclude = '^\%(\.git\|node_modules\|__pycache__\|\.DS_Store\)$'
-function! FernPreviewWithSyntax() abort
-    " Fix fern's native preview not triggering syntax highlighting autocommands.
-    " https://github.com/lambdalisue/vim-fern/issues/542
-    let node = fern#helper#new().sync.get_cursor_node()
-    if node.status isnot# g:fern#STATUS_NONE
-        " Was a directory.
-        return
-    endif
-    execute 'botright pedit ' . fnameescape(node.bufname)
-endfunction
 augroup FernMappings
     autocmd!
     " Fix regulard easymotion mapping `mo` marks breaking in fern.
@@ -254,8 +253,8 @@ augroup FernMappings
     autocmd FileType fern nnoremap <buffer> o <Plug>(fern-action-expand-tree:stay)
     " (Default would be open-or-expand)
     autocmd FileType fern nnoremap <buffer> l <Plug>(fern-action-expand)
-    " (Can close the preview window with native <C-W>z or :pc)
-    autocmd FileType fern nnoremap <buffer> <silent> p :call FernPreviewWithSyntax()<CR>
+    " (Can then close the preview window with native <C-W>z or :pc)
+    autocmd FileType fern nnoremap <buffer> p <Plug>(fern-action-preview)
 augroup END
 
 
