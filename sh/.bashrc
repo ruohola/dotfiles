@@ -260,6 +260,12 @@ diffpdf () {
     delta <(pdftotext "$1" -) <(pdftotext "$2" -) "${@:3}"
 }
 
+diffjson () {
+    # Diff two JSON files.
+    # Accepts any additional arguments for `delta` (e.g. -s for side-by-side) in the end.
+    delta <(jq --sort-keys . "$1") <(jq --sort-keys . "$2") "${@:3}"
+}
+
 
 # Colored man pages and `less`'s help.
 # mb = start blink
