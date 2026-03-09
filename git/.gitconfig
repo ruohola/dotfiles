@@ -23,7 +23,6 @@
 	algorithm = histogram
 	colorMoved = default
 	colorMovedWS = allow-indentation-change
-	mnemonicPrefix = true
 	tool = vimdiff
 [diff "utf16"]
 	textconv = "iconv -f utf-16 -t utf-8"
