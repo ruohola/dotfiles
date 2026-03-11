@@ -1,0 +1,7 @@
+#command
+) forw-search \^•\n
+( back-search \^•\n
+] forw-search \^(added:|removed:|renamed:|Δ)\n
+[ back-search \^(added:|removed:|renamed:|Δ)\n
+} forw-search \^commit\n
+{ back-search \^commit\n
