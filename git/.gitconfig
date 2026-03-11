@@ -18,6 +18,7 @@
 	commit-decoration-style = bold box ul
 	file-style = bold
 	line-numbers = true
+	navigate = true
 	pager = less --no-init --quit-if-one-screen
 [diff]
 	algorithm = histogram
