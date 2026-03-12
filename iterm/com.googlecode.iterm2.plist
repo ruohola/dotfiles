@@ -1795,6 +1795,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>CustomTabBarFontSize</key>
+	<real>14</real>
 	<key>Default Bookmark Guid</key>
 	<string>03C1E3F1-1F6F-4249-8FE0-FEF988A5EEB7</string>
 	<key>DimBackgroundWindows</key>
@@ -3467,10 +3469,49 @@ Resize Split Pane.Move Divider Right</string>
 					<integer>0</integer>
 					<key>auto-rainbow style</key>
 					<integer>0</integer>
+					<key>background color</key>
+					<dict>
+						<key>Alpha Component</key>
+						<real>1</real>
+						<key>Blue Component</key>
+						<real>0.17945119738578796</real>
+						<key>Color Space</key>
+						<string>P3</string>
+						<key>Green Component</key>
+						<real>0.59760820865631104</real>
+						<key>Red Component</key>
+						<real>0.53656619787216187</real>
+					</dict>
+					<key>default text color</key>
+					<dict>
+						<key>Alpha Component</key>
+						<real>1</real>
+						<key>Blue Component</key>
+						<real>0.25356069207191467</real>
+						<key>Color Space</key>
+						<string>P3</string>
+						<key>Green Component</key>
+						<real>0.20825165510177612</real>
+						<key>Red Component</key>
+						<real>0.088273085653781891</real>
+					</dict>
 					<key>font</key>
-					<string>.AppleSystemUIFont 12</string>
+					<string>Menlo-Regular 16</string>
 					<key>remove empty components</key>
 					<false/>
+					<key>separator color 2</key>
+					<dict>
+						<key>Alpha Component</key>
+						<real>0.0</real>
+						<key>Blue Component</key>
+						<real>0.25356069207191467</real>
+						<key>Color Space</key>
+						<string>P3</string>
+						<key>Green Component</key>
+						<real>0.20825165510177612</real>
+						<key>Red Component</key>
+						<real>0.088273085653781891</real>
+					</dict>
 				</dict>
 				<key>components</key>
 				<array/>
@@ -3568,7 +3609,7 @@ Resize Split Pane.Move Divider Right</string>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.15673758865248233</real>
 	<key>StatusBarPosition</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>SuppressRestartAnnouncement</key>
 	<true/>
 	<key>SwitchPaneModifier</key>
@@ -3578,9 +3619,11 @@ Resize Split Pane.Move Divider Right</string>
 	<key>SwitchWindowModifier</key>
 	<integer>9</integer>
 	<key>TabStyleWithAutomaticOption</key>
-	<integer>4</integer>
+	<integer>5</integer>
 	<key>UseBorder</key>
 	<false/>
+	<key>UseCustomTabBarFontSize</key>
+	<true/>
 	<key>UseLionStyleFullscreen</key>
 	<true/>
 	<key>UseMetal</key>
