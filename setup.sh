@@ -29,7 +29,7 @@ fzf --version > /dev/null 2>&1 \
             "$(brew --prefix)/opt/fzf/install"; }
 
 # Link gitconfig only after modern git from brew is installed.
-for file in .gitconfig .gitignore_global .gitattributes_global; do
+for file in .gitconfig .gitignore_global; do
     [ ! -L "$file" ] && ln -sfv dotfiles/git/"$file" "$file"
 done
 
