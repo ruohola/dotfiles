@@ -891,7 +891,7 @@ gg () {
         else
             clear
             for sha in $shas; do
-                gy --color=always "$sha" | delta --paging=always --pager='less'
+                gy --color=always "$sha" | delta --paging=always --pager='less +g'
             done
         fi
     done
