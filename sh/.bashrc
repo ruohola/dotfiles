@@ -890,7 +890,7 @@ gz () {
         else
             clear
             for sha in $shas; do
-                gy --color=always "$sha" | delta --paging=always
+                gy --color=always "$sha" | delta --paging=always --pager='less'
             done
         fi
     done
