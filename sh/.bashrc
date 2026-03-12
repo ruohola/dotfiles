@@ -551,6 +551,11 @@ gdu () {
 gsh () {
     # Copy the hash of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
+    git rev-parse "${1:-HEAD}" | pbcopyn
+}
+gss () {
+    # Copy the shorthash of the specified revision to the clipboard.
+    # Use the latest commit as the default if no argument is passed.
     git rev-parse --short "${1:-HEAD}" | pbcopyn
 }
 gini () {
@@ -859,11 +864,12 @@ gz () {
     # CTRL-D to diff to current
     # CTRL-N to copy commit message
     # CTRL-H to copy commit hash
+    # CTRL-S to copy commit shorthash
     local out shas sha selected key
 
     while out="$(
         git log --graph --color=always "$@" \
-            | fzf --ansi --multi --no-sort --reverse --query="$selected" --print-query --expect=ctrl-d,ctrl-n,ctrl-h)"
+            | fzf --ansi --multi --no-sort --reverse --query="$selected" --print-query --expect=ctrl-d,ctrl-n,ctrl-h,ctrl-s)"
     do
         selected="$(head -1 <<< "$out")"
         key="$(head -2 <<< "$out" | tail -1)"
@@ -876,6 +882,9 @@ gz () {
             git show --no-patch --format=%B "$shas" | pbcopyn
             break
         elif [ "$key" = ctrl-h ]; then
+            git rev-parse "$shas" | pbcopyn
+            break
+        elif [ "$key" = ctrl-s ]; then
             echo -n "$shas" | pbcopyn
             break
         else
