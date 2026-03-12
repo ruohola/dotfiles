@@ -132,6 +132,11 @@ alias nqp='networkQuality'     # Parallel
 
 alias jvim='jq | vim -c "set filetype=json" -'
 
+mux () {
+    tmux -CC new-session -A -s "${1:-main}"
+}
+alias muls='tmux list-sessions'
+
 epoch () {
     # Print the current epoch seconds, convert the passed epoch seconds into a human-readable format, or convert the passed ISO date/datetime into epoch seconds.
     if [ "$#" -eq 0 ]; then
