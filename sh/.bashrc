@@ -857,7 +857,7 @@ gyp () {
     gh pr view "$pr" "${@:2}"
 }
 
-gz () {
+gg () {
     # Git commit browser
     # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
     # Enter to show commit
