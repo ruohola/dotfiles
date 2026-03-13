@@ -122,6 +122,8 @@ alias grep='grep --color'
 
 export GREP_COLOR='1;91'
 export LESS='--chop-long-lines --RAW-CONTROL-CHARS'
+export PAGER='less --clear-screen'
+alias less='less --clear-screen'
 
 alias lt='languagetool --language en-US'
 
