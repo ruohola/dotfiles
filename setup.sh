@@ -92,6 +92,8 @@ target=~/.local/share/iterm2/shell_integration.bash
 
 [ -f "$(brew --prefix)/bin/pinentry-mac" ] && [ ! -L /usr/local/bin/pinentry ] && sudo mkdir -p /usr/local/bin/ && sudo ln -sfv "$(brew --prefix)/bin/pinentry-mac" /usr/local/bin/pinentry
 
+mkdir -p ~/.local/bin/ && sed '/echo "This manpage is not compatible with mandoc/,/sleep 1/ s/.*/:/' /usr/bin/man > ~/.local/bin/man && chmod +x ~/.local/bin/man
+
 # Use Homebrew Bash
 homebrew_bash='/opt/homebrew/bin/bash'
 if [ -f "$homebrew_bash" ] && [ "$homebrew_bash" != "$SHELL" ]; then
