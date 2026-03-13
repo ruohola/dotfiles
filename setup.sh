@@ -26,7 +26,8 @@ brew --version > /dev/null 2>&1 \
 # Install all brew packages (use fzf as a proxy for checking if they have been installed).
 fzf --version > /dev/null 2>&1 \
     || { brew bundle install --file=~/dotfiles/brew/Brewfile;
-            "$(brew --prefix)/opt/fzf/install"; }
+            "$(brew --prefix)/opt/fzf/install";
+            go install github.com/chrishrb/go-grip@latest; }
 
 # Link gitconfig only after modern git from brew is installed.
 for file in .gitconfig .gitignore_global; do
@@ -93,6 +94,8 @@ target=~/.local/share/iterm2/shell_integration.bash
 [ -f "$(brew --prefix)/bin/pinentry-mac" ] && [ ! -L /usr/local/bin/pinentry ] && sudo mkdir -p /usr/local/bin/ && sudo ln -sfv "$(brew --prefix)/bin/pinentry-mac" /usr/local/bin/pinentry
 
 mkdir -p ~/.local/bin/ && sed '/echo "This manpage is not compatible with mandoc/,/sleep 1/ s/.*/:/' /usr/bin/man > ~/.local/bin/man && chmod +x ~/.local/bin/man
+
+[ -f ~/go/bin/go-grip ] && [ ! -L ~/.local/bin/grip ] && ln -sfv ~/go/bin/go-grip ~/.local/bin/grip
 
 # Use Homebrew Bash
 homebrew_bash='/opt/homebrew/bin/bash'
