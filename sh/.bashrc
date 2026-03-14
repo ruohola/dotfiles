@@ -448,21 +448,21 @@ __git_root_dir () {
 }
 __git_default_branch () {
     # Echo e.g. "master"
+    __git_default_remote_branch | cut -d '/' -f 2-
+}
+__git_default_remote_branch () {
+    # Echo e.g. "origin/master"
     local remote_branch
-    remote_branch="$(__git_default_remote_branch)"
+    remote_branch="$(git symbolic-ref --short --quiet refs/remotes/upstream/HEAD || git symbolic-ref --short --quiet refs/remotes/origin/HEAD)"
     if [ "$?" -ne 128 ]; then
         # Was a valid repo.
         if [ -n "$remote_branch" ]; then
-            echo "$remote_branch" | cut -d '/' -f 2-
+            echo "$remote_branch"
         else
             # No remotes configured.
             git config init.defaultBranch
         fi
     fi
-}
-__git_default_remote_branch () {
-    # Echo e.g. "origin/master"
-    git symbolic-ref --short --quiet refs/remotes/upstream/HEAD || git symbolic-ref --short --quiet refs/remotes/origin/HEAD
 }
 __git_is_nondefault_worktree () {
     # Return success if the argument is the name or associated branch of a non-default worktree.
