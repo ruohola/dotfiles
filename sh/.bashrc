@@ -767,7 +767,7 @@ gwtm () {
     # Can pass `--force` as the 2nd argument to delete even uncommited changes.
     # Without any arguments (or -- as the 1st argument), deletes the current worktree.
     # (cd's back to the repo root dir if we were in the deleted worktree.)
-    local worktree current_worktree repo_root path relative_path
+    local worktree current_worktree repo_root worktree_path relative_path
 
     current_worktree="$(__git_current_worktree)"
 
@@ -777,12 +777,16 @@ gwtm () {
         worktree="$1"
     fi
     repo_root="$(__git_root_dir)"
-    path="$(__git_worktree_path "$worktree")"
-    relative_path="$(grealpath --no-symlinks --relative-to="$repo_root" "$path")"
+    worktree_path="$(__git_worktree_path "$worktree")"
+    if [ -z "$worktree_path" ]; then
+        echo "error: '$1' is not a working tree" >&2
+        return 1
+    fi
+    relative_path="$(grealpath --no-symlinks --relative-to="$repo_root" "$worktree_path")"
 
-    git worktree remove "$worktree" "${@:2}" \
+    git worktree remove "$worktree_path" "${@:2}" \
         && echo "Deleted worktree ${worktree} (${relative_path})." \
-        && if [ "$(basename "$worktree")" = "$current_worktree" ]; then cd "$repo_root" || return; fi
+        && if [ "$worktree_path" = "$PWD" ]; then cd "$repo_root" || return; fi
 }
 gwtr () {
     # Like `gwtm` but also deletes the associated branch.
