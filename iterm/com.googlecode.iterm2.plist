@@ -1817,6 +1817,20 @@
 	<false/>
 	<key>GlobalKeyMap</key>
 	<dict>
+		<key>0x1b-0x100000-0x35</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>Normal
+Window Style.Normal</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0x48-0xa0000</key>
 		<dict>
 			<key>Action</key>
