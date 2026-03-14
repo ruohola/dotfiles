@@ -3574,6 +3574,10 @@ Resize Split Pane.Move Divider Right</string>
 	<false/>
 	<key>OpenNoWindowsAtStartup</key>
 	<false/>
+	<key>OpenTmuxDashboardIfHiddenWindows</key>
+	<false/>
+	<key>OpenTmuxWindowsIn</key>
+	<integer>2</integer>
 	<key>PMPrintingExpandedStateForPrint2</key>
 	<false/>
 	<key>PointerActions</key>
@@ -3652,6 +3656,8 @@ Resize Split Pane.Move Divider Right</string>
 	<false/>
 	<key>WindowNumber</key>
 	<false/>
+	<key>WindowPlacement</key>
+	<integer>1</integer>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>WorkAroundBigSurBug</key>
