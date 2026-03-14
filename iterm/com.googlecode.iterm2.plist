@@ -1873,6 +1873,20 @@ Edit Tab Title</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
+		<key>0x54-0x120000-0x11</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>New Tmux Tab
+tmux.New Tmux Tab</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0x66-0x140000</key>
 		<dict>
 			<key>Action</key>
