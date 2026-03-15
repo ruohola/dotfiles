@@ -17,9 +17,9 @@ let PathToSpellFolder = $HOME . VimFolder . '/spell'
 let PathToTempFolder = $HOME . VimFolder . '/.temp'
 execute 'set spellfile=' . PathToSpellFolder . '/en.utf-8.add'
 execute 'set viminfo+=n' . PathToTempFolder . '/.viminfo'
-let &undodir = PathToTempFolder . '/undo'
-let &backupdir = PathToTempFolder . '/backup'
-let &directory = PathToTempFolder . '/swap'
+let &undodir = PathToTempFolder . '/undo//'
+let &backupdir = PathToTempFolder . '/backup//'
+let &directory = PathToTempFolder . '/swap//'
 let g:netrw_dirhistmax=0
 
 
