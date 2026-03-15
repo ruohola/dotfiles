@@ -417,6 +417,30 @@ if has('gui_running')
     tnoremap → <C-W><C-L>
     tnoremap <silent>ü <C-W>:tabprevious<CR>
     tnoremap <silent>↔︎ <C-W>:tabnext<CR>
+elseif exists('$TMUX')
+    execute "set <M-h>=\eh"
+    execute "set <M-j>=\ej"
+    execute "set <M-k>=\ek"
+    execute "set <M-l>=\el"
+    execute "set <M-u>=\eu"
+    execute "set <M-i>=\ei"
+
+    " Move between splits (alt+hjkl).
+    nnoremap <M-h> <C-W>h
+    nnoremap <M-j> <C-W>j
+    nnoremap <M-k> <C-W>k
+    nnoremap <M-l> <C-W>l
+
+    " Cycle tabs (alt+ui).
+    nnoremap <silent> <M-u> :tabprevious<CR>
+    nnoremap <silent> <M-i> :tabnext<CR>
+
+    tnoremap <M-h> <C-W><C-H>
+    tnoremap <M-j> <C-W><C-J>
+    tnoremap <M-k> <C-W><C-K>
+    tnoremap <M-l> <C-W><C-L>
+    tnoremap <silent> <M-u> <C-W>:tabprevious<CR>
+    tnoremap <silent> <M-i> <C-W>:tabnext<CR>
 else
     " Move between splits (alt+hjkl).
     nnoremap è <C-W>h
