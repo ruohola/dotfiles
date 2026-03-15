@@ -95,6 +95,7 @@ alias vgit='vim ~/dotfiles/git/.gitconfig'
 alias vbok='vim ~/.sourced/bookmarks && source ~/.sourced/bookmarks'
 alias venv='vim ~/.sourced/env && source ~/.sourced/env'
 alias vlig='vim ~/dotfiles/vim/spell/en.utf-8.add'
+alias vtcg='vim ~/.tmux.conf && tmux source-file ~/.tmux.conf'
 
 vims () {
     vim "scp://$1/$2"

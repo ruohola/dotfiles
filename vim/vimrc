@@ -523,7 +523,13 @@ inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
 " To ensure that the default behavior is kept after mapping tab.
-nnoremap <C-I> <C-I>
+
+
+if exists('$TMUX')
+    nnoremap <Esc>[105;5u <C-I>
+else
+    nnoremap <C-I> <C-I>
+endif
 
 " Better way to indent.
 nnoremap <BS> <<
