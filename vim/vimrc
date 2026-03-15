@@ -418,6 +418,9 @@ if has('gui_running')
     tnoremap → <C-W><C-L>
     tnoremap <silent>ü <C-W>:tabprevious<CR>
     tnoremap <silent>↔︎ <C-W>:tabnext<CR>
+
+    " Karabiner config sets Ctrl-I to F13 for differentiation vs. Tab.
+    nnoremap <F13> <C-I>
 elseif exists('$TMUX')
     execute "set <M-h>=\eh"
     execute "set <M-j>=\ej"
@@ -442,6 +445,10 @@ elseif exists('$TMUX')
     tnoremap <M-l> <C-W><C-L>
     tnoremap <silent> <M-u> <C-W>:tabprevious<CR>
     tnoremap <silent> <M-i> <C-W>:tabnext<CR>
+
+    " The latter is for iTerm `tmux -CC`.
+    nnoremap <Esc>[1;2P <C-I>
+    nnoremap <Esc>[25~ <C-I>
 else
     " Move between splits (alt+hjkl).
     nnoremap è <C-W>h
@@ -459,6 +466,8 @@ else
     tnoremap ì <C-W><C-L>
     tnoremap <silent> õ <C-W>:tabprevious<CR>
     tnoremap <silent> é <C-W>:tabnext<CR>
+
+    nnoremap <Esc>[25~ <C-I>
 endif
 
 " Makes these easier to use.
@@ -522,17 +531,11 @@ augroup END
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
-" To ensure that the default behavior is kept after mapping tab.
-nnoremap <C-I> <C-I>
-
 " Better way to indent.
 nnoremap <BS> <<
 nnoremap <TAB> >>
 xnoremap <BS> <gv
 xnoremap <TAB> >gv
-
-" Macvim doesn't support differentiating ctrl-i and tab, so keep this as a fallback.
-nnoremap <C-K> <C-I>
 
 " Persistent visuals.
 xnoremap > >gv
