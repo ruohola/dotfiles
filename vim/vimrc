@@ -324,7 +324,7 @@ set cursorline
 set number
 set showmode showcmd
 set report=1
-set cmdheight=2
+set cmdheight=1
 
 " Statusline
 set laststatus=2                                           " Always show statusline
