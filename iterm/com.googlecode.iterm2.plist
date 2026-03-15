@@ -32,6 +32,8 @@
 	<integer>10000000</integer>
 	<key>AitermURL</key>
 	<string>http://localhost:11434/api/chat</string>
+	<key>AllowClipboardAccess</key>
+	<true/>
 	<key>AlternateMouseScroll</key>
 	<true/>
 	<key>AutoHideTmuxClientSession</key>
