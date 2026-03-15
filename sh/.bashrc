@@ -136,7 +136,7 @@ alias nqp='networkQuality'     # Parallel
 alias jvim='jq | vim -c "set filetype=json" -'
 
 mux () {
-    # tmux -CC session manager
+    # tmux session manager
     #
     # mux          fzf picker to manage and attach to sessions
     # mux <name>   attach or create+attach by name
@@ -152,10 +152,10 @@ mux () {
 
     if [ "$#" -gt 0 ]; then
         if [ -n "$TMUX" ]; then
-            tmux new-session -s "$1" -d 2> /dev/null
-            echo "Created session '$1'. Open a new iTerm2 window and run: mux $1"
+            tmux new-session -s "$1" -d
+            tmux switch-client -t "$1"
         else
-            tmux -CC new-session -A -s "$1"
+            tmux new-session -A -s "$1"
         fi
         return
     fi
@@ -193,10 +193,10 @@ mux () {
         if [ "$key" = 'ctrl-n' ]; then
             local name="${selected:-main}"
             if [ -n "$TMUX" ]; then
-                tmux new-session -s "$name" -d 2> /dev/null
-                echo "Created session '$name'. Open a new iTerm2 window and run: mux $name"
+                tmux new-session -s "$name" -d
+                tmux switch-client -t "$name"
             else
-                tmux -CC new-session -s "$name"
+                tmux new-session -s "$name"
             fi
             break
         fi
@@ -214,9 +214,9 @@ mux () {
             tmux detach-client -s "$session" -a
         else
             if [ -n "$TMUX" ]; then
-                echo "Cannot switch sessions inside tmux -CC. Open a new iTerm2 window and run: mux $session"
+                tmux switch-client -t "$session"
             else
-                tmux -CC attach-session -t "$session"
+                tmux attach-session -t "$session"
             fi
             break
         fi
