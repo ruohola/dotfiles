@@ -441,9 +441,7 @@ alias gcpc='git cherry-pick --continue'
 alias gdc='git restore --worktree'
 alias gdcp='git restore --worktree --patch'
 alias gd='git diff'
-alias gdm='git diff "$(__git_default_remote_branch)"...'
 alias gdg='git diff --compact-summary'
-alias gdgm='git diff --compact-summary "$(__git_default_remote_branch)"...'
 alias gdl='git -c delta.line-numbers=false diff'
 alias gd2='git -c delta.side-by-side=true diff'
 alias gds='git diff --staged'
@@ -456,8 +454,6 @@ alias gll='git log --graph --branches --tags'
 alias glll='git log --graph'
 alias glf='git log --format=fuller --compact-summary'
 alias glp='git log --format=fuller --patch'
-alias glb='glp "$(__git_default_remote_branch)"..'
-alias glbr='glb --reverse'
 alias glg='glf --regexp-ignore-case --grep'
 alias glG='glp -G'
 alias glS='glp --pickaxe-regex -S'
@@ -599,6 +595,22 @@ __git_switch_to_branch_or_worktree () {
     else
         git switch "$target"
     fi
+}
+gdm () {
+    # shellcheck disable=SC2145
+    git diff "$(__git_default_remote_branch)"..."$@"
+}
+gdgm () {
+    # shellcheck disable=SC2145
+    git diff --compact-summary "$(__git_default_remote_branch)"..."$@"
+}
+glb () {
+    # shellcheck disable=SC2145
+    glp "$(__git_default_remote_branch)".."$@"
+}
+glbr () {
+    # shellcheck disable=SC2145
+    glp --reverse "$(__git_default_remote_branch)".."$@"
 }
 gbdp () {
     # Delete local and remote branch.
