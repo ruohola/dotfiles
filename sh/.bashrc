@@ -36,7 +36,7 @@ __ps1_reset_title () {
     printf '\e]0;\7'
 }
 # Solarized colored prompt: path/to/dir (branch)*$
-export PS1="\
+PS1="\
 \[\$(__ps1_reset_title)\]\
 \[$_cyan\]\w \
 \[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
