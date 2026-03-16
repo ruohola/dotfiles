@@ -1264,6 +1264,7 @@ if [[ "$-" == *i* ]]; then
     bind -r '\ec'
 
     [ -r ~/.local/share/iterm2/shell_integration.bash ] && source ~/.local/share/iterm2/shell_integration.bash
+    export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 fi
 
 # Finally, load system specific environment variables and other possible overrides.
