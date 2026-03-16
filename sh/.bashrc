@@ -1118,7 +1118,7 @@ __fzf_branch__ () {
     READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
 
-export FZF_IGNORES='Applications,Library,Movies,Music,Pictures,node_modules,venv,.DS_Store,.Trash,.cache,.gradle,.git,.m2,.mypy_cache,.next,.npm,.pyenv,.pytest_cache,.stack,.temp,__pycache__,build,dist'
+export FZF_IGNORES='Applications,Library,Movies,Music,Pictures,node_modules,venv,.DS_Store,.Trash,.cache,.gradle,.git,.m2,.mypy_cache,.next,.npm,.pyenv,.pytest_cache,.stack,.temp,__pycache__,build,dist,.idea'
 # shellcheck disable=SC2016  # $FZF_IGNORES expands at runtime when fzf evaluates the command.
 export FZF_DEFAULT_COMMAND='command fd --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
 # shellcheck disable=SC2016
