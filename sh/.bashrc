@@ -45,6 +45,14 @@ export PS1="\
 "
 export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
 
+if [ -n "$TMUX" ]; then
+    __iterm2_cwd_tmux_passthrough () {
+        # shellcheck disable=SC1003  # Correctly formatted.
+        printf '\ePtmux;\e\e]1337;CurrentDir=%s\a\e\\' "$PWD"
+    }
+    PROMPT_COMMAND="__iterm2_cwd_tmux_passthrough${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+fi
+
 export EDITOR=vim
 export VISUAL=vim
 
