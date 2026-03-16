@@ -1281,3 +1281,15 @@ fi
 # Finally, load system specific environment variables and other possible overrides.
 # shellcheck source=/dev/null
 source ~/.sourced/env 2> /dev/null
+
+if [[ "$-" == *i* && -z "$TMUX" && "$TERM_PROGRAM" == 'iTerm.app' ]]; then
+    if tmux has-session -t main 2>/dev/null; then
+        n=1
+        while tmux has-session -t "main-$n" 2>/dev/null; do
+            n=$((n + 1))
+        done
+        exec tmux new-session -t main -s "main-$n" \; set-option destroy-unattached on
+    else
+        exec tmux new-session -s main
+    fi
+fi
