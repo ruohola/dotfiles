@@ -1846,6 +1846,19 @@ Window Style.Normal</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
+		<key>0x44-0x120000-0x2</key>
+		<dict>
+			<key>Action</key>
+			<integer>13</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0x48-0xa0000</key>
 		<dict>
 			<key>Action</key>
@@ -1916,6 +1929,19 @@ tmux.New Tmux Tab</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
+		<key>0x64-0x100000-0x2</key>
+		<dict>
+			<key>Action</key>
+			<integer>13</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0x66-0x140000</key>
 		<dict>
 			<key>Action</key>
@@ -1933,6 +1959,19 @@ tmux.New Tmux Tab</string>
 			<integer>2</integer>
 			<key>Text</key>
 			<string>0x0d</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0x74-0x100000-0x11</key>
+		<dict>
+			<key>Action</key>
+			<integer>13</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string></string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
@@ -3607,9 +3646,9 @@ Resize Split Pane.Move Divider Right</string>
 	<key>SuppressRestartAnnouncement</key>
 	<true/>
 	<key>SwitchPaneModifier</key>
-	<integer>6</integer>
+	<integer>9</integer>
 	<key>SwitchTabModifier</key>
-	<integer>4</integer>
+	<integer>9</integer>
 	<key>SwitchWindowModifier</key>
 	<integer>9</integer>
 	<key>TabStyleWithAutomaticOption</key>
