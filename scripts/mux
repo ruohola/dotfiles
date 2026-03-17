@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+# tmux session manager
+#
+# mux          fzf picker to manage and attach to sessions
+# mux <name>   attach or create+attach by name
+#
+# fzf picker:
+#   enter   attach (outside tmux) / print instruction (inside)
+#   ctrl-n  create new session (uses query as name)
+#   ctrl-k  kill session (blocked for current)
+#   ctrl-r  rename session
+#   ctrl-x  detach other clients
+#   preview shows window list + active pane content
+#   re-opens after kill/rename/detach/create; closes after attach
+
+if [ "$#" -gt 0 ]; then
+    if [ -n "$TMUX" ]; then
+        tmux new-session -s "$1" -d
+        tmux switch-client -t "$1"
+    else
+        tmux new-session -A -s "$1"
+    fi
+    exit
+fi
+
+[ -n "$TMUX" ] && current_session="$(tmux display-message -p '#{session_name}')"
+# shellcheck disable=SC2016  # Content in single quotes is not trying to use Bash processing.
+while true; do
+    out="$(
+        tmux list-sessions -F '#{session_name}' 2> /dev/null \
+            | while IFS= read -r s; do
+                wins="$(tmux list-windows -t "$s" 2> /dev/null | wc -l | tr -d ' ')"
+                panes="$(tmux list-panes -s -t "$s" 2> /dev/null | wc -l | tr -d ' ')"
+                attached=""
+                tmux list-clients -t "$s" 2> /dev/null | grep -q . && attached=" (attached)"
+                echo "${s}: ${wins} windows, ${panes} panes${attached}"
+            done \
+            | fzf --ansi --reverse --no-sort \
+                --query="$selected" --print-query \
+                --expect=ctrl-n,ctrl-k,ctrl-r,ctrl-x \
+                --header='enter=attach / ctrl-n=new / ctrl-k=kill / ctrl-r=rename / ctrl-x=detach others' \
+                --preview='
+                    s={1}; s=${s%:};
+                    tmux list-windows -t "$s" -F "  #{window_index}: #{window_name}#{?window_active, (*),} #{pane_current_command}" 2> /dev/null;
+                    echo;
+                    tmux capture-pane -t "$s" -p -e 2> /dev/null
+                ' \
+                --preview-window=down:50%:noinfo
+    )" || true
+    selected="$(head -1 <<< "$out")"
+    key="$(head -2 <<< "$out" | tail -1)"
+    session="$(sed '1,2d' <<< "$out" | cut -d: -f1)"
+    # No key pressed and no session selected = user cancelled
+    [ -z "$key" ] && [ -z "$session" ] && break
+    if [ "$key" = 'ctrl-n' ]; then
+        name="${selected:-main}"
+        if [ -n "$TMUX" ]; then
+            tmux new-session -s "$name" -d
+            tmux switch-client -t "$name"
+        else
+            tmux new-session -s "$name"
+        fi
+        break
+    fi
+    [ -z "$session" ] && continue
+    if [ "$key" = 'ctrl-k' ]; then
+        if [ "$session" = "$current_session" ]; then
+            echo 'Cannot kill current session'
+        else
+            tmux kill-session -t "$session"
+        fi
+    elif [ "$key" = 'ctrl-r' ]; then
+        read -r -p "Rename '$session' to: " new_name
+        [ -n "$new_name" ] && tmux rename-session -t "$session" "$new_name"
+    elif [ "$key" = 'ctrl-x' ]; then
+        tmux detach-client -s "$session" -a
+    else
+        if [ -n "$TMUX" ]; then
+            tmux switch-client -t "$session"
+        else
+            tmux attach-session -t "$session"
+        fi
+        break
+    fi
+done
