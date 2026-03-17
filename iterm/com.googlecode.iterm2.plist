@@ -1833,6 +1833,19 @@ Window Style.Normal</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
+		<key>0x20-0x20000-0x31</key>
+		<dict>
+			<key>Action</key>
+			<integer>12</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string> </string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0x48-0xa0000</key>
 		<dict>
 			<key>Action</key>
@@ -1910,6 +1923,19 @@ tmux.New Tmux Tab</string>
 			<key>Text</key>
 			<string></string>
 		</dict>
+		<key>0x6d-0x40000-0x2e</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x0d</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0x7f-0x120000-0x33</key>
 		<dict>
 			<key>Action</key>
@@ -1924,12 +1950,77 @@ tmux.Detach</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
+		<key>0x7f-0x20000-0x33</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x08</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0x7f-0x40000-0x33</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x08</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0xd-0x100000</key>
 		<dict>
 			<key>Action</key>
 			<integer>13</integer>
 			<key>Text</key>
 			<string></string>
+		</dict>
+		<key>0xd-0x20000-0x24</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x0d</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0xd-0x40000-0x24</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x0d</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0xf700-0x240000-0x7e</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x1b 0x5b 0x31 0x3b 0x35 0x41</string>
+			<key>Version</key>
+			<integer>2</integer>
 		</dict>
 		<key>0xf700-0x2a0000-0x7e</key>
 		<dict>
@@ -1968,6 +2059,19 @@ Resize Split Pane.Move Divider Up</string>
 			<integer>2</integer>
 			<key>Text</key>
 			<string></string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0xf701-0x240000-0x7d</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x1b 0x5b 0x31 0x3b 0x35 0x42</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
@@ -2011,6 +2115,19 @@ Resize Split Pane.Move Divider Down</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
+		<key>0xf702-0x240000-0x7b</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x1b 0x5b 0x31 0x3b 0x35 0x44</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0xf702-0x280000-0x7b</key>
 		<dict>
 			<key>Action</key>
@@ -2051,6 +2168,19 @@ Resize Split Pane.Move Divider Left</string>
 			<integer>2</integer>
 			<key>Text</key>
 			<string></string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0xf703-0x240000-0x7c</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x1b 0x5b 0x31 0x3b 0x35 0x43</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
@@ -2454,94 +2584,7 @@ Resize Split Pane.Move Divider Right</string>
 				<string>telnet</string>
 			</array>
 			<key>Keyboard Map</key>
-			<dict>
-				<key>0x20-0x20000</key>
-				<dict>
-					<key>Action</key>
-					<integer>12</integer>
-					<key>Text</key>
-					<string> </string>
-				</dict>
-				<key>0x6d-0x40000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x0d</string>
-				</dict>
-				<key>0x7f-0x20000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x08</string>
-				</dict>
-				<key>0x7f-0x40000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x08</string>
-				</dict>
-				<key>0xd-0x20000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x0d</string>
-				</dict>
-				<key>0xd-0x40000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x0d</string>
-				</dict>
-				<key>0xf700-0x240000-0x7e</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Label</key>
-					<string></string>
-					<key>Text</key>
-					<string>0x1b 0x5b 0x31 0x3b 0x35 0x41</string>
-					<key>Version</key>
-					<integer>1</integer>
-				</dict>
-				<key>0xf701-0x240000-0x7d</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Label</key>
-					<string></string>
-					<key>Text</key>
-					<string>0x1b 0x5b 0x31 0x3b 0x35 0x42</string>
-					<key>Version</key>
-					<integer>1</integer>
-				</dict>
-				<key>0xf702-0x240000-0x7b</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Label</key>
-					<string></string>
-					<key>Text</key>
-					<string>0x1b 0x5b 0x31 0x3b 0x35 0x44</string>
-					<key>Version</key>
-					<integer>1</integer>
-				</dict>
-				<key>0xf703-0x240000-0x7c</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Label</key>
-					<string></string>
-					<key>Text</key>
-					<string>0x1b 0x5b 0x31 0x3b 0x35 0x43</string>
-					<key>Version</key>
-					<integer>1</integer>
-				</dict>
-			</dict>
+			<dict/>
 			<key>Link Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -3154,94 +3197,7 @@ Resize Split Pane.Move Divider Right</string>
 				<string>telnet</string>
 			</array>
 			<key>Keyboard Map</key>
-			<dict>
-				<key>0x20-0x20000</key>
-				<dict>
-					<key>Action</key>
-					<integer>12</integer>
-					<key>Text</key>
-					<string> </string>
-				</dict>
-				<key>0x6d-0x40000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x0d</string>
-				</dict>
-				<key>0x7f-0x20000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x08</string>
-				</dict>
-				<key>0x7f-0x40000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x08</string>
-				</dict>
-				<key>0xd-0x20000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x0d</string>
-				</dict>
-				<key>0xd-0x40000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x0d</string>
-				</dict>
-				<key>0xf700-0x240000-0x7e</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Label</key>
-					<string></string>
-					<key>Text</key>
-					<string>0x1b 0x5b 0x31 0x3b 0x35 0x41</string>
-					<key>Version</key>
-					<integer>1</integer>
-				</dict>
-				<key>0xf701-0x240000-0x7d</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Label</key>
-					<string></string>
-					<key>Text</key>
-					<string>0x1b 0x5b 0x31 0x3b 0x35 0x42</string>
-					<key>Version</key>
-					<integer>1</integer>
-				</dict>
-				<key>0xf702-0x240000-0x7b</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Label</key>
-					<string></string>
-					<key>Text</key>
-					<string>0x1b 0x5b 0x31 0x3b 0x35 0x44</string>
-					<key>Version</key>
-					<integer>1</integer>
-				</dict>
-				<key>0xf703-0x240000-0x7c</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Label</key>
-					<string></string>
-					<key>Text</key>
-					<string>0x1b 0x5b 0x31 0x3b 0x35 0x43</string>
-					<key>Version</key>
-					<integer>1</integer>
-				</dict>
-			</dict>
+			<dict/>
 			<key>Link Color</key>
 			<dict>
 				<key>Alpha Component</key>
