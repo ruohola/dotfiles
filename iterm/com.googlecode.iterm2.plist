@@ -1846,6 +1846,123 @@ Window Style.Normal</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
+		<key>0x31-0x100000-0x12</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x00 0x31</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0x32-0x100000-0x13</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x00 0x32</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0x33-0x100000-0x14</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x00 0x33</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0x34-0x100000-0x15</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x00 0x34</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0x35-0x100000-0x17</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x00 0x35</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0x36-0x100000-0x16</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x00 0x36</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0x37-0x100000-0x1a</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x00 0x37</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0x38-0x100000-0x1c</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x00 0x38</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0x39-0x100000-0x19</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x00 0x39</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0x44-0x120000-0x2</key>
 		<dict>
 			<key>Action</key>
