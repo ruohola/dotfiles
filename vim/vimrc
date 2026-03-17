@@ -347,6 +347,10 @@ set statusline+=%<                                         " Start to truncate h
 " Line wrapping
 set wrap linebreak textwidth=0 wrapmargin=0
 
+" Scroll via visual, wrapped lines and show as much of the last line as possible.
+set smoothscroll
+set display+=lastline
+
 " Indentation settings
 set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
 set smarttab  autoindent    breakindent
