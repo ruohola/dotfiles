@@ -88,9 +88,6 @@ target=~/.local/share/iterm2/shell_integration.bash
 [ ! -L ~/.gnupg/gpg.conf ] && ln -sfv ~/dotfiles/gpg/gpg.conf ~/.gnupg/gpg.conf
 [ ! -L ~/.gnupg/gpg-agent.conf ] && ln -sfv ~/dotfiles/gpg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
 
-[ ! -L ~/'Library/Application Support/k9s/skin.yml' ] \
-    && mkdir -p ~/'Library/Application Support/k9s' && ln -sfv ~/dotfiles/k9s/skin.yml ~/'Library/Application Support/k9s/skin.yml'
-
 [ -f "$(brew --prefix)/bin/pinentry-mac" ] && [ ! -L /usr/local/bin/pinentry ] && sudo mkdir -p /usr/local/bin/ && sudo ln -sfv "$(brew --prefix)/bin/pinentry-mac" /usr/local/bin/pinentry
 
 mkdir -p ~/.local/bin/ && sed '/echo "This manpage is not compatible with mandoc/,/sleep 1/ s/.*/:/' /usr/bin/man > ~/.local/bin/man && chmod +x ~/.local/bin/man
@@ -101,6 +98,11 @@ target=~/.local/bin/_tmux-file-picker
 [ ! -f "$target" ] \
     && curl --fail --output "$target" https://raw.githubusercontent.com/raine/tmux-file-picker/main/tmux-file-picker \
     && chmod u+x "$target"
+
+target=~/'Library/Application Support/k9s/skins/transparent.yaml'
+[ ! -f "$target" ] \
+    && mkdir -p "$(dirname "$target")" \
+    && curl --fail --output "$target" https://raw.githubusercontent.com/derailed/k9s/master/skins/transparent.yaml
 
 # Use Homebrew Bash
 homebrew_bash='/opt/homebrew/bin/bash'
