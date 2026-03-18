@@ -2192,6 +2192,19 @@ tmux.Detach</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
+		<key>0xf700-0x260000-0x7e</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x1b 0x5b 0x31 0x3b 0x36 0x41</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0xf700-0x2a0000-0x7e</key>
 		<dict>
 			<key>Action</key>
@@ -2242,6 +2255,19 @@ Resize Split Pane.Move Divider Up</string>
 			<integer>2</integer>
 			<key>Text</key>
 			<string>0x1b 0x5b 0x31 0x3b 0x35 0x42</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0xf701-0x260000-0x7d</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x1b 0x5b 0x31 0x3b 0x36 0x42</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
@@ -2298,6 +2324,19 @@ Resize Split Pane.Move Divider Down</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
+		<key>0xf702-0x260000-0x7b</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x1b 0x5b 0x31 0x3b 0x36 0x44</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0xf702-0x280000-0x7b</key>
 		<dict>
 			<key>Action</key>
@@ -2351,6 +2390,19 @@ Resize Split Pane.Move Divider Left</string>
 			<integer>2</integer>
 			<key>Text</key>
 			<string>0x1b 0x5b 0x31 0x3b 0x35 0x43</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
+		<key>0xf703-0x260000-0x7c</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x1b 0x5b 0x31 0x3b 0x36 0x43</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
