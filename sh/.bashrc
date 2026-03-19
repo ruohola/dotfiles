@@ -1,6 +1,25 @@
 # shellcheck shell=bash
-[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
-[ -f /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"
+
+if [ -z "$HOMEBREW_PREFIX" ]; then
+    [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+    [ -f /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+# Always start in tmux.
+# Use grouped sessions and create new tmux windows for every iTerm window.
+if [[ "$-" == *i* && -z "$TMUX" && "$TERM_PROGRAM" == 'iTerm.app' ]] && command -v tmux > /dev/null; then
+    if tmux has-session -t main 2> /dev/null; then
+        # Mimics `renumber-windows on`.
+        n=1
+        while tmux has-session -t "main-$n" 2> /dev/null; do
+            ((n++))
+        done
+        exec tmux new-session -t main -s "main-$n" \; new-window \; set destroy-unattached on
+    else
+        exec tmux new-session -s main
+    fi
+    # Never reached -> tmux will load the rest of the bashrc with the shell.
+fi
 
 # Solarized colors for coloring the prompt and man pages in iTerm.
 _base03=$'\e[90m'
@@ -1197,18 +1216,3 @@ fi
 # Finally, load system specific environment variables and other possible overrides.
 # shellcheck source=/dev/null
 source ~/.sourced/env 2> /dev/null
-
-# Always start in tmux.
-# Use grouped sessions and create new tmux windows for every iTerm window.
-if [[ "$-" == *i* && -z "$TMUX" && "$TERM_PROGRAM" == 'iTerm.app' ]]; then
-    if tmux has-session -t main 2> /dev/null; then
-        # Mimics `renumber-windows on`.
-        n=1
-        while tmux has-session -t "main-$n" 2> /dev/null; do
-            ((n++))
-        done
-        exec tmux new-session -t main -s "main-$n" \; new-window \; set destroy-unattached on
-    else
-        exec tmux new-session -s main
-    fi
-fi
