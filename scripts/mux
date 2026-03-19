@@ -28,7 +28,15 @@ fi
 # shellcheck disable=SC2016  # Content in single quotes is not trying to use Bash processing.
 while true; do
     out="$(
-        tmux list-sessions -F '#{session_name}' 2> /dev/null \
+        tmux list-sessions -F '#{session_last_attached} #{session_name}' 2> /dev/null \
+            | sort --numeric-sort --reverse \
+            | sed 's/^[0-9]* //' \
+            | awk -v cur="$current_session" '
+                $0 == cur { held = $0; next }
+                !first++ { print; if (held) print held; next }
+                { print }
+                END { if (held && !first) print held }
+            ' \
             | while IFS= read -r s; do
                 wins="$(tmux list-windows -t "$s" 2> /dev/null | wc -l | tr -d ' ')"
                 panes="$(tmux list-panes -s -t "$s" 2> /dev/null | wc -l | tr -d ' ')"
