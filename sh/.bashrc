@@ -335,10 +335,6 @@ auth       sufficient     pam_tid.so
 alias clamshell='sudo pmset -a disablesleep 1'
 alias noclamshell='sudo pmset -a disablesleep 0'
 
-alias makemigrations='python manage.py makemigrations'
-alias migrate='python manage.py migrate'
-alias runserver='python manage.py runserver'
-
 alias g-='git bisect'
 alias g-b='git bisect bad'
 alias g-g='git bisect good'
@@ -1087,15 +1083,11 @@ export PATH="${HOME}/dotfiles/scripts:${PATH}"
 
 export PATH="${HOME}/.local/bin:${PATH}"
 
-export PATH="${HOME}/.flutter/bin:${PATH}"
-
 export BUILDKIT_PROGRESS=plain
 export DOCKER_SCAN_SUGGEST=false
 export DOCKER_CLI_HINTS=false
 
 export PYTHONPYCACHEPREFIX="${HOME}/.cache/pycache/"
-
-export NODE_OPTIONS='--experimental-repl-await'
 
 # Affects bat and delta.
 export BAT_THEME='Solarized (dark)'
