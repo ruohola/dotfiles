@@ -6,7 +6,11 @@ nnoremap <buffer> <Leader>e :<C-U>write<BAR>execute 'silent !' .
 
 command! -buffer SOT so ~/.vim/after/ftplugin/markdown.vim
 
-let g:markdown_fenced_languages = ['python', 'ruby']
+let g:markdown_fenced_languages = [
+    \ 'sh', 'bash', 'python', 'py=python', 'java', 'sql',
+    \ 'javascript', 'js=javascript', 'typescript', 'ts=typescript', 'jsx=javascriptreact', 'tsx=typescriptreact',
+    \ 'html', 'css', 'json', 'jsonc', 'yaml'
+\]
 
 " Enable spell checking and line length checking when editing pull request body with GitHub CLI tool.
 " The file is created as a temp file with a name like: 123456789.md
