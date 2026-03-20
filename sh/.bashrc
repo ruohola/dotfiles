@@ -1,25 +1,24 @@
 # shellcheck shell=bash
 
-if [ -z "$HOMEBREW_PREFIX" ]; then
-    [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
-    [ -f /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"
-fi
+[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -f /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"
 
-# Always start in tmux.
-# Use grouped sessions and create new tmux windows for every iTerm window.
-if [[ "$-" == *i* && -z "$TMUX" && "$TERM_PROGRAM" == 'iTerm.app' ]] && command -v tmux > /dev/null; then
-    if tmux has-session -t main 2> /dev/null; then
-        # Mimics `renumber-windows on`.
-        n=1
-        while tmux has-session -t "main-$n" 2> /dev/null; do
-            ((n++))
-        done
-        exec tmux new-session -t main -s "main-$n" \; new-window \; set destroy-unattached on
-    else
-        exec tmux new-session -s main
+_add_to_PATH () {
+    # Prepend a directory to $PATH.
+    # Avoids duplicate (and non-existent) entries when sourcing multiple times.
+
+    if [ ! -d "$1" ]; then
+        return
     fi
-    # Never reached -> tmux will load the rest of the bashrc with the shell.
-fi
+
+    local IFS=':' result=''
+    for dir in $PATH; do
+        if [ "$dir" != "$1" ]; then
+            result="${result}:${dir}"
+        fi
+    done
+    PATH="${1}${result}"
+}
 
 # Solarized colors for coloring the prompt and man pages in iTerm.
 _base03=$'\e[90m'
@@ -1074,20 +1073,9 @@ export FZF_ALT_C_COMMAND='command fd --type d --type l --hidden --no-ignore --ex
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_COMPLETION_TRIGGER='*'
 
-export PATH="${HOME}/.cargo/bin:${PATH}"
-
-export POETRY_HOME="${HOME}/.poetry"
-export PATH="${HOME}/.poetry/bin:${PATH}"
-
-export PATH="${HOME}/dotfiles/scripts:${PATH}"
-
-export PATH="${HOME}/.local/bin:${PATH}"
-
 export BUILDKIT_PROGRESS=plain
 export DOCKER_SCAN_SUGGEST=false
 export DOCKER_CLI_HINTS=false
-
-export PYTHONPYCACHEPREFIX="${HOME}/.cache/pycache/"
 
 # Affects bat and delta.
 export BAT_THEME='Solarized (dark)'
@@ -1101,11 +1089,12 @@ export SCARF_ANALYTICS=false
 
 export CYPRESS_WATCH_FOR_FILE_CHANGES=false
 
-# Need to be after all PATH settings.
+export POETRY_HOME="${HOME}/.poetry"
+
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PYENV_ROOT="${HOME}/.pyenv"
-export PATH="${PYENV_ROOT}/bin:${PATH}"
 
+export PYTHONPYCACHEPREFIX="${HOME}/.cache/pycache/"
 export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I${HOMEBREW_PREFIX}/opt/tcl-tk/include' --with-tcltk-libs='-L${HOMEBREW_PREFIX}/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
 
 __pyenv_loaded=0
@@ -1168,10 +1157,6 @@ else
 fi
 __node_bin_dir="${NVM_DIR}/versions/node/${__nvm_default}/bin"
 
-if [ -d "$__node_bin_dir" ]; then
-    export PATH="${__node_bin_dir}:${PATH}"
-fi
-
 export SDKMAN_DIR="${HOME}/.sdkman"
 # shellcheck source=/dev/null
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
@@ -1205,6 +1190,29 @@ if [[ "$-" == *i* ]]; then
     export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 fi
 
+
+_add_to_PATH "${__node_bin_dir}"
+_add_to_PATH "${HOME}/.cargo/bin"
+_add_to_PATH "${HOME}/.poetry/bin"
+_add_to_PATH "${HOME}/.pyenv/bin"
+_add_to_PATH "${HOME}/.local/bin"
+_add_to_PATH "${HOME}/dotfiles/scripts"
+
 # Finally, load system specific environment variables and other possible overrides.
 # shellcheck source=/dev/null
 source ~/.sourced/env 2> /dev/null
+
+# Always start in tmux.
+# Use grouped sessions and create new tmux windows for every iTerm window.
+if [[ "$-" == *i* && -z "$TMUX" && "$TERM_PROGRAM" == 'iTerm.app' ]] && command -v tmux > /dev/null; then
+    if tmux has-session -t main 2> /dev/null; then
+        # Mimics `renumber-windows on`.
+        n=1
+        while tmux has-session -t "main-$n" 2> /dev/null; do
+            ((n++))
+        done
+        exec tmux new-session -t main -s "main-$n" \; new-window \; set destroy-unattached on
+    else
+        exec tmux new-session -s main
+    fi
+fi
