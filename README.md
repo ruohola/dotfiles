@@ -7,6 +7,7 @@ The most interesting files:
 - [`sh/.bashrc`](./sh/.bashrc)
 - [`sh/.inputrc`](./sh/.inputrc)
 - [`git/.gitconfig`](./git/.gitconfig)
+- [`tmux/.tmux.conf`](./tmux/.tmux.conf)
 
 
 Installation:
