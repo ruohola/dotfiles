@@ -32,20 +32,7 @@ call plug#begin(PathToPluginsFolder)
 
 Plug $HOMEBREW_PREFIX . '/opt/fzf'
 Plug 'junegunn/fzf.vim'                " Fuzzy file finding
-let __fern_patch =
-    \ "gsed -i"
-    \ . " '/^    setlocal nowrap cursorline noswapfile nobuflisted buftype=nofile bufhidden=hide$/s/$/ tabstop=1/'"
-    \ . " autoload/fern/internal/drawer/hover_popup.vim"
-    \ . " && gsed -i"
-    \ . " 's/^    execute printf(\"noautocmd %s pedit %s\"/    execute printf(\"%s pedit %s\"/'"
-    \ . " autoload/fern/scheme/file/mapping.vim"
-    \ . " && gsed -i"
-    \ . " '/fern#internal#node#children.*options)/s/$/\\n        \\\\.then(s:AsyncLambda.filter_f({ n -> empty(g:fern#default_exclude) || n.label !~# g:fern#default_exclude }))/'"
-    \ . " autoload/fern/internal/node.vim"
-" https://github.com/lambdalisue/vim-fern/issues/541
-" https://github.com/lambdalisue/vim-fern/issues/542
-" https://github.com/lambdalisue/vim-fern/issues/543
-Plug 'lambdalisue/vim-fern', { 'do': __fern_patch }  " Project drawer file explorer
+Plug 'lambdalisue/vim-fern'            " Project drawer file explorer
 Plug 'lambdalisue/vim-fern-hijack'     " Replace netrw with fern
 
 Plug 'google/vim-searchindex'          " Better search [x/y]
@@ -258,7 +245,7 @@ augroup FernMappings
     " (Default would be open-or-expand)
     autocmd FileType fern nnoremap <buffer> l <Plug>(fern-action-expand)
     " (Can then close the preview window with native <C-W>z or :pc)
-    autocmd FileType fern nnoremap <buffer> p <Plug>(fern-action-preview)
+    autocmd FileType fern nnoremap <buffer> p <Plug>(fern-action-preview:autocmd)
 augroup END
 
 
