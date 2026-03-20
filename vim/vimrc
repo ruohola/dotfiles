@@ -379,12 +379,12 @@ set title                      " Show the current file in the window title
 set titleold=                  " Restore the old window title after exiting
 set updatetime=300             " Faster CursorHold events, mainly for coc.nvim
 set signcolumn=number          " Display coc.nvim marks in the number column instead of a dedicated one
-set shortmess=SacOAF           " S: no [x/y] when searching (plugin handles that)
+set shortmess=SatcOA           " S: no [x/y] when searching (plugin handles that)
                                " a: shorter prompt messages
+                               " t: truncate file open/save messages if they wouldn't fit on a single line
                                " c: no ins completion messages
                                " O: no 'press enter' when opening multiple files in vimdiff
                                " A: no 'Found a swap file' messages -> allow opening the same file twice
-                               " F: no 'press enter' when opening a file with a long name on a narrow screen (no file info message at all)
 
 
 " ============= MAPPINGS =============
