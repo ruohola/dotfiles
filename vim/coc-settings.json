@@ -1,5 +1,5 @@
 {
-  "coc.preferences.extensionUpdateCheck": "weekly",
+  "extensions.updateCheck": "weekly",
   "coc.source.file.ignoreHidden": false,
   "suggest.noselect": false,
   "languageserver": {
