@@ -1203,7 +1203,7 @@ _add_to_PATH "${HOME}/dotfiles/scripts"
 source ~/.sourced/env 2> /dev/null
 
 # Always start in tmux.
-# Use grouped sessions and create new tmux windows for every iTerm window.
+# Use grouped sessions to allow having a different current window in each session.
 if [[ "$-" == *i* && -z "$TMUX" && "$TERM_PROGRAM" == 'iTerm.app' ]] && command -v tmux > /dev/null; then
     if tmux has-session -t main 2> /dev/null; then
         # Mimics `renumber-windows on`.
@@ -1211,7 +1211,7 @@ if [[ "$-" == *i* && -z "$TMUX" && "$TERM_PROGRAM" == 'iTerm.app' ]] && command 
         while tmux has-session -t "main-$n" 2> /dev/null; do
             ((n++))
         done
-        exec tmux new-session -t main -s "main-$n" \; new-window \; set destroy-unattached on
+        exec tmux new-session -t main -s "main-$n" \; set destroy-unattached on
     else
         exec tmux new-session -s main
     fi
