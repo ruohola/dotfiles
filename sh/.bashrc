@@ -44,10 +44,16 @@ _reset=$'\e[0m'
 __ps1_git_branch () {
     # This doesn't use `git branch --show-current` because
     # it doesn't work with a detached HEAD.
-    git --no-optional-locks branch | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\) /'
+    git --no-optional-locks branch | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\)/'
 }
 __ps1_git_status () {
-    [ -n "$(git --no-optional-locks status --porcelain)" ] && printf '\b*'
+    local dirty
+    dirty="$(git --no-optional-locks status --porcelain)" || return
+    if [ -n "$dirty" ]; then
+        printf '*'
+    else
+        printf ' '
+    fi
 }
 __ps1_reset_title () {
     # https://gitlab.com/gnachman/iterm2/-/issues/5659#note_553863324
@@ -58,7 +64,7 @@ PS1="\
 \[\$(__ps1_reset_title)\]\
 \[$_cyan\]\w \
 \[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
-\[$_reset\]\[\$(__ps1_git_status 2> /dev/null)\]\
+\[$_reset\]\$(__ps1_git_status 2> /dev/null)\
 \[$_cyan\]\$ \[$_reset\]\
 "
 export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
