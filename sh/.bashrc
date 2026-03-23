@@ -63,7 +63,7 @@ PS1="\
 "
 export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
 
-if [ -n "$TMUX" ]; then
+if [[ -n "$TMUX" && "$TERM_PROGRAM" == 'iTerm.app' ]]; then
     __iterm2_cwd_tmux_passthrough () {
         # shellcheck disable=SC1003  # Correctly formatted.
         printf '\ePtmux;\e\e]1337;CurrentDir=%s\a\e\\' "$PWD"
