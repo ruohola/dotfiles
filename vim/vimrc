@@ -441,6 +441,10 @@ elseif exists('$TMUX')
     " The latter is for iTerm `tmux -CC`.
     nnoremap <Esc>[1;2P <C-I>
     nnoremap <Esc>[25~ <C-I>
+
+    " iTerm config remaps Ctrl-2 to this arbitrary escape sequence
+    " so that it can be differentiated from tmux prefix Ctrl-Space.
+    nmap <Esc>[50~ <C-@>
 else
     " Move between splits (alt+hjkl).
     nnoremap è <C-W>h
@@ -460,6 +464,8 @@ else
     tnoremap <silent> é <C-W>:tabnext<CR>
 
     nnoremap <Esc>[25~ <C-I>
+
+    nmap <Esc>[50~ <C-@>
 endif
 
 " Makes these easier to use.
