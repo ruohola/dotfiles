@@ -321,6 +321,7 @@ alias rgn='rg --no-ignore'
 alias fdn='fd --no-ignore'
 
 alias k9s='K9S_SKIN=transparent TERM=xterm-256color k9s'
+alias gh='PAGER= TERM=xterm-256color gh'
 
 pyclean () {
     find . -type f -name '*.py[co]' -delete -or -type d -name __pycache__ -delete
