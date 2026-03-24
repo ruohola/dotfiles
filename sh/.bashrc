@@ -925,13 +925,16 @@ gg () {
             clear
             git diff --color=always "$shas" | delta --paging=always
         elif [ "$key" = ctrl-n ]; then
-            git show --no-patch --format=%s "$shas" | pbcopyn
+            # shellcheck disable=SC2086  # Not quoted to allow copying many.
+            git show --no-patch --format=%s $shas | pbcopyn
             break
         elif [ "$key" = ctrl-h ]; then
-            git rev-parse "$shas" | pbcopyn
+            # shellcheck disable=SC2086  # Not quoted to allow copying many on a single line.
+            git rev-parse $shas | xargs | pbcopyn
             break
         elif [ "$key" = ctrl-s ]; then
-            echo -n "$shas" | pbcopyn
+            # shellcheck disable=SC2086  # Not quoted to allow copying many on a single line.
+            echo -n $shas | pbcopyn
             break
         else
             clear
