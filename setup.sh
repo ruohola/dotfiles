@@ -100,7 +100,7 @@ target=~/.local/bin/_tmux-file-picker
     && chmod u+x "$target"
 
 target=~/'Library/Application Support/k9s/skins/transparent.yaml'
-[ ! -f "$target" ] \
+command -v k9s > /dev/null && [ ! -f "$target" ] \
     && mkdir -p "$(dirname "$target")" \
     && curl --fail --output "$target" https://raw.githubusercontent.com/derailed/k9s/master/skins/transparent.yaml
 
