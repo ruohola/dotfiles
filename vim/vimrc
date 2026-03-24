@@ -761,7 +761,8 @@ augroup FileTypes
     autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
     autocmd BufRead,BufNewFile *.tfstate set filetype=json
     autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
-    autocmd BufRead,BufNewFile .env*,env,bookmarks set filetype=sh
+    autocmd BufRead,BufNewFile .env* set filetype=sh | let b:coc_enabled = 0
+    autocmd BufRead,BufNewFile env,bookmarks set filetype=sh
     autocmd BufRead,BufNewFile poetry.lock set filetype=toml
     autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
 augroup END
