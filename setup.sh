@@ -46,7 +46,6 @@ default_node=lts/jod  # v22
 
 # Install Bash completions.
 mkdir -p ~/cloned
-mkdir -p ~/.local/share/iterm2
 
 target=~/cloned/git-completion
 [ ! -d "$target" ] \
@@ -61,10 +60,6 @@ target=~/.local/share/bash-completion/completions/yarn
 target=~/.local/share/bash-completion/completions/npm
 [ ! -f "$target" ] \
     && npm completion > "$target"
-
-target=~/.local/share/iterm2/shell_integration.bash
-[ ! -f "$target" ] \
-    && curl --fail --output "$target" https://iterm2.com/shell_integration/bash
 
 # Install vim-plug and all vim plugins.
 [ ! -f ~/.vim/autoload/plug.vim ] \

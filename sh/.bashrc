@@ -1187,9 +1187,6 @@ if [[ "$-" == *i* ]]; then
     # shellcheck disable=SC2016
     bind '"\C-f": " \C-x\C-b\C-k \C-u`__fzf_cd__`\e\C-e\C-\e(\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
     bind -r '\ec'
-
-    [ -r ~/.local/share/iterm2/shell_integration.bash ] && source ~/.local/share/iterm2/shell_integration.bash
-    export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 fi
 
 
