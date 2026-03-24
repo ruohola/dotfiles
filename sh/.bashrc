@@ -925,7 +925,7 @@ gg () {
             clear
             git diff --color=always "$shas" | delta --paging=always
         elif [ "$key" = ctrl-n ]; then
-            git show --no-patch --format=%B "$shas" | pbcopyn
+            git show --no-patch --format=%s "$shas" | pbcopyn
             break
         elif [ "$key" = ctrl-h ]; then
             git rev-parse "$shas" | pbcopyn
