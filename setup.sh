@@ -20,11 +20,11 @@ for file in .bashrc .bash_profile .zshrc .zprofile .inputrc .hushlogin .lesskey;
 done
 
 # Install homebrew.
-brew --version > /dev/null 2>&1 \
+command -v brew > /dev/null \
     || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
 # Install all brew packages (use fzf as a proxy for checking if they have been installed).
-fzf --version > /dev/null 2>&1 \
+command -v fzf > /dev/null \
     || { brew bundle install --file=~/dotfiles/brew/Brewfile;
             "$(brew --prefix)/opt/fzf/install";
             go install github.com/chrishrb/go-grip@latest; }
