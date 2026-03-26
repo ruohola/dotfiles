@@ -14,3 +14,7 @@ set mark-symlinked-directories on
 
 # Unbind <Esc><Esc> from its default tab complete.
 "\e\e":
+
+# Make arrow up/down work based on the currently typed prompt.
+"\e[A":history-search-backward
+"\e[B":history-search-forward
