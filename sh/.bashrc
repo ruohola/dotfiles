@@ -946,6 +946,10 @@ gg () {
 
     clear
 }
+gga () {
+    # Same as `gg` but shows the whole commit graph.
+    gg --branches --tags --remotes "$@"
+}
 
 __git_complete gba _git_branch
 __git_complete gbd _git_branch
