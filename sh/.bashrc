@@ -914,8 +914,10 @@ gg () {
 
     while out="$(
         git log --graph --color=always "$@" \
-            | sed $'s/\.\.\x08\x08//' \
-            | fzf --ansi --multi --no-sort --reverse --query="$selected" --print-query --expect=ctrl-d,ctrl-n,ctrl-h,ctrl-s)"
+            | sed $'s/\.\.\x08\x08 /\xc2\xa0/' \
+            | fzf --ansi --multi --no-sort --reverse --delimiter=$'\xc2\xa0' --nth=2 \
+                  --query="$selected" --print-query --expect=ctrl-d,ctrl-n,ctrl-h,ctrl-s)"
+        # nbsp as invisible delimiter ^ to only match starting from the commit subject.
     do
         selected="$(head -1 <<< "$out")"
         key="$(head -2 <<< "$out" | tail -1)"
