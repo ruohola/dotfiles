@@ -44,7 +44,7 @@ while true; do
                 tmux list-clients -t "$s" 2> /dev/null | grep -q . && attached=" (attached)"
                 echo "${s}: ${wins} windows, ${panes} panes${attached}"
             done \
-            | fzf --ansi --reverse --no-sort \
+            | fzf --ansi --reverse --no-sort --delimiter=':' --nth=1 \
                 --query="$selected" --print-query \
                 --expect=ctrl-n,ctrl-k,ctrl-r,ctrl-x \
                 --header='enter=attach / ctrl-n=new / ctrl-k=kill / ctrl-r=rename / ctrl-x=detach others' \
