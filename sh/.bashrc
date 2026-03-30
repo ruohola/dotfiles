@@ -64,7 +64,8 @@ PS1="\
 "
 export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
 
-if [[ -n "$TMUX" && "$TERM_PROGRAM" == 'iTerm.app' ]]; then
+if [[ -n "$TMUX" && -z "$VIM_TERMINAL" ]]; then
+    # Make iTerm smart selection actions follow the current directory from within tmux.
     __iterm2_cwd_tmux_passthrough () {
         # shellcheck disable=SC1003  # Correctly formatted.
         printf '\ePtmux;\e\e]1337;CurrentDir=%s\a\e\\' "$PWD"
