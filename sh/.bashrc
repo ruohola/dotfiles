@@ -1079,9 +1079,9 @@ __fzf_branch__ () {
 
 export FZF_IGNORES='Applications,Library,Movies,Music,Pictures,node_modules,venv,.DS_Store,.Trash,.cache,.gradle,.git,.m2,.mypy_cache,.next,.npm,.pyenv,.pytest_cache,.stack,.temp,__pycache__,build,dist,.idea'
 # shellcheck disable=SC2016  # $FZF_IGNORES expands at runtime when fzf evaluates the command.
-export FZF_DEFAULT_COMMAND='command fd --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
-# shellcheck disable=SC2016
-export FZF_ALT_C_COMMAND='command fd --type d --type l --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
+export FZF_FD_FLAGS='--hidden --no-ignore --exclude "{$FZF_IGNORES}"'
+export FZF_DEFAULT_COMMAND="command fd $FZF_FD_FLAGS ."
+export FZF_ALT_C_COMMAND="command fd --type d --type l $FZF_FD_FLAGS ."
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_COMPLETION_TRIGGER='*'
 
