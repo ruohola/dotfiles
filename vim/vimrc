@@ -275,7 +275,7 @@ if !exists('g:notfirstopen')
     " Make solarized8 terminal and gui cursor the same color.
     highlight Cursor ctermfg=15 ctermbg=4 guifg=#073642 guibg=#839496
 
-    " Remove light blug background from matching parenthesis.
+    " Remove light blue background from matching parenthesis.
     highlight MatchParen term=reverse cterm=bold ctermbg=6 gui=bold guifg=#fdf6e3 guibg=NONE
 
     " Make sure that the temp file locations exists.
