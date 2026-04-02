@@ -251,7 +251,12 @@ flushdns () {
 
 alert () {
     # Send a macOS notication from the terminal.
-    terminal-notifier -sender com.googlecode.iterm2 -message "$@"
+    if [ -n "$TMUX" ]; then
+        # shellcheck disable=SC1003  # Correctly formatted.
+        printf '\ePtmux;\e\e]9;%s\a\e\\' "$*"
+    else
+        printf '\e]9;%s\a' "$*"
+    fi
 }
 
 base64url () {
