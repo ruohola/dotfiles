@@ -95,7 +95,19 @@ let g:coc_filetype_map = {
     \ 'bash': 'sh',
 \}
 
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+function! s:insert_completion() abort
+    call coc#config('suggest', {'insertMode': 'insert'})
+    call timer_start(1, {-> coc#config('suggest', {'insertMode': 'replace'})})
+    return coc#pum#confirm()
+endfunction
+
+inoremap <expr> <CR>
+    \ exists('*coc#pum#visible') && coc#pum#visible()
+    \     ? <SID>insert_completion()
+    \     : pumvisible()
+    \         ? "\<C-y>"
+    \         : "\<C-g>u\<CR>"
+
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 
 nmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc>' : '<Plug>(coc-diagnostic-next)'
