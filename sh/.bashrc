@@ -120,6 +120,8 @@ alias vinp='vim ~/dotfiles/sh/.inputrc && bind -f ~/dotfiles/sh/.inputrc'
 alias virc='vim ~/dotfiles/vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
 alias vgit='vim ~/dotfiles/git/.gitconfig'
+# shellcheck disable=SC2154  # Variable *is* defined.
+alias vgig='_gitdir=$(git rev-parse --git-common-dir) && vim "$_gitdir/info/exclude"'
 alias vbok='vim ~/.sourced/bookmarks && source ~/.sourced/bookmarks'
 alias venv='vim ~/.sourced/env && source ~/.sourced/env'
 alias vlig='vim ~/dotfiles/vim/spell/en.utf-8.add'
