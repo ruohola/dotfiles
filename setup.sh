@@ -99,6 +99,15 @@ command -v k9s > /dev/null && [ ! -f "$target" ] \
     && mkdir -p "$(dirname "$target")" \
     && curl --fail --output "$target" https://raw.githubusercontent.com/derailed/k9s/master/skins/transparent.yaml
 
+# Install tmux plugins.
+mkdir -p ~/.tmux/plugins
+
+target=~/.tmux/plugins/tmux-fingers
+[ ! -d "$target" ] \
+    && git clone git@github.com:Morantron/tmux-fingers.git "$target" \
+    && git -C "$target" switch --detach "$(git -C "$target" describe --tag --abbrev=0)"
+
+
 # Use Homebrew Bash
 homebrew_bash='/opt/homebrew/bin/bash'
 if [ -f "$homebrew_bash" ] && [ "$homebrew_bash" != "$SHELL" ]; then
