@@ -2093,6 +2093,19 @@ tmux.New Tmux Tab</string>
 			<key>Text</key>
 			<string></string>
 		</dict>
+		<key>0x6b-0x100000-0x28</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>0x00 0x1b 0x5b 0x31 0x31 0x30 0x37 0x7e</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0x6d-0x40000-0x2e</key>
 		<dict>
 			<key>Action</key>
