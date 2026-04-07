@@ -137,6 +137,11 @@ alias bbbb='cd ../../../..'
 alias ls='gls --color=auto --group-directories-first --classify'
 alias ll='ls -l --almost-all --human-readable --time-style=long-iso'
 
+alias ta='tree -a --dirsfirst -F'
+alias ta1='ta -L 1'
+alias ta2='ta -L 2'
+alias ta3='ta -L 3'
+
 mkcd () {
     mkdir "$@" && cd "${@: -1}" || return
 }
@@ -155,6 +160,8 @@ export PAGER='less --clear-screen'
 alias less='less --clear-screen'
 
 alias lt='languagetool --language en-US'
+
+alias cloc='cloc --vcs=git --fmt=2 --skip-uniqueness --timeout=0'
 
 alias nq='networkQuality -s'   # Sequential
 alias nqd='networkQuality -u'  # Download
