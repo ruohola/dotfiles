@@ -586,7 +586,7 @@ gcf () {
     # Squash staged changes to the given commit.
     commit="$(git rev-parse "$1")" \
     && git commit --fixup "$commit" \
-    && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${commit}~1"
+    && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${commit}~1" "${@:2}"
 }
 gdh () {
     # Show the diff of the currently staged and unstaged files compared to HEAD.
