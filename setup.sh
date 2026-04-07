@@ -49,9 +49,10 @@ mkdir -p ~/cloned
 
 target=~/cloned/git-completion
 [ ! -d "$target" ] \
-    && git clone git@github.com:felipec/git-completion.git "$target" \
-    && git -C "$target" switch --detach "$(git -C "$target" describe --tag --abbrev=0)" \
-    && make --directory="$target" install
+    && git clone git@github.com:felipec/git-completion.git "$target"
+_previous="$(git -C "$target" rev-parse HEAD)" \
+    && git -C "$target" fetch --all --tags --prune && git -C "$target" switch --quiet --detach "$(git -C "$target" describe --tag --abbrev=0 origin/master)" \
+    && [ "$(git -C "$target" rev-parse HEAD)" != "$_previous" ] && make --directory="$target" install
 
 target=~/.local/share/bash-completion/completions/yarn
 [ ! -f "$target" ] \
@@ -104,8 +105,8 @@ mkdir -p ~/.tmux/plugins
 
 target=~/.tmux/plugins/tmux-fingers
 [ ! -d "$target" ] \
-    && git clone git@github.com:Morantron/tmux-fingers.git "$target" \
-    && git -C "$target" switch --detach "$(git -C "$target" describe --tag --abbrev=0)"
+    && git clone git@github.com:Morantron/tmux-fingers.git "$target"
+git -C "$target" fetch --all --tags --prune && git -C "$target" switch --quiet --detach "$(git -C "$target" describe --tag --abbrev=0 origin/master)"
 
 
 # Use Homebrew Bash
