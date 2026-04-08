@@ -78,6 +78,8 @@ target=~/.local/share/bash-completion/completions/npm
 
 [ ! -L ~/.config/pgcli/config ] && mkdir -p ~/.config/pgcli/ && ln -sfv ~/dotfiles/pgcli/config ~/.config/pgcli/config
 
+[ ! -L ~/.config/yazi/yazi.toml ] && mkdir -p ~/.config/yazi/ && ln -sfv ~/dotfiles/yazi/yazi.toml ~/.config/yazi/yazi.toml
+
 [ ! -L "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt" ] \
     && ln -sfv ~/dotfiles/vim/spell/en.utf-8.add "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt"
 

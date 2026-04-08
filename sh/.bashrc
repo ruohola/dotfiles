@@ -336,6 +336,9 @@ alias fdi='fd --ignore-case'
 alias rgn='rg --no-ignore'
 alias fdn='fd --no-ignore'
 
+alias ya='yazi'
+alias yac='command ya'
+
 alias k9s='K9S_SKIN=transparent TERM=xterm-256color k9s'
 alias gh='PAGER= TERM=xterm-256color gh'
 
