@@ -411,6 +411,7 @@ set shortmess=SatcOA           " S: no [x/y] when searching (plugin handles that
                                " A: no 'Found a swap file' messages -> allow opening the same file twice
 
 
+
 " ============= MAPPINGS =============
 
 " Make j and k populate the jump list, when used with a count.
