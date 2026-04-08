@@ -100,6 +100,14 @@ command -v k9s > /dev/null && [ ! -f "$target" ] \
     && mkdir -p "$(dirname "$target")" \
     && curl --fail --output "$target" https://raw.githubusercontent.com/derailed/k9s/master/skins/transparent.yaml
 
+# Patch Menlo with Nerd Fonts glyphs.
+target=~/.local/share/FontPatcher
+command -v fontforge > /dev/null && [ ! -f ~/'Library/Fonts/Menlo Nerd Font Mono.ttc' ] \
+    && curl --fail --location --output /tmp/FontPatcher.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FontPatcher.zip \
+    && unzip /tmp/FontPatcher.zip -d "$target" \
+    && rm /tmp/FontPatcher.zip \
+    && fontforge -script "$target/font-patcher" /System/Library/Fonts/Menlo.ttc --complete --mono -out ~/Library/Fonts/
+
 # Install tmux plugins.
 mkdir -p ~/.tmux/plugins
 

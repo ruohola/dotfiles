@@ -34,6 +34,9 @@ Plug $HOMEBREW_PREFIX . '/opt/fzf'
 Plug 'junegunn/fzf.vim'                " Fuzzy file finding
 Plug 'lambdalisue/vim-fern'            " Project drawer file explorer
 Plug 'lambdalisue/vim-fern-hijack'     " Replace netrw with fern
+Plug 'lambdalisue/vim-nerdfont'        " Use Nerd Fonts in fern
+Plug 'lambdalisue/vim-fern-renderer-nerdfont'
+Plug 'lambdalisue/vim-glyph-palette'   " Colorize Nerd Fonts
 
 Plug 'google/vim-searchindex'          " Better search [x/y]
 Plug 'terryma/vim-smooth-scroll'       " Smooth scrolling
@@ -260,6 +263,15 @@ augroup FernMappings
     autocmd FileType fern nnoremap <buffer> p <Plug>(fern-action-preview:autocmd)
 augroup END
 
+" lambdalisue/vim-fern-renderer-nerdfont
+let g:fern#renderer = 'nerdfont'
+
+" lambdalisue/vim-glyph-palette
+augroup glyph-palette
+    autocmd!
+    autocmd FileType fern call glyph_palette#apply()
+augroup END
+
 
 
 " ============= GENERAL =============
@@ -277,7 +289,7 @@ if !exists('g:notfirstopen')
     if has('gui_running')
         set lines=40 columns=120  " Initial window size.
         " Changing font moves the window.
-        set guifont=Menlo:h16
+        set guifont=MenloNFM-Regular:h16
     endif
 
     syntax enable

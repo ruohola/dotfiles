@@ -2859,7 +2859,7 @@ Resize Split Pane.Move Divider Right</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Menlo-Regular 16</string>
+			<string>MenloNFM-Regular 16</string>
 			<key>Open Toolbelt</key>
 			<false/>
 			<key>Option Key Sends</key>
