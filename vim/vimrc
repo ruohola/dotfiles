@@ -605,15 +605,8 @@ xnoremap <Leader><Leader>a :s/\e\[[0-9;]\+[mK]/<CR>
 nnoremap <Leader><Leader>u /[^ -~\t]<CR>
 
 " Mimic IdeaVim 'Show History for Selection'.
-let g:_git_always_pager = ['git', '-c', 'core.pager=delta --paging=always', '-c', 'delta.pager=less --clear-screen']
-nnoremap <Leader>4 :<C-U>call RunCommandInPopupTerm(
-    \ g:_git_always_pager
-    \ + ['-C', expand('%:p:h'), 'log', '--format=fuller', '--patch', expand('%:p')]
-\ )<CR>
-xnoremap <Leader>4 :<C-U>call RunCommandInPopupTerm(
-    \ g:_git_always_pager
-    \ + ['-C', expand('%:p:h'), 'log', '--format=fuller', '--patch', '-L', line("'<") . ',' . line("'>") . ':' . expand('%:p')]
-\ )<CR>
+nnoremap <Leader>4 :<C-U>call <SID>ShowGitHistoryForFile()<CR>
+xnoremap <Leader>4 :<C-U>call <SID>ShowGitHistoryForSelection()<CR>
 
 " Clear highlights.
 " We need this noop mapping before, otherwise
@@ -688,8 +681,66 @@ endfunction
 
 
 function! RunCommandInPopupTerm(command_list) abort
+    noautocmd write
     let buf = term_start(a:command_list, #{hidden: 1, term_finish: 'close'})
     let winid = popup_create(buf, #{minwidth: 999, minheight: 999})
+endfunction
+
+
+let s:_delta_pager = 'delta --paging=always --pager="less --clear-screen"'
+
+function! s:ShowGitHistoryForFile() abort
+    let file = shellescape(expand('%:p'))
+    let dir = shellescape(expand('%:p:h'))
+    let cmd = printf(
+        \ '{ if ! git -C %s --no-pager diff --quiet HEAD -- %s 2>/dev/null; then'
+        \ . ' printf "commit [local changes]\n\n";'
+        \ . ' git -C %s --no-pager diff --color=always HEAD -- %s; printf "\n"; fi;'
+        \ . ' git -C %s --no-pager log --color=always --format=fuller --patch -- %s;'
+        \ . ' } | %s',
+        \ dir, file, dir, file, dir, file, s:_delta_pager)
+    call RunCommandInPopupTerm(['sh', '-c', cmd])
+endfunction
+
+
+function! s:ShowGitHistoryForSelection() abort
+    let file = shellescape(expand('%:p'))
+    let dir = shellescape(expand('%:p:h'))
+    let start = s:MapLineToHead(expand('%:p'), line("'<"))
+    let end = s:MapLineToHead(expand('%:p'), line("'>"))
+    let cmd = printf(
+        \ '{ if ! git -C %s --no-pager diff --quiet HEAD -- %s 2>/dev/null; then'
+        \ . ' printf "commit [local changes]\n\n";'
+        \ . ' git -C %s --no-pager diff --color=always HEAD -- %s; printf "\n"; fi;'
+        \ . ' git -C %s --no-pager log --color=always --format=fuller --patch -L %d,%d:%s;'
+        \ . ' } | %s',
+        \ dir, file, dir, file, dir, start, end, file, s:_delta_pager)
+    call RunCommandInPopupTerm(['sh', '-c', cmd])
+endfunction
+
+
+" Map a working-copy line number to the corresponding HEAD line number,
+" accounting for unstaged and staged changes.
+function! s:MapLineToHead(file, line) abort
+    let diff_output = systemlist('git diff HEAD -- ' . shellescape(a:file))
+    let offset = 0
+    for l in diff_output
+        let m = matchlist(l, '^@@ -\(\d\+\),\?\(\d*\) +\(\d\+\),\?\(\d*\) @@')
+        if !empty(m)
+            let old_start = str2nr(m[1])
+            let old_count = m[2] ==# '' ? 1 : str2nr(m[2])
+            let new_start = str2nr(m[3])
+            let new_count = m[4] ==# '' ? 1 : str2nr(m[4])
+            if a:line < new_start
+                return a:line + offset
+            endif
+            if a:line < new_start + new_count
+                return max([1, old_start + min([a:line - new_start, old_count - 1])])
+            endif
+            let offset = (old_start + old_count) - (new_start + new_count)
+        endif
+    endfor
+    return max([1, a:line + offset])
 endfunction
 
 
