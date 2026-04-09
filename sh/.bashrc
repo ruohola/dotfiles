@@ -940,55 +940,8 @@ gyp () {
     gh pr view "$pr" "${@:2}"
 }
 
-gg () {
-    # Git commit browser
-    # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
-    # Enter to show commit
-    # CTRL-D to diff to current
-    # CTRL-N to copy commit message
-    # CTRL-H to copy commit hash
-    # CTRL-S to copy commit shorthash
-    local out shas sha selected key
-
-    while out="$(
-        git log --graph --color=always "$@" \
-            | sed $'s/\.\.\x08\x08 /\xc2\xa0/' \
-            | fzf --ansi --multi --no-sort --reverse --delimiter=$'\xc2\xa0' --nth=2 \
-                  --query="$selected" --print-query --expect=ctrl-d,ctrl-n,ctrl-h,ctrl-s)"
-        # nbsp as invisible delimiter ^ to only match starting from the commit subject.
-    do
-        selected="$(head -1 <<< "$out")"
-        key="$(head -2 <<< "$out" | tail -1)"
-        shas="$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')"
-        [ -z "$shas" ] && continue
-        if [ "$key" = ctrl-d ]; then
-            clear
-            git diff --color=always "$shas" | delta --paging=always
-        elif [ "$key" = ctrl-n ]; then
-            # shellcheck disable=SC2086  # Not quoted to allow copying many.
-            git show --no-patch --format=%s $shas | pbcopyn
-            break
-        elif [ "$key" = ctrl-h ]; then
-            # shellcheck disable=SC2086  # Not quoted to allow copying many on a single line.
-            git rev-parse $shas | xargs | pbcopyn
-            break
-        elif [ "$key" = ctrl-s ]; then
-            # shellcheck disable=SC2086  # Not quoted to allow copying many on a single line.
-            echo -n $shas | pbcopyn
-            break
-        else
-            clear
-            for sha in $shas; do
-                gy --color=always "$sha" | delta --paging=always --pager='less +g'
-            done
-        fi
-    done
-
-    clear
-}
 gga () {
-    # Same as `gg` but shows the whole commit graph.
-    gg --branches --tags --remotes "$@"
+    ~/dotfiles/scripts/gg --branches --tags --remotes "$@"
 }
 
 __git_complete g- _git_bisect
