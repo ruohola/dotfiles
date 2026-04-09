@@ -660,7 +660,7 @@ command! CD cd %:p:h
 
 " https://github.com/dhleong/dots/blob/master/.vim/init/terminal.vim
 function! RunCommandInSplitTerm(command) abort
-    write
+    noautocmd write
     let winSize = float2nr(0.3 * winheight('$'))
     let mainBuf = bufnr('%')
     let termBufNr = get(b:, '_run_term', -1)
