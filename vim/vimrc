@@ -78,6 +78,7 @@ call plug#end()
 
 " neoclide/coc.nvim
 let g:coc_start_at_startup=0  " So we don't start Coc in vimdiff.
+let g:coc_disable_mappings_check=1  " Disable default mappings.
 
 let g:coc_global_extensions = [
     \ 'coc-clangd',
@@ -111,7 +112,12 @@ inoremap <expr> <CR>
     \         ? "\<C-y>"
     \         : "\<C-g>u\<CR>"
 
-inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+inoremap <expr> <TAB>
+    \ exists('*coc#pum#visible') && coc#pum#visible()
+    \     ? coc#pum#confirm()
+    \     : pumvisible()
+    \         ? "\<C-y>"
+    \         : "\<TAB>"
 
 nmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc>' : '<Plug>(coc-diagnostic-next)'
 nmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc>' : '<Plug>(coc-diagnostic-prev)'
