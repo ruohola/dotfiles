@@ -31,7 +31,7 @@ _base03=$'\e[90m'
 # _base3=$'\e[97m'
 # _yellow=$'\e[33m'
 _orange=$'\e[91m'
-# _red=$'\e[31m'
+_red=$'\e[31m'
 _magenta=$'\e[35m'
 # _violet=$'\e[95m'
 _blue=$'\e[34m'
@@ -55,23 +55,43 @@ __ps1_git_status () {
         printf ' '
     fi
 }
+__ps1_dollar_color () {
+    if [ "$__last_exit" -ne 0 ]; then
+        printf '%s' "$_red"
+    else
+        printf '%s' "$_cyan"
+    fi
+}
 # Solarized colored prompt: path/to/dir (branch)*$
 PS1="\
 \[$_cyan\]\w \
 \[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
 \[$_reset\]\$(__ps1_git_status 2> /dev/null)\
-\[$_cyan\]\$ \[$_reset\]\
+\[\$(__ps1_dollar_color)\]\$ \[$_reset\]\
 "
 export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
 
+PROMPT_COMMAND=''
 if [[ -n "$TMUX" && -z "$VIM_TERMINAL" ]]; then
     # Make iTerm smart selection actions follow the current directory from within tmux.
     __iterm2_cwd_tmux_passthrough () {
         # shellcheck disable=SC1003  # Correctly formatted.
         printf '\ePtmux;\e\e]1337;CurrentDir=%s\a\e\\' "$PWD"
     }
-    PROMPT_COMMAND="__iterm2_cwd_tmux_passthrough${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+    PROMPT_COMMAND='__iterm2_cwd_tmux_passthrough'
 fi
+__capture_exit () {
+    local exit="$?"
+    local histnum
+    histnum="$(history 1 | command awk '{print $1}')"
+    if [ "$histnum" != "$__last_histnum" ]; then
+        __last_exit="$exit"
+        __last_histnum="$histnum"
+    else
+        __last_exit=0
+    fi
+}
+PROMPT_COMMAND="__capture_exit${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 
 export EDITOR=vim
 export VISUAL=vim
