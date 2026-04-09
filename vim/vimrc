@@ -604,6 +604,17 @@ xnoremap <Leader><Leader>a :s/\e\[[0-9;]\+[mK]/<CR>
 " Find all characters that are not printable ASCII (incl. space & tab)
 nnoremap <Leader><Leader>u /[^ -~\t]<CR>
 
+" Mimic IdeaVim 'Show History for Selection'.
+let g:_git_always_pager = ['git', '-c', 'core.pager=delta --paging=always', '-c', 'delta.pager=less --clear-screen']
+nnoremap <Leader>4 :<C-U>call RunCommandInPopupTerm(
+    \ g:_git_always_pager
+    \ + ['-C', expand('%:p:h'), 'log', '--format=fuller', '--patch', expand('%:p')]
+\ )<CR>
+xnoremap <Leader>4 :<C-U>call RunCommandInPopupTerm(
+    \ g:_git_always_pager
+    \ + ['-C', expand('%:p:h'), 'log', '--format=fuller', '--patch', '-L', line("'<") . ',' . line("'>") . ':' . expand('%:p')]
+\ )<CR>
+
 " Clear highlights.
 " We need this noop mapping before, otherwise
 " the esc mapping will just *completely* break.
@@ -673,6 +684,12 @@ function! RunCommandInSplitTerm(command) abort
     let mainWin = bufwinnr(mainBuf)
     call term_sendkeys(termBufNr, a:command . "\<CR>")
     execute "normal \<C-W>p"
+endfunction
+
+
+function! RunCommandInPopupTerm(command_list) abort
+    let buf = term_start(a:command_list, #{hidden: 1, term_finish: 'close'})
+    let winid = popup_create(buf, #{minwidth: 999, minheight: 999})
 endfunction
 
 
