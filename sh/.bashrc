@@ -56,7 +56,8 @@ __ps1_git_status () {
     fi
 }
 __ps1_dollar_color () {
-    if [ "$__last_exit" -ne 0 ]; then
+    if (( "$__last_exit" > 0 && "$__last_exit" != 141 )); then
+        # Ignore SIGPIPE errors ^ which occur when Git pager is closed mid-stream.
         printf '%s' "$_red"
     else
         printf '%s' "$_cyan"
