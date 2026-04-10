@@ -41,6 +41,9 @@ _green=$'\e[32m'
 # _underlined=$'\e[4m'
 _reset=$'\e[0m'
 
+__ps1_venv () {
+    printf '%s' "${VIRTUAL_ENV:+(${VIRTUAL_ENV##*/}) }"
+}
 __ps1_git_branch () {
     # This doesn't use `git branch --show-current` because
     # it doesn't work with a detached HEAD.
@@ -63,8 +66,9 @@ __ps1_dollar_color () {
         printf '%s' "$_cyan"
     fi
 }
-# Solarized colored prompt: path/to/dir (branch)*$
+# Solarized colored prompt: (venv) path/to/dir (branch)*$
 PS1="\
+\$(__ps1_venv)\
 \[$_cyan\]\w \
 \[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
 \[$_reset\]\$(__ps1_git_status 2> /dev/null)\
