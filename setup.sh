@@ -35,14 +35,13 @@ for file in .gitconfig .gitignore_global; do
 done
 
 # Install nvm.
-default_node=lts/jod  # v22
+default_node=lts/krypton  # v24
 [ ! -f ~/.nvm/nvm.sh ] \
-    && curl --fail https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash \
+    && curl --fail https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash \
     && . ~/.nvm/nvm.sh \
     && nvm install "$default_node" \
     && nvm alias default "$default_node" \
-    && npm update --global npm \
-    && npm install --global yarn
+    && npm update --global npm
 
 # Install Bash completions.
 mkdir -p ~/cloned
