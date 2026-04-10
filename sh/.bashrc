@@ -1182,13 +1182,14 @@ export PYENV_ROOT="${HOME}/.pyenv"
 export PYTHONPYCACHEPREFIX="${HOME}/.cache/pycache/"
 export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I${HOMEBREW_PREFIX}/opt/tcl-tk/include' --with-tcltk-libs='-L${HOMEBREW_PREFIX}/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
 
-__pyenv_loaded=0
-pyenv () {
-    if [ "$__pyenv_loaded" -eq 0 ]; then
+__load_pyenv () {
+    if [ -z "$PYENV_VIRTUALENV_INIT" ]; then
         eval "$(command pyenv init --path --no-rehash)"
         eval "$(command pyenv virtualenv-init -)"
-        __pyenv_loaded=1
     fi
+}
+pyenv () {
+    __load_pyenv
 
     if [ "$*" == "available" ]; then
         local versions
@@ -1210,13 +1211,19 @@ pyenv () {
     fi
 }
 python () {
-    if [ "$__pyenv_loaded" -eq 0 ]; then
-        eval "$(command pyenv init --path --no-rehash)"
-        eval "$(command pyenv virtualenv-init -)"
-        __pyenv_loaded=1
-    fi
+    __load_pyenv
     unset -f python
     command python "$@"
+}
+mypy () {
+    __load_pyenv
+    unset -f mypy
+    command mypy "$@"
+}
+ruff () {
+    __load_pyenv
+    unset -f ruff
+    command ruff "$@"
 }
 
 # Lazy load nvm https://blog.yo1.dog/better-nvm-lazy-loading/
