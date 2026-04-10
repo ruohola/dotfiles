@@ -15,7 +15,7 @@ pbcopyn () {
 
 while out="$(
     git log --graph --color=always "$@" \
-        | sed $'s/\.\.\x08\x08 /\xc2\xa0/' \
+        | sed $'s/..\x08\x08 /\xc2\xa0/' \
         | fzf --ansi --multi --no-sort --reverse --delimiter=$'\xc2\xa0' --nth=2 \
               --query="$selected" --print-query --expect=ctrl-d,ctrl-n,ctrl-h,ctrl-s)"
     # nbsp as invisible delimiter ^ to only match starting from the commit subject.
