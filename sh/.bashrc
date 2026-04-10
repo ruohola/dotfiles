@@ -1243,6 +1243,8 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 
 alias ghci='TERM=dump command ghci'
 
+eval "$(zoxide init bash)"
+
 if [[ "$-" == *i* ]]; then
     # Bash specific binds (`.inputrc` only has universal ones).
     bind '"\C-x\C-b": backward-char'

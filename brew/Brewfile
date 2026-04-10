@@ -39,6 +39,7 @@ brew "vim"
 brew "wget"
 brew "yazi"
 brew "yq"
+brew "zoxide"
 # Optional dependencies for yazi.
 brew "ffmpeg-full", link: :overwrite
 brew "imagemagick-full", link: :overwrite
