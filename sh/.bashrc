@@ -142,6 +142,7 @@ alias virc='vim ~/dotfiles/vim/.ideavimrc'
 alias vssh='vim ~/.ssh/config'
 alias vgit='vim ~/dotfiles/git/.gitconfig'
 # shellcheck disable=SC2154  # Variable *is* defined.
+alias vgic='_gitdir=$(git rev-parse --git-common-dir) && vim "$_gitdir/config"'
 alias vgig='_gitdir=$(git rev-parse --git-common-dir) && vim "$_gitdir/info/exclude"'
 alias vbok='vim ~/.sourced/bookmarks && source ~/.sourced/bookmarks'
 alias venv='vim ~/.sourced/env && source ~/.sourced/env'
