@@ -643,6 +643,26 @@ gini () {
     git rev-parse --git-dir > /dev/null 2>&1 && return
     git init "$1" && if [ "$1" != . ]; then cd "$1"; fi && git commit --allow-empty --message 'Initial commit'
 }
+gdb () {
+    # Diff of what's "missing" from `our` branch compared to `their` branch.
+    # With zero arguments passed, defaults to remote tracking branch vs. HEAD.
+    # With a single argument passed, defaults to the passed branch vs. HEAD.
+    # Mnemonic: git branch diff
+    local our their
+
+    if [ "$#" -eq 0 ]; then
+        our=HEAD
+        their="$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}')" || return
+    elif [ "$#" -eq 1 ]; then
+        our=HEAD
+        their="$1"
+    else
+        our="$1"
+        their="$2"
+    fi
+
+    git diff "$our" "$(git merge-tree --strategy-option=theirs --write-tree "$our" "$their" | head -1)" "${@:3}"
+}
 gld () {
     # "Diff" the logs of two branches.
     # With zero arguments passed, defaults to HEAD and master.
@@ -965,6 +985,7 @@ __git_complete gcre _git_commit
 __git_complete gcp _git_cherry_pick
 __git_complete gd _git_diff
 __git_complete gd2 _git_diff
+__git_complete gdb _git_diff
 __git_complete gdg _git_diff
 __git_complete gdgm _git_diff
 __git_complete gdl _git_diff
