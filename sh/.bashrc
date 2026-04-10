@@ -44,6 +44,11 @@ _reset=$'\e[0m'
 __ps1_venv () {
     printf '%s' "${VIRTUAL_ENV:+(${VIRTUAL_ENV##*/}) }"
 }
+__ps1_nvm () {
+    local nvm_ver
+    nvm_ver="${NVM_BIN%/bin}"
+    printf '%s' "${nvm_ver:+(${nvm_ver##*/}) }"
+}
 __ps1_git_branch () {
     # This doesn't use `git branch --show-current` because
     # it doesn't work with a detached HEAD.
@@ -66,9 +71,10 @@ __ps1_dollar_color () {
         printf '%s' "$_cyan"
     fi
 }
-# Solarized colored prompt: (venv) path/to/dir (branch)*$
+# Solarized colored prompt: (venv) (nvm) path/to/dir (branch)*$
 PS1="\
 \$(__ps1_venv)\
+\$(__ps1_nvm)\
 \[$_cyan\]\w \
 \[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
 \[$_reset\]\$(__ps1_git_status 2> /dev/null)\
