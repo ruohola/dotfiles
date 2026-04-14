@@ -63,6 +63,9 @@ Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for LaTeX
 Plug 'lervag/vimtex',                 { 'for': 'tex' } " LaTeX automompletion and more
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug 'junegunn/goyo.vim'               " Distration-free writing
+Plug 'junegunn/limelight.vim'          " Focus only on the current paragraph
+
 " Filetypes
 Plug 'jparise/vim-graphql'
 Plug 'cespare/vim-toml'
@@ -278,6 +281,69 @@ augroup glyph-palette
     autocmd FileType fern call glyph_palette#apply()
 augroup END
 
+
+" junegunn/goyo.vim
+function! s:goyo_enter()
+    let g:EasyMotion_verbose = 0
+    set noshowmode
+    set noshowcmd
+    command! -bang W silent write<bang> | echo ''
+    cnoreabbrev <expr> w getcmdtype() == ':' && getcmdpos() == 2 ? 'W' : 'w'
+    if exists('$TMUX')
+        silent !tmux set status off
+    endif
+    nnoremap j gj
+    nnoremap k gk
+    nnoremap 0 g0
+    nnoremap ^ g^
+    nnoremap $ g$
+    nnoremap + g$
+    xnoremap j gj
+    xnoremap k gk
+    xnoremap 0 g0
+    xnoremap ^ g^
+    xnoremap $ g$
+    xnoremap + g$
+    onoremap j gj
+    onoremap k gk
+    onoremap 0 g0
+    onoremap ^ g^
+    onoremap $ g$
+endfunction
+function! s:goyo_leave()
+    let g:EasyMotion_verbose = 1
+    set showmode
+    set showcmd
+    cunabbrev w
+    " Restore a vim-eunuch command.
+    command! -bar W Wall
+    Limelight!
+    if exists('$TMUX')
+        silent !tmux set status on
+    endif
+    nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+    nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+    nunmap 0
+    nunmap ^
+    nunmap $
+    nnoremap + $
+    xunmap j
+    xunmap k
+    xunmap 0
+    xunmap ^
+    xunmap $
+    xnoremap + $
+    ounmap j
+    ounmap k
+    ounmap 0
+    ounmap ^
+    ounmap $
+endfunction
+augroup GoyoMode
+    autocmd!
+    autocmd User GoyoEnter nested call <SID>goyo_enter()
+    autocmd User GoyoLeave nested call <SID>goyo_leave()
+augroup END
 
 
 " ============= GENERAL =============
