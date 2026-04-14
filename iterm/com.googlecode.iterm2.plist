@@ -3196,6 +3196,8 @@ Resize Split Pane.Move Divider Right</string>
 	<integer>9</integer>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>5</integer>
+	<key>TerminalVMargin</key>
+	<integer>0</integer>
 	<key>TmuxUsesDedicatedProfile</key>
 	<false/>
 	<key>UseBorder</key>
