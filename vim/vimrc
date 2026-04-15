@@ -105,14 +105,14 @@ function! s:insert_completion() abort
     return coc#pum#confirm()
 endfunction
 
-inoremap <expr> <CR>
+inoremap <silent> <expr> <CR>
     \ exists('*coc#pum#visible') && coc#pum#visible()
     \     ? <SID>insert_completion()
     \     : pumvisible()
     \         ? "\<C-y>"
     \         : "\<C-g>u\<CR>"
 
-inoremap <expr> <TAB>
+inoremap <silent> <expr> <TAB>
     \ exists('*coc#pum#visible') && coc#pum#visible()
     \     ? coc#pum#confirm()
     \     : pumvisible()
