@@ -19,7 +19,7 @@ for file in .bashrc .bash_profile .zshrc .zprofile .inputrc .hushlogin .lesskey;
     [ ! -L "$file" ] && ln -sfv dotfiles/sh/"$file" "$file"
 done
 
-# Install homebrew.
+# Install Homebrew.
 command -v brew > /dev/null \
     || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
