@@ -2919,6 +2919,8 @@ Resize Split Pane.Move Divider Right</string>
 			<false/>
 			<key>Silence Bell</key>
 			<true/>
+			<key>Smart Selection Actions Use Interpolated Strings</key>
+			<false/>
 			<key>Smart Selection Rules</key>
 			<array>
 				<dict>
@@ -3033,9 +3035,9 @@ Resize Split Pane.Move Divider Right</string>
 					<array>
 						<dict>
 							<key>action</key>
-							<integer>4</integer>
+							<integer>2</integer>
 							<key>parameter</key>
-							<string>gh pr view --web \1\n</string>
+							<string>sh -c 'cd "\d" &amp;&amp; /opt/homebrew/bin/gh pr view --web \1'</string>
 							<key>title</key>
 							<string>Open PR in GitHub</string>
 						</dict>
@@ -3052,9 +3054,9 @@ Resize Split Pane.Move Divider Right</string>
 					<array>
 						<dict>
 							<key>action</key>
-							<integer>4</integer>
+							<integer>2</integer>
 							<key>parameter</key>
-							<string>gh pr view --web --repo \1 \2\n</string>
+							<string>sh -c 'cd "\d" &amp;&amp; /opt/homebrew/bin/gh pr view --web --repo \1 \2'</string>
 							<key>title</key>
 							<string>Open PR in GitHub</string>
 						</dict>
