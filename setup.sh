@@ -105,8 +105,7 @@ target=~/.local/bin/_tmux-file-picker
 
 target=~/'Library/Application Support/k9s/skins/transparent.yaml'
 command -v k9s > /dev/null && [ ! -f "$target" ] \
-    && mkdir -p "$(dirname "$target")" \
-    && curl --fail --output "$target" https://raw.githubusercontent.com/derailed/k9s/master/skins/transparent.yaml
+    && curl --fail --create-dirs --output "$target" https://raw.githubusercontent.com/derailed/k9s/master/skins/transparent.yaml
 
 # Patch Menlo with Nerd Fonts glyphs.
 target=~/.local/share/FontPatcher
