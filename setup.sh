@@ -86,6 +86,8 @@ target=~/.local/share/bash-completion/completions/npm
 
 [ ! -L ~/.config/yazi/yazi.toml ] && mkdir -p ~/.config/yazi/ && ln -sfv ~/dotfiles/yazi/yazi.toml ~/.config/yazi/yazi.toml
 
+[ ! -L ~/Library/Preferences/glow/glow.yml ] && mkdir -p ~/Library/Preferences/glow/ && ln -sfv ~/dotfiles/glow/glow.yml ~/Library/Preferences/glow/glow.yml
+
 [ ! -L "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt" ] \
     && ln -sfv ~/dotfiles/vim/spell/en.utf-8.add "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt"
 
