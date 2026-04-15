@@ -47,4 +47,3 @@ brew "imagemagick-full", link: :overwrite
 brew "resvg"
 brew "sevenzip"
 brew "exiftool"
-cask "jurplel/tap/instant-space-switcher"
