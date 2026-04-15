@@ -125,6 +125,7 @@ target=~/.tmux/plugins/tmux-fingers
     && git clone "${github_prefix}Morantron/tmux-fingers.git" "$target"
 git -C "$target" fetch --all --tags --prune && git -C "$target" switch --quiet --detach "$(git -C "$target" describe --tag --abbrev=0 origin/master)"
 
+[ ! -L ~/.config/tmux-snaglord/config.toml ] && mkdir -p ~/.config/tmux-snaglord/ && ln -sfv ~/dotfiles/tmux/tmux-snaglord-config.toml ~/.config/tmux-snaglord/config.toml
 
 # Use Homebrew Bash
 homebrew_bash='/opt/homebrew/bin/bash'
