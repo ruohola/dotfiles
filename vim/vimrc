@@ -445,11 +445,7 @@ set nolist listchars=tab:▷\ ,trail:•,nbsp:␣,eol:¬
 set incsearch hlsearch ignorecase smartcase gdefault
 
 " No errorbells
-set noerrorbells
-augroup NoVisualBells
-    autocmd!
-    autocmd GUIEnter * set visualbell t_vb=
-augroup END
+set belloff=all
 
 " Mixed settings
 filetype plugin indent on      " Auto detect filetype
