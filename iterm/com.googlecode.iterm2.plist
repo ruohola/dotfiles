@@ -2753,7 +2753,7 @@ Resize Split Pane.Move Divider Right</string>
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>80</integer>
+			<integer>999</integer>
 			<key>Command</key>
 			<string></string>
 			<key>Cursor Color</key>
@@ -2869,7 +2869,7 @@ Resize Split Pane.Move Divider Right</string>
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>25</integer>
+			<integer>999</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -3119,7 +3119,7 @@ Resize Split Pane.Move Divider Right</string>
 			<key>Visual Bell</key>
 			<false/>
 			<key>Window Type</key>
-			<integer>15</integer>
+			<integer>0</integer>
 		</dict>
 	</array>
 	<key>OnlyWhenMoreTabs</key>
