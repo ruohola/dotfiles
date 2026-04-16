@@ -66,6 +66,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/goyo.vim'               " Distration-free writing
 Plug 'junegunn/limelight.vim'          " Focus only on the current paragraph
 
+Plug 'christoomey/vim-tmux-navigator', { 'on': [] } " Navigate from Vim splits to tmux panes
+
 " Filetypes
 Plug 'jparise/vim-graphql'
 Plug 'cespare/vim-toml'
@@ -346,6 +348,30 @@ augroup GoyoMode
 augroup END
 
 
+" christoomey/vim-tmux-navigator
+if exists('$TMUX')
+    call plug#load('vim-tmux-navigator')
+
+    let g:tmux_navigator_no_mappings = 1
+    let g:tmux_navigator_no_wrap = 1
+    let g:tmux_navigator_disable_when_zoomed = 1
+
+    execute "set <M-h>=\eh"
+    execute "set <M-j>=\ej"
+    execute "set <M-k>=\ek"
+    execute "set <M-l>=\el"
+
+    nnoremap <silent> <M-h> :<C-U>TmuxNavigateLeft<CR>
+    nnoremap <silent> <M-j> :<C-U>TmuxNavigateDown<CR>
+    nnoremap <silent> <M-k> :<C-U>TmuxNavigateUp<CR>
+    nnoremap <silent> <M-l> :<C-U>TmuxNavigateRight<CR>
+
+    tnoremap <silent> <M-h> <C-W>:<C-U>TmuxNavigateLeft<CR>
+    tnoremap <silent> <M-j> <C-W>:<C-U>TmuxNavigateDown<CR>
+    tnoremap <silent> <M-k> <C-W>:<C-U>TmuxNavigateUp<CR>
+    tnoremap <silent> <M-l> <C-W>:<C-U>TmuxNavigateRight<CR>
+endif
+
 " ============= GENERAL =============
 
 " Set these only when vim starts, not when sourcing vimrc.
@@ -507,27 +533,13 @@ if has('gui_running')
     " Karabiner config sets Ctrl-I to F13 for differentiation vs. Tab.
     nnoremap <F13> <C-I>
 elseif exists('$TMUX')
-    execute "set <M-h>=\eh"
-    execute "set <M-j>=\ej"
-    execute "set <M-k>=\ek"
-    execute "set <M-l>=\el"
     execute "set <M-u>=\eu"
     execute "set <M-i>=\ei"
-
-    " Move between splits (alt+hjkl).
-    nnoremap <M-h> <C-W>h
-    nnoremap <M-j> <C-W>j
-    nnoremap <M-k> <C-W>k
-    nnoremap <M-l> <C-W>l
 
     " Cycle tabs (alt+ui).
     nnoremap <silent> <M-u> :tabprevious<CR>
     nnoremap <silent> <M-i> :tabnext<CR>
 
-    tnoremap <M-h> <C-W><C-H>
-    tnoremap <M-j> <C-W><C-J>
-    tnoremap <M-k> <C-W><C-K>
-    tnoremap <M-l> <C-W><C-L>
     tnoremap <silent> <M-u> <C-W>:tabprevious<CR>
     tnoremap <silent> <M-i> <C-W>:tabnext<CR>
 
