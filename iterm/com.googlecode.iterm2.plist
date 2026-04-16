@@ -3207,7 +3207,7 @@ Resize Split Pane.Move Divider Right</string>
 	<key>UseCustomTabBarFontSize</key>
 	<true/>
 	<key>UseLionStyleFullscreen</key>
-	<true/>
+	<false/>
 	<key>UseMetal</key>
 	<false/>
 	<key>UseTmuxStatusBar</key>
