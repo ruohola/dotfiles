@@ -41,6 +41,24 @@ _green=$'\e[32m'
 # _underlined=$'\e[4m'
 _reset=$'\e[0m'
 
+__ps1_path () {
+    # Expand `\w` via bash prompt-string expansion to get the PROMPT_DIRTRIM-
+    # and $HOME-collapsed path. Then, if the result still exceeds PS1_PATH_MAX,
+    # middle-ellipsize any component longer than PS1_COMPONENT_MAX.
+    local path='\w'
+    path="${path@P}"
+    if (( ${#path} > ${PS1_PATH_MAX:-40} )); then
+        local max="${PS1_COMPONENT_MAX:-16}" i IFS=/
+        local half=$(( (max - 1) / 2 ))
+        local -a parts
+        read -ra parts <<< "$path"  # `read` avoids glob-expanding `*` etc. in path.
+        for i in "${!parts[@]}"; do
+            (( ${#parts[i]} > max )) && parts[i]="${parts[i]:0:half}…${parts[i]: -half}"
+        done
+        path="${parts[*]}"
+    fi
+    printf '%s' "$path"
+}
 __ps1_venv () {
     printf '%s' "${VIRTUAL_ENV:+(${VIRTUAL_ENV##*/}) }"
 }
@@ -75,12 +93,14 @@ __ps1_dollar_color () {
 PS1="\
 \$(__ps1_venv)\
 \$(__ps1_nvm)\
-\[$_cyan\]\w \
+\[$_cyan\]\$(__ps1_path) \
 \[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
 \[$_reset\]\$(__ps1_git_status 2> /dev/null)\
 \[\$(__ps1_dollar_color)\]\$ \[$_reset\]\
 "
-export PROMPT_DIRTRIM=3  # Show only last 3 dirs in prompt.
+export PROMPT_DIRTRIM=3      # Show only last 3 dirs in prompt.
+export PS1_PATH_MAX=40       # Only ellipsize path if total length exceeds this.
+export PS1_COMPONENT_MAX=16  # Then ellipsize components longer than this.
 
 PROMPT_COMMAND=''
 if [[ -n "$TMUX" && -z "$VIM_TERMINAL" ]]; then
