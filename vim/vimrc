@@ -268,8 +268,9 @@ augroup FernMappings
     " Fix regulard easymotion mapping `mo` marks breaking in fern.
     autocmd FileType fern nnoremap <buffer> <Leader>k <Plug>(easymotion-bd-f)
     autocmd FileType fern nnoremap <buffer> o <Plug>(fern-action-expand-tree:stay)
-    " (Default would be open-or-expand)
-    autocmd FileType fern nnoremap <buffer> l <Plug>(fern-action-expand)
+    " Like default open-or-expand, but stay focused in fern after opening a file.
+    autocmd FileType fern nmap <buffer><silent><expr> l
+        \ fern#smart#leaf("\<Plug>(fern-action-open)\<C-w>p", "\<Plug>(fern-action-expand)")
     " (Can then close the preview window with native <C-W>z or :pc)
     autocmd FileType fern nnoremap <buffer> p <Plug>(fern-action-preview:autocmd)
 augroup END
