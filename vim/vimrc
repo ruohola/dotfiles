@@ -258,7 +258,7 @@ let g:plist_display_format = 'xml'
 let g:plist_save_format = ''
 
 " lambdalisue/vim-fern
-nnoremap <silent> <C-@> :let w=win_getid()<Bar>Fern . -drawer -reveal=% -toggle<Bar>call win_gotoid(w)<CR>
+nnoremap <silent> <C-@> :<C-U>Fern . -drawer -reveal=% -toggle<CR>
 let g:fern#keepalt_on_edit = 1
 let g:fern#keepjumps_on_edit = 1
 let g:fern#default_hidden = 1
