@@ -1325,17 +1325,18 @@ source ~/.sourced/env 2> /dev/null
 # Always start in tmux.
 # Use grouped sessions to allow having a different current window in each session.
 if [[ "$-" == *i* && -z "$TMUX" && "$TERM_PROGRAM" == 'iTerm.app' ]] && command -v tmux > /dev/null; then
-    # Attach to the most recently active session's group, or create "main" if none exist.
-    __current_session="$(tmux list-sessions -F '#{session_last_attached} #{?session_group,#{session_group},#{session_name}}' 2> /dev/null | sort --numeric-sort --reverse | head -1 | cut -d' ' -f2-)"
-    __tmux_target="${__current_session:-main}"
-    if tmux has-session -t "$__tmux_target" 2> /dev/null; then
+    # If a session is already attached somewhere, group onto it so this window gets its own current window.
+    # Otherwise just attach to the most-recently-active session, or create "main" if none exist.
+    __attached="$(tmux list-sessions -f '#{session_attached}' -F '#{?session_group,#{session_group},#{session_name}}' 2> /dev/null | head -1)"
+    if [ -n "$__attached" ]; then
         # Mimics `renumber-windows on`.
         n=1
-        while tmux has-session -t "${__tmux_target}-$n" 2> /dev/null; do
+        while tmux has-session -t "${__attached}-$n" 2> /dev/null; do
             ((n++))
         done
-        exec tmux new-session -t "$__tmux_target" -s "${__tmux_target}-$n" \; set destroy-unattached on
+        exec tmux new-session -t "$__attached" -s "${__attached}-$n" \; set destroy-unattached on
     else
-        exec tmux new-session -s "$__tmux_target"
+        __recent="$(tmux list-sessions -F '#{session_last_attached} #{session_name}' 2> /dev/null | sort --numeric-sort --reverse | head -1 | cut -d' ' -f2-)"
+        exec tmux new-session -A -s "${__recent:-main}"
     fi
 fi
