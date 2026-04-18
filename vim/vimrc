@@ -781,41 +781,23 @@ endfunction
 function! s:ShowGitHistoryForSelection() abort
     let file = shellescape(expand('%:p'))
     let dir = shellescape(expand('%:p:h'))
-    let start = s:MapLineToHead(expand('%:p'), line("'<"))
-    let end = s:MapLineToHead(expand('%:p'), line("'>"))
+    let start = line("'<")
+    let end = line("'>")
+    " If line 1 is the ephemeral commit's header, swap it (and its metadata)
+    " for a plain "commit [local changes]" banner up to the first diff line.
+    let awk = 'NR==1 && index($0, r) {s=1; print "commit [local changes]\n"; next} /diff --git/ {s=0} !s'
+    " Stash the working copy into an ephemeral commit so `git log -L` traces
+    " the selection from any local changes.
     let cmd = printf(
-        \ '{ if ! git -C %s --no-pager diff --quiet HEAD -- %s 2>/dev/null; then'
-        \ . ' printf "commit [local changes]\n\n";'
-        \ . ' git -C %s --no-pager diff --color=always HEAD -- %s; printf "\n"; fi;'
-        \ . ' git -C %s --no-pager log --color=always --format=fuller --patch -L %d,%d:%s;'
-        \ . ' } | %s',
-        \ dir, file, dir, file, dir, start, end, file, s:_delta_pager)
+        \ 'stash=$(git -C %s stash create);'
+        \ . ' if [ -n "$stash" ]; then'
+        \ . '     tree=$(git -C %s rev-parse "$stash^{tree}");'
+        \ . '     ref=$(git -C %s commit-tree "$tree" -p HEAD -m " ");'
+        \ . ' else ref=HEAD; fi;'
+        \ . ' git -C %s --no-pager log --color=always --format=fuller --patch -L %d,%d:%s "$ref"'
+        \ . ' | awk -v r="$ref" ''%s'' | %s',
+        \ dir, dir, dir, dir, start, end, file, awk, s:_delta_pager)
     call RunCommandInPopupTerm(['sh', '-c', cmd])
-endfunction
-
-
-" Map a working-copy line number to the corresponding HEAD line number,
-" accounting for unstaged and staged changes.
-function! s:MapLineToHead(file, line) abort
-    let diff_output = systemlist('git diff HEAD -- ' . shellescape(a:file))
-    let offset = 0
-    for l in diff_output
-        let m = matchlist(l, '^@@ -\(\d\+\),\?\(\d*\) +\(\d\+\),\?\(\d*\) @@')
-        if !empty(m)
-            let old_start = str2nr(m[1])
-            let old_count = m[2] ==# '' ? 1 : str2nr(m[2])
-            let new_start = str2nr(m[3])
-            let new_count = m[4] ==# '' ? 1 : str2nr(m[4])
-            if a:line < new_start
-                return a:line + offset
-            endif
-            if a:line < new_start + new_count
-                return max([1, old_start + min([a:line - new_start, old_count - 1])])
-            endif
-            let offset = (old_start + old_count) - (new_start + new_count)
-        endif
-    endfor
-    return max([1, a:line + offset])
 endfunction
 
 
