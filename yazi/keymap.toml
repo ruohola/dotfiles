@@ -1,0 +1,4 @@
+[[mgr.prepend_keymap]]
+on = "b"
+run = "shell -- ql %s"
+desc = "Quick Look"

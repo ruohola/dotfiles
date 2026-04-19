@@ -85,6 +85,7 @@ target=~/.local/share/bash-completion/completions/npm
 [ ! -L ~/.config/pgcli/config ] && mkdir -p ~/.config/pgcli/ && ln -sfv ~/dotfiles/pgcli/config ~/.config/pgcli/config
 
 [ ! -L ~/.config/yazi/yazi.toml ] && mkdir -p ~/.config/yazi/ && ln -sfv ~/dotfiles/yazi/yazi.toml ~/.config/yazi/yazi.toml
+[ ! -L ~/.config/yazi/keymap.toml ] && ln -sfv ~/dotfiles/yazi/keymap.toml ~/.config/yazi/keymap.toml
 
 [ ! -L ~/Library/Preferences/glow/glow.yml ] && mkdir -p ~/Library/Preferences/glow/ && ln -sfv ~/dotfiles/glow/glow.yml ~/Library/Preferences/glow/glow.yml
 
