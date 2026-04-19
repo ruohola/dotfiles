@@ -5,7 +5,7 @@ setlocal nowrap
 " Reference from: https://unix.stackexchange.com/a/103253/337515
 nnoremap <nowait> <buffer> <Leader>r 
             \Gzzo<Esc>o<C-U>@misc{,<Esc>
-            \:read !pbpaste \| xargs curl --location --silent --show-error \| perl -l -0777 -ne 'print /<title.*?>\s*(.*?)\s*<\/title/si ? $1 : ""' \| recode html<CR>
+            \<Cmd>read !pbpaste \| xargs curl --location --silent --show-error \| perl -l -0777 -ne 'print /<title.*?>\s*(.*?)\s*<\/title/si ? $1 : ""' \| recode html<CR>
             \I<TAB>title = {{<Esc>A}},<CR>
             \url = {<C-R>+},<CR>
             \urldate = {<C-R>=strftime("%Y-%m-%d")<CR>

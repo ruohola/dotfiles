@@ -362,15 +362,15 @@ if exists('$TMUX')
     execute "set <M-k>=\ek"
     execute "set <M-l>=\el"
 
-    nnoremap <silent> <M-h> :<C-U>TmuxNavigateLeft<CR>
-    nnoremap <silent> <M-j> :<C-U>TmuxNavigateDown<CR>
-    nnoremap <silent> <M-k> :<C-U>TmuxNavigateUp<CR>
-    nnoremap <silent> <M-l> :<C-U>TmuxNavigateRight<CR>
+    nnoremap <M-h> <Cmd>TmuxNavigateLeft<CR>
+    nnoremap <M-j> <Cmd>TmuxNavigateDown<CR>
+    nnoremap <M-k> <Cmd>TmuxNavigateUp<CR>
+    nnoremap <M-l> <Cmd>TmuxNavigateRight<CR>
 
-    tnoremap <silent> <M-h> <C-W>:<C-U>TmuxNavigateLeft<CR>
-    tnoremap <silent> <M-j> <C-W>:<C-U>TmuxNavigateDown<CR>
-    tnoremap <silent> <M-k> <C-W>:<C-U>TmuxNavigateUp<CR>
-    tnoremap <silent> <M-l> <C-W>:<C-U>TmuxNavigateRight<CR>
+    tnoremap <M-h> <Cmd>TmuxNavigateLeft<CR>
+    tnoremap <M-j> <Cmd>TmuxNavigateDown<CR>
+    tnoremap <M-k> <Cmd>TmuxNavigateUp<CR>
+    tnoremap <M-l> <Cmd>TmuxNavigateRight<CR>
 endif
 
 " ============= GENERAL =============
@@ -521,15 +521,15 @@ if has('gui_running')
     nnoremap → <C-W>l
 
     " Cycle tabs (alt+ui).
-    nnoremap <silent>ü :tabprevious<CR>
-    nnoremap <silent>↔︎ :tabnext<CR>
+    nnoremap <silent>ü <Cmd>tabprevious<CR>
+    nnoremap <silent>↔︎ <Cmd>tabnext<CR>
 
     tnoremap ← <C-W><C-H>
     tnoremap ↓ <C-W><C-J>
     tnoremap ↑ <C-W><C-K>
     tnoremap → <C-W><C-L>
-    tnoremap <silent>ü <C-W>:tabprevious<CR>
-    tnoremap <silent>↔︎ <C-W>:tabnext<CR>
+    tnoremap ü <Cmd>tabprevious<CR>
+    tnoremap ↔︎ <Cmd>tabnext<CR>
 
     " Karabiner config sets Ctrl-I to F13 for differentiation vs. Tab.
     nnoremap <F13> <C-I>
@@ -538,11 +538,11 @@ elseif exists('$TMUX')
     execute "set <M-i>=\ei"
 
     " Cycle tabs (alt+ui).
-    nnoremap <silent> <M-u> :tabprevious<CR>
-    nnoremap <silent> <M-i> :tabnext<CR>
+    nnoremap <M-u> <Cmd>tabprevious<CR>
+    nnoremap <M-i> <Cmd>tabnext<CR>
 
-    tnoremap <silent> <M-u> <C-W>:tabprevious<CR>
-    tnoremap <silent> <M-i> <C-W>:tabnext<CR>
+    tnoremap <M-u> <Cmd>tabprevious<CR>
+    tnoremap <M-i> <Cmd>tabnext<CR>
 
     " The latter is for iTerm `tmux -CC`.
     nnoremap <Esc>[1;2P <C-I>
@@ -559,15 +559,15 @@ else
     nnoremap ì <C-W>l
 
     " Cycle tabs (alt+ui).
-    nnoremap <silent> õ :tabprevious<CR>
-    nnoremap <silent> é :tabnext<CR>
+    nnoremap <silent> õ <Cmd>tabprevious<CR>
+    nnoremap <silent> é <Cmd>tabnext<CR>
 
     tnoremap è <C-W><C-H>
     tnoremap ê <C-W><C-J>
     tnoremap ë <C-W><C-K>
     tnoremap ì <C-W><C-L>
-    tnoremap <silent> õ <C-W>:tabprevious<CR>
-    tnoremap <silent> é <C-W>:tabnext<CR>
+    tnoremap õ <Cmd>tabprevious<CR>
+    tnoremap é <Cmd>tabnext<CR>
 
     nnoremap <Esc>[25~ <C-I>
 
