@@ -883,7 +883,7 @@ augroup END
 " Open help windows in a new tab.
 augroup HelpOpen
     autocmd!
-    autocmd BufRead *.txt if &buftype ==? 'help'
+    autocmd BufWinEnter *.txt if &buftype ==? 'help'
                     \|execute "normal \<C-W>T"
                 \|endif
 augroup END
