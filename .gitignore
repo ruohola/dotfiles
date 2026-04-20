@@ -9,5 +9,7 @@ vim/.temp/
 vim/autoload/
 vim/plugins/
 vim/spell/
+vim/.nvim-temp/
+vim/nvim-plugins/
 
 git/.gitconfig_*

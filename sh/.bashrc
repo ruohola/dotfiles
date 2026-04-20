@@ -103,7 +103,7 @@ export PS1_PATH_MAX=40       # Only ellipsize path if total length exceeds this.
 export PS1_COMPONENT_MAX=16  # Then ellipsize components longer than this.
 
 PROMPT_COMMAND=''
-if [[ -n "$TMUX" && -z "$VIM_TERMINAL" ]]; then
+if [[ -n "$TMUX" && -z "$VIM_TERMINAL" && -z "$NVIM" ]]; then
     # Make iTerm smart selection actions follow the current directory from within tmux.
     __iterm2_cwd_tmux_passthrough () {
         # shellcheck disable=SC1003  # Correctly formatted.

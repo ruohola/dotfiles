@@ -74,6 +74,14 @@ target=~/.local/share/bash-completion/completions/npm
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
     && vim -c "PlugClean!" -c "PlugInstall" -c "qa!"
 
+# Share the same config and vim-plug install with Neovim.
+[ ! -L ~/.config/nvim/init.vim ] && mkdir -p ~/.config/nvim && ln -sfv ~/dotfiles/vim/vimrc ~/.config/nvim/init.vim
+[ ! -L ~/.local/share/nvim/site/autoload/plug.vim ] \
+    && mkdir -p ~/.local/share/nvim/site/autoload \
+    && ln -sfv ~/.vim/autoload/plug.vim ~/.local/share/nvim/site/autoload/plug.vim \
+    && nvim -c "PlugClean!" -c "PlugInstall" -c "qa!"
+[ ! -L ~/.config/nvim/after ] && ln -sfv ~/dotfiles/vim/after ~/.config/nvim/after
+
 # The rest are on purpose as absolute links and not relative from `~`.
 
 [ ! -L '/Library/Keyboard Layouts/Finner.keylayout' ] \

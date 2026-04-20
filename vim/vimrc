@@ -7,16 +7,22 @@ let $LANG='en_US'
 set spelllang=en_us
 set fileformats=unix,dos
 set fileencodings=ucs-bom,utf-8,default,latin1
-set encoding=utf-8
+if !has('nvim')
+    set encoding=utf-8
+endif
 scriptencoding utf-8
 
 " Vim file locations.
 let VimFolder = '/.vim'
-let PathToPluginsFolder = $HOME . VimFolder . '/plugins'
+let PathToPluginsFolder = $HOME . VimFolder . (has('nvim') ? '/nvim-plugins' : '/plugins')
 let PathToSpellFolder = $HOME . VimFolder . '/spell'
-let PathToTempFolder = $HOME . VimFolder . '/.temp'
+let PathToTempFolder = $HOME . VimFolder . (has('nvim') ? '/.nvim-temp' : '/.temp')
 execute 'set spellfile=' . PathToSpellFolder . '/en.utf-8.add'
-execute 'set viminfo+=n' . PathToTempFolder . '/.viminfo'
+if has('nvim')
+    execute 'set shada+=n' . PathToTempFolder . '/.shada'
+else
+    execute 'set viminfo+=n' . PathToTempFolder . '/.viminfo'
+endif
 let &undodir = PathToTempFolder . '/undo//'
 let &backupdir = PathToTempFolder . '/backup//'
 let &directory = PathToTempFolder . '/swap//'
@@ -61,7 +67,14 @@ Plug 'rhysd/vim-grammarous'            " Use LanguageTool to check spelling and 
 
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for LaTeX
 Plug 'lervag/vimtex',                 { 'for': 'tex' } " LaTeX automompletion and more
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" LSP: coc.nvim in Vim, built-in LSP + Mason in Neovim.
+if has('nvim')
+    Plug 'mason-org/mason.nvim'
+    Plug 'mason-org/mason-lspconfig.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'}
+else
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 
 Plug 'junegunn/goyo.vim'               " Distration-free writing
 Plug 'junegunn/limelight.vim'          " Focus only on the current paragraph
@@ -77,80 +90,175 @@ Plug 'kevinoid/vim-jsonc'
 Plug 'darfink/vim-plist'
 
 " Colorshemes
-Plug 'lifepillar/vim-solarized8'
+if has('nvim')
+    Plug 'maxmx03/solarized.nvim'
+else
+    Plug 'lifepillar/vim-solarized8'
+endif
 call plug#end()
 
 
-" neoclide/coc.nvim
-let g:coc_start_at_startup=0  " So we don't start Coc in vimdiff.
-let g:coc_disable_mappings_check=1  " Disable default mappings.
+" LSP: coc.nvim in Vim, built-in LSP in Neovim.
+if !has('nvim')
+    " neoclide/coc.nvim
+    let g:coc_start_at_startup=0  " So we don't start Coc in vimdiff.
+    let g:coc_disable_mappings_check=1  " Disable default mappings.
 
-let g:coc_global_extensions = [
-    \ 'coc-clangd',
-    \ 'coc-docker',
-    \ 'coc-go',
-    \ 'coc-jedi',
-    \ 'coc-json',
-    \ 'coc-rls',
-    \ 'coc-sh',
-    \ 'coc-sql',
-    \ 'coc-tsserver',
-    \ 'coc-vimlsp',
-    \ 'coc-vimtex',
-    \ 'coc-yaml',
-\]
+    let g:coc_global_extensions = [
+        \ 'coc-clangd',
+        \ 'coc-docker',
+        \ 'coc-go',
+        \ 'coc-jedi',
+        \ 'coc-json',
+        \ 'coc-rls',
+        \ 'coc-sh',
+        \ 'coc-sql',
+        \ 'coc-tsserver',
+        \ 'coc-vimlsp',
+        \ 'coc-vimtex',
+        \ 'coc-yaml',
+    \]
 
-let g:coc_filetype_map = {
-    \ 'bash': 'sh',
-\}
+    let g:coc_filetype_map = {
+        \ 'bash': 'sh',
+    \}
 
-function! s:insert_completion() abort
-    call coc#config('suggest', {'insertMode': 'insert'})
-    call timer_start(1, {-> coc#config('suggest', {'insertMode': 'replace'})})
-    return coc#pum#confirm()
-endfunction
+    function! s:insert_completion() abort
+        call coc#config('suggest', {'insertMode': 'insert'})
+        call timer_start(1, {-> coc#config('suggest', {'insertMode': 'replace'})})
+        return coc#pum#confirm()
+    endfunction
 
-inoremap <silent> <expr> <CR>
-    \ exists('*coc#pum#visible') && coc#pum#visible()
-    \     ? <SID>insert_completion()
-    \     : pumvisible()
-    \         ? "\<C-y>"
-    \         : "\<C-g>u\<CR>"
+    inoremap <silent> <expr> <CR>
+        \ exists('*coc#pum#visible') && coc#pum#visible()
+        \     ? <SID>insert_completion()
+        \     : pumvisible()
+        \         ? "\<C-y>"
+        \         : "\<C-g>u\<CR>"
 
-inoremap <silent> <expr> <TAB>
-    \ exists('*coc#pum#visible') && coc#pum#visible()
-    \     ? coc#pum#confirm()
-    \     : pumvisible()
-    \         ? "\<C-y>"
-    \         : "\<TAB>"
+    inoremap <silent> <expr> <TAB>
+        \ exists('*coc#pum#visible') && coc#pum#visible()
+        \     ? coc#pum#confirm()
+        \     : pumvisible()
+        \         ? "\<C-y>"
+        \         : "\<TAB>"
 
-nmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc>' : '<Plug>(coc-diagnostic-next)'
-nmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc>' : '<Plug>(coc-diagnostic-prev)'
-xmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc><Esc>gv' : '<Plug>(coc-diagnostic-next)'
-xmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc><Esc>gv' : '<Plug>(coc-diagnostic-prev)'
+    nmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc>' : '<Plug>(coc-diagnostic-next)'
+    nmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc>' : '<Plug>(coc-diagnostic-prev)'
+    xmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc><Esc>gv' : '<Plug>(coc-diagnostic-next)'
+    xmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc><Esc>gv' : '<Plug>(coc-diagnostic-prev)'
 
-nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gd <Plug>(coc-definition)
 
-nmap <silent> <Leader>t <Plug>(coc-type-definition)
-nmap <silent> <Leader>i <Plug>(coc-implementation)
-nmap <silent> <Leader>u <Plug>(coc-references)
+    nmap <silent> <Leader>t <Plug>(coc-type-definition)
+    nmap <silent> <Leader>i <Plug>(coc-implementation)
+    nmap <silent> <Leader>u <Plug>(coc-references)
+    nmap <silent> <leader>r <Plug>(coc-rename)
+    xmap <silent> <leader>o <Plug>(coc-format-selected)
+    nmap <silent> <leader>o <Plug>(coc-format)
+    nnoremap <silent> <Leader>1 :<C-u>CocList diagnostics<cr>
+    nnoremap <silent> <Leader>a :<C-u>CocList commands<cr>
+    nnoremap <silent> <Leader>h :<C-u>CocList outline<cr>
+    nnoremap <silent> <Leader>s :<C-u>CocList -I symbols<cr>
+
+    xmap if <Plug>(coc-funcobj-i)
+    xmap af <Plug>(coc-funcobj-a)
+    omap if <Plug>(coc-funcobj-i)
+    omap af <Plug>(coc-funcobj-a)
+else
+    " Neovim built-in LSP + Mason for server installation.
+lua <<EOF
+require('mason').setup()
+require('mason-lspconfig').setup({
+    ensure_installed = {
+        'bashls',                -- coc-sh
+        'clangd',                -- coc-clangd
+        'dockerls',              -- coc-docker
+        'gopls',                 -- coc-go
+        'jedi_language_server',  -- coc-jedi
+        'jsonls',                -- coc-json
+        'rust_analyzer',         -- coc-rls (rls is deprecated)
+        'sqlls',                 -- coc-sql
+        'texlab',                -- coc-vimtex
+        'ts_ls',                 -- coc-tsserver
+        'vimls',                 -- coc-vimlsp
+        'yamlls',                -- coc-yaml
+    },
+})
+
+require('nvim-treesitter.configs').setup({
+    ensure_installed = {
+        'bash',             -- sh, bash
+        'bibtex',           -- bib
+        'css',              -- css
+        'dockerfile',       -- dockerfile
+        'git_config',       -- gitconfig
+        'gitcommit',        -- gitcommit
+        'go',               -- go
+        'graphql',          -- graphql
+        'haskell',          -- haskell
+        'html',             -- html
+        'javascript',       -- javascript, javascriptreact
+        'json',             -- json
+        'jsonc',            -- jsonc
+        -- 'latex',         -- tex (FIXME)
+        'lua',              -- lua (config)
+        'markdown',         -- markdown
+        'markdown_inline',  -- markdown (inline spans)
+        'python',           -- python
+        'rust',             -- rust
+        'terraform',        -- tf
+        'toml',             -- toml
+        'tsx',              -- typescriptreact
+        'typescript',       -- typescript
+        'vim',              -- vim
+        'vimdoc',           -- help
+        'xml',              -- plist
+        'yaml',             -- yaml
+    },
+    highlight = { enable = true },
+})
+
+-- Enable built-in autocompletion when an LSP attaches.
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client and client:supports_method('textDocument/completion') then
+            vim.lsp.completion.enable(true, args.data.client_id, args.buf, { autotrigger = true })
+        end
+    end,
+})
+EOF
+
+    inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    inoremap <silent> <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+
+    nmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc>' : '<Cmd>lua vim.diagnostic.jump({count=1})<CR>'
+    nmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc>' : '<Cmd>lua vim.diagnostic.jump({count=-1})<CR>'
+    xmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc><Esc>gv' : '<Cmd>lua vim.diagnostic.jump({count=1})<CR>'
+    xmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc><Esc>gv' : '<Cmd>lua vim.diagnostic.jump({count=-1})<CR>'
+
+    nnoremap <silent> gd <Cmd>lua vim.lsp.buf.definition()<CR>
+
+    nnoremap <silent> <Leader>t <Cmd>lua vim.lsp.buf.type_definition()<CR>
+    nnoremap <silent> <Leader>i <Cmd>lua vim.lsp.buf.implementation()<CR>
+    nnoremap <silent> <Leader>u <Cmd>lua vim.lsp.buf.references()<CR>
+    nnoremap <silent> <Leader>r <Cmd>lua vim.lsp.buf.rename()<CR>
+    xnoremap <silent> <Leader>o <Cmd>lua vim.lsp.buf.format({async=true})<CR>
+    nnoremap <silent> <Leader>o <Cmd>lua vim.lsp.buf.format({async=true})<CR>
+    nnoremap <silent> <Leader>1 <Cmd>lua vim.diagnostic.setqflist()<CR>
+    nnoremap <silent> <Leader>a <Cmd>lua vim.lsp.buf.code_action()<CR>
+    nnoremap <silent> <Leader>h <Cmd>lua vim.lsp.buf.document_symbol()<CR>
+    nnoremap <silent> <Leader>s <Cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+endif
+
 nnoremap <silent> <Leader>d :call <SID>show_documentation()<CR>
-nmap <silent> <leader>r <Plug>(coc-rename)
-xmap <silent> <leader>o <Plug>(coc-format-selected)
-nmap <silent> <leader>o <Plug>(coc-format)
-nnoremap <silent> <Leader>1 :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <Leader>a :<C-u>CocList commands<cr>
-nnoremap <silent> <Leader>h :<C-u>CocList outline<cr>
-nnoremap <silent> <Leader>s :<C-u>CocList -I symbols<cr>
-
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
 
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
+    elseif has('nvim')
+        lua vim.lsp.buf.hover()
     else
         call CocAction('doHover')
     endif
@@ -357,10 +465,12 @@ if exists('$TMUX')
     let g:tmux_navigator_no_wrap = 1
     let g:tmux_navigator_disable_when_zoomed = 1
 
-    execute "set <M-h>=\eh"
-    execute "set <M-j>=\ej"
-    execute "set <M-k>=\ek"
-    execute "set <M-l>=\el"
+    if !has('nvim')
+        execute "set <M-h>=\eh"
+        execute "set <M-j>=\ej"
+        execute "set <M-k>=\ek"
+        execute "set <M-l>=\el"
+    endif
 
     nnoremap <M-h> <Cmd>TmuxNavigateLeft<CR>
     nnoremap <M-j> <Cmd>TmuxNavigateDown<CR>
@@ -383,9 +493,13 @@ if !exists('g:notfirstopen')
     set background=dark
 
     let g:solarized_italics=0
-    colorscheme solarized8  " Messes up Mundo if loaded again.
+    if has('nvim')
+        colorscheme solarized
+    else
+        colorscheme solarized8  " Messes up Mundo if loaded again.
+    endif
 
-    if has('gui_running')
+    if has('gui_running') || exists('g:neovide') || exists('g:GuiLoaded')
         set lines=40 columns=120  " Initial window size.
         " Changing font moves the window.
         set guifont=MenloNFM-Regular:h16
@@ -412,7 +526,7 @@ if !exists('g:notfirstopen')
     endfor
 endif
 
-if has('gui_running')
+if has('gui_running') || exists('g:neovide') || exists('g:GuiLoaded')
     " GUI specific settings.
     set guioptions=
     " Cursor is a vertical bar in insert mode and a block in normal mode.
@@ -422,10 +536,12 @@ else
     " Terminal specific settings.
     set mouse=a
     if $TERM =~ '\(xterm\|tmux\)-256color'
-        set ttymouse=sgr
-        let &t_SI = "\e[6 q"
-        let &t_EI = "\e[2 q"
-        let &t_SR = "\e[4 q"
+        if !has('nvim')
+            set ttymouse=sgr
+            let &t_SI = "\e[6 q"
+            let &t_EI = "\e[2 q"
+            let &t_SR = "\e[4 q"
+        endif
     endif
 endif
 
@@ -438,8 +554,10 @@ set cmdheight=1
 
 " Statusline
 set laststatus=2                                           " Always show statusline
-set statusline=                                            " Clear statusline
-set statusline+=%l                                         " Current line number
+" Start with %l directly rather than `set statusline=` then `+=%l`: in Neovim
+" 0.12, `+=` onto an empty statusline prepends the default instead of appending
+" to empty, so the first assignment must be non-empty.
+set statusline=%l                                          " Current line number
 set statusline+=/%L                                        " Total lines
 set statusline+=(%p%%)                                     " Percentage through the file
 set statusline+=%4c                                        " Cursor column
@@ -513,7 +631,7 @@ set shortmess=SatcOA           " S: no [x/y] when searching (plugin handles that
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 
-if has('gui_running')
+if has('gui_running') || exists('g:neovide') || exists('g:GuiLoaded')
     " Move between splits (alt+hjkl).
     nnoremap ← <C-W>h
     nnoremap ↓ <C-W>j
@@ -524,18 +642,27 @@ if has('gui_running')
     nnoremap <silent>ü <Cmd>tabprevious<CR>
     nnoremap <silent>↔︎ <Cmd>tabnext<CR>
 
-    tnoremap ← <C-W><C-H>
-    tnoremap ↓ <C-W><C-J>
-    tnoremap ↑ <C-W><C-K>
-    tnoremap → <C-W><C-L>
+    if has('nvim')
+        tnoremap ← <C-\><C-N><C-W>h
+        tnoremap ↓ <C-\><C-N><C-W>j
+        tnoremap ↑ <C-\><C-N><C-W>k
+        tnoremap → <C-\><C-N><C-W>l
+    else
+        tnoremap ← <C-W><C-H>
+        tnoremap ↓ <C-W><C-J>
+        tnoremap ↑ <C-W><C-K>
+        tnoremap → <C-W><C-L>
+    endif
     tnoremap ü <Cmd>tabprevious<CR>
     tnoremap ↔︎ <Cmd>tabnext<CR>
 
     " Karabiner config sets Ctrl-I to F13 for differentiation vs. Tab.
     nnoremap <F13> <C-I>
 elseif exists('$TMUX')
-    execute "set <M-u>=\eu"
-    execute "set <M-i>=\ei"
+    if !has('nvim')
+        execute "set <M-u>=\eu"
+        execute "set <M-i>=\ei"
+    endif
 
     " Cycle tabs (alt+ui).
     nnoremap <M-u> <Cmd>tabprevious<CR>
@@ -550,6 +677,7 @@ elseif exists('$TMUX')
 
     " iTerm config remaps Ctrl-2 to this arbitrary escape sequence
     " so that it can be differentiated from tmux prefix Ctrl-Space.
+    " FIXME: doesn't work in Neovim.
     nmap <Esc>[50~ <C-@>
 else
     " Move between splits (alt+hjkl).
@@ -562,10 +690,17 @@ else
     nnoremap <silent> õ <Cmd>tabprevious<CR>
     nnoremap <silent> é <Cmd>tabnext<CR>
 
-    tnoremap è <C-W><C-H>
-    tnoremap ê <C-W><C-J>
-    tnoremap ë <C-W><C-K>
-    tnoremap ì <C-W><C-L>
+    if has('nvim')
+        tnoremap è <C-\><C-N><C-W>h
+        tnoremap ê <C-\><C-N><C-W>j
+        tnoremap ë <C-\><C-N><C-W>k
+        tnoremap ì <C-\><C-N><C-W>l
+    else
+        tnoremap è <C-W><C-H>
+        tnoremap ê <C-W><C-J>
+        tnoremap ë <C-W><C-K>
+        tnoremap ì <C-W><C-L>
+    endif
     tnoremap õ <Cmd>tabprevious<CR>
     tnoremap é <Cmd>tabnext<CR>
 
@@ -576,7 +711,11 @@ endif
 
 " Makes these easier to use.
 noremap , :
-tnoremap <C-W>, <C-W>:
+if has('nvim')
+    tnoremap <C-W>, <C-\><C-N>:
+else
+    tnoremap <C-W>, <C-W>:
+endif
 noremap : ;
 noremap ; ,
 noremap g, g;
@@ -737,10 +876,17 @@ function! RunCommandInSplitTerm(command) abort
     if termWinNr == -1
         execute 'below split | resize ' . winSize
         if termBufNr == -1 || bufexists(termBufNr) == 0
-            let termBufNr = term_start(&shell, {
-                        \ 'curwin': 1,
-                        \ 'term_finish': 'close',
-                        \ })
+            if has('nvim')
+                enew
+                let termBufNr = bufnr('%')
+                let termJobId = termopen(&shell, {'on_exit': {j,c,e -> execute('silent! bwipeout! ' . termBufNr)}})
+                call setbufvar(termBufNr, '_run_term_job', termJobId)
+            else
+                let termBufNr = term_start(&shell, {
+                            \ 'curwin': 1,
+                            \ 'term_finish': 'close',
+                            \ })
+            endif
             call setbufvar(mainBuf, '_run_term', termBufNr)
         else
             execute 'buffer' . termBufNr
@@ -749,16 +895,33 @@ function! RunCommandInSplitTerm(command) abort
         execute termWinNr . 'wincmd w'
     endif
 
-    let mainWin = bufwinnr(mainBuf)
-    call term_sendkeys(termBufNr, a:command . "\<CR>")
+    if has('nvim')
+        call chansend(getbufvar(termBufNr, '_run_term_job'), a:command . "\n")
+    else
+        call term_sendkeys(termBufNr, a:command . "\<CR>")
+    endif
     execute "normal \<C-W>p"
 endfunction
 
 
 function! RunCommandInPopupTerm(command_list) abort
     noautocmd write
-    let buf = term_start(a:command_list, #{hidden: 1, term_finish: 'close'})
-    let winid = popup_create(buf, #{minwidth: 999, minheight: 999})
+    if has('nvim')
+        let buf = nvim_create_buf(v:false, v:true)
+        call nvim_open_win(buf, v:true, {
+            \ 'relative': 'editor',
+            \ 'row': 0,
+            \ 'col': 0,
+            \ 'width': &columns,
+            \ 'height': &lines - 1,
+            \ 'style': 'minimal',
+        \ })
+        call termopen(a:command_list, {'on_exit': {j,c,e -> execute('silent! bwipeout! ' . buf)}})
+        startinsert
+    else
+        let buf = term_start(a:command_list, #{hidden: 1, term_finish: 'close'})
+        let winid = popup_create(buf, #{minwidth: 999, minheight: 999})
+    endif
 endfunction
 
 
@@ -854,7 +1017,9 @@ function! NewPostLaunchSettings(pathToSpellFolder) abort
             endfor
 
             " Enable coc.nvim only when not running vimdiff, so it doesn't complain about conflict markers.
-            CocStart
+            if !has('nvim')
+                CocStart
+            endif
 
             set splitright  " Open splits to the right
             set splitbelow  " Open splits to the bottom
