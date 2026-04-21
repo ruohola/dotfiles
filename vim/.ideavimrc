@@ -219,7 +219,8 @@ nnoremap gf "zyiwgg/\C\\<\\><Left><Left><BS><C-R>z<CR>:noh<CR>
 " Go to the declaration of the first inherited parent class in Python.
 nmap go ?^class <CR>f(/[A-Z]<CR><Action>(GotoDeclarationOnly),noh<CR>
 
-nmap gd <Action>(GotoDeclarationOnly)
+nmap gd <Action>(GotoImplementation)
+nmap gD <Action>(GotoDeclarationOnly)
 nmap gr <Action>(GotoRelated)
 nmap gs <Action>(GotoSuperMethod)
 nmap gt <Action>(GotoTypeDeclaration)
@@ -241,7 +242,7 @@ nmap <Leader>e <Action>(Run)
 nmap <Leader>f <Action>(GotoFile)
 nmap <Leader>g <Action>(ManageRecentProjects)
 nmap <Leader>h <Action>(FileStructurePopup)
-nmap <Leader>i <Action>(GotoImplementation)
+nmap <Leader>i <Action>(QuickImplementations)
 nmap <Leader>j <Action>(ShowNavBar)
 noremap  <Leader>k mo:action KJumpAction<CR>
 nmap <Leader>l <Action>(FindInPath)
@@ -282,7 +283,7 @@ nmap <Leader>5 <Action>(Annotate)
 nmap <Leader>6 <Action>(Compare.SameVersion)
 nmap <Leader>7 <Action>(ReplaceInPath)
 nmap <Leader>8 <Action>(ToggleBreakpointEnabled)
-nmap <Leader>9 <Action>(QuickImplementations)
+
 nmap <Leader>0 <Action>(Django.RunManageTaskAction)
 
 nmap <Leader><Esc> <Action>(ClearAllNotifications)
