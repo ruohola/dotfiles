@@ -1,6 +1,7 @@
 [alias]
 	forget = !_gitdir=$(git rev-parse --git-common-dir) && rm -rI \"$_gitdir/rr-cache/\"
 	recommit = !git commit --file=\"$(git rev-parse --git-dir)/COMMIT_EDITMSG\" --edit
+	reown = !git rebase --exec 'git commit --amend --no-edit --reset-author'
 [blame]
 	date = format-local:%a %Y-%m-%d %H:%M
 [color "grep"]
