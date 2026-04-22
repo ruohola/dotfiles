@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+# shellcheck disable=SC2016  # Ignore quoting "issues" in app_shortcut mappings.
 
 cd ~ || exit  # Makes sure that the symlinks are shown as relative to `~` with `ls -la`.
 
@@ -137,6 +139,9 @@ if [ -f "$homebrew_bash" ] && [ "$homebrew_bash" != "$SHELL" ]; then
     chsh -s "$homebrew_bash"
 fi
 
+
+# ============= MACOS SETTINGS =============
+
 # Remove delay from Dock.
 # https://apple.stackexchange.com/a/70598/321512
 defaults write com.apple.dock autohide-delay -int 0
@@ -162,3 +167,54 @@ defaults write kCFPreferencesAnyApplication TSMLanguageIndicatorEnabled 0
 
 # Disable clipboard history in Keyboard Maestro.
 defaults write com.stairways.keyboardmaestro.engine MaxClipboardHistory -int 1
+
+
+# ============= MACOS KEY BINDINGS =============
+
+# App Shortcuts (System Settings → Keyboard → Keyboard Shortcuts → App Shortcuts).
+# Values wrapped in inner quotes because `defaults` parses them as old-style
+# plist tokens, where a leading `@` is otherwise a binary-data marker.
+app_shortcut() {
+    defaults write "$1" NSUserKeyEquivalents -dict-add "$2" "\"$3\""
+}
+
+global_shortcut() {
+    defaults write -g NSUserKeyEquivalents -dict-add "$1" "\"$2\""
+}
+
+global_shortcut 'Back'               '@['
+global_shortcut 'Forward'            '@]'
+global_shortcut 'System Settings...' '@$,'
+
+app_shortcut com.google.Chrome 'Close Other Tabs'       '@~w'
+app_shortcut com.google.Chrome 'Force Reload This Page' '@r'
+app_shortcut com.google.Chrome 'Reload This Page'       '@~^$r'
+
+app_shortcut com.apple.iWork.Numbers 'Copy Snapshot' '^c'
+# Prompts for one-time access to other apps ^
+
+# Safari and Mail live in TCC-protected containers, so their writes need Full
+# Disk Access on the terminal running this script (System Settings → Privacy &
+# Security → Full Disk Access). Probe by reading ~/Library/Safari, which is
+# only listable with FDA.
+if ls ~/Library/Safari > /dev/null 2>&1; then
+    app_shortcut com.apple.Safari 'Show Web Inspector'     $'\uf70f'  # F12
+    app_shortcut com.apple.Safari 'Close Web Inspector'    $'\uf70f'  # F12
+    app_shortcut com.apple.Safari 'Show Bookmarks Sidebar'  '@$l'
+    app_shortcut com.apple.Safari 'Hide Bookmarks Sidebar'  '@$l'
+    app_shortcut com.apple.Safari 'Translate to English'    '@~t'
+
+    app_shortcut com.apple.mail 'Get New Mail'     '@r'
+    app_shortcut com.apple.mail 'Get All New Mail' '@r'
+    app_shortcut com.apple.mail 'Reply'            '@$r'
+    app_shortcut com.apple.mail 'Reply All'        '@~$r'
+elif ! defaults find NSUserKeyEquivalents 2> /dev/null | grep -q "'com.apple.Safari'"; then
+    # Prompts for one-time access to other apps ^
+    echo 'Skipping Safari/Mail shortcuts: grant this terminal Full Disk Access and re-run.' >&2
+fi
+
+app_shortcut md.obsidian 'Zoom In' '@+'
+
+app_shortcut org.vim.MacVim $'\033Edit\033Font\033Bigger' '@+'
+
+killall cfprefsd
