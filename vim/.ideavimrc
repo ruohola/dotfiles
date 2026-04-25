@@ -256,7 +256,10 @@ nmap <Leader>q <Action>(ChooseRunConfiguration)
 nmap <Leader>r <Action>(RenameElement)
 nmap <Leader>s <Action>(GotoSymbol)
 map  <Leader>t <Action>(ExpressionTypeInfo)
+" Show in a modal:
 nmap <Leader>u <Action>(ShowUsages)
+" Show in a drawer (with full file paths):
+nmap <Leader>U <Action>(FindUsages)
 nmap <Leader>v <Action>(ViewBreakpoints)
 nmap <Leader>w <Action>(Debug)
 map  <Leader>x <Action>(Refactorings.QuickListPopupAction)
