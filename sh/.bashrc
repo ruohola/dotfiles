@@ -580,21 +580,28 @@ __git_switch_to_branch_or_worktree () {
 
     worktree_path="$(__git_worktree_path "$target")"
 
-    if __git_is_nondefault_worktree "$target"; then
-        cd "$worktree_path" || return
-    elif [ "$target" = '-' ]; then
-        git switch - 2> /dev/null || cd - || return
-    elif __git_is_nondefault_worktree "$current_worktree"; then
-        if [ "$1" = '--default' ]; then
-            # If switching to the default branch (with `gwm`), cd to the repo root regardless of which branch is checked out there.
-            cd "$(__git_root_dir)" || return
-        else
-            # If one is already in a worktree, don't allow switching branches - it just gets confusing, just try to cd instead.
-            [ -n "$worktree_path" ] && cd "$worktree_path" 2> /dev/null || echo "Shouldn't switch branches in a worktree!"
-        fi
-    else
-        git switch "$target"
+    if [ "$target" = '-' ]; then
+        # TODO: would be nice if this knew which is the most recent use.
+        git switch - 2> /dev/null || cd - || return 1
+        return
     fi
+
+    # Try to do a regular branch switch first.
+    git switch "$target" 2> /dev/null && return
+
+    if __git_is_nondefault_worktree "$target"; then
+        cd "$worktree_path" || return 1
+        return
+    fi
+
+    if __git_is_nondefault_worktree "$current_worktree" && [ "$1" = '--default' ]; then
+        # If switching to the default branch (with `gwm`), cd to the repo root regardless of which branch is checked out there.
+        cd "$(__git_root_dir)" || return 1
+        return
+    fi
+
+    # Fall back to this for showing a clear error message (this won't ever succeed).
+    git switch "$target"
 }
 gdm () {
     # shellcheck disable=SC2145
