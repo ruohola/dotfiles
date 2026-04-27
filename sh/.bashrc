@@ -530,8 +530,15 @@ alias gyr='gy --pretty=raw'
 # Git functions
 __git_root_dir () {
     # Echo the (absolute) path of the repo root directory.
-    # (Works also in a nested worktree.)
-    realpath "$(dirname "$(git rev-parse --git-common-dir)")"
+    # (Works also in a nested worktree, a submodule, or a worktree of a submodule.)
+    local common_dir worktree
+    common_dir="$(git rev-parse --path-format=absolute --git-common-dir)"
+    if [[ "$common_dir" == */.git/modules/* ]]; then
+        worktree="$(git config --file "${common_dir}/config" core.worktree)"
+        realpath "${common_dir}/${worktree}"
+    else
+        dirname "$common_dir"
+    fi
 }
 __git_default_branch () {
     # Echo e.g. "master"
