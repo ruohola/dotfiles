@@ -593,17 +593,17 @@ __git_switch_to_branch_or_worktree () {
         return
     fi
 
+    if __git_is_nondefault_worktree "$current_worktree" && [ "$1" = '--default' ]; then
+        # If switching to the default branch (with `gwm`), cd to the repo root regardless of which branch is checked out there.
+        cd "$(__git_root_dir)" || return 1
+        return
+    fi
+
     # Try to do a regular branch switch first.
     git switch "$target" 2> /dev/null && return
 
     if __git_is_nondefault_worktree "$target"; then
         cd "$worktree_path" || return 1
-        return
-    fi
-
-    if __git_is_nondefault_worktree "$current_worktree" && [ "$1" = '--default' ]; then
-        # If switching to the default branch (with `gwm`), cd to the repo root regardless of which branch is checked out there.
-        cd "$(__git_root_dir)" || return 1
         return
     fi
 
