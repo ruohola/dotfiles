@@ -103,11 +103,6 @@ mkdir -p ~/.local/bin/ && sed '/echo "This manpage is not compatible with mandoc
 
 [ -f ~/go/bin/go-grip ] && [ ! -L ~/.local/bin/grip ] && ln -sfv ~/go/bin/go-grip ~/.local/bin/grip
 
-target=~/.local/bin/tmux-file-picker
-[ ! -f "$target" ] \
-    && curl --fail --output "$target" https://raw.githubusercontent.com/raine/tmux-file-picker/main/tmux-file-picker \
-    && chmod u+x "$target"
-
 target=~/'Library/Application Support/k9s/skins/transparent.yaml'
 command -v k9s > /dev/null && [ ! -f "$target" ] \
     && curl --fail --create-dirs --output "$target" https://raw.githubusercontent.com/derailed/k9s/master/skins/transparent.yaml

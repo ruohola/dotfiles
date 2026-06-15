@@ -1,5 +1,98 @@
 #!/usr/bin/env bash
+#
+# Forked from https://github.com/raine/tmux-file-picker/blob/ed9b36a2cd07b7c36ee4817af06859188a1cff63/tmux-file-picker
+# All credits to raine (MIT).
+#
+# Additions on top of the original:
+#   - The typed fzf query can re-root the search on the fly, recursing into the
+#     whole subtree of wherever it points, just like the base listing:
+#       ../       -> search the directory above (../../, ../foo/, ... also work)
+#       ~/        -> search the home directory
+#       /         -> search the filesystem root
 set -euo pipefail
+
+# Absolute path to this script, for re-invoking itself from fzf bindings.
+SELF="$0"
+case "$SELF" in
+	/*) ;;
+	*/*) SELF="$PWD/$SELF" ;;
+	*) SELF=$(command -v -- "$SELF" || printf '%s' "$PWD/$SELF") ;;
+esac
+
+# Called by fzf on every query change. When the query gains a directory prefix
+# that re-roots the search (../, ~/ or /), reload the candidate list from the
+# deepest directory the query already names, recursing into its whole subtree
+# and keeping the typed prefix on each candidate so that both fzf matching and
+# the final output stay correct.
+_transform_reload() {
+	local query="$1"
+
+	# Choose where to re-root. Prefer the deepest directory the query already
+	# names: if the whole query is itself a directory, root there -- so "../work"
+	# jumps straight into the work dir instead of listing the parent and filtering
+	# (which never surfaces deep matches when the parent is huge). Otherwise root
+	# at the part up to the last slash.
+	local prefix=""
+	case "$query" in
+		../* | '~/'* | /*)
+			local body="${query%/}" body_path=""
+			case "$body" in
+				'~')   body_path="$HOME" ;;
+				'~/'*) body_path="$HOME/${body#'~/'}" ;;
+				/*)    body_path="$body" ;;
+				?*)    body_path="$TFP_BASE_DIR/$body" ;;
+			esac
+			if [[ -n "$body_path" && -d "$body_path" ]]; then
+				prefix="$body/"
+			elif [[ "$query" == */* ]]; then
+				prefix="${query%/*}/"
+			fi
+			;;
+	esac
+
+	# Re-validate: the part up to the last slash might not re-root on its own.
+	case "$prefix" in
+		../* | '~/'* | /*) ;;
+		*) prefix="" ;;
+	esac
+
+	# Nothing to do if this is the prefix we last reloaded for.
+	if [[ "$prefix" == "$(cat "$TFP_STATE_FILE")" ]]; then
+		return 0
+	fi
+
+	local dir
+	case "$prefix" in
+		"") dir="$TFP_BASE_DIR" ;;
+		'~/'*) dir="$HOME/${prefix#'~/'}" ;;
+		/*) dir="$prefix" ;;
+		*) dir="$TFP_BASE_DIR/$prefix" ;;
+	esac
+
+	# Keep the current list until the typed prefix points to a real directory.
+	if [[ ! -d "$dir" ]]; then
+		return 0
+	fi
+
+	printf '%s' "$prefix" >"$TFP_STATE_FILE"
+
+	# The fd command and flags are referenced as environment variables rather
+	# than interpolated into the command string: the reload shell then word-splits
+	# them exactly like the initial listing, without brace-expanding a flag such as
+	# --exclude "{a,b,c}" into separate words (which fd would treat as bogus search
+	# paths, producing an empty list).
+	if [[ -z "$prefix" ]]; then
+		# Back at the base directory: restore the original listing.
+		printf 'reload(cd %q && $TFP_FD_CMD $TFP_FD_FLAGS)\n' "$TFP_BASE_DIR"
+	else
+		# Re-rooted: recurse into the whole subtree, prefixing each candidate so
+		# fzf matching and the final output stay correct. The prefix is exported
+		# and read back via awk's ENVIRON rather than substituted into a sed
+		# replacement, so a |, & or \ in a directory name can't be mis-parsed as
+		# sed delimiter or replacement syntax.
+		printf 'reload(export TFP_PREFIX=%q; cd %q && $TFP_FD_CMD $TFP_FD_FLAGS | awk '\''{print ENVIRON["TFP_PREFIX"] $0}'\'')\n' "$prefix" "$dir"
+	fi
+}
 
 _select_zoxide_dir() {
 	if ! command -v zoxide >/dev/null 2>&1; then
@@ -169,32 +262,51 @@ main() {
 	local fd_flags
 	local preview_cmd
 
+	# The candidate may carry a ~/ prefix from query re-rooting, so the
+	# previews expand a leading ~ themselves.
 	if $select_directories; then
 		# Directory selection mode
 		fd_flags="${TMUX_FILE_PICKER_FD_FLAGS:--H --follow --type d --exclude .git}"
 
 		if command -v tree >/dev/null 2>&1; then
-			preview_cmd='tree -C {} | head -n 30'
+			preview_cmd='p={}; tree -C "${p/#\~/$HOME}" | head -n 30'
 		else
-			preview_cmd='ls -ap --color=always {}'
+			preview_cmd='p={}; ls -ap --color=always "${p/#\~/$HOME}"'
 		fi
 	else
 		# File selection mode (default)
 		fd_flags="${TMUX_FILE_PICKER_FD_FLAGS:--H --follow --type f --exclude .git}"
 
+		# fd lists files only (--type f), so re-rooting never surfaces a
+		# directory here; the preview just views the file.
+		local file_viewer
 		if command -v bat >/dev/null 2>&1; then
-			preview_cmd="bat --style=numbers --color=always {}"
+			file_viewer='bat --style=numbers --color=always'
 		elif command -v batcat >/dev/null 2>&1; then
-			preview_cmd="batcat --style=numbers --color=always {}"
+			file_viewer='batcat --style=numbers --color=always'
 		else
-			preview_cmd="cat {}"
+			file_viewer='cat'
 		fi
+		preview_cmd='p={}; '"$file_viewer"' "${p/#\~/$HOME}"'
 	fi
 
 	local selected_files_str
 	if [[ ${#search_dirs[@]} -eq 1 ]]; then
-		# Single directory: cd into it for cleaner relative paths in fzf
-		selected_files_str=$(cd "${search_dirs[0]}" && $fd_cmd $fd_flags | fzf --multi --reverse --freeze-right=1 --preview "$preview_cmd" || true)
+		# Single directory: cd into it for cleaner relative paths in fzf.
+		# The change binding re-roots the search when the typed query gains
+		# a ../, ~/ or / directory prefix (see _transform_reload). This relies
+		# on fzf's change:transform action emitting a reload, so it needs
+		# fzf >= 0.36; on older fzf the binding is simply a no-op.
+		# Deliberately not local: the EXIT trap reads it after main() returns.
+		state_file=$(mktemp)
+		trap 'rm -f -- "$state_file"' EXIT
+		export TFP_BASE_DIR="${search_dirs[0]}"
+		export TFP_FD_CMD="$fd_cmd"
+		export TFP_FD_FLAGS="$fd_flags"
+		export TFP_STATE_FILE="$state_file"
+		local self_quoted
+		printf -v self_quoted '%q' "$SELF"
+		selected_files_str=$(cd "${search_dirs[0]}" && $fd_cmd $fd_flags | fzf --multi --reverse --freeze-right=1 --preview "$preview_cmd" --bind "change:transform:$self_quoted --transform-reload {q}" || true)
 	else
 		# Multiple directories: pass them as arguments to fd (returns absolute paths)
 		selected_files_str=$($fd_cmd $fd_flags "${search_dirs[@]}" | fzf --multi --reverse --freeze-right=1 --preview "$preview_cmd" || true)
@@ -213,6 +325,10 @@ main() {
 	selected_files=()
 	while IFS= read -r line; do
 		if [[ -n "$line" ]]; then
+			# Expand a leading ~/ (from query re-rooting) into a real path
+			case "$line" in
+				'~/'*) line="$HOME/${line#'~/'}" ;;
+			esac
 			selected_files+=("$line")
 		fi
 	done <<<"$selected_files_str"
@@ -226,8 +342,16 @@ main() {
 			# Fallback: output the directories themselves if no files were selected
 			relative_paths=("${search_dirs[@]}")
 		elif [[ ${#search_dirs[@]} -eq 1 ]]; then
-			# Single directory mode: fd returned relative paths, prepend the directory
-			relative_paths=("${selected_files[@]/#/${search_dirs[0]}\/}")
+			# Single directory mode: fd returned relative paths, prepend the
+			# directory (re-rooted candidates may already be absolute)
+			local file
+			for file in "${selected_files[@]}"; do
+				if [[ "$file" = /* ]]; then
+					relative_paths+=("$file")
+				else
+					relative_paths+=("${search_dirs[0]}/$file")
+				fi
+			done
 		else
 			# Multiple directories mode: fd returned absolute paths, use as-is
 			relative_paths=("${selected_files[@]}")
@@ -247,7 +371,16 @@ main() {
 			[[ "$OSTYPE" == "darwin"* ]] && realpath_cmd="grealpath"
 
 			# Prepend search directory to each filename to create full paths
-			local full_paths=("${selected_files[@]/#/$search_dir\/}")
+			# (re-rooted candidates may already be absolute)
+			local full_paths=()
+			local file
+			for file in "${selected_files[@]}"; do
+				if [[ "$file" = /* ]]; then
+					full_paths+=("$file")
+				else
+					full_paths+=("$search_dir/$file")
+				fi
+			done
 
 			while IFS= read -r line; do
 				if [[ -n "$line" ]]; then
@@ -278,5 +411,10 @@ main() {
 	# --- Send to Tmux ---
 	tmux send-keys -t "$pane_id" "$files_oneline"
 }
+
+if [[ "${1-}" == "--transform-reload" ]]; then
+	_transform_reload "${2-}"
+	exit 0
+fi
 
 main "$@"
