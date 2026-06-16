@@ -277,8 +277,10 @@ main() {
 		# File selection mode (default)
 		fd_flags="${TMUX_FILE_PICKER_FD_FLAGS:--H --follow --type f --exclude .git}"
 
-		# fd lists files only (--type f), so re-rooting never surfaces a
-		# directory here; the preview just views the file.
+		# The default flags list files only (--type f), but TMUX_FILE_PICKER_FD_FLAGS
+		# can override that to include directories, and re-rooting can surface them
+		# too -- so the preview views files with the file viewer and falls back to a
+		# directory listing when the candidate is a directory.
 		local file_viewer
 		if command -v bat >/dev/null 2>&1; then
 			file_viewer='bat --style=numbers --color=always'
@@ -287,7 +289,13 @@ main() {
 		else
 			file_viewer='cat'
 		fi
-		preview_cmd='p={}; '"$file_viewer"' "${p/#\~/$HOME}"'
+		local dir_viewer
+		if command -v tree >/dev/null 2>&1; then
+			dir_viewer='tree -C'
+		else
+			dir_viewer='ls -ap --color=always'
+		fi
+		preview_cmd='p={}; p="${p/#\~/$HOME}"; if [ -d "$p" ]; then '"$dir_viewer"' "$p" | head -n 30; else '"$file_viewer"' "$p"; fi'
 	fi
 
 	local selected_files_str
