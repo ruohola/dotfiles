@@ -133,6 +133,12 @@ export CLICOLOR=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# macOS's system ncurses terminfo predates the bracketed-paste capabilities
+# (added in ncurses 6.4), so prefer Homebrew's newer copy. Otherwise terminal
+# programs like Vim nested in another program can't recognize the paste markers
+# and can in some cases leak them as stray È/É characters.
+export TERMINFO_DIRS="${HOMEBREW_PREFIX}/opt/ncurses/share/terminfo:"
+
 # When the shell exits, append to the history file instead of overwriting it.
 shopt -s histappend
 
