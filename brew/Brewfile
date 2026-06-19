@@ -44,6 +44,7 @@ brew "wget"
 brew "yazi"
 brew "yq"
 brew "zoxide"
+brew "morantron/tmux-fingers/tmux-fingers", trusted: true
 brew "raine/tmux-snaglord/tmux-snaglord"
 # Optional dependencies for yazi.
 brew "ffmpeg-full", link: :overwrite
