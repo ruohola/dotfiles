@@ -26,6 +26,7 @@ esac
 # the final output stay correct.
 _transform_reload() {
 	local query="$1"
+	local selected_file="${2-}"
 
 	# Choose where to re-root. Prefer the deepest directory the query already
 	# names: if the whole query is itself a directory, root there -- so "../work"
@@ -76,22 +77,51 @@ _transform_reload() {
 
 	printf '%s' "$prefix" >"$TFP_STATE_FILE"
 
+	# Carry selections across re-roots. A transform-driven reload wipes fzf's
+	# in-list selection (and a re-rooted listing wouldn't contain the previous
+	# root's files to keep marked anyway), so persistence is handled out of
+	# band: the items selected under the root we're leaving are merged into an
+	# accumulator file that main() unions with the final selection on accept.
+	# Guard on FZF_SELECT_COUNT -- with nothing selected fzf reports {+f} as the
+	# highlighted line, which would otherwise smuggle an unpicked file in. (On
+	# fzf too old to export FZF_SELECT_COUNT this just no-ops, leaving the picker
+	# working but without cross-root memory.)
+	if [[ "${FZF_SELECT_COUNT:-0}" -gt 0 && -n "$selected_file" && -f "$selected_file" ]]; then
+		local merged
+		merged=$(cat -- "$TFP_SELECTED_FILE" "$selected_file" | awk 'NF && !seen[$0]++')
+		printf '%s\n' "$merged" >"$TFP_SELECTED_FILE"
+	fi
+
 	# The fd command and flags are referenced as environment variables rather
 	# than interpolated into the command string: the reload shell then word-splits
 	# them exactly like the initial listing, without brace-expanding a flag such as
 	# --exclude "{a,b,c}" into separate words (which fd would treat as bogus search
 	# paths, producing an empty list).
+	local reload_cmd
 	if [[ -z "$prefix" ]]; then
 		# Back at the base directory: restore the original listing.
-		printf 'reload(cd %q && $TFP_FD_CMD $TFP_FD_FLAGS)\n' "$TFP_BASE_DIR"
+		printf -v reload_cmd 'reload(cd %q && $TFP_FD_CMD $TFP_FD_FLAGS)' "$TFP_BASE_DIR"
 	else
 		# Re-rooted: recurse into the whole subtree, prefixing each candidate so
 		# fzf matching and the final output stay correct. The prefix is exported
 		# and read back via awk's ENVIRON rather than substituted into a sed
 		# replacement, so a |, & or \ in a directory name can't be mis-parsed as
 		# sed delimiter or replacement syntax.
-		printf 'reload(export TFP_PREFIX=%q; cd %q && $TFP_FD_CMD $TFP_FD_FLAGS | awk '\''{print ENVIRON["TFP_PREFIX"] $0}'\'')\n' "$prefix" "$dir"
+		printf -v reload_cmd 'reload(export TFP_PREFIX=%q; cd %q && $TFP_FD_CMD $TFP_FD_FLAGS | awk '\''{print ENVIRON["TFP_PREFIX"] $0}'\'')' "$prefix" "$dir"
 	fi
+
+	# Carried-over picks are no longer visible in the re-rooted list, so report
+	# the running count in the header. The text must stay free of parentheses so
+	# it can't terminate the change-header action early.
+	local kept header=""
+	kept=$(wc -l <"$TFP_SELECTED_FILE" 2>/dev/null || printf 0)
+	kept=${kept//[[:space:]]/}
+	if [[ "$kept" -eq 1 ]]; then
+		header="1 file kept from another directory"
+	elif [[ "$kept" -gt 1 ]]; then
+		header="$kept files kept from other directories"
+	fi
+	printf '%s+change-header(%s)\n' "$reload_cmd" "$header"
 }
 
 _select_zoxide_dir() {
@@ -111,6 +141,21 @@ _select_zoxide_dir() {
 	local dirs
 	dirs=$(zoxide query -l | fzf --multi --reverse --preview "$zoxide_preview_cmd" || true)
 	echo "$dirs"
+}
+
+# Shell-escape a path for typing into a shell, but keep a leading ~/ bare (only
+# the remainder is escaped) so the shell still expands it to $HOME instead of
+# receiving an escaped, literal tilde that won't resolve.
+_escape_path() {
+	local p="$1" rest
+	if [[ "$p" == "~" ]]; then
+		printf '~'
+	elif [[ "$p" == "~/"* ]]; then
+		printf -v rest "%q" "${p#"~/"}"
+		printf '~/%s' "$rest"
+	else
+		printf "%q" "$p"
+	fi
 }
 
 main() {
@@ -302,19 +347,22 @@ main() {
 	if [[ ${#search_dirs[@]} -eq 1 ]]; then
 		# Single directory: cd into it for cleaner relative paths in fzf.
 		# The change binding re-roots the search when the typed query gains
-		# a ../, ~/ or / directory prefix (see _transform_reload). This relies
-		# on fzf's change:transform action emitting a reload, so it needs
-		# fzf >= 0.36; on older fzf the binding is simply a no-op.
-		# Deliberately not local: the EXIT trap reads it after main() returns.
+		# a ../, ~/ or / directory prefix (see _transform_reload), passing the
+		# current selection ({+f}) along so it can be carried across the jump.
+		# This relies on fzf's change:transform action emitting a reload, so it
+		# needs fzf >= 0.36; on older fzf the binding is simply a no-op.
+		# Deliberately not local: the EXIT trap reads them after main() returns.
 		state_file=$(mktemp)
-		trap 'rm -f -- "$state_file"' EXIT
+		selected_file=$(mktemp)
+		trap 'rm -f -- "$state_file" "$selected_file"' EXIT
 		export TFP_BASE_DIR="${search_dirs[0]}"
 		export TFP_FD_CMD="$fd_cmd"
 		export TFP_FD_FLAGS="$fd_flags"
 		export TFP_STATE_FILE="$state_file"
+		export TFP_SELECTED_FILE="$selected_file"
 		local self_quoted
 		printf -v self_quoted '%q' "$SELF"
-		selected_files_str=$(cd "${search_dirs[0]}" && $fd_cmd $fd_flags | fzf --multi --reverse --freeze-right=1 --preview "$preview_cmd" --bind "change:transform:$self_quoted --transform-reload {q}" || true)
+		selected_files_str=$(cd "${search_dirs[0]}" && $fd_cmd $fd_flags | fzf --multi --reverse --freeze-right=1 --preview "$preview_cmd" --bind "change:transform:$self_quoted --transform-reload {q} {+f}" || true)
 	else
 		# Multiple directories: pass them as arguments to fd (returns absolute paths)
 		selected_files_str=$($fd_cmd $fd_flags "${search_dirs[@]}" | fzf --multi --reverse --freeze-right=1 --preview "$preview_cmd" || true)
@@ -329,14 +377,23 @@ main() {
 		fi
 	fi
 
+	# Prepend any picks carried over from other roots (single-directory
+	# re-rooting; see _transform_reload), dropping duplicates while keeping the
+	# carried-over ones first. Done after the cancel check above so that aborting
+	# with Esc still discards everything.
+	if [[ -n "${selected_file-}" && -s "$selected_file" ]]; then
+		selected_files_str=$({ cat -- "$selected_file"; printf '%s\n' "$selected_files_str"; } | awk 'NF && !seen[$0]++')
+	fi
+
 	# --- Path Processing ---
+	# A leading ~/ on a candidate marks a file the user reached by re-rooting the
+	# query to home; it is carried through to the output verbatim so that home
+	# picks stay tilde paths, while picks that were already absolute stay
+	# absolute. The tilde is expanded only just-in-time where a real filesystem
+	# path is needed (git-root relativization below; the fzf preview).
 	selected_files=()
 	while IFS= read -r line; do
 		if [[ -n "$line" ]]; then
-			# Expand a leading ~/ (from query re-rooting) into a real path
-			case "$line" in
-				'~/'*) line="$HOME/${line#'~/'}" ;;
-			esac
 			selected_files+=("$line")
 		fi
 	done <<<"$selected_files_str"
@@ -351,10 +408,11 @@ main() {
 			relative_paths=("${search_dirs[@]}")
 		elif [[ ${#search_dirs[@]} -eq 1 ]]; then
 			# Single directory mode: fd returned relative paths, prepend the
-			# directory (re-rooted candidates may already be absolute)
+			# directory. Re-rooted candidates are already complete -- absolute
+			# (/.. or zoxide) or tilde (~/..) -- so they are kept as-is.
 			local file
 			for file in "${selected_files[@]}"; do
-				if [[ "$file" = /* ]]; then
+				if [[ "$file" = /* || "$file" = '~/'* ]]; then
 					relative_paths+=("$file")
 				else
 					relative_paths+=("${search_dirs[0]}/$file")
@@ -378,16 +436,18 @@ main() {
 			local realpath_cmd="realpath"
 			[[ "$OSTYPE" == "darwin"* ]] && realpath_cmd="grealpath"
 
-			# Prepend search directory to each filename to create full paths
-			# (re-rooted candidates may already be absolute)
+			# Prepend search directory to each filename to create full paths.
+			# Re-rooted candidates are already complete: absolute paths are used
+			# as-is, and a ~/ tilde pick is expanded to a real path here so that
+			# realpath can relativize it against the git root.
 			local full_paths=()
 			local file
 			for file in "${selected_files[@]}"; do
-				if [[ "$file" = /* ]]; then
-					full_paths+=("$file")
-				else
-					full_paths+=("$search_dir/$file")
-				fi
+				case "$file" in
+					'~/'*) full_paths+=("$HOME/${file#'~/'}") ;;
+					/*)    full_paths+=("$file") ;;
+					*)     full_paths+=("$search_dir/$file") ;;
+				esac
 			done
 
 			while IFS= read -r line; do
@@ -410,8 +470,7 @@ main() {
 		# Shell-escape each file path and join with spaces
 		local escaped_paths=()
 		for path in "${relative_paths[@]}"; do
-			printf -v escaped_path "%q" "$path"
-			escaped_paths+=("$escaped_path")
+			escaped_paths+=("$(_escape_path "$path")")
 		done
 		files_oneline=$(printf "%s " "${escaped_paths[@]}")
 	fi
@@ -421,7 +480,7 @@ main() {
 }
 
 if [[ "${1-}" == "--transform-reload" ]]; then
-	_transform_reload "${2-}"
+	_transform_reload "${2-}" "${3-}"
 	exit 0
 fi
 
