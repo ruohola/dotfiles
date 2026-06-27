@@ -5,3 +5,5 @@
 [ back-search \^(added:|removed:|renamed:|Δ)\n
 } forw-search \^commit\n
 { back-search \^commit\n
+> forw-search \^(•|added:|removed:|renamed:|Δ|commit)\n
+< back-search \^(•|added:|removed:|renamed:|Δ|commit)\n
