@@ -143,21 +143,6 @@ _select_zoxide_dir() {
 	echo "$dirs"
 }
 
-# Shell-escape a path for typing into a shell, but keep a leading ~/ bare (only
-# the remainder is escaped) so the shell still expands it to $HOME instead of
-# receiving an escaped, literal tilde that won't resolve.
-_escape_path() {
-	local p="$1" rest
-	if [[ "$p" == "~" ]]; then
-		printf '~'
-	elif [[ "$p" == "~/"* ]]; then
-		printf -v rest "%q" "${p#"~/"}"
-		printf '~/%s' "$rest"
-	else
-		printf "%q" "$p"
-	fi
-}
-
 main() {
 	if [[ -z "${TMUX-}" ]]; then
 		echo "Error: This script must be run inside a tmux session." >&2
@@ -387,14 +372,17 @@ main() {
 
 	# --- Path Processing ---
 	# A leading ~/ on a candidate marks a file the user reached by re-rooting the
-	# query to home; it is carried through to the output verbatim so that home
-	# picks stay tilde paths, while picks that were already absolute stay
-	# absolute. The tilde is expanded only just-in-time where a real filesystem
-	# path is needed (git-root relativization below; the fzf preview).
+	# query to home; expand it to an absolute path here so that home picks come
+	# out as real filesystem paths rather than tildes. Picks that were already
+	# absolute stay absolute. (The ~/ form is only used for fzf display and
+	# matching while re-rooted; it never reaches the output.)
 	selected_files=()
 	while IFS= read -r line; do
 		if [[ -n "$line" ]]; then
-			selected_files+=("$line")
+			case "$line" in
+				'~/'*) selected_files+=("$HOME/${line#'~/'}") ;;
+				*)     selected_files+=("$line") ;;
+			esac
 		fi
 	done <<<"$selected_files_str"
 
@@ -408,11 +396,11 @@ main() {
 			relative_paths=("${search_dirs[@]}")
 		elif [[ ${#search_dirs[@]} -eq 1 ]]; then
 			# Single directory mode: fd returned relative paths, prepend the
-			# directory. Re-rooted candidates are already complete -- absolute
-			# (/.. or zoxide) or tilde (~/..) -- so they are kept as-is.
+			# directory. Re-rooted candidates are already absolute (/.. or
+			# zoxide, or a home pick expanded above) so they are kept as-is.
 			local file
 			for file in "${selected_files[@]}"; do
-				if [[ "$file" = /* || "$file" = '~/'* ]]; then
+				if [[ "$file" = /* ]]; then
 					relative_paths+=("$file")
 				else
 					relative_paths+=("${search_dirs[0]}/$file")
@@ -437,16 +425,15 @@ main() {
 			[[ "$OSTYPE" == "darwin"* ]] && realpath_cmd="grealpath"
 
 			# Prepend search directory to each filename to create full paths.
-			# Re-rooted candidates are already complete: absolute paths are used
-			# as-is, and a ~/ tilde pick is expanded to a real path here so that
-			# realpath can relativize it against the git root.
+			# Re-rooted candidates are already absolute (including home picks
+			# expanded above) so they are used as-is and realpath relativizes
+			# them against the git root.
 			local full_paths=()
 			local file
 			for file in "${selected_files[@]}"; do
 				case "$file" in
-					'~/'*) full_paths+=("$HOME/${file#'~/'}") ;;
-					/*)    full_paths+=("$file") ;;
-					*)     full_paths+=("$search_dir/$file") ;;
+					/*) full_paths+=("$file") ;;
+					*)  full_paths+=("$search_dir/$file") ;;
 				esac
 			done
 
@@ -470,7 +457,9 @@ main() {
 		# Shell-escape each file path and join with spaces
 		local escaped_paths=()
 		for path in "${relative_paths[@]}"; do
-			escaped_paths+=("$(_escape_path "$path")")
+			local escaped
+			printf -v escaped "%q" "$path"
+			escaped_paths+=("$escaped")
 		done
 		files_oneline=$(printf "%s " "${escaped_paths[@]}")
 	fi
