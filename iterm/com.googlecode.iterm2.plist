@@ -1817,6 +1817,8 @@
 	<true/>
 	<key>EnableDivisionView</key>
 	<false/>
+	<key>ExtendBackgroundColorIntoMargins</key>
+	<true/>
 	<key>GlobalKeyMap</key>
 	<dict>
 		<key>0x1b-0x100000-0x35</key>
@@ -3197,6 +3199,8 @@ Resize Split Pane.Move Divider Right</string>
 	<key>SwitchWindowModifier</key>
 	<integer>9</integer>
 	<key>TabStyleWithAutomaticOption</key>
+	<integer>5</integer>
+	<key>TerminalMargin</key>
 	<integer>5</integer>
 	<key>TerminalVMargin</key>
 	<integer>0</integer>
