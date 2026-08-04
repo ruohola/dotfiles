@@ -698,7 +698,7 @@ gdb () {
     # Diff of what's "missing" from `our` branch compared to `their` branch.
     # With zero arguments passed, defaults to remote tracking branch vs. HEAD.
     # With a single argument passed, defaults to the passed branch vs. HEAD.
-    # Mnemonic: git branch diff
+    # Mnemonic: git diff branch
     local our their
 
     if [ "$#" -eq 0 ]; then
