@@ -454,7 +454,7 @@ alias gds='git diff --staged'
 alias gf='git fetch --all --tags --prune'
 alias gff='gf --force'  # Allow clobbering existing tags.
 alias gfu='git fsck --unreachable --no-reflogs'
-alias gfuc='gfu | sed -n "s/.*commit \(.*\)/\1/p" | xargs git log'
+alias gfuc='gfu | sed -n "s/.*commit \(.*\)/\1/p" | git log --no-walk --stdin'
 alias gl='git log --graph'
 alias gll='git log --graph --branches --tags'
 alias glll='git log --graph --branches --tags --remotes'
@@ -678,6 +678,12 @@ gdu () {
                 git diff --color=always -- /dev/null "$file"
             done
     ) | delta
+}
+gfug () {
+    # Search unreachable (lost) commits by their commit message.
+    # Usage: $ gfug 'word' [<git log args>]
+    # Mnemonic: gfu + glg
+    gfuc --format=fuller --compact-summary --regexp-ignore-case --grep="$1" "${@:2}"
 }
 gsh () {
     # Copy the hash of the specified revision to the clipboard.
@@ -1045,6 +1051,7 @@ __git_complete gds _git_diff
 __git_complete gdu _git_diff
 __git_complete gdc _git_restore
 __git_complete gdcp _git_restore
+__git_complete gfug _git_log
 __git_complete gg _git_log
 __git_complete gga _git_log
 __git_complete gl _git_log
