@@ -24,5 +24,10 @@
         "languageServerHaskell": {}
       }
     }
+  },
+  "json.schemaDownload.trustedDomains": {
+    "https://json.schemastore.org": true,
+    "https://www.schemastore.org": true,
+    "*": false
   }
 }
