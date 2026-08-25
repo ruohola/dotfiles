@@ -627,6 +627,15 @@ __git_switch_to_branch_or_worktree () {
     # Fall back to this for showing a clear error message (this won't ever succeed).
     git switch "$target"
 }
+__git_commit_fixup () {
+    # Squash staged changes to the given commit.
+    # The first argument is the `git commit --fixup` prefix (empty or `amend:`).
+    local prefix commit
+    prefix="$1"
+    commit="$(git rev-parse "$2")" \
+        && git commit --fixup "${prefix}${commit}" \
+        && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${commit}~1" "${@:3}"
+}
 gdm () {
     # shellcheck disable=SC2145
     git diff "$(__git_default_remote_branch)"..."$@"
@@ -670,9 +679,12 @@ gbr () {
 }
 gcf () {
     # Squash staged changes to the given commit.
-    commit="$(git rev-parse "$1")" \
-    && git commit --fixup "$commit" \
-    && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${commit}~1" "${@:2}"
+    __git_commit_fixup '' "$@"
+}
+gcfe () {
+    # Like `gcf`, but also open an editor for the resulting commit message.
+    # Mnemonic: gcf + edit
+    __git_commit_fixup 'amend:' "$@"
 }
 gdh () {
     # Show the diff of the currently staged and unstaged files compared to HEAD.
@@ -1047,6 +1059,7 @@ __git_complete gbr _git_branch
 __git_complete gbsu _git_branch
 __git_complete gc _git_commit
 __git_complete gcf _git_log
+__git_complete gcfe _git_log
 __git_complete gcfn _git_commit
 __git_complete gcr _git_commit
 __git_complete gcre _git_commit
