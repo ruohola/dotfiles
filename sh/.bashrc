@@ -1322,8 +1322,6 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 # shellcheck source=/dev/null
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
-alias ghci='TERM=dump command ghci'
-
 eval "$(zoxide init bash)"
 
 z () {

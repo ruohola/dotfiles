@@ -13,8 +13,7 @@
         "*.cabal",
         "stack.yaml",
         "cabal.project",
-        "package.yaml",
-        ".git/"
+        "package.yaml"
       ],
       "filetypes": [
         "hs",
