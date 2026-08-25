@@ -2124,13 +2124,13 @@ tmux.New Tmux Tab</string>
 		<key>0x74-0x100000-0x11</key>
 		<dict>
 			<key>Action</key>
-			<integer>13</integer>
+			<integer>11</integer>
 			<key>Apply Mode</key>
 			<integer>0</integer>
 			<key>Escaping</key>
 			<integer>2</integer>
 			<key>Text</key>
-			<string></string>
+			<string>0x00 0x14</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
