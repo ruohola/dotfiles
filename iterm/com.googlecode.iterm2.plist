@@ -2203,7 +2203,7 @@ tmux.Detach</string>
 			<key>Escaping</key>
 			<integer>2</integer>
 			<key>Text</key>
-			<string>0x0d</string>
+			<string>0x1b 0x5b 0x31 0x33 0x3b 0x35 0x75</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>

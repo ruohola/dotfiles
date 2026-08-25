@@ -544,8 +544,9 @@ elseif exists('$TMUX')
     tnoremap <M-u> <Cmd>tabprevious<CR>
     tnoremap <M-i> <Cmd>tabnext<CR>
 
-    " The latter is for iTerm `tmux -CC`.
+    " First for tmux, second for tmux `extended-keys`, third for iTerm `tmux -CC`.
     nnoremap <Esc>[1;2P <C-I>
+    nnoremap <Esc>[1;2R <C-I>
     nnoremap <Esc>[25~ <C-I>
 
     " iTerm config remaps Ctrl-2 to this arbitrary escape sequence

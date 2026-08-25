@@ -397,6 +397,8 @@ alias fdn='fd --no-ignore'
 alias ya='yazi'
 alias yac='command ya'
 
+alias av='aven tui --view all --layout columns'
+
 zk () {
     # Make plain `zk` search notes interactively instead of printing the help.
     if [ "$#" -eq 0 ]; then

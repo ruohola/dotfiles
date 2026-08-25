@@ -46,6 +46,7 @@ brew "zk"
 brew "zoxide"
 brew "morantron/tmux-fingers/tmux-fingers", trusted: true
 brew "raine/tmux-snaglord/tmux-snaglord", trusted: true
+brew "raine/aven/aven", trusted: true
 # Optional dependencies for yazi.
 brew "ffmpeg-full", link: :overwrite
 brew "imagemagick-full", link: :overwrite
