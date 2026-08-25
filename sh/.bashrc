@@ -1315,6 +1315,15 @@ alias ghci='TERM=dump command ghci'
 
 eval "$(zoxide init bash)"
 
+z () {
+    # Make plain `z` trigger zoxide interactive mode instead of `cd`ing to home.
+    if [ "$#" -eq 0 ]; then
+        zi "$@"
+    else
+        command z "$@"
+    fi
+}
+
 if [[ "$-" == *i* ]]; then
     # Bash specific binds (`.inputrc` only has universal ones).
     bind '"\C-x\C-b": backward-char'
