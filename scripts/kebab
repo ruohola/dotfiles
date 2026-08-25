@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# kebab-case the arguments or standard input.
+# Removes any leading special characters.
+
+if [ "$#" -gt 0 ]; then
+    input="$*"
+else
+    input="$(cat)"
+fi
+
+output="$(printf '%s' "$input" | tr '[:upper:]' '[:lower:]' | tr -cs '[:alnum:]' '-' | sed 's/^-//; s/-$//')"
+printf '%s\n' "$output"
