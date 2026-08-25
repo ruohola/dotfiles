@@ -1,0 +1,31 @@
+[notebook]
+dir = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/notes"
+
+[note]
+filename = "{{slug title}}"
+exclude = [".obsidian"]
+template = "default.md"
+
+[format.markdown]
+link-format = "[[{{filename}}|{{title}}]]"
+hashtags = true
+colon-tags = false
+multiword-tags = false
+
+[format.markdown.frontmatter]
+creation-date-key = "created"
+
+[tool]
+fzf-preview = "bat --plain --color always {-1}"
+
+[alias]
+# Create a note from an unquoted title and start writing at the end of it.
+# An optional dir prefix picks the target directory: `zk n foo/My title here`.
+n = '''
+input="$*"; dir="."; title="$input"
+case "$input" in */*) dir="${input%/*}"; title="${input##*/}";; esac
+mkdir -p "$dir" && path=$(zk new "$dir" --print-path --title "$title") && vim -c "normal! G" -c "startinsert!" "$path"
+'''
+
+# Open the best matching note for the passed text for editing, ranked by filename, title, then body.
+e = 'zk edit --limit 1 --match "$*"'

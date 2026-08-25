@@ -1,6 +1,7 @@
 {
   "extensions.updateCheck": "weekly",
   "coc.source.file.ignoreHidden": false,
+  "suggest.invalidInsertCharacters": [],
   "suggest.noselect": false,
   "languageserver": {
     "haskell": {
@@ -23,6 +24,12 @@
       "initializationOptions": {
         "languageServerHaskell": {}
       }
+    },
+    "zk": {
+      "command": "zk",
+      "args": ["lsp"],
+      "trace.server": "messages",
+      "filetypes": ["markdown"]
     }
   },
   "json.schemaDownload.trustedDomains": {

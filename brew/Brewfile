@@ -42,6 +42,7 @@ brew "vim"
 brew "wget"
 brew "yazi"
 brew "yq"
+brew "zk"
 brew "zoxide"
 brew "morantron/tmux-fingers/tmux-fingers", trusted: true
 brew "raine/tmux-snaglord/tmux-snaglord", trusted: true

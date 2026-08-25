@@ -397,6 +397,15 @@ alias fdn='fd --no-ignore'
 alias ya='yazi'
 alias yac='command ya'
 
+zk () {
+    # Make plain `zk` search notes interactively instead of printing the help.
+    if [ "$#" -eq 0 ]; then
+        command zk edit --interactive
+    else
+        command zk "$@"
+    fi
+}
+
 alias k9s='K9S_SKIN=transparent TERM=xterm-256color k9s'
 alias gh='PAGER= TERM=xterm-256color gh'
 
@@ -1203,7 +1212,7 @@ __fzf_branch__ () {
     READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
 
-export FZF_IGNORES='Applications,Library,Movies,Music,Pictures,node_modules,venv,.DS_Store,.Trash,.cache,.gradle,.git,.m2,.mypy_cache,.next,.npm,.pyenv,.pytest_cache,.stack,.temp,__pycache__,build,dist,.idea'
+export FZF_IGNORES='Applications,Library,Movies,Music,Pictures,node_modules,venv,.DS_Store,.Trash,.cache,.gradle,.git,.m2,.mypy_cache,.next,.npm,.pyenv,.pytest_cache,.stack,.temp,__pycache__,build,dist,.idea,.obsidian,.zk'
 # shellcheck disable=SC2016  # $FZF_IGNORES expands at runtime when fzf evaluates the command.
 export FZF_FD_FLAGS='--hidden --exclude "{$FZF_IGNORES}"'
 export FZF_DEFAULT_COMMAND="command fd $FZF_FD_FLAGS ."

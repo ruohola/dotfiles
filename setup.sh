@@ -89,6 +89,9 @@ target=~/.local/share/bash-completion/completions/npm
 [ ! -L ~/.config/yazi/yazi.toml ] && mkdir -p ~/.config/yazi/ && ln -sfv ~/dotfiles/yazi/yazi.toml ~/.config/yazi/yazi.toml
 [ ! -L ~/.config/yazi/keymap.toml ] && ln -sfv ~/dotfiles/yazi/keymap.toml ~/.config/yazi/keymap.toml
 
+[ ! -L ~/.config/zk/config.toml ] && mkdir -p ~/.config/zk/ && ln -sfv ~/dotfiles/zk/config.toml ~/.config/zk/config.toml
+[ ! -L ~/.config/zk/templates/default.md ] && mkdir -p ~/.config/zk/templates/ && ln -sfv ~/dotfiles/zk/templates/default.md ~/.config/zk/templates/default.md
+
 [ ! -L ~/Library/Preferences/glow/glow.yml ] && mkdir -p ~/Library/Preferences/glow/ && ln -sfv ~/dotfiles/glow/glow.yml ~/Library/Preferences/glow/glow.yml
 
 [ ! -L "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt" ] \

@@ -12,6 +12,11 @@ let g:markdown_fenced_languages = [
     \ 'html', 'css', 'json', 'jsonc', 'yaml'
 \]
 
+" Settings for `zk` notes.
+if !empty(finddir('.zk', escape(expand('%:p:h'), ' ,') . ';'))
+    setlocal spell
+endif
+
 " Enable spell checking and line length checking when editing pull request body with GitHub CLI tool.
 " The file is created as a temp file with a name like: 123456789.md
 if expand('%:p') =~# '^\(/private\)\?' . $TMPDIR . '\d\+\.md$'
