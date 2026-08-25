@@ -1,8 +1,6 @@
 setlocal softtabstop=2 shiftwidth=2
 
-nnoremap <buffer> <Leader>e <Cmd>write<BAR>execute 'silent !' .
-    \ 'pandoc --output=' . shellescape(expand('%:p:r')) . '.pdf ' . shellescape(expand('%:p')) . ' && open ' . shellescape(expand('%:p:r')) . '.pdf &'
-    \ <BAR>redraw!<CR>
+nnoremap <buffer> <Leader>e <Cmd>call RunCommandInSplitTerm('grip --port "$(freeport)" ' . shellescape(expand('%:p')))<CR>
 
 command! -buffer SOT so ~/.vim/after/ftplugin/markdown.vim
 
