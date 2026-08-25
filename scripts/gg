@@ -9,47 +9,67 @@
 # ctrl-s  copy commit shorthash
 # ctrl-f  fill commit shorthash to cursor input (tmux only)
 
+# Path to re-invoke this script with from inside the fzf key bindings.
+self="${BASH_SOURCE[0]}"
+case "$self" in
+    */*) ;;
+    *) self="$(command -v -- "$self")" || self="${BASH_SOURCE[0]}" ;;
+esac
+self="$(cd "$(dirname "$self")" && pwd)/$(basename "$self")"
+
 pbcopyn () {
     # Like normal `pbcopy` but strips away all trailing newlines.
     printf '%s' "$(< /dev/stdin)" | pbcopy
 }
 
+shas () {
+    # Strip the graph characters off the log lines in stdin to get the hashes.
+    sed 's/^[^a-z0-9]*//;/^$/d' | awk '{print $1}'
+}
+
+# Peeking runs inside fzf instead of restarting it, so that the query, the
+# selection and the scroll position all survive quitting back out of the pager.
+case "$GG_ACTION" in
+    show)
+        peeked="$(printf '%s\n' "$@" | shas)"
+        [ -z "$peeked" ] && exit
+        clear
+        for sha in $peeked; do
+            git show --format=fuller --first-parent --color=always "$sha" \
+                | delta --paging=always --pager='less +g'
+        done
+        exit ;;
+    diff)
+        peeked="$(printf '%s\n' "$@" | shas | xargs)"
+        [ -z "$peeked" ] && exit
+        clear
+        # shellcheck disable=SC2086  # Not quoted to allow diffing many.
+        git diff --color=always $peeked | delta --paging=always
+        exit ;;
+esac
+
 while out="$(
     git log --graph --color=always "$@" \
         | sed $'s/..\x08\x08 /\xc2\xa0/' \
         | fzf --ansi --multi --no-sort --reverse --delimiter=$'\xc2\xa0' --nth=2 \
-              --query="$selected" --print-query --expect=ctrl-d,ctrl-n,ctrl-h,ctrl-s,ctrl-f)"
+              --query="$selected" --print-query \
+              --bind="enter:execute(GG_ACTION=show \"$self\" {+})" \
+              --bind="ctrl-d:execute(GG_ACTION=diff \"$self\" {+})" \
+              --expect=ctrl-n,ctrl-h,ctrl-s,ctrl-f)"
     # nbsp as invisible delimiter ^ to only match starting from the commit subject.
 do
     selected="$(head -1 <<< "$out")"
     key="$(head -2 <<< "$out" | tail -1)"
-    shas="$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')"
-    [ -z "$shas" ] && continue
-    if [ "$key" = ctrl-d ]; then
-        clear
-        git diff --color=always "$shas" | delta --paging=always
-    elif [ "$key" = ctrl-n ]; then
-        # shellcheck disable=SC2086  # Not quoted to allow copying many.
-        git show --no-patch --format=%s $shas | pbcopyn
-        break
-    elif [ "$key" = ctrl-h ]; then
-        # shellcheck disable=SC2086  # Not quoted to allow copying many on a single line.
-        git rev-parse $shas | xargs | pbcopyn
-        break
-    elif [ "$key" = ctrl-s ]; then
-        # shellcheck disable=SC2086  # Not quoted to allow copying many on a single line.
-        echo -n $shas | pbcopyn
-        break
-    elif [ "$key" = ctrl-f ]; then
-        # shellcheck disable=SC2086  # Not quoted to allow filling many on a single line.
-        tmux send-keys -l "$(echo -n $shas)"
-        break
-    else
-        clear
-        for sha in $shas; do
-            git show --format=fuller --first-parent --color=always "$sha" | delta --paging=always --pager='less +g'
-        done
-    fi
+    picked="$(sed '1,2d' <<< "$out" | shas | xargs)"
+    [ -z "$picked" ] && continue
+    # shellcheck disable=SC2086  # Not quoted to allow handling many.
+    case "$key" in
+        ctrl-n) git show --no-patch --format=%s $picked | pbcopyn ;;
+        ctrl-h) git rev-parse $picked | xargs | pbcopyn ;;
+        ctrl-s) echo -n $picked | pbcopyn ;;
+        ctrl-f) tmux send-keys -l "$picked" ;;
+    esac
+    break
 done
 
 clear
