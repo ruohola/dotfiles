@@ -118,14 +118,6 @@ command -v fontforge > /dev/null && [ ! -f ~/'Library/Fonts/Menlo Nerd Font Mono
     && rm /tmp/FontPatcher.zip \
     && fontforge -script "$target/font-patcher" /System/Library/Fonts/Menlo.ttc --complete --mono -out ~/Library/Fonts/
 
-# Install tmux plugins.
-mkdir -p ~/.tmux/plugins
-
-target=~/.tmux/plugins/tmux-fingers
-[ ! -d "$target" ] \
-    && git clone "${github_prefix}Morantron/tmux-fingers.git" "$target"
-git -C "$target" fetch --all --tags --prune && git -C "$target" switch --quiet --detach "$(git -C "$target" describe --tag --abbrev=0 origin/master)"
-
 [ ! -L ~/.config/tmux-snaglord/config.toml ] && mkdir -p ~/.config/tmux-snaglord/ && ln -sfv ~/dotfiles/tmux/tmux-snaglord-config.toml ~/.config/tmux-snaglord/config.toml
 
 # Use Homebrew Bash
