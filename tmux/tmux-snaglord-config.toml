@@ -1,2 +1,3 @@
-prompt = "^(\\([\\w.]+\\) )*[/~].*[* ]\\$ "
+# Match the `.bashrc` prompt: `(venv) (nvm) path/to/dir (branch)*$ `
+prompt = '^(?:\(.*?\) )*(?:~|/|\.\.\.)[^:]*? (?:\(.*?\))?[ *]?\$ '
 nerd_fonts = true

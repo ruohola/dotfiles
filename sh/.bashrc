@@ -90,6 +90,7 @@ __ps1_dollar_color () {
     fi
 }
 # Solarized colored prompt: (venv) (nvm) path/to/dir (branch)*$
+# Remember to keep `tmux/tmux-snaglord-config.toml` in sync.
 PS1="\
 \$(__ps1_venv)\
 \$(__ps1_nvm)\
