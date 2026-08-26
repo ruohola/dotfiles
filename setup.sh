@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+echo "not safe to run yet"
+exit 1
 
 # shellcheck disable=SC2016  # Ignore quoting "issues" in app_shortcut mappings.
 
@@ -208,3 +210,22 @@ app_shortcut md.obsidian 'Zoom In' '@+'
 app_shortcut org.vim.MacVim $'\033Edit\033Font\033Bigger' '@+'
 
 killall cfprefsd
+
+
+# ============= MACOS FILETYPE ASSOCIATIONS =============
+
+# Types are set unconditionally: the currently resolved default isn't a usable
+# signal (a type can resolve to MacVim via a legacy CFBundleTypeExtensions claim
+# while its files still open elsewhere), and lsd doesn't flush overrides to
+# com.apple.launchservices.secure.plist promptly. Re-setting an identical
+# override is a no-op, and macOS 26.4+ only prompts when the app a file would
+# actually open in changes, so only the first run is noisy.
+if command -v utiluti > /dev/null; then
+    while read -r identifier _; do
+        case "$identifier" in
+            ''|'#'*) continue ;;
+        esac
+
+        utiluti type set "$identifier" org.vim.MacVim
+    done < ~/dotfiles/utiluti/macvim-filetypes.conf
+fi
