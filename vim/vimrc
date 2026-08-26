@@ -104,6 +104,13 @@ let g:coc_filetype_map = {
     \ 'bash': 'sh',
 \}
 
+" MacVim's permissions can't read the iCloud notebook dir, so `zk lsp` would fail to start there.
+if has('gui_macvim')
+    let g:coc_user_config = {
+        \ 'languageserver.zk.filetypes': [],
+    \}
+endif
+
 function! s:insert_completion() abort
     call coc#config('suggest', {'insertMode': 'insert'})
     call timer_start(1, {-> coc#config('suggest', {'insertMode': 'replace'})})
