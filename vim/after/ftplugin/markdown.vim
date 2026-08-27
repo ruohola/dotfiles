@@ -1,4 +1,5 @@
 setlocal softtabstop=2 shiftwidth=2
+setlocal textwidth=105
 
 nnoremap <buffer> <Leader>e <Cmd>call RunCommandInSplitTerm('grip --port "$(freeport)" ' . shellescape(expand('%:p')))<CR>
 
