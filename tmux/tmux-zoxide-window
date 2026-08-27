@@ -1,14 +1,38 @@
 #!/usr/bin/env bash
 #
+# Forked from https://github.com/raine/tmux-tools/blob/28565256d0c0f2b6bcb940e8ecc96d1ec0fa6ec6/tmux-zoxide-window
+# All credits to raine (MIT).
+#
 # Pick a directory from zoxide and open it in a new tmux window
 #
 # Usage:
-#   bind C-o display-popup -E "tmux-zoxide-window"
+#   bind z display-popup -EE "tmux-zoxide-window"
 #
-# Requirements: fzf, zoxide
+# Modified to use zoxide's own interactive picker (what `zi` runs) instead of
+# piping through a bare `fzf`, for the nicer UI.
 
-dir=$(zoxide query -l | fzf)
+# Repeat zoxide's default flags except `--height=45%` to get a full height window.
+#   https://github.com/ajeetdsouza/zoxide/blob/91be34869443ccb8cdfa3094897a45aee6f9be43/src/cmd/query.rs#L93-L119
+#   https://github.com/ajeetdsouza/zoxide/blob/91be34869443ccb8cdfa3094897a45aee6f9be43/src/util.rs#L54-L82
+fzf_opts=(
+    --exact
+    --no-sort
+    '--bind=ctrl-z:ignore,btab:up,tab:down'
+    --cycle
+    --keep-right
+    --border=sharp
+    --info=inline
+    --layout=reverse
+    --tabstop=1
+    --exit-0
+    "--preview='\command -p ls -Cp --color=always {2..}'"
+    '--preview-window=down,30%,sharp'
+)
+
+dir="$(_ZO_FZF_OPTS="${fzf_opts[*]}" zoxide query --interactive)"
 
 if [[ -n "$dir" ]]; then
-	tmux new-window -c "$dir" -n "$(basename "$dir")"
+    # `zi` bumps the score as a side effect of cd'ing, so do it explicitly here.
+    zoxide add "$dir"
+    tmux new-window -c "$dir" -n "$(basename "$dir")"
 fi
