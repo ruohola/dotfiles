@@ -3,7 +3,7 @@ dir = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/notes"
 
 [note]
 filename = "{{slug title}}"
-exclude = [".obsidian"]
+exclude = [".obsidian", "_templates"]
 template = "default.md"
 
 [format.markdown]
