@@ -709,6 +709,9 @@ nnoremap <silent> <Leader>vi :e $HOME/.ideavimrc<CR>
 nnoremap <silent> <Leader>] :windo diffthis<CR>
 nnoremap <silent> <Leader>[ :windo diffoff<CR>
 
+" Toggle spell checking.
+nnoremap <silent> <Leader>S :setlocal spell! spell?<CR>
+
 
 
 " ============= COMMANDS =============

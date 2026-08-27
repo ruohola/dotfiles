@@ -13,7 +13,6 @@ let g:markdown_fenced_languages = [
 
 " Settings for `zk` notes.
 if !empty(finddir('.zk', escape(expand('%:p:h'), ' ,') . ';'))
-    setlocal spell
     setlocal softtabstop=4 shiftwidth=4  " Obsidian can only use 4-space indents.
 endif
 
