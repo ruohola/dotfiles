@@ -1333,9 +1333,9 @@ eval "$(zoxide init bash)"
 z () {
     # Make plain `z` trigger zoxide interactive mode instead of `cd`ing to home.
     if [ "$#" -eq 0 ]; then
-        zi "$@"
+        __zoxide_zi
     else
-        command z "$@"
+        __zoxide_z "$@"
     fi
 }
 
