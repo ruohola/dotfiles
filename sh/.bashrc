@@ -460,8 +460,8 @@ alias gff='gf --force'  # Allow clobbering existing tags.
 alias gfu='git fsck --unreachable --no-reflogs'
 alias gfuc='gfu | sed -n "s/.*commit \(.*\)/\1/p" | git log --no-walk --stdin'
 alias gl='git log --graph'
-alias gll='git log --graph --branches --tags'
-alias glll='git log --graph --branches --tags --remotes'
+alias gll='git log --graph --branches --tags'  # Mnemonic: git log local branches
+alias gla='git log --graph --branches --tags --remotes'  # Mnemonic: git log all branches
 alias glf='git log --format=fuller --compact-summary'
 alias glp='git log --format=fuller --patch'
 alias glg='glf --regexp-ignore-case --grep'
@@ -1079,7 +1079,7 @@ __git_complete glf _git_log
 __git_complete glg _git_log
 __git_complete glG _git_log
 __git_complete gll _git_log
-__git_complete glll _git_log
+__git_complete gla _git_log
 __git_complete glp _git_log
 __git_complete glr _git_log
 __git_complete glrg _git_log
