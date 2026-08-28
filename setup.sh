@@ -180,7 +180,7 @@ app_shortcut com.google.Chrome 'Close Other Tabs'       '@~w'
 app_shortcut com.google.Chrome 'Force Reload This Page' '@r'
 app_shortcut com.google.Chrome 'Reload This Page'       '@~^$r'
 
-app_shortcut com.apple.iWork.Numbers 'Copy Snapshot' '^c'
+app_shortcut com.apple.Numbers 'Copy Snapshot' '^c'
 # Prompts for one-time access to other apps ^
 
 # Safari and Mail live in TCC-protected containers, so their writes need Full
