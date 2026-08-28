@@ -570,6 +570,26 @@ __git_default_remote_branch () {
         fi
     fi
 }
+__git_remote_tracking_branch () {
+    # Echo the remote tracking branch (e.g. "origin/foo") of the given branch.
+    # Defaults to the current branch. Falls back to `origin/<branch>` when no
+    # upstream is configured. Echoes nothing when there is no remote branch.
+    local branch upstream
+
+    branch="${1:-HEAD}"
+    upstream="$(git rev-parse --abbrev-ref --symbolic-full-name "${branch}@{u}" 2> /dev/null)"
+    if [ -n "$upstream" ]; then
+        echo "$upstream"
+        return
+    fi
+
+    if [ "$branch" = HEAD ]; then
+        branch="$(git branch --show-current)"
+    fi
+    [ -z "$branch" ] && return
+    git rev-parse --verify --quiet "refs/remotes/origin/${branch}" > /dev/null \
+        && echo "origin/${branch}"
+}
 __git_is_nondefault_worktree () {
     # Return success if the argument is the name or associated branch of a non-default worktree.
     git worktree list \
@@ -727,7 +747,11 @@ gdb () {
 
     if [ "$#" -eq 0 ]; then
         our=HEAD
-        their="$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}')" || return
+        their="$(__git_remote_tracking_branch)"
+        if [ -z "$their" ]; then
+            echo 'error: no remote tracking branch found' >&2
+            return 1
+        fi
     elif [ "$#" -eq 1 ]; then
         our=HEAD
         their="$1"
