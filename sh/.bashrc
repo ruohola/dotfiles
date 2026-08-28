@@ -390,6 +390,8 @@ alias fdn='fd --no-ignore'
 alias ya='yazi'
 alias yac='command ya'
 
+alias grip='go-grip --bounding-box=false'
+
 alias av='aven tui --view all --layout columns'
 
 zk () {

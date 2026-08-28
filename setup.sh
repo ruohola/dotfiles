@@ -104,7 +104,7 @@ target=~/.local/share/bash-completion/completions/npm
 
 mkdir -p ~/.local/bin/ && sed '/echo "This manpage is not compatible with mandoc/,/sleep 1/ s/.*/:/' /usr/bin/man > ~/.local/bin/man && chmod +x ~/.local/bin/man
 
-[ -f ~/go/bin/go-grip ] && [ ! -L ~/.local/bin/grip ] && ln -sfv ~/go/bin/go-grip ~/.local/bin/grip
+[ -f ~/go/bin/go-grip ] && [ ! -L ~/.local/bin/go-grip ] && ln -sfv ~/go/bin/go-grip ~/.local/bin/go-grip
 
 target=~/'Library/Application Support/k9s/skins/transparent.yaml'
 command -v k9s > /dev/null && [ ! -f "$target" ] \
