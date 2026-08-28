@@ -9,7 +9,7 @@ command! -buffer SOT so ~/.vim/after/ftplugin/markdown.vim
 let g:markdown_fenced_languages = [
     \ 'sh', 'bash', 'python', 'py=python', 'java', 'sql',
     \ 'javascript', 'js=javascript', 'typescript', 'ts=typescript', 'jsx=javascriptreact', 'tsx=typescriptreact',
-    \ 'html', 'css', 'json', 'jsonc', 'yaml'
+    \ 'html', 'css', 'json', 'jsonc', 'yaml', 'mermaid'
 \]
 
 " Settings for `zk` notes.
