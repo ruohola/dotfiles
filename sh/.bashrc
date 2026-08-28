@@ -579,11 +579,14 @@ __git_default_remote_branch () {
 }
 __git_remote_tracking_branch () {
     # Echo the remote tracking branch (e.g. "origin/foo") of the given branch.
-    # Defaults to the current branch. Falls back to `origin/<branch>` when no
-    # upstream is configured. Echoes nothing when there is no remote branch.
+    # Defaults to the current branch. Echoes nothing when there is no remote
+    # branch, except for the default branch, which follows
+    # `__git_default_remote_branch` also when there are no remotes at all.
     local branch upstream
 
     branch="${1:-HEAD}"
+    # Needed when the remote branch is not `origin/<branch>`, e.g. after a
+    # `git push origin foo:bar` or when working against a fork's remote.
     upstream="$(git rev-parse --abbrev-ref --symbolic-full-name "${branch}@{u}" 2> /dev/null)"
     if [ -n "$upstream" ]; then
         echo "$upstream"
@@ -593,7 +596,19 @@ __git_remote_tracking_branch () {
     if [ "$branch" = HEAD ]; then
         branch="$(git branch --show-current)"
     fi
-    [ -z "$branch" ] && return
+    if [ -z "$branch" ]; then
+        # Detached HEAD.
+        return
+    fi
+
+    # Needed for the default branch, as its remote might be e.g. "upstream".
+    if [ "$branch" = "$(__git_default_branch)" ]; then
+        __git_default_remote_branch
+        return
+    fi
+
+    # Needed when there is no upstream configured, e.g. for a branch pushed by
+    # someone else that we have only fetched, or after a fresh clone.
     git rev-parse --verify --quiet "refs/remotes/origin/${branch}" > /dev/null \
         && echo "origin/${branch}"
 }
@@ -773,8 +788,10 @@ gld () {
     # "Diff" the logs of two branches.
     # With zero arguments passed, defaults to HEAD and master.
     # With a single argument passed, defaults to the passed and master.
+    # In both of those cases also shows the remote tracking branch of the branch.
     # Mnemonic: git log diff
-    local first second
+    local first second upstream
+    local -a refs
 
     if [ "$#" -eq 0 ]; then
         first="$(__git_default_remote_branch)"
@@ -787,7 +804,16 @@ gld () {
         second="$2"
     fi
 
-    git log --graph "$first" "$second" "$(git merge-base "$first" "$second")"^! "${@:3}"
+    refs=("$first")
+    if [ "$#" -le 1 ]; then
+        upstream="$(__git_remote_tracking_branch "$second")"
+        # Skip a duplicate, e.g. when the branch is the default branch itself.
+        [ -n "$upstream" ] && [ "$upstream" != "$first" ] && refs+=("$upstream")
+    fi
+    refs+=("$second")
+
+    # `--octopus` is needed for the base to be an ancestor of *all* the refs.
+    git log --graph "${refs[@]}" "$(git merge-base --octopus "${refs[@]}")"^! "${@:3}"
 }
 gmb () {
     # Return the merge base of the two branches.
