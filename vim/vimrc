@@ -712,6 +712,9 @@ nnoremap <silent> <Leader>[ :windo diffoff<CR>
 " Toggle spell checking.
 nnoremap <silent> <Leader>S :setlocal spell! spell?<CR>
 
+" Toggle line wrapping.
+nnoremap <silent> <Leader>W :setlocal wrap! wrap?<CR>
+
 
 
 " ============= COMMANDS =============
