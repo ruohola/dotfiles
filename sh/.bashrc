@@ -558,15 +558,22 @@ __git_default_branch () {
 }
 __git_default_remote_branch () {
     # Echo e.g. "origin/master"
-    local remote_branch
+    local remote_branch default_branch
     remote_branch="$(git symbolic-ref --short --quiet refs/remotes/upstream/HEAD || git symbolic-ref --short --quiet refs/remotes/origin/HEAD)"
     if [ "$?" -ne 128 ]; then
         # Was a valid repo.
         if [ -n "$remote_branch" ]; then
             echo "$remote_branch"
+            return
+        fi
+        # No remote HEAD, which only `git clone` and `git remote set-head` set,
+        # so guess the branch and check whether it exists on the remote after all.
+        default_branch="$(git config init.defaultBranch)" || return
+        if git rev-parse --verify --quiet "refs/remotes/origin/${default_branch}" > /dev/null; then
+            echo "origin/${default_branch}"
         else
             # No remotes configured.
-            git config init.defaultBranch
+            echo "$default_branch"
         fi
     fi
 }
