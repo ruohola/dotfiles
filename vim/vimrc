@@ -302,23 +302,6 @@ function! s:goyo_enter()
     if exists('$TMUX')
         silent !tmux set status off
     endif
-    nnoremap j gj
-    nnoremap k gk
-    nnoremap 0 g0
-    nnoremap ^ g^
-    nnoremap $ g$
-    nnoremap + g$
-    xnoremap j gj
-    xnoremap k gk
-    xnoremap 0 g0
-    xnoremap ^ g^
-    xnoremap $ g$
-    xnoremap + g$
-    onoremap j gj
-    onoremap k gk
-    onoremap 0 g0
-    onoremap ^ g^
-    onoremap $ g$
 endfunction
 function! s:goyo_leave()
     let g:EasyMotion_verbose = 1
@@ -331,23 +314,6 @@ function! s:goyo_leave()
     if exists('$TMUX')
         silent !tmux set status on
     endif
-    nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
-    nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
-    nunmap 0
-    nunmap ^
-    nunmap $
-    nnoremap + $
-    xunmap j
-    xunmap k
-    xunmap 0
-    xunmap ^
-    xunmap $
-    xnoremap + $
-    ounmap j
-    ounmap k
-    ounmap 0
-    ounmap ^
-    ounmap $
 endfunction
 augroup GoyoMode
     autocmd!
@@ -516,10 +482,6 @@ set shortmess=SatcOA           " S: no [x/y] when searching (plugin handles that
 
 " ============= MAPPINGS =============
 
-" Make j and k populate the jump list, when used with a count.
-nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
-nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
-
 if has('gui_running')
     " Move between splits (alt+hjkl).
     nnoremap ← <C-W>h
@@ -590,13 +552,49 @@ noremap ; ,
 noremap g, g;
 noremap g. g,
 
-nnoremap + $
-xnoremap + $
-
 " Makes these more consistent with other commands.
 nnoremap Y y$
 nnoremap vv V
 nnoremap V <C-V>$
+
+" Make it easier to move on wrapped lines when `wrap` is on.
+" (Use physical lines and populate the jump list when j/k is used with a count
+" in normal mode. They don't need the `&wrap` expressions, as the behavior is
+" anyways identical.)
+nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
+xnoremap <expr> j v:count ? 'j' : 'gj'
+xnoremap <expr> k v:count ? 'k' : 'gk'
+
+nnoremap <expr> 0 &wrap ? 'g0' : '0'
+nnoremap <expr> ^ &wrap ? 'g^' : '^'
+nnoremap <expr> $ &wrap ? 'g$' : '$'
+xnoremap <expr> 0 &wrap ? 'g0' : '0'
+xnoremap <expr> ^ &wrap ? 'g^' : '^'
+xnoremap <expr> $ &wrap ? 'g$' : '$'
+onoremap <expr> 0 &wrap ? 'g0' : '0'
+onoremap <expr> ^ &wrap ? 'g^' : '^'
+onoremap <expr> $ &wrap ? 'g$' : '$'
+
+nnoremap gj j
+nnoremap gk k
+xnoremap gj j
+xnoremap gk k
+
+nnoremap <expr> g0 &wrap ? '0' : 'g0'
+nnoremap <expr> g^ &wrap ? '^' : 'g^'
+nnoremap <expr> g$ &wrap ? '$' : 'g$'
+xnoremap <expr> g0 &wrap ? '0' : 'g0'
+xnoremap <expr> g^ &wrap ? '^' : 'g^'
+xnoremap <expr> g$ &wrap ? '$' : 'g$'
+onoremap <expr> g0 &wrap ? '0' : 'g0'
+onoremap <expr> g^ &wrap ? '^' : 'g^'
+onoremap <expr> g$ &wrap ? '$' : 'g$'
+
+" Easier aliases.
+nnoremap + $
+xnoremap + $
+onoremap + $
 
 " Cleaner to use when cursor doesn't move.
 nnoremap J Jh
