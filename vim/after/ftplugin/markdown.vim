@@ -1,5 +1,6 @@
 setlocal softtabstop=2 shiftwidth=2
 setlocal textwidth=105
+setlocal wrap
 
 nnoremap <buffer> <Leader>e <Cmd>call RunCommandInSplitTerm('grip --port "$(freeport)" ' . shellescape(expand('%:p')))<CR>
 
@@ -20,7 +21,6 @@ endif
 " The file is created as a temp file with a name like: 123456789.md
 if expand('%:p') =~# '^\(/private\)\?' . $TMPDIR . '\d\+\.md$'
     setlocal formatoptions=jt
-    setlocal wrap
     setlocal spell
     setlocal textwidth=72
     setlocal colorcolumn=73

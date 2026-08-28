@@ -461,8 +461,8 @@ set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''}      " File encoding
 set statusline+=%{&ff}]                                    " Line endings
 set statusline+=%<                                         " Start to truncate here
 
-" Line wrapping
-set wrap linebreak textwidth=0 wrapmargin=0
+" Line wrapping settings (useful when `wrap` is toggled on).
+set nowrap linebreak textwidth=0 wrapmargin=0
 
 " Scroll via visual, wrapped lines and show as much of the last line as possible.
 set smoothscroll
