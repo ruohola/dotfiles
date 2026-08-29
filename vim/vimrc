@@ -738,10 +738,11 @@ command! CD cd %:p:h
 
 " ============= FUNCTIONS =============
 
-" https://github.com/dhleong/dots/blob/master/.vim/init/terminal.vim
-function! RunCommandInSplitTerm(command) abort
+" Inspiration from: https://github.com/dhleong/dots/blob/master/.vim/init/terminal.vim
+function! RunCommandInSplitTerm(command, ...) abort
+    " Defaults to 0.3 (30%) split if a second argument is not passed.
     noautocmd write
-    let winSize = float2nr(0.3 * winheight(0))
+    let winSize = float2nr(get(a:, 1, 0.3) * winheight(0))
     let mainBuf = bufnr('%')
     let termBufNr = get(b:, '_run_term', -1)
     let termWinNr = bufwinnr(termBufNr)

@@ -2,7 +2,7 @@ setlocal softtabstop=2 shiftwidth=2
 setlocal textwidth=105
 setlocal wrap
 
-nnoremap <buffer> <Leader>e <Cmd>call RunCommandInSplitTerm('go-grip --bounding-box=false --port "$(freeport)" ' . shellescape(expand('%:p')))<CR>
+nnoremap <buffer> <Leader>e <Cmd>call RunCommandInSplitTerm('go-grip --bounding-box=false --port "$(freeport)" ' . shellescape(expand('%:p')), 0.10)<CR>
 
 command! -buffer SOT so ~/.vim/after/ftplugin/markdown.vim
 
