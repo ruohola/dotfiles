@@ -207,6 +207,14 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias grep='grep --color'
 
+cpa () {
+    # Copy the path of a file, relative to the Git worktree (or submodule) root
+    # when inside one, otherwise absolute with `~` in place of the home directory.
+    local path
+    path="$(repopath "$1")" || return
+    pbcopyn <<< "${path}"
+}
+
 export GREP_COLOR='1;91'
 export LESS='--chop-long-lines --RAW-CONTROL-CHARS -# .20'
 export PAGER='less --clear-screen'

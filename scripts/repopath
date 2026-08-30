@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Print the path of the passed file, relative to the Git worktree (or submodule)
+# root when inside one, otherwise absolute with `~` in place of the home directory.
+
+if [ "$#" -ne 1 ] || [ -z "$1" ]; then
+    echo "usage: ${0##*/} file" >&2
+    exit 2
+fi
+
+# Resolve symlinks in the directories leading to the file, but not the file itself.
+if [ -d "$1" ]; then
+    dir="$(grealpath --canonicalize-missing -- "$1")"
+    path="${dir}"
+else
+    dir="$(grealpath --canonicalize-missing -- "$(dirname -- "$1")")"
+    path="${dir}/$(basename -- "$1")"
+fi
+
+root="$(git -C "${dir}" rev-parse --show-toplevel 2>/dev/null)"
+if [ -n "${root}" ]; then
+    grealpath --no-symlinks --relative-to="${root}" -- "${path}"
+else
+    printf '%s\n' "${path/#$HOME/\~}"
+fi

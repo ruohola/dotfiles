@@ -713,6 +713,9 @@ nnoremap <silent> <Leader>S :setlocal spell! spell?<CR>
 " Toggle line wrapping.
 nnoremap <silent> <Leader>W :setlocal wrap! wrap?<CR>
 
+" Copy the path of the current file.
+nnoremap <silent> <Leader>< :call <SID>CopyFilePath()<CR>
+
 
 
 " ============= COMMANDS =============
@@ -811,6 +814,23 @@ function! s:ShowGitHistoryForSelection() abort
         \ . ' | awk -v r="$ref" ''%s'' | %s',
         \ dir, dir, dir, dir, start, end, file, awk, s:_delta_pager)
     call RunCommandInPopupTerm(['sh', '-c', cmd])
+endfunction
+
+
+" Copy the current file's path, relative to the Git worktree (or submodule) root
+" when inside one, otherwise absolute with `~` in place of the home directory.
+function! s:CopyFilePath() abort
+    if empty(expand('%'))
+        echo 'No file name'
+        return
+    endif
+    let path = trim(system('repopath ' . shellescape(expand('%:p'))))
+    if v:shell_error != 0
+        echo path
+        return
+    endif
+    let @* = path
+    echo @*
 endfunction
 
 
