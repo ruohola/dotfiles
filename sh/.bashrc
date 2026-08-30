@@ -1102,7 +1102,7 @@ gyp () {
 }
 
 gga () {
-    ~/dotfiles/scripts/gg --branches --tags --remotes "$@"
+    gg --branches --tags --remotes "$@"
 }
 
 __git_complete g- _git_bisect
