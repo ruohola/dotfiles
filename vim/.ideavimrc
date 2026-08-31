@@ -220,6 +220,7 @@ nnoremap gf "zyiwgg/\C\\<\\><Left><Left><BS><C-R>z<CR>:noh<CR>
 nmap go ?^class <CR>f(/[A-Z]<CR><Action>(GotoDeclarationOnly),noh<CR>
 
 nmap gd <Action>(GotoDeclarationOnly)
+nmap gw <Action>(GotoImplementation)
 nmap gr <Action>(GotoRelated)
 nmap gs <Action>(GotoSuperMethod)
 nmap gt <Action>(GotoTypeDeclaration)
