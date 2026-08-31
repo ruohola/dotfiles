@@ -207,9 +207,10 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias grep='grep --color'
 
-cpa () {
+cpr () {
     # Copy the path of a file, relative to the Git worktree (or submodule) root
     # when inside one, otherwise absolute with `~` in place of the home directory.
+    # Mnemonic: copy repopath
     local path
     path="$(repopath "$1")" || return
     pbcopyn <<< "${path}"
