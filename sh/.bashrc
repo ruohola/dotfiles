@@ -732,21 +732,31 @@ gcfe () {
     # Mnemonic: gcf + edit
     __git_commit_fixup 'amend:' "$@"
 }
-gdh () {
-    # Show the diff of the currently staged and unstaged files compared to HEAD.
-    # The speciality is that this also shows the diff for newly created files.
-    gdu HEAD
-}
-gdu () {
-    # Show the diff of the currently unstaged files compared to HEAD.
-    # The speciality is that this also show the diff for newly created files.
+__git_diff_with_untracked () {
+    # Show a diff that also includes the newly created (untracked) files.
+    # The first argument is the revision to diff against (empty for none),
+    # the rest are passed to `git diff` as-is.
+    local revision="$1"
+    shift
+
     (
-        git diff --color=always "$@"
+        git diff --color=always ${revision:+"$revision"} "$@"
         git ls-files --others --exclude-standard -z :/ |
             while IFS= read -r -d '' file; do
                 git diff --color=always -- /dev/null "$file"
             done
     ) | delta
+}
+gdh () {
+    # Show the diff of the currently staged and unstaged files compared to HEAD.
+    # The speciality is that this also shows the diff for newly created files.
+    __git_diff_with_untracked HEAD
+}
+# shellcheck disable=SC2120
+gdu () {
+    # Show the diff of the currently unstaged files compared to HEAD.
+    # The speciality is that this also show the diff for newly created files.
+    __git_diff_with_untracked '' "$@"
 }
 gfug () {
     # Search unreachable (lost) commits by their commit message.
