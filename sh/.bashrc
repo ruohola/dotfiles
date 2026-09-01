@@ -736,14 +736,14 @@ __git_diff_with_untracked () {
     # Show a diff that also includes the newly created (untracked) files.
     # The first argument is the revision to diff against (empty for none),
     # the rest are passed to `git diff` as-is.
-    # The untracked files are compared against /dev/null one by one, so only the
-    # options can be applied to them, not the revision.
+    # The untracked files are compared against /dev/null one by one, so the
+    # options and the pathspecs have to be applied to them separately.
     local revision="$1"
-    local -a args=("${@:2}") options=()
+    local -a args=("${@:2}") options=() pathspecs=()
     shift
     while [ "$#" -gt 0 ]; do
         case "$1" in
-            --) break;;  # Everything after this is a pathspec.
+            --) shift; pathspecs=("$@"); break;;  # Everything after this is a pathspec.
             -*) options+=("$1");;
         esac
         shift
@@ -751,7 +751,7 @@ __git_diff_with_untracked () {
 
     (
         git diff --color=always ${revision:+"$revision"} "${args[@]}"
-        git ls-files --others --exclude-standard -z :/ |
+        git ls-files --others --exclude-standard -z "${pathspecs[@]:-:/}" |
             while IFS= read -r -d '' file; do
                 git diff --color=always "${options[@]}" -- /dev/null "$file"
             done
