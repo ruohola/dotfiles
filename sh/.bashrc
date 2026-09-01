@@ -217,7 +217,7 @@ cpr () {
 }
 
 export GREP_COLOR='1;91'
-export LESS='--chop-long-lines --RAW-CONTROL-CHARS -# .20'
+export LESS='--wordwrap --RAW-CONTROL-CHARS -# .20'
 export PAGER='less --clear-screen'
 alias less='less --clear-screen'
 
