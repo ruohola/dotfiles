@@ -399,6 +399,10 @@ else
         let &t_SI = "\e[6 q"
         let &t_EI = "\e[2 q"
         let &t_SR = "\e[4 q"
+        " Fix terminal title becoming `titleold` instead of the actual
+        " previous title when closing Vim in tmux.
+        let &t_ST = "\e[22;2t"
+        let &t_RT = "\e[23;2t"
     endif
 endif
 
@@ -468,7 +472,8 @@ set history=10000              " Remember maximum amount of command history
 set updatecount=10             " Update swap file more often
 set matchpairs=(:),{:},[:],<:> " Configure which braces to match
 set title                      " Show the current file in the window title
-set titleold=                  " Restore the old window title after exiting
+let &titleold=' '              " Fallback title for when the real one can't be restored when closing Vim.
+                               " A space, as an empty title breaks tmux-resurrect.
 set updatetime=300             " Faster CursorHold events, mainly for coc.nvim
 set signcolumn=number          " Display coc.nvim marks in the number column instead of a dedicated one
 set shortmess=SatcOA           " S: no [x/y] when searching (plugin handles that)
