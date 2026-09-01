@@ -736,21 +736,32 @@ __git_diff_with_untracked () {
     # Show a diff that also includes the newly created (untracked) files.
     # The first argument is the revision to diff against (empty for none),
     # the rest are passed to `git diff` as-is.
+    # The untracked files are compared against /dev/null one by one, so only the
+    # options can be applied to them, not the revision.
     local revision="$1"
+    local -a args=("${@:2}") options=()
     shift
+    while [ "$#" -gt 0 ]; do
+        case "$1" in
+            --) break;;  # Everything after this is a pathspec.
+            -*) options+=("$1");;
+        esac
+        shift
+    done
 
     (
-        git diff --color=always ${revision:+"$revision"} "$@"
+        git diff --color=always ${revision:+"$revision"} "${args[@]}"
         git ls-files --others --exclude-standard -z :/ |
             while IFS= read -r -d '' file; do
-                git diff --color=always -- /dev/null "$file"
+                git diff --color=always "${options[@]}" -- /dev/null "$file"
             done
     ) | delta
 }
+# shellcheck disable=SC2120
 gdh () {
     # Show the diff of the currently staged and unstaged files compared to HEAD.
     # The speciality is that this also shows the diff for newly created files.
-    __git_diff_with_untracked HEAD
+    __git_diff_with_untracked HEAD "$@"
 }
 # shellcheck disable=SC2120
 gdu () {
