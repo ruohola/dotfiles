@@ -25,7 +25,7 @@ fzf-preview = "bat --plain --color always {-1}"
 n = '''
 input="$*"; dir="."; title="$input"
 case "$input" in */*) dir="${input%/*}"; title="${input##*/}";; esac
-mkdir -p "$dir" && path=$(zk new "$dir" --print-path --title "$title") && vim -c "normal! G" -c "startinsert!" "$path"
+mkdir -p "$dir" && ZK_EDITOR='vim -c "normal! G" -c "startinsert!"' zk new "$dir" --title "$title"
 '''
 
 # Open the best matching note for the passed text for editing, ranked by filename, title, then body.
