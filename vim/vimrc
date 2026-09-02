@@ -15,8 +15,8 @@ let VimFolder = '/.vim'
 let PathToPluginsFolder = $HOME . VimFolder . '/plugins'
 let PathToSpellFolder = $HOME . VimFolder . '/spell'
 let PathToTempFolder = $HOME . VimFolder . '/.temp'
-execute 'set spellfile=' . PathToSpellFolder . '/en.utf-8.add'
-execute 'set viminfo+=n' . PathToTempFolder . '/.viminfo'
+let &spellfile = PathToSpellFolder . '/en.utf-8.add'
+let &viminfo = &viminfo . ',n' . PathToTempFolder . '/.viminfo'
 let &undodir = PathToTempFolder . '/undo//'
 let &backupdir = PathToTempFolder . '/backup//'
 let &directory = PathToTempFolder . '/swap//'
@@ -440,7 +440,7 @@ set statusline+=%{&buftype!='terminal'?expand('%:p:h:t').'/'.expand('%:t'):expan
 set statusline+=%m                                         " Modified flag
 set statusline+=%r                                         " Read only flag
 set statusline+=%=                                         " Left/right separator
-set statusline+=\ \|\ %{substitute(getcwd(),$HOME,'~','')} " Current working directory
+set statusline+=\ \|\ %{fnamemodify(getcwd(),':~')}        " Current working directory
 set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}       " Filetype
 set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''}      " File encoding
 set statusline+=%{&ff}]                                    " Line endings
