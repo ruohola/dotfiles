@@ -896,13 +896,14 @@ function! NewPostLaunchSettings(pathToSpellFolder) abort
 
     function! context.f()
         if !&diff
-            " Rebuild the spell file if the word list has changed
-            " but only if not using vim as git mergetool.
-            " This avoids an annoying error when the spell file has
-            " conflict markers which result in a syntax error.
-            for d in glob(self.pathToSpellFolder . '/*.add', 1, 1)
-                if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
-                    silent execute 'mkspell! ' . fnameescape(d)
+            " Rebuild the spell files whose word list has changed, but only if
+            " not using Vim as Git mergetool. This avoids an annoying error when
+            " a word list has conflict markers which result in a syntax error.
+            for source in glob(self.pathToSpellFolder . '/*.add', 1, 1)
+                let target = source . '.spl'
+                if filereadable(source)
+                        \ && (!filereadable(target) || getftime(source) > getftime(target))
+                    silent execute 'mkspell! ' . fnameescape(target) . ' ' . fnameescape(source)
                 endif
             endfor
 
