@@ -57,6 +57,7 @@ Plug 'tommcdo/vim-lion'                " Alignment operator
 
 Plug 'tpope/vim-eunuch'                " Easy unix file operations
 Plug 'tpope/vim-fugitive'              " Git plugin
+Plug 'ypcrts/securemodelines'          " Allowlisted subset of Vim modelines
 Plug 'rhysd/vim-grammarous'            " Use LanguageTool to check spelling and grammar
 
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for LaTeX
@@ -173,6 +174,16 @@ let g:vimtex_compiler_latexmk = {
 
 " rhysd/vim-grammarous
 let g:grammarous#languagetool_cmd = 'languagetool'
+
+" ypcrts/securemodelines
+" Replaces the allowlist entirely, so nothing else can be set from a modeline.
+" Notably not `spelllang`, as setting it makes Vim source `spell/<lang>.vim`
+" from the runtimepath, e.g. the `spell/cleanadd.vim` shipped with Vim, which
+" rewrites every `spell/*.add` file it can find.
+let g:secure_modelines_allowed_items = [
+    \ 'textwidth', 'tw',
+    \ 'spell',     'nospell',
+\]
 
 " tpope/vim-surround
 nmap S ysiW
@@ -463,7 +474,7 @@ set timeoutlen=1000            " Timeout for keymappings
 set formatoptions=qlj          " Don't autocontinue comment lines, remove comment when joining
 set nojoinspaces               " Don't put two spaces after a period when using `J` or `gq`
 set pumheight=12               " Max height for the autocompletion popup
-set nomodeline                 " Don't try to parse commands from opened file
+set nomodeline                 " Don't parse commands from opened files (securemodelines does that safely)
 set ttimeoutlen=0              " Remove delay from esc
 set backspace=indent,eol,start " Make backspace behave normally
 set hidden                     " Switch to another buffer without saving
