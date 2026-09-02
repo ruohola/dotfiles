@@ -374,6 +374,10 @@ if !exists('g:notfirstopen')
     " Remove light blue background from matching parenthesis.
     highlight MatchParen term=reverse cterm=bold ctermbg=6 gui=bold guifg=#fdf6e3 guibg=NONE
 
+    " Make solarized8 link texts (e.g. in Markdown) distinct from spelling errors.
+    " Now they are magenta instead of purple.
+    execute 'highlight Underlined term=underline cterm=NONE ctermfg=5 gui=NONE guifg=' . g:terminal_ansi_colors[5]
+
     " Make sure that the temp file locations exists.
     if !isdirectory(PathToTempFolder)
         call mkdir(PathToTempFolder)
