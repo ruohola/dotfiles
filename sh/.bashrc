@@ -1268,7 +1268,7 @@ alias tff='terraform fmt -recursive'
 
 brew () {
     if [ "$*" == "up" ]; then
-        command brew update && command brew upgrade --yes && command brew upgrade --cask --yes
+        command brew update && command brew upgrade --yes
     elif [ "$*" == "dump" ]; then
         command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
     elif [ "$*" == "load" ]; then
