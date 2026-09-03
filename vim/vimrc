@@ -379,17 +379,19 @@ if !exists('g:notfirstopen')
 
     syntax enable
 
-    highlight Comment term=NONE ctermfg=10 gui=NONE guifg=#586e75
+    highlight Comment term=NONE ctermfg=10
 
     " Make solarized8 terminal and gui cursor the same color.
-    highlight Cursor ctermfg=15 ctermbg=4 guifg=#073642 guibg=#839496
+    execute 'highlight Cursor ctermfg=15 ctermbg=4'
+        \ . ' guifg=' . g:terminal_ansi_colors[0]
+        \ . ' guibg=' . g:terminal_ansi_colors[12]
 
     " Remove light blue background from matching parenthesis.
-    highlight MatchParen term=reverse cterm=bold ctermbg=6 gui=bold guifg=#fdf6e3 guibg=NONE
+    highlight MatchParen guibg=NONE ctermbg=NONE
 
     " Make solarized8 link texts (e.g. in Markdown) distinct from spelling errors.
     " Now they are magenta instead of purple.
-    execute 'highlight Underlined term=underline cterm=NONE ctermfg=5 gui=NONE guifg=' . g:terminal_ansi_colors[5]
+    execute 'highlight Underlined ctermfg=5 guifg=' . g:terminal_ansi_colors[5]
 
     " Make sure that the temp file locations exists.
     if !isdirectory(PathToTempFolder)
