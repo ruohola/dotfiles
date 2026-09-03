@@ -1529,6 +1529,23 @@ if [[ "$-" == *i* && -z "$TMUX" && "$TERM_PROGRAM" == 'iTerm.app' ]] && command 
         exec tmux new-session -t "$__attached" -s "${__attached}-$n" \; set destroy-unattached on
     else
         __recent="$(tmux list-sessions -F '#{session_last_attached} #{session_name}' 2> /dev/null | sort --numeric-sort --reverse | head -1 | cut -d' ' -f2-)"
-        exec tmux new-session -A -s "${__recent:-main}"
+        if [ -n "$__recent" ]; then
+            exec tmux new-session -A -s "$__recent"
+        elif [ -f ~/.local/share/tmux/resurrect/last ]; then
+            # There is a saved environment that tmux-continuum restores on server
+            # start. Only start the server here and wait for that, as a session
+            # created now would be left behind next to the restored ones.
+            tmux start-server 2> /dev/null
+            # `state` holds the session that was active when the save was made.
+            __last="$(awk -F'\t' '$1 == "state" { print $2 }' ~/.local/share/tmux/resurrect/last)"
+            for _ in $(seq 10); do
+                # Try until tmux-resurrect has spun up the session (usually ~instant).
+                tmux has-session -t "=$__last" 2> /dev/null && exec tmux attach -t "=$__last"
+                [ -n "$(tmux list-sessions -F '#{session_name}' 2> /dev/null)" ] && exec tmux attach
+                sleep 0.5
+            done
+        fi
+        # No server, or nothing was restored after all.
+        exec tmux new-session -A -s main
     fi
 fi
