@@ -4,7 +4,7 @@ let g:mapleader=' '
 
 " Language settings (have to be before ä and ö mappings).
 let $LANG='en_US'
-set spelllang=en_us,fi  " Vim ships no Finnish spell file, so `spell/fi.utf-8.spl` is self-built.
+set spelllang=en_us
 set fileformats=unix,dos
 set fileencodings=ucs-bom,utf-8,default,latin1
 set encoding=utf-8
@@ -15,9 +15,7 @@ let VimFolder = '/.vim'
 let PathToPluginsFolder = $HOME . VimFolder . '/plugins'
 let PathToSpellFolder = $HOME . VimFolder . '/spell'
 let PathToTempFolder = $HOME . VimFolder . '/.temp'
-" `zg` adds a word to the first entry, `2zg` to the second.
 let &spellfile = PathToSpellFolder . '/en.utf-8.add'
-    \ . ',' . PathToSpellFolder . '/fi.utf-8.add'
 let &viminfo = &viminfo . ',n' . PathToTempFolder . '/.viminfo'
 let &undodir = PathToTempFolder . '/undo//'
 let &backupdir = PathToTempFolder . '/backup//'
@@ -906,14 +904,8 @@ function! NewPostLaunchSettings(pathToSpellFolder) abort
             " Rebuild the spell files whose word list has changed, but only if
             " not using Vim as Git mergetool. This avoids an annoying error when
             " a word list has conflict markers which result in a syntax error.
-            " A `*.add` is a personal word list `zg` appends to, compiling to
-            " `<name>.add.spl`. A `*.wordlist` is a whole language (Vim has no
-            " Finnish one), compiling to `<name>.<encoding>.spl`.
             for source in glob(self.pathToSpellFolder . '/*.add', 1, 1)
-                        \ + glob(self.pathToSpellFolder . '/*.wordlist', 1, 1)
-                let target = source =~# '\.add$'
-                    \ ? source . '.spl'
-                    \ : substitute(source, '\.wordlist$', '.' . &encoding . '.spl', '')
+                let target = source . '.spl'
                 if filereadable(source)
                         \ && (!filereadable(target) || getftime(source) > getftime(target))
                     silent execute 'mkspell! ' . fnameescape(target) . ' ' . fnameescape(source)
