@@ -497,7 +497,7 @@ alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
 alias grbi='git rebase --interactive'
-alias grbia='GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash'
+alias grbia='GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash --rebase-merges'
 alias grbid='git rebase --interactive --committer-date-is-author-date'
 alias grbo='git rebase --onto'
 alias grd='git range-diff'
@@ -680,7 +680,7 @@ __git_commit_fixup () {
     prefix="$1"
     commit="$(git rev-parse "$2")" \
         && git commit --fixup "${prefix}${commit}" \
-        && GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash "${commit}~1" "${@:3}"
+        && grbia "${commit}~1" "${@:3}"
 }
 gdm () {
     # shellcheck disable=SC2145
