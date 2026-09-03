@@ -1328,6 +1328,7 @@ export GLOW_STYLE="$HOME/dotfiles/glow/solarized-dark.json"
 export GLAMOUR_STYLE="$GLOW_STYLE"  # Used by `gh` CLI.
 
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_UPGRADE_AUTO_UPDATES_CASKS=1
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_ENV_HINTS=1
 
