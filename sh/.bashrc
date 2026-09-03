@@ -721,7 +721,7 @@ gbr () {
 
     # `git branch --force` will fail if $1 is the current branch, thus the fallback.
     git -C "$worktree_path" branch --force "$branchname" "$startpoint" 2> /dev/null \
-        || { [ "$?" -eq 128 ] && git -C "$worktree_path" switch --force-create "$branchname" "$startpoint"; }
+        || { [ "$?" -eq 128 ] && git -C "$worktree_path" switch --merge --force-create "$branchname" "$startpoint"; }
 }
 gcf () {
     # Squash staged changes to the given commit.
