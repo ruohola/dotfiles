@@ -476,7 +476,12 @@ filetype plugin indent on      " Auto detect filetype
 let g:is_posix=1               " Make sh filetype be posix shell compliant
 set clipboard=unnamed          " Use system clipboard, unnamedplus doesn't work with gvim
 set timeoutlen=1000            " Timeout for keymappings
-set formatoptions=qlj          " Don't autocontinue comment lines, remove comment when joining
+set formatoptions+=jro         " j: Remove comment leaders when joining lines
+                               " r: Continue comments with insert mode Enter
+                               " o: Continue comments with `o`/`O`
+                               " t (default): Auto-wrap text
+                               " c (default): Auto-wrap comments
+                               " q (default): Allow formettting comments with `gq`
 set nojoinspaces               " Don't put two spaces after a period when using `J` or `gq`
 set pumheight=12               " Max height for the autocompletion popup
 set nomodeline                 " Don't parse commands from opened files (securemodelines does that safely)
