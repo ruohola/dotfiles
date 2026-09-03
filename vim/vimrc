@@ -459,8 +459,8 @@ set display+=lastline
 set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
 set smarttab  autoindent    breakindent
 
-" Show unwanted whitespace on 'set list'.
-set nolist listchars=tab:▷\ ,trail:•,nbsp:␣,eol:¬
+" Clearly show special whitespace and long non-wrapped lines.
+set list listchars=tab:▸\ ,nbsp:␣,trail:·,extends:❯
 
 " Search settings
 set incsearch hlsearch ignorecase smartcase gdefault
@@ -995,6 +995,14 @@ augroup DiffSettings
           \| else
           \| syntax enable
           \| endif
+augroup END
+
+
+" Avoid the `trail` `listchar` from annoyingly showing in insert mode when typing.
+augroup TrailInsert
+  autocmd!
+  autocmd InsertEnter * set listchars-=trail:·
+  autocmd InsertLeave * set listchars+=trail:·
 augroup END
 
 
