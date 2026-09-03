@@ -393,6 +393,9 @@ if !exists('g:notfirstopen')
     " Now they are magenta instead of purple.
     execute 'highlight Underlined ctermfg=5 guifg=' . g:terminal_ansi_colors[5]
 
+    " Make Markdown inline `code` spans green instead of the default string color.
+    execute 'highlight markdownCode ctermfg=2 guifg=' . g:terminal_ansi_colors[2]
+
     " Make sure that the temp file locations exists.
     if !isdirectory(PathToTempFolder)
         call mkdir(PathToTempFolder)
