@@ -775,6 +775,51 @@ gfug () {
     # Mnemonic: gfu + glg
     gfuc --format=fuller --compact-summary --regexp-ignore-case --grep="$1" "${@:2}"
 }
+__git_history_and_sign () {
+    # Run a `git history` subcommand and then GPG sign the commits it rewrote,
+    # as `git history` (being built on `git replay`) never signs any of them.
+    # The first argument is the subcommand, the rest are passed to it as-is.
+    local subcommand base arg
+
+    subcommand="$1"
+    shift
+
+    # Resolve before rewriting, as `split` inserts a commit and thus shifts the
+    # relative revisions. Starting from the parent also covers that new commit.
+    if ! base="$(git rev-parse --verify --quiet "${1}^")"; then
+        base='--root'  # The rewritten commit is the root commit.
+    fi
+
+    git history "$subcommand" "$@" || return
+
+    for arg in "${@:2}"; do
+        if [ "$arg" = '--' ]; then
+            break  # Everything after this is a pathspec.
+        fi
+        if [ "$arg" = '--dry-run' ]; then
+            # If the built-in flag is used, history is not actually re-written.
+            return 0
+        fi
+    done
+
+    if git config --get user.signingKey > /dev/null; then
+        # Resign the commits, but only if a signing key exists.
+        git rebase --no-ff --rebase-merges --gpg-sign "$base"
+    fi
+}
+ghd () {
+    # Like `git history drop`, but GPG signs the rewritten commits.
+    # NOTE: Will be usable in Git 2.56
+    __git_history_and_sign drop "$@"
+}
+ghr () {
+    # Like `git history reword`, but GPG signs the rewritten commits.
+    __git_history_and_sign reword "$@"
+}
+ghs () {
+    # Like `git history split`, but GPG signs the rewritten commits.
+    __git_history_and_sign split "$@"
+}
 gsh () {
     # Copy the hash of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
@@ -1160,6 +1205,10 @@ __git_complete gdcp _git_restore
 __git_complete gfug _git_log
 __git_complete gg _git_log
 __git_complete gga _git_log
+# NOTE: can change these to use `_git_history` in Git 2.56
+__git_complete ghd _git_log
+__git_complete ghr _git_log
+__git_complete ghs _git_log
 __git_complete gl _git_log
 __git_complete glb _git_log
 __git_complete glbr _git_log
