@@ -653,11 +653,14 @@ nnoremap <Leader>' a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 xnoremap <Leader>' q:<UP>I'<,'><Esc>$
 
 " Change enter behavior.
+" (Shift-Enter arrives as the raw `\e[2013~` that iTerm sends and tmux forwards
+" only to Vim; `<S-Enter>` itself can't be used as terminals send a plain CR.)
 augroup EnterMappings
     autocmd!
     autocmd BufEnter * if &modifiable && &buftype !=# 'nofile' && &filetype !~# '^fugitive'
             \| nnoremap <buffer> <silent> <CR> :<C-U>call <SID>BlankDown(v:count1)<CR>
             \| nnoremap <buffer> <silent> <S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
+            \| nnoremap <buffer> <silent> <Esc>[2013~ :<C-U>call <SID>BlankUp(v:count1)<CR>
             \| endif
     autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 augroup END
