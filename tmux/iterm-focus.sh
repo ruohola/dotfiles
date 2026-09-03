@@ -6,7 +6,7 @@
 # Requires: System Settings > Privacy & Security > Accessibility > iTerm.app ON
 
 default_margin=5
-focus_percentage=25
+focus_percentage=20
 
 # iTerm2 starts drawing with an externally written margin right away, but keeps
 # its old character grid until the window gets re-laid out, leaving the content
