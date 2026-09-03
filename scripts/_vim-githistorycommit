@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Editor for `git history`, which has no `commit.verbose` of its own: shows the
+# diff of what is about to be committed next to the message. Called as
+# `_vim-githistorycommit <commit>`, with the message file appended by Git.
+
+commit="$1"
+gitdir="$(git rev-parse --absolute-git-dir)" || exit
+base="$(git rev-parse --verify --quiet "${commit}^^{tree}" || git hash-object -t tree /dev/null)"
+
+# `git history` writes the tree it is about to commit (and, for the second half
+# of a `split`, the split-out commit itself) before opening the editor, so the
+# newest object written after the marker is what lands in this very commit.
+object="$(find "${gitdir}/objects" -type f -path '*/??/*' \
+    -newer "${gitdir}/HISTORY_DIFF" -exec ls -t {} + 2> /dev/null | head -1)"
+oid="${object##*/objects/}"
+oid="${oid/\//}"
+
+case "${oid:+$(git cat-file -t "$oid")}" in
+    commit) git diff "$oid" "$commit";;      # What is left of the original commit.
+    tree)   git diff "$base" "$oid";;        # The part split out of it.
+    *)      git diff "$commit"^ "$commit";;  # Rewritten as-is, e.g. by `reword`.
+esac > "${gitdir}/HISTORY_DIFF"
+
+vim -c "call githistorycommit#render_diff('${gitdir}/HISTORY_DIFF')" "$2"

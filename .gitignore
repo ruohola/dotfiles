@@ -6,7 +6,7 @@ brew/Brewfile.lock.json
 karabiner/automatic_backups
 
 vim/.temp/
-vim/autoload/
+vim/autoload/plug.vim*
 vim/plugins/
 vim/spell/
 

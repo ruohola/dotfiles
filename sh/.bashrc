@@ -790,7 +790,12 @@ __git_history_and_sign () {
         base='--root'  # The rewritten commit is the root commit.
     fi
 
-    git history "$subcommand" "$@" || return
+    # `git history` has no `commit.verbose`, so this works around it,
+    # the file's age dates the objects that it looks for.
+    touch "$(git rev-parse --absolute-git-dir)/HISTORY_DIFF"
+
+    GIT_EDITOR="_vim-githistorycommit ${1}" \
+        git history "$subcommand" "$@" || return
 
     for arg in "${@:2}"; do
         if [ "$arg" = '--' ]; then
