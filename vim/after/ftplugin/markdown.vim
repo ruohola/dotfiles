@@ -4,6 +4,10 @@ setlocal wrap
 
 nnoremap <buffer> <Leader>e <Cmd>call RunCommandInSplitTerm('go-grip --bounding-box=false --port "$(freeport)" ' . shellescape(expand('%:p')), 0.10)<CR>
 
+" Prepend a securemodelines header, that enables spell checking and
+" undoing the `textwidth` above so the file isn't hard wrapped.
+nnoremap <buffer> <silent> <Leader>M <Cmd>execute "normal! ggO<!-- vim: tw=0 spell -->"<Bar>noautocmd write<Bar>doautocmd SecureModeLines BufRead<Bar>normal! ``<CR>
+
 command! -buffer SOT so ~/.vim/after/ftplugin/markdown.vim
 
 let g:markdown_fenced_languages = [
@@ -15,6 +19,9 @@ let g:markdown_fenced_languages = [
 " Settings for `zk` notes.
 if !empty(finddir('.zk', escape(expand('%:p:h'), ' ,') . ';'))
     setlocal softtabstop=4 shiftwidth=4  " Obsidian can only use 4-space indents.
+    " Put the securemodeline to the YAML frontmatter instead of the file beginning.
+    " It's cleaner and Obsidian won't otherwise even render the frontmatter.
+    nnoremap <buffer> <silent> <Leader>M <Cmd>execute "normal! ggo# vim: tw=0 spell"<Bar>noautocmd write<Bar>doautocmd SecureModeLines BufRead<Bar>normal! ``<CR>
 endif
 
 " Enable spell checking and line length checking when editing pull request body with GitHub CLI tool.
