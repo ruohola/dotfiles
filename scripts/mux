@@ -49,10 +49,10 @@ while true; do
                 --expect=ctrl-n,ctrl-k,ctrl-r,ctrl-x \
                 --header='enter=attach / ctrl-n=new / ctrl-k=kill / ctrl-r=rename / ctrl-x=detach others' \
                 --preview='
-                    s={1}; s=${s%:};
-                    tmux list-windows -t "$s" -F "  #{window_index}: #{window_name}#{?window_active, (*),} #{pane_current_command}" 2> /dev/null;
+                    name={1}; name=${name%:};
+                    tmux list-windows -t "$name" -F "  #{window_index}: #{window_name}#{?window_active, (*),} #{pane_current_command}" 2> /dev/null;
                     echo;
-                    tmux capture-pane -t "$s" -p -e 2> /dev/null
+                    tmux capture-pane -t "$name" -p -e 2> /dev/null
                 ' \
                 --preview-window=down:50%:noinfo
     )" || true
