@@ -11,7 +11,7 @@ nnoremap <buffer> <silent> <Leader>M <Cmd>execute "normal! ggO<!-- vim: tw=0 spe
 command! -buffer SOT so ~/.vim/after/ftplugin/markdown.vim
 
 let g:markdown_fenced_languages = [
-    \ 'sh', 'bash', 'python', 'py=python', 'java', 'sql',
+    \ 'sh', 'shell=sh', 'bash', 'python', 'py=python', 'java', 'sql',
     \ 'javascript', 'js=javascript', 'typescript', 'ts=typescript', 'jsx=javascriptreact', 'tsx=typescriptreact',
     \ 'html', 'css', 'json', 'jsonc', 'yaml', 'mermaid'
 \]
