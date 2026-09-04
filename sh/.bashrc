@@ -182,6 +182,8 @@ vims () {
     vim "scp://$1/$2"
 }
 
+alias jvim='jq | vim -c "set filetype=json" -'
+
 alias b='cd ..'
 alias bb='cd ../..'
 alias bbb='cd ../../..'
@@ -229,8 +231,6 @@ alias nq='networkQuality -s'   # Sequential
 alias nqd='networkQuality -u'  # Download
 alias nqu='networkQuality -d'  # Upload
 alias nqp='networkQuality'     # Parallel
-
-alias jvim='jq | vim -c "set filetype=json" -'
 
 epoch () {
     # Print the current epoch seconds, convert the passed epoch seconds into a human-readable format, or convert the passed ISO date/datetime into epoch seconds.
