@@ -184,6 +184,9 @@ vims () {
 
 alias jvim='jq | vim -c "set filetype=json" -'
 
+# Open the vim-fugitive summary/status buffer.
+alias fug='vim +Git +only'
+
 alias b='cd ..'
 alias bb='cd ../..'
 alias bbb='cd ../../..'
