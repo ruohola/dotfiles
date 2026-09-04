@@ -409,7 +409,7 @@ alias av='aven tui --view all --layout columns'
 zk () {
     # Make plain `zk` search notes interactively instead of printing the help.
     if [ "$#" -eq 0 ]; then
-        command zk edit --interactive
+        command zk edit --interactive --sort modified-
     else
         command zk "$@"
     fi
