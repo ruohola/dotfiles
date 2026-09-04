@@ -1325,7 +1325,13 @@ alias tff='terraform fmt -recursive'
 
 brew () {
     if [ "$*" == "up" ]; then
+        local rc
         command brew update && command brew upgrade --yes
+        rc="$?"
+        # Every languagetool upgrade clears this, so relink afterwards.
+        ln -sf ~/dotfiles/vim/spell/en.utf-8.add \
+            "${HOMEBREW_PREFIX}/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/spelling_custom.txt"
+        return "$rc"
     elif [ "$*" == "dump" ]; then
         command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
     elif [ "$*" == "load" ]; then
