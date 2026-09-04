@@ -917,6 +917,11 @@ function! NewPostLaunchSettings(pathToSpellFolder) abort
             " A `*.add` is a personal word list `zg` appends to, compiling to
             " `<name>.add.spl`. A `*.wordlist` is a whole language (Vim has no
             " Finnish one), compiling to `<name>.<encoding>.spl`.
+            "
+            " `mkspellmem`'s default recompresses the word tree every 2 MB, which
+            " for a multi-million word list means constant recompression of an
+            " ever bigger tree. This setting decreases the build from 5 min to 10 s.
+            set mkspellmem=2000000,50000,2000
             for source in glob(self.pathToSpellFolder . '/*.add', 1, 1)
                         \ + glob(self.pathToSpellFolder . '/*.wordlist', 1, 1)
                 let target = source =~# '\.add$'
