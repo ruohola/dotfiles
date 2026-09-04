@@ -807,7 +807,7 @@ __git_history_and_sign () {
         fi
     done
 
-    if git config --get user.signingKey > /dev/null; then
+    if [ -n "$(git config --get user.signingKey)" ]; then
         # Resign the commits, but only if a signing key exists.
         git rebase --no-ff --rebase-merges --gpg-sign "$base"
     fi
