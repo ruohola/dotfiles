@@ -45,22 +45,8 @@ default_node=lts/krypton  # v24
     && nvm alias default "$default_node" \
     && npm update --global npm
 
-# Detect if this dotfiles repo was cloned via SSH or HTTPS.
-if git -C ~/dotfiles remote get-url --all origin | grep -q '^https://'; then
-    github_prefix='https://github.com/'
-else
-    github_prefix='git@github.com:'
-fi
-
 # Install Bash completions.
-mkdir -p ~/cloned
-
-target=~/cloned/git-completion
-[ ! -d "$target" ] \
-    && git clone "${github_prefix}felipec/git-completion.git" "$target"
-_previous="$(git -C "$target" rev-parse HEAD)" \
-    && git -C "$target" fetch --all --tags --prune && git -C "$target" switch --quiet --detach "$(git -C "$target" describe --tag --abbrev=0 origin/master)" \
-    && [ "$(git -C "$target" rev-parse HEAD)" != "$_previous" ] && make --directory="$target" install
+mkdir -p ~/.local/share/bash-completion/completions
 
 target=~/.local/share/bash-completion/completions/yarn
 [ ! -f "$target" ] \

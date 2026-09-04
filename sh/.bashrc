@@ -158,8 +158,6 @@ source ~/.sourced/bookmarks 2> /dev/null
 
 # shellcheck source=/dev/null
 [ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ] && . "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-# shellcheck source=/dev/null
-[ -r ~/.local/share/bash-completion/completions/git ] && . ~/.local/share/bash-completion/completions/git
 
 alias vvrc='vim ~/dotfiles/vim/vimrc'
 alias vbrc='vim ~/dotfiles/sh/.bashrc && source ~/dotfiles/sh/.bashrc'
