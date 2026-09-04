@@ -179,9 +179,8 @@ let g:grammarous#languagetool_cmd = 'languagetool'
 
 " ypcrts/securemodelines
 " Replaces the allowlist entirely, so nothing else can be set from a modeline.
-" Notably not `spelllang`, as setting it makes Vim source `spell/<lang>.vim`
-" from the runtimepath, e.g. the `spell/cleanadd.vim` shipped with Vim, which
-" rewrites every `spell/*.add` file it can find.
+" Notably not `spelllang`, as setting it makes Vim source any `spell/<lang>.vim`
+" from the runtimepath.
 let g:secure_modelines_allowed_items = [
     \ 'textwidth', 'tw',
     \ 'spell',     'nospell',
