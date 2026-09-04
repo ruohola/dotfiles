@@ -4,7 +4,7 @@ let g:mapleader=' '
 
 " Language settings (have to be before ä and ö mappings).
 let $LANG='en_US'
-set spelllang=en_us,fi  " Vim ships no Finnish spell file, so `spell/fi.utf-8.spl` is self-built.
+set spelllang=en_us  " Finnish is opted into per buffer, see the Markdown ftplugin.
 set fileformats=unix,dos
 set fileencodings=ucs-bom,utf-8,default,latin1
 set encoding=utf-8

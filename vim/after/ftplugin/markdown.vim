@@ -19,6 +19,10 @@ let g:markdown_fenced_languages = [
 " Settings for `zk` notes.
 if !empty(finddir('.zk', escape(expand('%:p:h'), ' ,') . ';'))
     setlocal softtabstop=4 shiftwidth=4  " Obsidian can only use 4-space indents.
+    " Notes are the only place Finnish is written. Vim ships no Finnish spell
+    " file, so the large `spell/fi.utf-8.spl` is self-built.
+    " Makes sense to only load it when needed.
+    setlocal spelllang=en_us,fi
     " Put the securemodeline to the YAML frontmatter instead of the file beginning.
     " It's cleaner and Obsidian won't otherwise even render the frontmatter.
     nnoremap <buffer> <silent> <Leader>M <Cmd>execute "normal! ggo# vim: tw=0 spell"<Bar>noautocmd write<Bar>doautocmd SecureModeLines BufRead<Bar>normal! ``<CR>
