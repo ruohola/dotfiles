@@ -94,8 +94,8 @@ target=~/.local/share/bash-completion/completions/npm
 
 [ ! -L ~/Library/Preferences/glow/glow.yml ] && mkdir -p ~/Library/Preferences/glow/ && ln -sfv ~/dotfiles/glow/glow.yml ~/Library/Preferences/glow/glow.yml
 
-[ ! -L "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt" ] \
-    && ln -sfv ~/dotfiles/vim/spell/en.utf-8.add "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/ignore.txt"
+[ ! -L "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/spelling_custom.txt" ] \
+    && ln -sfv ~/dotfiles/vim/spell/en.utf-8.add "$(brew --prefix)/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/spelling_custom.txt"
 
 [ ! -L ~/.gnupg/gpg.conf ] && ln -sfv ~/dotfiles/gpg/gpg.conf ~/.gnupg/gpg.conf
 [ ! -L ~/.gnupg/gpg-agent.conf ] && ln -sfv ~/dotfiles/gpg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
