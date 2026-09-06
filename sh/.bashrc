@@ -524,7 +524,7 @@ alias gsk='git ls-files -v | grep --color "^[Sa-z]"'
 alias gsl='git shortlog'
 alias gsm='git submodule'
 alias gsms='git submodule summary'
-alias gsmu="export -f __git_default_branch __git_switch_to_branch_or_worktree __git_default_remote_branch __git_current_worktree __git_worktree_path __git_is_nondefault_worktree __git_is_nondefault_worktree gub gwm; git submodule foreach 'gwm && gub &'"
+alias gsmu="export -f __git_default_branch __git_default_remote_branch __git_worktree_path gub gplm; git submodule foreach 'gplm'"
 alias gst='git stash'
 alias gsty='git stash show'
 alias gstl='git stash list --format=medium --stat'
