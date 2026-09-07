@@ -65,7 +65,7 @@ target=~/.local/share/bash-completion/completions/npm
 # The rest are on purpose as absolute links and not relative from `~`.
 
 [ ! -L '/Library/Keyboard Layouts/Finner.keylayout' ] \
-    && sudo ln -sfv ~/dotfiles/keylayouts/finner/Finner.keylayout '/Library/Keyboard Layouts/Finner.keylayout'
+    && sudo ln -sfv ~/dotfiles/finner/Finner.keylayout '/Library/Keyboard Layouts/Finner.keylayout'
 
 [ ! -L ~/.config/karabiner ] \
     && rm -rf ~/.config/karabiner && mkdir -p ~/.config/ && ln -sv ~/dotfiles/karabiner ~/.config/karabiner
