@@ -182,6 +182,7 @@ let g:vimtex_compiler_latexmk = {
 " rhysd/vim-grammarous
 let g:grammarous#languagetool_cmd = 'languagetool'
 let g:grammarous#default_lang = 'en-US'
+nnoremap <Leader>G <Cmd>execute exists('b:grammarous_result') ? 'GrammarousReset' : 'GrammarousCheck'<CR>
 
 " ypcrts/securemodelines
 " Replaces the allowlist entirely, so nothing else can be set from a modeline.
