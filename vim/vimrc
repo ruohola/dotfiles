@@ -60,31 +60,11 @@ Plug 'tommcdo/vim-lion'                " Alignment operator
 Plug 'tpope/vim-eunuch'                " Easy unix file operations
 Plug 'tpope/vim-fugitive'              " Git plugin
 Plug 'ypcrts/securemodelines'          " Allowlisted subset of Vim modelines
-" LanguageTool 6 removed the `--api` XML output that the plugin parses, so ask
-" for `--json` instead and convert it to the same error dicts. The JSON reports
-" a UTF-16 offset into the whole checked text, hence the added position math.
-" That needs `byteidxcomp`, not `byteidx`: LanguageTool counts a composing
-" character as its own unit, so NFD text (`ä` as `a` + U+0308) shifts otherwise.
-" https://github.com/rhysd/vim-grammarous/issues/115#issuecomment-4375566669
+" Patch in LanguageTool 6 compatibility; see grammarous.patch for details.
+let s:grammarous_patch = shellescape(VimFolder . '/grammarous.patch')
 let __grammarous_patch =
-    \ 'gsed -i'
-    \ . ' -e ''s/--api %s/--json %s/'''
-    \ . ' -e ''s/grammarous#get_errors_from_xml(s:XML.*/'
-    \ .        'map(json_decode(a:xml).matches, {_, m -> s:json_error(m)})/'''
-    \ . ' -e ''s/^    redir END$/&\n'
-    \ .        '    let s:checked_text = join(readfile(tmpfile, "b"), nr2char(10))/'''
-    \ . ' -e ''s/^function! grammarous#get_errors_from_xml/'
-    \ .        'function! s:json_pos(off) abort\n'
-    \ .        '    let head = split(strpart(s:checked_text, 0, byteidxcomp(s:checked_text, a:off, 1)), nr2char(10), 1)\n'
-    \ .        '    return [len(head) - 1, strlen(head[-1])]\n'
-    \ .        'endfunction\n\n'
-    \ .        'function! s:json_error(m) abort\n'
-    \ .        '    let [fromy, fromx] = s:json_pos(a:m.offset)\n'
-    \ .        '    let [toy, tox] = s:json_pos(a:m.offset + a:m.length)\n'
-    \ .        '    return {"fromy": fromy, "fromx": fromx, "toy": toy, "tox": tox, "msg": a:m.message, "category": a:m.rule.category.name, "categoryid": a:m.rule.category.id, "ruleId": a:m.rule.id, "context": a:m.context.text, "contextoffset": a:m.context.offset, "errorlength": a:m.context.length, "replacements": join(map(a:m.replacements, {_, r -> r.value}), "#")}\n'
-    \ .        'endfunction\n'
-    \ .        '\n&/'''
-    \ . ' autoload/grammarous.vim'
+    \ 'git apply --reverse --check ' . s:grammarous_patch . ' 2>/dev/null'
+    \ . ' || git apply ' . s:grammarous_patch
 Plug 'rhysd/vim-grammarous', { 'do': __grammarous_patch }  " Use LanguageTool to check spelling and grammar
 
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for LaTeX

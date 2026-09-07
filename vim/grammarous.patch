@@ -1,0 +1,57 @@
+Make vim-grammarous support LanguageTool 6
+
+LanguageTool 6 removed the `--api` XML output that the plugin parses, so use
+for `--json` instead and convert it to the same error dicts. The JSON reports a
+UTF-16 offset into the whole checked text, hence the added position math. That
+needs `byteidxcomp`, not `byteidx` as LanguageTool counts a composing character
+as its own unit, so NFD text (`ä` as `a` + `U+0308`) shifts otherwise.
+
+Tracked in: https://github.com/rhysd/vim-grammarous/issues/115
+
+diff --git a/autoload/grammarous.vim b/autoload/grammarous.vim
+index 9013476..9d34ebf 100644
+--- a/autoload/grammarous.vim
++++ b/autoload/grammarous.vim
+@@ -181,7 +181,7 @@ function! s:set_errors_to_location_list() abort
+ endfunction
+ 
+ function! s:set_errors_from_xml_string(xml) abort
+-    let b:grammarous_result = grammarous#get_errors_from_xml(s:XML.parse(substitute(a:xml, "\n", '', 'g')))
++    let b:grammarous_result = map(json_decode(a:xml).matches, {_, m -> s:json_error(m)})
+     let parsed = s:last_parsed_options
+ 
+     if s:is_comment_only(parsed['comments-only'])
+@@ -293,13 +293,14 @@ function! s:invoke_check(range_start, ...)
+         endwhile
+         silent echon text
+     redir END
++    let s:checked_text = join(readfile(tmpfile, "b"), nr2char(10))
+ 
+     if s:is_cygwin
+         let tmpfile = s:cygpath(tmpfile)
+     endif
+ 
+     let cmdargs = printf(
+-            \   '-c %s -l %s --api %s',
++            \   '-c %s -l %s --json %s',
+             \   &fileencoding ? &fileencoding : &encoding,
+             \   lang,
+             \   substitute(tmpfile, '\\\s\@!', '\\\\', 'g')
+@@ -388,6 +389,17 @@ function! s:unescape_error(err)
+     return a:err
+ endfunction
+ 
++function! s:json_pos(off) abort
++    let head = split(strpart(s:checked_text, 0, byteidxcomp(s:checked_text, a:off, 1)), nr2char(10), 1)
++    return [len(head) - 1, strlen(head[-1])]
++endfunction
++
++function! s:json_error(m) abort
++    let [fromy, fromx] = s:json_pos(a:m.offset)
++    let [toy, tox] = s:json_pos(a:m.offset + a:m.length)
++    return {"fromy": fromy, "fromx": fromx, "toy": toy, "tox": tox, "msg": a:m.message, "category": a:m.rule.category.name, "categoryid": a:m.rule.category.id, "ruleId": a:m.rule.id, "context": a:m.context.text, "contextoffset": a:m.context.offset, "errorlength": a:m.context.length, "replacements": join(map(a:m.replacements, {_, r -> r.value}), "#")}
++endfunction
++
+ function! grammarous#get_errors_from_xml(xml)
+     return map(filter(a:xml.childNodes(), 'v:val.name ==# "error"'), 's:unescape_error(v:val.attr)')
+ endfunction
