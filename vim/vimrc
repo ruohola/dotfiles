@@ -559,6 +559,11 @@ elseif exists('$TMUX')
     " iTerm config remaps Ctrl-2 to this arbitrary escape sequence
     " so that it can be differentiated from tmux prefix Ctrl-Space.
     nmap <Esc>[50~ <C-@>
+
+    " iTerm config maps S-Enter to this escape sequence
+    " so that it can be differentiated from plain Enter.
+    " When running in tmux, it's forwarded only to Vim.
+    nmap <Esc>[2013~ <S-Enter>
 else
     " Move between splits (alt+hjkl).
     nnoremap è <C-W>h
@@ -580,6 +585,8 @@ else
     nnoremap <Esc>[25~ <C-I>
 
     nmap <Esc>[50~ <C-@>
+
+    nmap <Esc>[2013~ <S-Enter>
 endif
 
 " Makes these easier to use.
@@ -666,14 +673,12 @@ nnoremap <Leader>' a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 xnoremap <Leader>' q:<UP>I'<,'><Esc>$
 
 " Change enter behavior.
-" (Shift-Enter arrives as the raw `\e[2013~` that iTerm sends and tmux forwards
-" only to Vim; `<S-Enter>` itself can't be used as terminals send a plain CR.)
+" Terminal Shift-Enter is remapped globally above to avoid delaying Esc.
 augroup EnterMappings
     autocmd!
     autocmd BufEnter * if &modifiable && &buftype !=# 'nofile' && &filetype !~# '^fugitive'
             \| nnoremap <buffer> <silent> <CR> :<C-U>call <SID>BlankDown(v:count1)<CR>
             \| nnoremap <buffer> <silent> <S-Enter> :<C-U>call <SID>BlankUp(v:count1)<CR>
-            \| nnoremap <buffer> <silent> <Esc>[2013~ :<C-U>call <SID>BlankUp(v:count1)<CR>
             \| endif
     autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 augroup END
