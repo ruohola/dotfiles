@@ -736,9 +736,6 @@ nnoremap <Leader>4 :<C-U>call <SID>ShowGitHistoryForFile()<CR>
 xnoremap <Leader>4 :<C-U>call <SID>ShowGitHistoryForSelection()<CR>
 
 " Clear highlights.
-" We need this noop mapping before, otherwise
-" the esc mapping will just *completely* break.
-nnoremap <Esc>\ <Esc>\
 nnoremap <nowait> <silent> <Esc> <Esc>:noh<CR>
 
 " Removes delay from closing fzf search popup.
