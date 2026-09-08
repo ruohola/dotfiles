@@ -350,11 +350,11 @@ augroup END
 
 " christoomey/vim-tmux-navigator
 if exists('$TMUX')
-    call plug#load('vim-tmux-navigator')
-
     let g:tmux_navigator_no_mappings = 1
     let g:tmux_navigator_no_wrap = 1
     let g:tmux_navigator_disable_when_zoomed = 1
+
+    call plug#load('vim-tmux-navigator')
 
     execute "set <M-h>=\eh"
     execute "set <M-j>=\ej"
