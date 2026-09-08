@@ -18,7 +18,7 @@ let PathToTempFolder = VimFolder . '/.temp'
 " `zg` adds a word to the first entry, `2zg` to the second.
 let &spellfile = PathToSpellFolder . '/en.utf-8.add'
     \ . ',' . PathToSpellFolder . '/fi.utf-8.add'
-let &viminfo = &viminfo . ',n' . PathToTempFolder . '/.viminfo'
+let &viminfofile = PathToTempFolder . '/.viminfo'
 let &undodir = PathToTempFolder . '/undo//'
 let &backupdir = PathToTempFolder . '/backup//'
 let &directory = PathToTempFolder . '/swap//'
