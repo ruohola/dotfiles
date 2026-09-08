@@ -375,6 +375,8 @@ if exists('$TMUX')
     tnoremap <M-l> <Cmd>TmuxNavigateRight<CR>
 endif
 
+
+
 " ============= GENERAL =============
 
 function! s:SolarizedHighlights() abort
@@ -980,6 +982,7 @@ function! NewPostLaunchSettings(pathToSpellFolder) abort
 
     return context
 endfunction
+
 
 
 " ============= AUTOCMD =============
