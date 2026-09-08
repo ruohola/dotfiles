@@ -377,6 +377,33 @@ endif
 
 " ============= GENERAL =============
 
+function! s:SolarizedHighlights() abort
+    highlight Comment term=NONE ctermfg=10
+
+    " Make solarized8 terminal and gui cursor the same color.
+    execute 'highlight Cursor ctermfg=15 ctermbg=4'
+        \ . ' guifg=' . g:terminal_ansi_colors[0]
+        \ . ' guibg=' . g:terminal_ansi_colors[12]
+
+    " Remove light blue background from matching parenthesis.
+    highlight MatchParen guibg=NONE ctermbg=NONE
+
+    " Keep link text magenta and spelling errors purple in both backgrounds.
+    execute 'highlight Underlined ctermfg=5 guifg=' . g:terminal_ansi_colors[5]
+    if &background ==# 'light'
+        execute 'highlight SpellBad ctermfg=13 guifg=' . g:terminal_ansi_colors[13]
+    endif
+
+    " Make Markdown inline `code` spans green instead of the default string color.
+    execute 'highlight markdownCode ctermfg=2 guifg=' . g:terminal_ansi_colors[2]
+endfunction
+
+" Changing background reloads the colorscheme, so reapply our overrides.
+augroup SolarizedHighlights
+    autocmd!
+    autocmd ColorScheme solarized8 call <SID>SolarizedHighlights()
+augroup END
+
 " Set these only when vim starts, not when sourcing vimrc.
 if !exists('g:notfirstopen')
     let g:notfirstopen=1
@@ -394,23 +421,6 @@ if !exists('g:notfirstopen')
     endif
 
     syntax enable
-
-    highlight Comment term=NONE ctermfg=10
-
-    " Make solarized8 terminal and gui cursor the same color.
-    execute 'highlight Cursor ctermfg=15 ctermbg=4'
-        \ . ' guifg=' . g:terminal_ansi_colors[0]
-        \ . ' guibg=' . g:terminal_ansi_colors[12]
-
-    " Remove light blue background from matching parenthesis.
-    highlight MatchParen guibg=NONE ctermbg=NONE
-
-    " Make solarized8 link texts (e.g. in Markdown) distinct from spelling errors.
-    " Now they are magenta instead of purple.
-    execute 'highlight Underlined ctermfg=5 guifg=' . g:terminal_ansi_colors[5]
-
-    " Make Markdown inline `code` spans green instead of the default string color.
-    execute 'highlight markdownCode ctermfg=2 guifg=' . g:terminal_ansi_colors[2]
 
     " Make sure that the temp file locations exists.
     if !isdirectory(PathToTempFolder)
@@ -765,6 +775,9 @@ nnoremap <silent> <Leader>S :setlocal spell! spell?<CR>
 
 " Toggle line wrapping.
 nnoremap <silent> <Leader>W :setlocal wrap! wrap?<CR>
+
+" Toggle between light and dark backgrounds.
+nnoremap <silent> <Leader>B <Cmd>let &background = &background ==# 'dark' ? 'light' : 'dark'<CR>
 
 " Copy the path of the current file.
 nnoremap <silent> <Leader>< :call <SID>CopyFilePath()<CR>
