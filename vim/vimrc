@@ -315,7 +315,10 @@ augroup glyph-palette
 augroup END
 
 
-" junegunn/goyo.vim
+" junegunn/goyo.vim / junegunn/limelight.vim
+nnoremap <Leader>F <Cmd>Goyo<CR>
+nnoremap <Leader>L <Cmd>Limelight!!<CR>
+
 function! s:goyo_enter()
     let g:EasyMotion_verbose = 0
     set noshowmode
