@@ -463,6 +463,7 @@ endif
 
 " Visuals
 set cursorline
+set cursorlineopt=number,screenline
 set number
 set showmode showcmd
 set report=1
