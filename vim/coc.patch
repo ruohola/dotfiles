@@ -1,0 +1,37 @@
+Keep the window view when coc creates a float buffer
+
+Vim 9.2 resets the current window's `skipcol` when another buffer is loaded or
+written to. `coc#float#create_buf` does both for every float, including the
+completion popup. When the window's first line is a partly shown wrapped line,
+which `smoothscroll` allows, the reset scrolls the window under the cursor.
+Typing a word in a soft-wrapped Markdown paragraph then jumps the page.
+
+Saving the view before the buffer work and restoring it after keeps the
+scroll position. A scroll the cursor does need still happens, because Vim
+rescrolls to bring the cursor back into view after the restore.
+
+This is a Vim bug that this indirectly patches for coc's completion popup usage.
+
+diff --git a/autoload/coc/float.vim b/autoload/coc/float.vim
+index 80b2b2f..8d3328d 100644
+--- a/autoload/coc/float.vim
++++ b/autoload/coc/float.vim
+@@ -1019,6 +1019,10 @@ endfunction
+ 
+ " Create temporarily buffer with optional lines and &bufhidden
+ function! coc#float#create_buf(bufnr, ...) abort
++  " Loading or writing another buffer resets the current window's `skipcol`,
++  " which scrolls the window when its first line is a partly shown wrapped
++  " line. Save the view here and restore it before returning.
++  let saved_view = winsaveview()
+   if a:bufnr > 0 && bufloaded(a:bufnr)
+     let bufnr = a:bufnr
+   else
+@@ -1049,6 +1053,7 @@ function! coc#float#create_buf(bufnr, ...) abort
+       call nvim_buf_set_lines(bufnr, 0, -1, v:false, lines)
+     endif
+   endif
++  call winrestview(saved_view)
+   return bufnr
+ endfunction
+ 

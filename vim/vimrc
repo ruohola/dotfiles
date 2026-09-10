@@ -72,7 +72,12 @@ Plug 'rhysd/vim-grammarous', { 'do': __grammarous_patch }  " Use LanguageTool to
 
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for LaTeX
 Plug 'lervag/vimtex',                 { 'for': 'tex' } " LaTeX automompletion and more
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Patch in a fix for completion popups causing jumpy window scrolling; see coc.patch for details.
+let s:coc_patch = shellescape(VimFolder . '/coc.patch')
+let __coc_patch =
+    \ 'git apply --reverse --check ' . s:coc_patch . ' 2>/dev/null'
+    \ . ' || git apply ' . s:coc_patch
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': __coc_patch}
 
 Plug 'junegunn/goyo.vim'               " Distration-free writing
 Plug 'junegunn/limelight.vim'          " Focus only on the current paragraph
