@@ -1058,17 +1058,6 @@ augroup TrailInsert
 augroup END
 
 
-" Mitigates a long-standing Vim (9.2) bug where a nonzero `scrolloff` can cause large
-" jumps while typing wrapped lines, even with `smoothscroll` enabled.
-" This sets `scrolloff=0` whenever `wrap` is enabled.
-augroup WrapScrolloff
-    autocmd!
-    autocmd OptionSet wrap let &l:scrolloff = &l:wrap ? 0 : 1
-    autocmd VimEnter,WinEnter,BufWinEnter *
-        \ let &l:scrolloff = &l:wrap ? 0 : 1
-augroup END
-
-
 let PostLaunchSettings = NewPostLaunchSettings(PathToSpellFolder)
 
 augroup SetPostLaunchSettings
