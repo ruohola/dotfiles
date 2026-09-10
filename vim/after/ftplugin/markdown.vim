@@ -4,8 +4,8 @@ setlocal wrap
 
 nnoremap <buffer> <Leader>e <Cmd>call RunCommandInSplitTerm('go-grip --bounding-box=false --port "$(freeport)" ' . shellescape(expand('%:p')), 0.10)<CR>
 
-" Prepend a securemodelines header, that enables spell checking and
-" undoing the `textwidth` above so the file isn't hard wrapped.
+" Prepend a securemodelines header that enables spell checking and undoes
+" the default Markdown `textwidth` above, so the file won't be hard wrapped.
 nnoremap <buffer> <silent> <Leader>M <Cmd>execute "normal! ggO<!-- vim: tw=0 spell -->"<Bar>noautocmd write<Bar>doautocmd SecureModeLines BufRead<Bar>normal! ``<CR>
 
 command! -buffer SOT so ~/.vim/after/ftplugin/markdown.vim
