@@ -2,6 +2,8 @@ setlocal softtabstop=2 shiftwidth=2
 setlocal textwidth=105
 setlocal wrap
 
+setlocal dictionary=/usr/share/dict/words
+
 nnoremap <buffer> <Leader>e <Cmd>call RunCommandInSplitTerm('go-grip --bounding-box=false --port "$(freeport)" ' . shellescape(expand('%:p')), 0.10)<CR>
 
 " Prepend a securemodelines header that enables spell checking and undoes

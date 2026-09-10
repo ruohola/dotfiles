@@ -1,5 +1,6 @@
 {
   "extensions.updateCheck": "weekly",
+  "coc.source.dictionary.filetypes": ["markdown"],
   "coc.source.file.ignoreHidden": false,
   "suggest.invalidInsertCharacters": [],
   "suggest.noselect": false,
