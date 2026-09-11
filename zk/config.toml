@@ -7,7 +7,8 @@ exclude = [".obsidian", "_templates"]
 template = "default.md"
 
 [format.markdown]
-link-format = "[[{{filename}}|{{title}}]]"
+link-format = "markdown"
+link-drop-extension = false
 hashtags = true
 colon-tags = false
 multiword-tags = false
