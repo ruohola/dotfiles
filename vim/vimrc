@@ -485,7 +485,7 @@ set statusline+=%=                                         " Left/right separato
 set statusline+=\ \|\ %{fnamemodify(getcwd(),':~')}        " Current working directory
 set statusline+=\ [%{strlen(&ft)?(&ft\ .\ \',\'):''}       " Filetype
 set statusline+=%{strlen(&fenc)?(&fenc\ .\ \',\'):''}      " File encoding
-set statusline+=%{&ff}]                                    " Line endings
+set statusline+=%{&ff.(&endofline?'':'↵×')}]               " Line endings, and indicate a missing final newline
 set statusline+=%<                                         " Start to truncate here
 
 " Line wrapping settings (useful when `wrap` is toggled on).
