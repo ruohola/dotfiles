@@ -204,6 +204,8 @@ mkcd () {
 
 alias rm='rm -I'
 
+alias th='trash'
+
 alias F='open .'  # Open Finder in the current directory.
 
 alias cp='cp -v'
