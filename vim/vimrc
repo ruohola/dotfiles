@@ -215,6 +215,9 @@ let g:livepreview_use_biber = 1
 let g:livepreview_cursorhold_recompile = 0
 
 " junegunn/fzf.vim
+" Avoid fzf 0.74 opening a tmux (3.7+) floating pane, which doesn't work well with tmux pane zooming and resize hooks.
+let g:fzf_layout = {'window': {'width': 0.9, 'height': 0.6}}
+
 let g:fzf_vim = get(g:, 'fzf_vim', {})
 " Remap buffer unloading into a more ergonomic Ctrl-D.
 let g:fzf_vim.buffers_options = ['--bind', 'ctrl-d:trigger(ctrl-alt-x)']
