@@ -1327,8 +1327,6 @@ brew () {
         ln -sf ~/dotfiles/vim/spell/en.utf-8.add \
             "${HOMEBREW_PREFIX}/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/spelling_custom.txt"
         return "$rc"
-    elif [ "$*" == "dump" ]; then
-        command brew bundle dump --force --no-restart --file ~/dotfiles/brew/Brewfile
     elif [ "$*" == "load" ]; then
         command brew bundle install --quiet --file=~/dotfiles/brew/Brewfile
     else
