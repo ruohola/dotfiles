@@ -88,6 +88,18 @@ target=~/.local/share/bash-completion/completions/npm
 
 [ -f "$(brew --prefix)/bin/pinentry-mac" ] && [ ! -L /usr/local/bin/pinentry ] && sudo mkdir -p /usr/local/bin/ && sudo ln -sfv "$(brew --prefix)/bin/pinentry-mac" /usr/local/bin/pinentry
 
+# Enable Touch ID for `sudo`. `pam_reattach` is needed for it to work inside tmux,
+# whose server is outside the GUI session that draws the prompt. `sudo_local` is
+# used over `/etc/pam.d/sudo` because macOS overwrites the latter on every update.
+# (On first run, asks for password and asks for the terminal app to 'administer your computer'.)
+pam_reattach="$(brew --prefix)/lib/pam/pam_reattach.so"
+if [ -f "$pam_reattach" ] && ! grep --quiet --fixed-strings "$pam_reattach" /etc/pam.d/sudo_local 2> /dev/null; then
+    printf '%s\n' \
+        "auth       optional       ${pam_reattach} ignore_ssh" \
+        'auth       sufficient     pam_tid.so' \
+        | sudo tee /etc/pam.d/sudo_local > /dev/null
+fi
+
 mkdir -p ~/.local/bin/ && sed '/echo "This manpage is not compatible with mandoc/,/sleep 1/ s/.*/:/' /usr/bin/man > ~/.local/bin/man && chmod +x ~/.local/bin/man
 
 [ -f ~/go/bin/go-grip ] && [ ! -L ~/.local/bin/go-grip ] && ln -sfv ~/go/bin/go-grip ~/.local/bin/go-grip
