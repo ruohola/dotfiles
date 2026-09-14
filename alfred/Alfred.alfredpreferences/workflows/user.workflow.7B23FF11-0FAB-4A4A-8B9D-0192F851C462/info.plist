@@ -40,7 +40,7 @@
 				<key>subtext</key>
 				<string></string>
 				<key>text</key>
-				<string>Toggle NightShift</string>
+				<string>Toggle Night Shift</string>
 				<key>withspace</key>
 				<false/>
 			</dict>
@@ -59,17 +59,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>old=$( cat warmth )
-
-if [ $old -gt 0 ]
-then
-	query=0
-else
-	query=100
-fi
-
-echo $query &gt; warmth
-./nshift "$query"</string>
+				<string>/opt/homebrew/bin/nightlight toggle</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
