@@ -1,4 +1,9 @@
 [[mgr.prepend_keymap]]
-on = "b"
+on = "<Space>"
 run = "shell -- ql %s"
 desc = "Quick Look"
+
+[[mgr.prepend_keymap]]
+on = "b"
+run = ["toggle", "arrow 1"]
+desc = "Toggle the current selection state"
