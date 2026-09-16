@@ -277,7 +277,7 @@ let g:targets_seekRanges = 'cc cr cb cB lc ac Ac lr lb ar ab lB Ar aB Ab AB rr l
 " darfink/vim-plist
 " https://yous.be/2018/12/02/how-to-open-binary-plist-files-using-vim-plist/
 function! s:ConvertBinaryPlist()
-  silent execute '%d'
+  silent %d _
   call plist#BufReadCmd()
   set fileencoding=utf-8
 
