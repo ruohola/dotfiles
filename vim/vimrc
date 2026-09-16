@@ -335,8 +335,6 @@ function! s:goyo_enter()
     let g:EasyMotion_verbose = 0
     set noshowmode
     set noshowcmd
-    command! -bang W silent write<bang> | echo ''
-    cnoreabbrev <expr> w getcmdtype() == ':' && getcmdpos() == 2 ? 'W' : 'w'
     if exists('$TMUX')
         silent !tmux set status off
     endif
@@ -345,9 +343,6 @@ function! s:goyo_leave()
     let g:EasyMotion_verbose = 1
     set showmode
     set showcmd
-    cunabbrev w
-    " Restore a vim-eunuch command.
-    command! -bar W Wall
     Limelight!
     if exists('$TMUX')
         silent !tmux set status on
@@ -948,6 +943,18 @@ function! ChangeReg(x) abort
 endfunction
 
 
+" Avoid a statusline message when saving a file, and also avoid the `:w` itself
+" lingering around in the command line. Does the write here and replaces the
+" command with `:ec`, which prints an empty message, clearing the command line.
+" Failed writes still report their error.
+function! s:SilentWrite() abort
+    if getcmdtype() ==# ':' && getcmdline() ==# 'w'
+        call setcmdline('ec')
+        silent write
+    endif
+endfunction
+
+
 " Settings that are ran after vim -c '<command>' is exeuted, so after git mergetool has finished its setup.
 function! NewPostLaunchSettings(pathToSpellFolder) abort
     let context = {'pathToSpellFolder': a:pathToSpellFolder}
@@ -1065,6 +1072,13 @@ augroup TrailInsert
   autocmd!
   autocmd InsertEnter * set listchars-=trail:·
   autocmd InsertLeave * set listchars+=trail:·
+augroup END
+
+
+" Write silently when saving with a plain `:w`.
+augroup SilentWrite
+    autocmd!
+    autocmd CmdlineLeave : call <SID>SilentWrite()
 augroup END
 
 
