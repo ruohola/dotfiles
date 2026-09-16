@@ -277,7 +277,7 @@ let g:targets_seekRanges = 'cc cr cb cB lc ac Ac lr lb ar ab lB Ar aB Ab AB rr l
 " darfink/vim-plist
 " https://yous.be/2018/12/02/how-to-open-binary-plist-files-using-vim-plist/
 function! s:ConvertBinaryPlist()
-  silent! execute '%d'
+  silent execute '%d'
   call plist#BufReadCmd()
   set fileencoding=utf-8
 
@@ -794,9 +794,9 @@ nnoremap <silent> <Leader>< :call <SID>CopyFilePath()<CR>
 " ============= COMMANDS =============
 
 " `vim-plug` commands.
-command! PI silent! w | PlugInstall
-command! PC silent! w | PlugClean!
-command! PU silent! w | PlugUpgrade | PlugUpdate | CocUpdate
+command! PI silent w | PlugInstall
+command! PC silent w | PlugClean!
+command! PU silent w | PlugUpgrade | PlugUpdate | CocUpdate
 
 " Source vimrc.
 command! SO so $MYVIMRC
