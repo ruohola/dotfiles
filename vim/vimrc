@@ -11,21 +11,21 @@ set encoding=utf-8
 scriptencoding utf-8
 
 " Vim file locations.
-let VimFolder = $HOME . '/.vim'
-let PathToPluginsFolder = VimFolder . '/plugins'
-let PathToSpellFolder = VimFolder . '/spell'
-let PathToTempFolder = VimFolder . '/.temp'
-let PathToPatchesFolder = VimFolder . '/patches'
+let s:vim_dir = $HOME . '/.vim'
+let s:plugins_dir = s:vim_dir . '/plugins'
+let s:spell_dir = s:vim_dir . '/spell'
+let s:temp_dir = s:vim_dir . '/.temp'
+let s:patches_dir = s:vim_dir . '/patches'
 " `zg` adds a word to the first entry, `2zg` to the second.
-let &spellfile = PathToSpellFolder . '/en.utf-8.add'
-    \ . ',' . PathToSpellFolder . '/fi.utf-8.add'
+let &spellfile = s:spell_dir . '/en.utf-8.add'
+    \ . ',' . s:spell_dir . '/fi.utf-8.add'
 if empty(&viminfofile)
     " Guard allows this to be overriden by e.g. `vim -i NONE`.
-    let &viminfofile = PathToTempFolder . '/.viminfo'
+    let &viminfofile = s:temp_dir . '/.viminfo'
 endif
-let &undodir = PathToTempFolder . '/undo//'
-let &backupdir = PathToTempFolder . '/backup//'
-let &directory = PathToTempFolder . '/swap//'
+let &undodir = s:temp_dir . '/undo//'
+let &backupdir = s:temp_dir . '/backup//'
+let &directory = s:temp_dir . '/swap//'
 let g:netrw_dirhistmax=0
 
 
@@ -34,7 +34,7 @@ let g:netrw_dirhistmax=0
 
 packadd! matchit  " Enable the built-in plugin.
 
-call plug#begin(PathToPluginsFolder)
+call plug#begin(s:plugins_dir)
 
 Plug $HOMEBREW_PREFIX . '/opt/fzf'
 Plug 'junegunn/fzf.vim'                " Fuzzy file finding
@@ -65,24 +65,24 @@ Plug 'tpope/vim-eunuch'                " Easy unix file operations
 Plug 'tpope/vim-fugitive'              " Git plugin
 Plug 'ypcrts/securemodelines'          " Allowlisted subset of Vim modelines
 " Patch in LanguageTool 6 compatibility; see grammarous.patch for details.
-let s:grammarous_patch = shellescape(PathToPatchesFolder . '/grammarous.patch')
-let __grammarous_patch =
+let s:grammarous_patch = shellescape(s:patches_dir . '/grammarous.patch')
+let g:__grammarous_patch =
     \ 'git apply --reverse --check ' . s:grammarous_patch . ' 2>/dev/null'
     \ . ' || git apply ' . s:grammarous_patch
-Plug 'rhysd/vim-grammarous', { 'do': __grammarous_patch }  " Use LanguageTool to check spelling and grammar
+Plug 'rhysd/vim-grammarous', { 'do': g:__grammarous_patch }  " Use LanguageTool to check spelling and grammar
 
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for LaTeX
 Plug 'lervag/vimtex',                 { 'for': 'tex' } " LaTeX automompletion and more
 " Patch in a fix for completion popups causing jumpy window scrolling, and one that lets
 " a language server save its state before coc exits; see the patch files for details.
-let s:coc_completion_patch = shellescape(PathToPatchesFolder . '/coc-completion.patch')
-let s:coc_exit_patch = shellescape(PathToPatchesFolder . '/coc-exit.patch')
-let __coc_patch =
+let s:coc_completion_patch = shellescape(s:patches_dir . '/coc-completion.patch')
+let s:coc_exit_patch = shellescape(s:patches_dir . '/coc-exit.patch')
+let g:__coc_patch =
     \ '{ git apply --reverse --check ' . s:coc_completion_patch . ' 2>/dev/null'
     \ . ' || git apply ' . s:coc_completion_patch . '; }'
     \ . ' && { git apply --reverse --check ' . s:coc_exit_patch . ' 2>/dev/null'
     \ . ' || git apply ' . s:coc_exit_patch . '; }'
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': __coc_patch}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': g:__coc_patch}
 
 Plug 'junegunn/goyo.vim'               " Distration-free writing
 Plug 'junegunn/limelight.vim'          " Focus only on the current paragraph
@@ -436,8 +436,8 @@ if !exists('g:notfirstopen')
     syntax enable
 
     " Make sure that the temp file locations exists, readable only by us.
-    for folder in ['/undo', '/backup', '/swap']
-        call mkdir(PathToTempFolder . folder, 'p', str2nr('700', 8))
+    for s:folder in ['/undo', '/backup', '/swap']
+        call mkdir(s:temp_dir . s:folder, 'p', str2nr('700', 8))
     endfor
 endif
 
@@ -1117,9 +1117,9 @@ augroup SilentWrite
 augroup END
 
 
-let PostLaunchSettings = NewPostLaunchSettings(PathToSpellFolder)
+let s:post_launch_settings = NewPostLaunchSettings(s:spell_dir)
 
 augroup SetPostLaunchSettings
   autocmd!
-  autocmd VimEnter * call PostLaunchSettings.f()
+  autocmd VimEnter * call s:post_launch_settings.f()
 augroup END
