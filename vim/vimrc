@@ -620,6 +620,24 @@ else
     nmap <Esc>[2013~ <S-Enter>
 endif
 
+if !has('gui_running')
+    execute "set <M-b>=\eb"
+    execute "set <M-f>=\ef"
+
+    " Move by word and to line ends in command line and insert mode.
+    cnoremap <M-b> <S-Left>
+    cnoremap <M-f> <S-Right>
+    cnoremap <C-A> <Home>
+    " <C-E> (Cmd+right-arrow) is already mapped by default.
+    inoremap <M-b> <S-Left>
+    inoremap <M-f> <S-Right>
+    inoremap <C-A> <Home>
+    inoremap <C-E> <End>
+
+    " Remap 'expand insert all wildcard matches' away from its now-taken default.
+    cnoremap <C-O> <C-A>
+endif
+
 " Makes these easier to use.
 noremap , :
 tnoremap <C-W>, <C-W>:
