@@ -106,6 +106,7 @@ let g:coc_global_extensions = [
     \ 'coc-dictionary',
     \ 'coc-docker',
     \ 'coc-go',
+    \ 'coc-java',
     \ 'coc-jedi',
     \ 'coc-json',
     \ 'coc-rls',

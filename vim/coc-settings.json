@@ -4,6 +4,7 @@
   "coc.source.file.ignoreHidden": false,
   "suggest.invalidInsertCharacters": [],
   "suggest.noselect": false,
+  "java.jdt.ls.java.home": "~/.sdkman/candidates/java/current",
   "languageserver": {
     "haskell": {
       "command": "haskell-language-server-wrapper",
