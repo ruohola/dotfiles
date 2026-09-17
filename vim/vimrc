@@ -91,10 +91,8 @@ Plug 'christoomey/vim-tmux-navigator', { 'on': [] } " Navigate from Vim splits t
 
 " Filetypes
 Plug 'jparise/vim-graphql'
-Plug 'cespare/vim-toml'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'hashivim/vim-terraform'
-Plug 'kevinoid/vim-jsonc'
 Plug 'darfink/vim-plist'
 
 " Colorshemes
@@ -1053,11 +1051,9 @@ augroup FileTypes
     autocmd BufRead,BufNewFile .gitconfig* set filetype=gitconfig
     autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
     autocmd BufRead,BufNewFile *.tfstate set filetype=json
-    autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
     autocmd BufRead,BufNewFile Brewfile* set filetype=ruby
     autocmd BufRead,BufNewFile .env* set filetype=sh | let b:coc_enabled = 0
     autocmd BufRead,BufNewFile env,bookmarks set filetype=sh
-    autocmd BufRead,BufNewFile poetry.lock set filetype=toml
     autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
 augroup END
 
