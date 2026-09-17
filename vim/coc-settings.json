@@ -31,6 +31,11 @@
         "languageServerHaskell": {}
       }
     },
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform"]
+    },
     "zk": {
       "command": "zk",
       "args": ["lsp"],

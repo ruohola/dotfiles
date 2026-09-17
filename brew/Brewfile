@@ -46,6 +46,9 @@ brew "yazi"
 brew "yq"
 brew "zk"
 brew "zoxide"
+# Don't use `terraform-ls` as it omits the provider schema bundles and
+# thus doesn't understand any actual TF code.
+brew "hashicorp/tap/terraform-ls", trusted: true
 brew "morantron/tmux-fingers/tmux-fingers", trusted: true
 brew "raine/tmux-snaglord/tmux-snaglord", trusted: true
 brew "raine/aven/aven", trusted: true
