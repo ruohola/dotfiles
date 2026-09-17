@@ -1517,6 +1517,11 @@ if [[ "$-" == *i* ]]; then
 fi
 
 
+# Avoid duplicate Homebrew $PATH entries. Can't gate the top-level evals scripts,
+# as then macOS's `path_helper` default paths would take precedence.
+_add_to_PATH "${HOMEBREW_PREFIX}/sbin"
+_add_to_PATH "${HOMEBREW_PREFIX}/bin"
+
 _add_to_PATH "${__node_bin_dir}"
 _add_to_PATH "${HOME}/.cargo/bin"
 _add_to_PATH "${HOME}/.poetry/bin"
