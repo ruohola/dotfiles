@@ -582,19 +582,10 @@ elseif exists('$TMUX')
     tnoremap <M-u> <Cmd>tabprevious<CR>
     tnoremap <M-i> <Cmd>tabnext<CR>
 
-    " First for tmux, second for tmux `extended-keys`, third for iTerm `tmux -CC`.
+    " Allow differentiating Ctrl-I from Tab.
+    " First is for tmux, the second is for tmux `extended-keys`.
     nnoremap <Esc>[1;2P <C-I>
     nnoremap <Esc>[1;2R <C-I>
-    nnoremap <Esc>[25~ <C-I>
-
-    " iTerm config remaps Ctrl-2 to this arbitrary escape sequence
-    " so that it can be differentiated from tmux prefix Ctrl-Space.
-    nmap <Esc>[50~ <C-@>
-
-    " iTerm config maps S-Enter to this escape sequence
-    " so that it can be differentiated from plain Enter.
-    " When running in tmux, it's forwarded only to Vim.
-    nmap <Esc>[2013~ <S-Enter>
 else
     " Move between splits (alt+hjkl).
     nnoremap è <C-W>h
@@ -612,15 +603,21 @@ else
     tnoremap ì <C-W><C-L>
     tnoremap õ <Cmd>tabprevious<CR>
     tnoremap é <Cmd>tabnext<CR>
-
-    nnoremap <Esc>[25~ <C-I>
-
-    nmap <Esc>[50~ <C-@>
-
-    nmap <Esc>[2013~ <S-Enter>
 endif
 
 if !has('gui_running')
+    " iTerm config remaps Ctrl-2 to this arbitrary escape sequence
+    " so that it can be differentiated from tmux prefix Ctrl-Space.
+    nmap <Esc>[50~ <C-@>
+
+    " iTerm config maps S-Enter to this escape sequence
+    " so that it can be differentiated from plain Enter.
+    " When running in tmux, it's forwarded only to Vim.
+    nmap <Esc>[2013~ <S-Enter>
+
+    " For iTerm (with our without `tmux -CC`).
+    nnoremap <Esc>[25~ <C-I>
+
     execute "set <M-b>=\eb"
     execute "set <M-f>=\ef"
 
