@@ -5,6 +5,11 @@
   "suggest.invalidInsertCharacters": [],
   "suggest.noselect": false,
   "java.jdt.ls.java.home": "~/.sdkman/candidates/java/current",
+  "python.linting.ruffEnabled": true,
+  "python.linting.ruffPath": "${env:HOMEBREW_PREFIX}/bin/ruff",
+  "python.formatting.provider": "ruff",
+  "python.formatting.ruffPath": "${env:HOMEBREW_PREFIX}/bin/ruff",
+  "pyright.organizeimports.provider": "ruff",
   // Managed via `$ rustup component add rust-analyzer` instead.
   "rust-analyzer.updates.prompt": "neverDownload",
   "languageserver": {
