@@ -15,6 +15,7 @@ let VimFolder = $HOME . '/.vim'
 let PathToPluginsFolder = VimFolder . '/plugins'
 let PathToSpellFolder = VimFolder . '/spell'
 let PathToTempFolder = VimFolder . '/.temp'
+let PathToPatchesFolder = VimFolder . '/patches'
 " `zg` adds a word to the first entry, `2zg` to the second.
 let &spellfile = PathToSpellFolder . '/en.utf-8.add'
     \ . ',' . PathToSpellFolder . '/fi.utf-8.add'
@@ -64,7 +65,7 @@ Plug 'tpope/vim-eunuch'                " Easy unix file operations
 Plug 'tpope/vim-fugitive'              " Git plugin
 Plug 'ypcrts/securemodelines'          " Allowlisted subset of Vim modelines
 " Patch in LanguageTool 6 compatibility; see grammarous.patch for details.
-let s:grammarous_patch = shellescape(VimFolder . '/grammarous.patch')
+let s:grammarous_patch = shellescape(PathToPatchesFolder . '/grammarous.patch')
 let __grammarous_patch =
     \ 'git apply --reverse --check ' . s:grammarous_patch . ' 2>/dev/null'
     \ . ' || git apply ' . s:grammarous_patch
@@ -74,8 +75,8 @@ Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for LaTeX
 Plug 'lervag/vimtex',                 { 'for': 'tex' } " LaTeX automompletion and more
 " Patch in a fix for completion popups causing jumpy window scrolling, and one that lets
 " a language server save its state before coc exits; see the patch files for details.
-let s:coc_completion_patch = shellescape(VimFolder . '/coc-completion.patch')
-let s:coc_exit_patch = shellescape(VimFolder . '/coc-exit.patch')
+let s:coc_completion_patch = shellescape(PathToPatchesFolder . '/coc-completion.patch')
+let s:coc_exit_patch = shellescape(PathToPatchesFolder . '/coc-exit.patch')
 let __coc_patch =
     \ '{ git apply --reverse --check ' . s:coc_completion_patch . ' 2>/dev/null'
     \ . ' || git apply ' . s:coc_completion_patch . '; }'
