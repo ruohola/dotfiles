@@ -6,6 +6,11 @@
   "suggest.noselect": false,
   "java.jdt.ls.java.home": "~/.sdkman/candidates/java/current",
   "languageserver": {
+    "githubactions": {
+      "command": "actions-languageserver",
+      "args": ["--stdio"],
+      "filetypes": ["githubactions"]
+    },
     "haskell": {
       "command": "haskell-language-server-wrapper",
       "args": [

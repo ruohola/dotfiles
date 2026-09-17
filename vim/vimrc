@@ -1049,6 +1049,9 @@ augroup FileTypes
     autocmd BufRead,BufNewFile * if getline(1) == '#!/bin/bash' || getline(1) == '#!/usr/bin/env bash' || getline(1) == '# shellcheck shell=bash' | set filetype=bash | endif
     autocmd BufRead,BufNewFile Dockerfile* set filetype=dockerfile
     autocmd BufRead,BufNewFile .gitconfig* set filetype=gitconfig
+    " Compound filetype, Vim sources both and coc derives the LSP language ID from
+    " the part before the dot, disabling coc-yaml.
+    autocmd BufRead,BufNewFile */.github/workflows/*.yml,*/.github/workflows/*.yaml set filetype=githubactions.yaml
     autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
     autocmd BufRead,BufNewFile *.tfstate set filetype=json
     autocmd BufRead,BufNewFile Brewfile* set filetype=ruby
