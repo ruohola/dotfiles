@@ -115,7 +115,10 @@ __capture_exit () {
         __last_exit=0
     fi
 }
-PROMPT_COMMAND="__capture_exit${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+# Append new history entries to the file after every command instead of only on exit,
+# so that a pane killed without a clean exit loses at most its last command.
+# (`__capture_exit` has to stay first as it reads `$?` from the last command.)
+PROMPT_COMMAND="__capture_exit;history -a${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 
 export EDITOR=vim
 export VISUAL=vim
