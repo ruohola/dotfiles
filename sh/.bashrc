@@ -1522,6 +1522,12 @@ fi
 _add_to_PATH "${HOMEBREW_PREFIX}/sbin"
 _add_to_PATH "${HOMEBREW_PREFIX}/bin"
 
+# `sdkman-init.sh` only prepends a candidate when it isn't in $PATH yet, so need
+# to manually restore its precedence here after `path_helper`.
+for __candidate_bin in "${SDKMAN_DIR}"/candidates/*/current/bin; do
+    _add_to_PATH "$__candidate_bin"
+done
+
 _add_to_PATH "${__node_bin_dir}"
 _add_to_PATH "${HOME}/.cargo/bin"
 _add_to_PATH "${HOME}/.poetry/bin"
