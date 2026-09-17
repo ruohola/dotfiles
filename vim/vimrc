@@ -74,11 +74,11 @@ Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' } " Live preview for LaTeX
 Plug 'lervag/vimtex',                 { 'for': 'tex' } " LaTeX automompletion and more
 " Patch in a fix for completion popups causing jumpy window scrolling, and one that lets
 " a language server save its state before coc exits; see the patch files for details.
-let s:coc_patch = shellescape(VimFolder . '/coc.patch')
+let s:coc_completion_patch = shellescape(VimFolder . '/coc-completion.patch')
 let s:coc_exit_patch = shellescape(VimFolder . '/coc-exit.patch')
 let __coc_patch =
-    \ '{ git apply --reverse --check ' . s:coc_patch . ' 2>/dev/null'
-    \ . ' || git apply ' . s:coc_patch . '; }'
+    \ '{ git apply --reverse --check ' . s:coc_completion_patch . ' 2>/dev/null'
+    \ . ' || git apply ' . s:coc_completion_patch . '; }'
     \ . ' && { git apply --reverse --check ' . s:coc_exit_patch . ' 2>/dev/null'
     \ . ' || git apply ' . s:coc_exit_patch . '; }'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': __coc_patch}
