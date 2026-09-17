@@ -106,9 +106,11 @@ let g:coc_disable_mappings_check=1  " Disable default mappings.
 
 let g:coc_global_extensions = [
     \ 'coc-clangd',
+    \ 'coc-css',
     \ 'coc-dictionary',
     \ 'coc-docker',
     \ 'coc-go',
+    \ 'coc-html',
     \ 'coc-java',
     \ 'coc-json',
     \ 'coc-pyright',
