@@ -5,6 +5,8 @@
   "suggest.invalidInsertCharacters": [],
   "suggest.noselect": false,
   "java.jdt.ls.java.home": "~/.sdkman/candidates/java/current",
+  // Managed via `$ rustup component add rust-analyzer` instead.
+  "rust-analyzer.updates.prompt": "neverDownload",
   "languageserver": {
     "githubactions": {
       "command": "actions-languageserver",
