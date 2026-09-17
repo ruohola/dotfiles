@@ -435,9 +435,9 @@ if !exists('g:notfirstopen')
 
     syntax enable
 
-    " Make sure that the temp file locations exists.
+    " Make sure that the temp file locations exists, readable only by us.
     for folder in ['/undo', '/backup', '/swap']
-        call mkdir(PathToTempFolder . folder, 'p')
+        call mkdir(PathToTempFolder . folder, 'p', str2nr('700', 8))
     endfor
 endif
 
