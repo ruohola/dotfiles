@@ -13,6 +13,7 @@
   "pyright.organizeimports.provider": "ruff",
   // Managed via `$ rustup component add rust-analyzer` instead.
   "rust-analyzer.updates.prompt": "neverDownload",
+  "tombi.updates.checkOnStartup": false,
   "languageserver": {
     "githubactions": {
       "command": "actions-languageserver",
