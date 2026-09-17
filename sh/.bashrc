@@ -136,11 +136,14 @@ export TERMINFO_DIRS="${HOMEBREW_PREFIX}/opt/ncurses/share/terminfo:"
 shopt -s histappend
 
 # Don't add commands starting with a space to the history.
-HISTCONTROL=ignorespace
+export HISTCONTROL=ignorespace
 
 # Unlimited bash history.
-HISTSIZE=
-HISTFILESIZE=
+# Exported so that an interactive bash that skips this file (e.g. `sudo sh`,
+# `bash --norc`, or a tool's own rcfile) doesn't fall back to the default of 500
+# and truncate the history file.
+export HISTSIZE=
+export HISTFILESIZE=
 
 # Make ** expand to any number of directories.
 shopt -s globstar
