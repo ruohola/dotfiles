@@ -436,13 +436,8 @@ if !exists('g:notfirstopen')
     syntax enable
 
     " Make sure that the temp file locations exists.
-    if !isdirectory(PathToTempFolder)
-        call mkdir(PathToTempFolder)
-    endif
     for folder in ['/undo', '/backup', '/swap']
-        if !isdirectory(PathToTempFolder . folder)
-            call mkdir(PathToTempFolder . folder, 'p')
-        endif
+        call mkdir(PathToTempFolder . folder, 'p')
     endfor
 endif
 
