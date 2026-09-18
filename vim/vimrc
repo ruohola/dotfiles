@@ -436,8 +436,8 @@ if !exists('g:notfirstopen')
     syntax enable
 
     " Make sure that the temp file locations exists, readable only by us.
-    for s:folder in ['/undo', '/backup', '/swap']
-        call mkdir(s:temp_dir . s:folder, 'p', str2nr('700', 8))
+    for s:folder in [&undodir, &backupdir, &directory]
+        call mkdir(s:folder, 'p', str2nr('700', 8))
     endfor
 endif
 
