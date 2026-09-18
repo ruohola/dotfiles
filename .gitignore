@@ -1,9 +1,9 @@
 alfred/Alfred.alfredpreferences/preferences/local/
 
+git/.gitconfig_*
+
 karabiner/automatic_backups
 
 vim/autoload/plug.vim*
 vim/plugins/
 vim/spell/
-
-git/.gitconfig_*
