@@ -218,6 +218,23 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias grep='grep --color'
 
+cpa () {
+    # Copy a shell-escaped absolute path (for pasting into commands).
+    # Differences to `cpr`'s behavior for non-repo files:
+    #   - cpr resolves directory symlinks, abbreviates $HOME as ~,
+    #   - cpr leaves the path unescaped. cpa preserves symlinks and the full home path.
+    # Mnemonic: copy absolute path
+    local path="$1"
+    # Prefix with the logical `$PWD`, as `grealpath` would otherwise resolve
+    # the symlinks in the path of the working directory even with `--no-symlinks`.
+    [[ "$path" != /* ]] && path="${PWD}/${path}"
+    # Preserve newlines in filenames by reading a NUL-terminated path.
+    IFS= read -r -d '' path < <(
+        grealpath --zero --no-symlinks --canonicalize-missing -- "$path"
+    ) || return
+    printf '%q' "$path" | pbcopyn
+}
+
 cpr () {
     # Copy the path of a file, relative to the Git worktree (or submodule) root
     # when inside one, otherwise absolute with `~` in place of the home directory.
