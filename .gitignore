@@ -1,7 +1,5 @@
 alfred/Alfred.alfredpreferences/preferences/local/
 
-brew/Brewfile.lock.json
-
 karabiner/automatic_backups
 
 vim/autoload/plug.vim*
