@@ -1069,6 +1069,7 @@ augroup FileTypes
     autocmd BufRead,BufNewFile */.github/workflows/*.yml,*/.github/workflows/*.yaml set filetype=githubactions.yaml
     autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
     autocmd BufRead,BufNewFile *.tfstate set filetype=json
+    autocmd BufRead,BufNewFile coc-settings.json set filetype=jsonc
     autocmd BufRead,BufNewFile Brewfile* set filetype=ruby
     autocmd BufRead,BufNewFile .env* set filetype=sh | let b:coc_enabled = 0
     autocmd BufRead,BufNewFile env,bookmarks set filetype=sh
