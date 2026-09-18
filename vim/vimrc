@@ -199,7 +199,25 @@ let g:vimtex_compiler_latexmk = {
 " rhysd/vim-grammarous
 let g:grammarous#languagetool_cmd = 'languagetool'
 let g:grammarous#default_lang = 'en-US'
+let g:grammarous#show_first_error = 1
 nnoremap <Leader>Z <Cmd>execute exists('b:grammarous_result') ? 'GrammarousReset' : 'GrammarousCheck'<CR>
+
+let g:grammarous#hooks = {}
+function! g:grammarous#hooks.on_check(errs) abort
+    nmap <buffer> ]g <Plug>(grammarous-move-to-next-error)
+    nmap <buffer> [g <Plug>(grammarous-move-to-previous-error)
+    nmap <buffer> <Leader>zf <Plug>(grammarous-fixit)
+    nmap <buffer> <Leader>zr <Plug>(grammarous-remove-error)
+    nmap <buffer> <Leader>zR <Plug>(grammarous-disable-rule)
+endfunction
+function! g:grammarous#hooks.on_reset(errs) abort
+    silent! nunmap <buffer> ]g
+    silent! nunmap <buffer> [g
+    silent! nunmap <buffer> <Leader>zf
+    silent! nunmap <buffer> <Leader>zr
+    silent! nunmap <buffer> <Leader>zR
+    silent! nunmap <buffer> <Leader>zi
+endfunction
 
 " ypcrts/securemodelines
 " Replaces the allowlist entirely, so nothing else can be set from a modeline.
@@ -408,6 +426,11 @@ function! s:SolarizedHighlights() abort
         execute 'highlight SpellBad ctermfg=13 guifg=' . g:terminal_ansi_colors[13]
     endif
 
+    " Distinguish LanguageTool grammar errors from native spelling ones.
+    execute 'highlight GrammarousError gui=undercurl cterm=undercurl'
+        \ . ' guifg=NONE ctermfg=NONE ctermul=9'
+        \ . ' guisp=' . g:terminal_ansi_colors[9]
+
     " Make Markdown inline `code` spans green instead of the default string color.
     execute 'highlight markdownCode ctermfg=2 guifg=' . g:terminal_ansi_colors[2]
 endfunction
@@ -460,6 +483,10 @@ else
         " previous title when closing Vim in tmux.
         let &t_ST = "\e[22;2t"
         let &t_RT = "\e[23;2t"
+        " Enable undercurl support inside iTerm>tmux>Vim.
+        let &t_Cs = "\e[4:3m"
+        let &t_Ce = "\e[4:0m"
+        let &t_8u = "\e[58;2;%lu;%lu;%lum"
     endif
 endif
 
