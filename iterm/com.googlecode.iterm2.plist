@@ -2900,6 +2900,8 @@ Resize Split Pane.Move Divider Right</string>
 			<false/>
 			<key>Send Session Ended Alert</key>
 			<false/>
+			<key>Session Close Undo Timeout</key>
+			<integer>0</integer>
 			<key>Shortcut</key>
 			<string></string>
 			<key>Show Offscreen Command line</key>
