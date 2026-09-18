@@ -287,6 +287,7 @@ nnoremap <silent> <C-F> :<C-U>call smooth_scroll#down(&scroll*2, 5, 6)<CR>
 
 " tpope/vim-fugitive
 xnoremap <silent> <Leader>5 :Git blame<CR>
+nnoremap <silent> <Leader>D :Gdiffsplit<CR>
 augroup FugitiveBlameMappings
     autocmd!
     autocmd BufEnter * if &filetype !=# 'fugitiveblame'
