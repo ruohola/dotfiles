@@ -262,6 +262,14 @@ let g:EasyMotion_smartcase=1
 hi link EasyMotionTarget2First EasyMotionTarget
 map <Leader>k mo<Plug>(easymotion-bd-f)
 
+" Detach coc while easymotion replaces the target characters with its labels,
+" so language servers don't lint the mangled text and report bogus diagnostics.
+augroup EasyMotionCoc
+    autocmd!
+    autocmd User EasyMotionPromptBegin silent! CocDisable
+    autocmd User EasyMotionPromptEnd   silent! CocEnable
+augroup END
+
 " machakann/vim-highlightedyank
 let g:highlightedyank_highlight_duration=300
 
