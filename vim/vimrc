@@ -1110,6 +1110,7 @@ augroup RestoreCursorPosition
     autocmd!
     autocmd BufReadPost *
       \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+      \      && index(['xxd', 'gitrebase'], &ft) == -1 && !&diff
       \ |   exe "normal! g`\""
       \ | endif
 augroup END
