@@ -838,6 +838,9 @@ nnoremap <silent> <Leader>vi :e $HOME/.ideavimrc<CR>
 nnoremap <silent> <Leader>] <Cmd>windo diffthis<CR><Cmd>syntax off<CR>
 nnoremap <silent> <Leader>[ <Cmd>windo diffoff<CR><Cmd>syntax enable<CR>
 
+" Toggle a diff against the on-disk contents of the current file.
+nnoremap <silent> <Leader>O <Cmd>DiffOrig<CR>
+
 " Toggle spell checking.
 nnoremap <silent> <Leader>S :setlocal spell! spell?<CR>
 
@@ -871,10 +874,8 @@ command! -nargs=1 CR call ChangeReg('<args>')
 " Change working directory to current file's directory.
 command! CD cd %:p:h
 
-" Diff the unsaved changes in the current buffer against the file on disk.
-" https://vimhelp.org/diff.txt.html#%3ADiffOrig
-command! DiffOrig vertical new | set buftype=nofile | read ++edit #
-    \ | 0delete _ | diffthis | wincmd p | diffthis
+" Toggle a diff of the unsaved changes in the current buffer against the file on disk.
+command! DiffOrig call <SID>DiffOrig()
 
 
 
@@ -970,6 +971,35 @@ function! s:CopyFilePath() abort
     endif
     let @* = path
     echo @*
+endfunction
+
+
+" Open a scratch window with the on-disk contents of the current file and diff the
+" two, or close that window again when one is already open.
+" https://vimhelp.org/diff.txt.html#%3ADiffOrig
+function! s:DiffOrig() abort
+    if exists('t:diff_orig_buf')
+        let l:buf = t:diff_orig_buf
+        unlet t:diff_orig_buf
+        " The buffer is already gone when the window was closed by hand.
+        if bufexists(l:buf)
+            execute 'bwipeout' l:buf
+        endif
+        diffoff!
+        return
+    endif
+
+    let l:filetype = &filetype
+    diffthis
+    vertical new
+    let t:diff_orig_buf = bufnr('%')
+    setlocal buftype=nofile bufhidden=wipe nobuflisted
+    read ++edit #
+    0delete _
+    " Give the scratch buffer the same highlighting as the original.
+    let &l:filetype = l:filetype
+    diffthis
+    wincmd p
 endfunction
 
 
