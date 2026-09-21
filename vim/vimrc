@@ -835,8 +835,8 @@ nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>vc :CocConfig<CR>
 nnoremap <silent> <Leader>vi :e $HOME/.ideavimrc<CR>
 
-nnoremap <silent> <Leader>] :windo diffthis<CR>
-nnoremap <silent> <Leader>[ :windo diffoff<CR>
+nnoremap <silent> <Leader>] <Cmd>windo diffthis<CR><Cmd>syntax off<CR>
+nnoremap <silent> <Leader>[ <Cmd>windo diffoff<CR><Cmd>syntax enable<CR>
 
 " Toggle spell checking.
 nnoremap <silent> <Leader>S :setlocal spell! spell?<CR>
@@ -1133,17 +1133,6 @@ augroup FileTypes
     autocmd BufRead,BufNewFile .env* set filetype=sh | let b:coc_enabled = 0
     autocmd BufRead,BufNewFile env,bookmarks set filetype=sh
     autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
-augroup END
-
-
-" Toggle syntax highlighting together with diff mode.
-augroup DiffSettings
-  autocmd!
-  autocmd DiffUpdated * if &diff
-          \| syntax off
-          \| else
-          \| syntax enable
-          \| endif
 augroup END
 
 
