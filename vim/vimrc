@@ -564,11 +564,15 @@ set backspace=indent,eol,start " Make backspace behave normally
 set hidden                     " Switch to another buffer without saving
 set autoread                   " Update changes to file automatically
 set scrolloff=1                " Pad cursor row with lines
+set sidescroll=1               " Don't jump half a page when side scrolling
+set sidescrolloff=2            " Keep one character visible in addition to the `extends` `listchar`
 set wildmode=list:longest,full " Better tab completion on command line mode
 set undofile                   " Use an undofile for persistent undo
 set undolevels=1000000000      " Remember more undo history
 set history=10000              " Remember maximum amount of command history
+set tabpagemax=50              " Don't silently drop tabs when opening many at once, e.g. `vim -p *`
 set updatecount=10             " Update swap file more often
+set nrformats-=octal           " Don't treat zero-padded numbers as octal with `CTRL-A`/`CTRL-X`
 set matchpairs=(:),{:},[:],<:> " Configure which braces to match
 set title                      " Show the current file in the window title
 let &titleold=' '              " Fallback title for when the real one can't be restored when closing Vim.
