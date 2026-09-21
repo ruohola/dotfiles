@@ -188,7 +188,7 @@ vims () {
 
 vman () {
     man -w "$@" > /dev/null || return
-    vim -c "Man $*" -c 'silent! tabonly | silent! only'
+    vim -c "Man $*" -c 'if bufname(1) ==# "" | silent! bwipeout 1 | endif'
 }
 
 alias jvim='jq | vim -c "set filetype=json" -'
