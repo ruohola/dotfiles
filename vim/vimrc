@@ -3,7 +3,7 @@
 let g:mapleader=' '
 
 " Language settings (have to be before ä and ö mappings).
-let $LANG='en_US'
+let $LANG='en_US.UTF-8'
 set spelllang=en_us  " Finnish is opted into per buffer, see the Markdown ftplugin.
 set fileformats=unix,dos
 set fileencodings=ucs-bom,utf-8,default,latin1
@@ -34,6 +34,9 @@ let g:netrw_dirhistmax=0
 " ============= PLUGINS =============
 
 packadd! matchit  " Enable the built-in plugin.
+
+runtime ftplugin/man.vim  " Enable `:Man` for opening man pages.
+let g:ft_man_open_mode = 'tab'
 
 call plug#begin(s:plugins_dir)
 

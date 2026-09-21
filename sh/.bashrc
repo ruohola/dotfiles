@@ -186,6 +186,11 @@ vims () {
     vim "scp://$1/$2"
 }
 
+vman () {
+    man -w "$@" > /dev/null || return
+    vim -c "Man $*" -c 'silent! tabonly | silent! only'
+}
+
 alias jvim='jq | vim -c "set filetype=json" -'
 
 # Open the vim-fugitive summary/status buffer.
