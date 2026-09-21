@@ -1352,6 +1352,16 @@ brew () {
         return "$rc"
     elif [ "$*" == "load" ]; then
         command brew bundle install --quiet --file=~/dotfiles/brew/Brewfile
+    elif [ "$*" == "extra" ]; then
+        # Top-level formulae and casks that are installed but not in any
+        # Brewfile, printed as Brewfile lines ready to be pasted into one.
+        local -a brewfiles=("${BREWFILES[@]:-$HOME/dotfiles/brew/Brewfile}")
+        local bundled
+        bundled="$(for brewfile in "${brewfiles[@]}"; do
+            command brew bundle list --file="$brewfile" --all
+        done)"
+        combine <(command brew leaves) not <(echo "$bundled") | sed 's/.*/brew "&"/'
+        combine <(command brew list --cask) not <(echo "$bundled") | sed 's/.*/cask "&"/'
     else
         command brew "$@"
     fi
