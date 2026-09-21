@@ -1342,6 +1342,7 @@ alias yif='yarn install --frozen-lockfile'
 alias tff='terraform fmt -recursive'
 
 brew () {
+    local -a brewfiles=("${BREWFILES[@]:-$HOME/dotfiles/brew/Brewfile}")
     if [ "$*" == "up" ]; then
         local rc
         command brew update && command brew upgrade --yes
@@ -1351,11 +1352,10 @@ brew () {
             "${HOMEBREW_PREFIX}/opt/languagetool/libexec/org/languagetool/resource/en/hunspell/spelling_custom.txt"
         return "$rc"
     elif [ "$*" == "load" ]; then
-        command brew bundle install --quiet --file=~/dotfiles/brew/Brewfile
+        command brew bundle install --quiet --file=<(cat "${brewfiles[@]}")
     elif [ "$*" == "extra" ]; then
         # Top-level formulae and casks that are installed but not in any
         # Brewfile, printed as Brewfile lines ready to be pasted into one.
-        local -a brewfiles=("${BREWFILES[@]:-$HOME/dotfiles/brew/Brewfile}")
         local bundled
         bundled="$(for brewfile in "${brewfiles[@]}"; do
             command brew bundle list --file="$brewfile" --all
