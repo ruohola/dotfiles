@@ -288,7 +288,6 @@ nmap <Leader>6 <Action>(Compare.SameVersion)
 nmap <Leader>7 <Action>(ReplaceInPath)
 nmap <Leader>8 <Action>(ToggleBreakpointEnabled)
 nmap <Leader>9 <Action>(QuickImplementations)
-nmap <Leader>0 <Action>(Django.RunManageTaskAction)
 
 nmap <Leader><Esc> <Action>(ClearAllNotifications)
 
