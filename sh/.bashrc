@@ -317,6 +317,16 @@ trail () {
     printf '%s' "$(< /dev/stdin)"
 }
 
+splt () {
+    # Split the input into lines on a single character separator (e.g. `splt : "$PATH"`).
+    # Reads from stdin when no input string is passed, so can also be used as a pipe.
+    if [ "$#" -gt 1 ]; then
+        printf '%s\n' "${*:2}" | tr -- "$1" '\n'
+    else
+        tr -- "$1" '\n'
+    fi
+}
+
 pbcopyn () {
     # Like normal `pbcopy` but strips away all trailing newlines.
     trail | pbcopy
