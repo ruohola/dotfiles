@@ -11,6 +11,12 @@
   "python.formatting.provider": "ruff",
   "python.formatting.ruffPath": "${env:HOMEBREW_PREFIX}/bin/ruff",
   "pyright.organizeimports.provider": "ruff",
+  // Indent `case` branches.
+  "bashIde.shfmt.caseIndent": true,
+  // Keep `|`, `&&`, and `||` at the start of continuation lines.
+  "bashIde.shfmt.binaryNextLine": true,
+  // Keep the space after redirection operators, e.g. `2> /dev/null`.
+  "bashIde.shfmt.spaceRedirects": true,
   // Managed via `$ rustup component add rust-analyzer` instead.
   "rust-analyzer.updates.prompt": "neverDownload",
   "tombi.updates.checkOnStartup": false,
