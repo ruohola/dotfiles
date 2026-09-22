@@ -288,6 +288,7 @@ nmap <Leader>6 <Action>(Compare.SameVersion)
 nmap <Leader>7 <Action>(ReplaceInPath)
 nmap <Leader>8 <Action>(ToggleBreakpointEnabled)
 nmap <Leader>9 <Action>(QuickImplementations)
+nmap <Leader>0 <Action>(CallHierachy)
 
 nmap <Leader><Esc> <Action>(ClearAllNotifications)
 
@@ -326,7 +327,7 @@ sethandler <C-6> a:ide  " Python or Debug Console (tool window)
 sethandler <C-7> a:ide  " Git (tool window)
 sethandler <C-8> a:ide  " Build (tool window)
 sethandler <C-9> a:ide  " Type Hierarchy (sidebar)
-sethandler <C-0> a:ide  " Call Hierarchy (sidebar)
+" <C-0> is free
 sethandler <S-Tab> a:ide  " Copilot: Apply Completions to Editor / Copilot: Show Completions / Insert Inline Proposal
 sethandler <C-[> a:ide  " Copilot: Show Previous Completions
 sethandler <C-]> a:ide  " Copilot: Show Next Completions
