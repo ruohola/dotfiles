@@ -172,6 +172,7 @@ nmap <silent> gt <Plug>(coc-type-definition)
 
 nmap <silent> <Leader>i <Plug>(coc-implementation)
 nmap <silent> <Leader>u <Plug>(coc-references)
+nnoremap <silent> <Leader>0 <Cmd>call CocActionAsync('showIncomingCalls')<CR>
 nnoremap <silent> <Leader>d :call <SID>show_documentation()<CR>
 nmap <silent> <Leader>r <Plug>(coc-rename)
 " Highlight usages of the symbol under the cursor (until it moves).
