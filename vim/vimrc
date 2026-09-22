@@ -179,6 +179,8 @@ nnoremap <silent> <Leader>ö <Cmd>call CocActionAsync('highlight')<CR>
 " Like Ctrl-Enter in IntelliJ.
 nmap <silent> <C-CR> <Plug>(coc-codeaction-cursor)
 xmap <silent> <C-CR> <Plug>(coc-codeaction-selected)
+nmap <silent> <Leader>x <Plug>(coc-codeaction-refactor)
+xmap <silent> <Leader>x <Plug>(coc-codeaction-refactor-selected)
 xmap <silent> <leader>o <Plug>(coc-format-selected)
 nmap <silent> <leader>o <Plug>(coc-format)
 nnoremap <silent> <Leader>1 :<C-u>CocList diagnostics<cr>
