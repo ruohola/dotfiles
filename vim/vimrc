@@ -296,8 +296,19 @@ xmap ö <Plug>ReplaceWithRegisterVisual
 " terryma/vim-smooth-scroll
 nnoremap <silent> <C-U> :<C-U>call smooth_scroll#up(&scroll, 5, 4)<CR>
 nnoremap <silent> <C-D> :<C-U>call smooth_scroll#down(&scroll, 5, 4)<CR>
-nnoremap <silent> <C-B> :<C-U>call smooth_scroll#up(&scroll*2, 5, 6)<CR>
-nnoremap <silent> <C-F> :<C-U>call smooth_scroll#down(&scroll*2, 5, 6)<CR>
+" Scroll coc's hover and completion documentation popups instead when one is open.
+nnoremap <silent> <expr> <C-B> get(g:, 'did_coc_loaded') && coc#float#has_scroll()
+    \ ? coc#float#scroll(0)
+    \ : ":\<C-U>call smooth_scroll#up(&scroll*2, 5, 6)\<CR>"
+nnoremap <silent> <expr> <C-F> get(g:, 'did_coc_loaded') && coc#float#has_scroll()
+    \ ? coc#float#scroll(1)
+    \ : ":\<C-U>call smooth_scroll#down(&scroll*2, 5, 6)\<CR>"
+inoremap <silent> <expr> <C-B> get(g:, 'did_coc_loaded') && coc#float#has_scroll()
+    \ ? "\<C-R>=coc#float#scroll(0)\<CR>"
+    \ : "\<C-B>"
+inoremap <silent> <expr> <C-F> get(g:, 'did_coc_loaded') && coc#float#has_scroll()
+    \ ? "\<C-R>=coc#float#scroll(1)\<CR>"
+    \ : "\<C-F>"
 
 " tpope/vim-fugitive
 xnoremap <silent> <Leader>5 :Git blame<CR>
