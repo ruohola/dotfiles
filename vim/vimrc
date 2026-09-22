@@ -20,6 +20,9 @@ let s:state_dir = $HOME . '/.local/state/vim'
 " `zg` adds a word to the first entry, `2zg` to the second.
 let &spellfile = s:spell_dir . '/en.utf-8.add'
     \ . ',' . s:spell_dir . '/fi.utf-8.add'
+" `vim -i NONE` starts an anonymous session (no .viminfo or undo files).
+" Swap files and the default `writebackup` are still used for safety.
+let g:anonymous = &viminfofile ==# 'NONE'
 if empty(&viminfofile)
     " Guard allows this to be overriden by e.g. `vim -i NONE`.
     let &viminfofile = s:state_dir . '/.viminfo'
@@ -584,7 +587,7 @@ set scrolloff=1                " Pad cursor row with lines
 set sidescroll=1               " Don't jump half a page when side scrolling
 set sidescrolloff=2            " Keep one character visible in addition to the `extends` `listchar`
 set wildmode=list:longest,full " Better tab completion on command line mode
-set undofile                   " Use an undofile for persistent undo
+let &undofile = !g:anonymous   " Use an undofile for persistent undo
 set undolevels=1000000000      " Remember more undo history
 set history=10000              " Remember maximum amount of command history
 set tabpagemax=50              " Don't silently drop tabs when opening many at once, e.g. `vim -p *`
@@ -1110,7 +1113,10 @@ function! NewPostLaunchSettings(pathToSpellFolder) abort
             endfor
 
             " Enable coc.nvim only when not running vimdiff, so it doesn't complain about conflict markers.
-            CocStart
+            " Also not in anonymous sessions, as it keeps its own history (e.g. `CocList mru`).
+            if !g:anonymous
+                CocStart
+            endif
 
             set splitright  " Open splits to the right
             set splitbelow  " Open splits to the bottom

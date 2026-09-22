@@ -191,6 +191,9 @@ vman () {
     vim -c "Man $*" -c 'if bufname(1) ==# "" | silent! bwipeout 1 | endif'
 }
 
+# Anonymous Vim session (for e.g. editing secrets).
+alias vima='vim -i NONE'
+
 alias jvim='jq | vim -c "set filetype=json" -'
 
 # Open the vim-fugitive summary/status buffer.
