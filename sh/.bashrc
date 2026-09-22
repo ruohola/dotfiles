@@ -1447,7 +1447,6 @@ export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I${HOMEBREW_PREFIX}/opt/tc
 
 __load_pyenv () {
     if [ -z "$PYENV_VIRTUALENV_INIT" ]; then
-        eval "$(command pyenv init --path --no-rehash)"
         eval "$(command pyenv virtualenv-init -)"
     fi
 }
@@ -1566,6 +1565,9 @@ done
 _add_to_PATH "${__node_bin_dir}"
 _add_to_PATH "${HOME}/.cargo/bin"
 _add_to_PATH "${HOME}/.poetry/bin"
+_add_to_PATH "${HOME}/.pyenv/bin"
+# Add the entry eagerly, so that non-shell programs (e.g. language servers in Vim) also get pyenv's `python`.
+_add_to_PATH "${PYENV_ROOT}/shims"
 _add_to_PATH "${HOME}/.local/bin"
 _add_to_PATH "${HOME}/dotfiles/scripts"
 
