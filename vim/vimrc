@@ -162,33 +162,32 @@ inoremap <silent> <expr> <TAB>
     \         ? "\<C-y>"
     \         : "\<TAB>"
 
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
+
+nnoremap <silent> <Leader>a <Cmd>CocList commands<CR>
+nnoremap <silent> <Leader>d <Cmd>call <SID>show_documentation()<CR>
+nnoremap <silent> <Leader>h <Cmd>CocList outline<CR>
+nmap     <silent> <Leader>i <Plug>(coc-implementation)
+nnoremap <silent> <Leader>o <Cmd>call CocAction('organizeImport')<Bar>call CocAction('format')<CR>
+xmap     <silent> <Leader>o <Plug>(coc-format-selected)
+nmap     <silent> <Leader>r <Plug>(coc-rename)
+nnoremap <silent> <Leader>s <Cmd>CocList -I symbols<CR>
+nmap     <silent> <Leader>u <Plug>(coc-references)
+nmap     <silent> <Leader>x <Plug>(coc-codeaction-refactor)
+xmap     <silent> <Leader>x <Plug>(coc-codeaction-refactor-selected)
+nnoremap <silent> <Leader>z <Cmd>CocCommand workspace.renameCurrentFile<CR>
+nnoremap <silent> <Leader>ö <Cmd>call CocActionAsync('highlight')<CR>
+nnoremap <silent> <Leader>1 <Cmd>CocList diagnostics<CR>
+nnoremap <silent> <Leader>0 <Cmd>call CocActionAsync('showIncomingCalls')<CR>
+
+nmap <silent> <C-CR> <Plug>(coc-codeaction-cursor)
+xmap <silent> <C-CR> <Plug>(coc-codeaction-selected)
+
 nmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc>' : '<Plug>(coc-diagnostic-next)'
 nmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc>' : '<Plug>(coc-diagnostic-prev)'
 xmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc><Esc>gv' : '<Plug>(coc-diagnostic-next)'
 xmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc><Esc>gv' : '<Plug>(coc-diagnostic-prev)'
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
-
-nmap <silent> <Leader>i <Plug>(coc-implementation)
-nmap <silent> <Leader>u <Plug>(coc-references)
-nnoremap <silent> <Leader>0 <Cmd>call CocActionAsync('showIncomingCalls')<CR>
-nnoremap <silent> <Leader>d :call <SID>show_documentation()<CR>
-nmap <silent> <Leader>r <Plug>(coc-rename)
-nnoremap <silent> <Leader>z <Cmd>CocCommand workspace.renameCurrentFile<CR>
-" Highlight usages of the symbol under the cursor (until it moves).
-nnoremap <silent> <Leader>ö <Cmd>call CocActionAsync('highlight')<CR>
-" Like Ctrl-Enter in IntelliJ.
-nmap <silent> <C-CR> <Plug>(coc-codeaction-cursor)
-xmap <silent> <C-CR> <Plug>(coc-codeaction-selected)
-nmap <silent> <Leader>x <Plug>(coc-codeaction-refactor)
-xmap <silent> <Leader>x <Plug>(coc-codeaction-refactor-selected)
-nnoremap <silent> <Leader>o <Cmd>call CocAction('organizeImport')<Bar>call CocAction('format')<CR>
-xmap <silent> <Leader>o <Plug>(coc-format-selected)
-nnoremap <silent> <Leader>1 :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <Leader>a :<C-u>CocList commands<cr>
-nnoremap <silent> <Leader>h :<C-u>CocList outline<cr>
-nnoremap <silent> <Leader>s :<C-u>CocList -I symbols<cr>
 
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
