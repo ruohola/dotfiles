@@ -181,8 +181,8 @@ nmap <silent> <C-CR> <Plug>(coc-codeaction-cursor)
 xmap <silent> <C-CR> <Plug>(coc-codeaction-selected)
 nmap <silent> <Leader>x <Plug>(coc-codeaction-refactor)
 xmap <silent> <Leader>x <Plug>(coc-codeaction-refactor-selected)
+nnoremap <silent> <Leader>o <Cmd>call CocAction('organizeImport')<Bar>call CocAction('format')<CR>
 xmap <silent> <Leader>o <Plug>(coc-format-selected)
-nmap <silent> <Leader>o <Plug>(coc-format)
 nnoremap <silent> <Leader>1 :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <Leader>a :<C-u>CocList commands<cr>
 nnoremap <silent> <Leader>h :<C-u>CocList outline<cr>
