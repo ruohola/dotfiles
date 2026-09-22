@@ -168,8 +168,8 @@ xmap <silent> <expr> <C-N> &diff ? '/>>>>>>><CR><Esc><Esc>gv' : '<Plug>(coc-diag
 xmap <silent> <expr> <C-P> &diff ? '?<<<<<<<<CR><Esc><Esc>gv' : '<Plug>(coc-diagnostic-prev)'
 
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
 
-nmap <silent> <Leader>t <Plug>(coc-type-definition)
 nmap <silent> <Leader>i <Plug>(coc-implementation)
 nmap <silent> <Leader>u <Plug>(coc-references)
 nnoremap <silent> <Leader>d :call <SID>show_documentation()<CR>
