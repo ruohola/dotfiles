@@ -826,8 +826,8 @@ nnoremap <Leader><Leader>u /[^ -~\t]<CR>
 nnoremap <Leader>4 :<C-U>call <SID>ShowGitHistoryForFile()<CR>
 xnoremap <Leader>4 :<C-U>call <SID>ShowGitHistoryForSelection()<CR>
 
-" Clear highlights.
-nnoremap <nowait> <silent> <Esc> <Esc>:noh<CR>
+" Clear highlights and close coc's hover and diagnostic popups.
+nnoremap <nowait> <silent> <Esc> <Esc>:noh<Bar>silent! call coc#float#close_all()<CR>
 
 " Removes delay from closing fzf search popup.
 tnoremap <Esc>\ <Esc>\
