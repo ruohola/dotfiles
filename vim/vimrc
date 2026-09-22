@@ -174,6 +174,8 @@ nmap <silent> <Leader>i <Plug>(coc-implementation)
 nmap <silent> <Leader>u <Plug>(coc-references)
 nnoremap <silent> <Leader>d :call <SID>show_documentation()<CR>
 nmap <silent> <leader>r <Plug>(coc-rename)
+" Highlight usages of the symbol under the cursor (until it moves).
+nnoremap <silent> <Leader>ö <Cmd>call CocActionAsync('highlight')<CR>
 " Like Ctrl-Enter in IntelliJ.
 nmap <silent> <C-CR> <Plug>(coc-codeaction-cursor)
 xmap <silent> <C-CR> <Plug>(coc-codeaction-selected)
@@ -465,6 +467,10 @@ function! s:SolarizedHighlights() abort
 
     " Make Markdown inline `code` spans green instead of the default string color.
     execute 'highlight markdownCode ctermfg=2 guifg=' . g:terminal_ansi_colors[2]
+
+    " Mark coc.nvim symbol usages with a violet background, keeping syntax colors.
+    execute 'highlight CocHighlightText gui=NONE cterm=NONE'
+        \ . ' guibg=' . (&background ==# 'dark' ? '#4a4765' : '#cac5e9')
 endfunction
 
 " Changing background reloads the colorscheme, so reapply our overrides.
