@@ -242,6 +242,9 @@ nmap S ysiW
 
 " google/vim-searchindex
 let g:searchindex_line_limit=100000000
+" The plugin's own `map <unique>` for these fails, as the visual mode ones are taken below.
+nmap * <Plug>ImprovedStar_*<Plug>SearchIndex
+nmap # <Plug>ImprovedStar_#<Plug>SearchIndex
 
 " xuhdev/vim-latex-live-preview
 let g:livepreview_previewer = 'open -a Skim'
@@ -812,8 +815,8 @@ nnoremap & :&&<CR>
 xnoremap & :s//~/&<CR>:noh<CR>
 
 " Search for selected text.
-xnoremap * "zy/\V<C-R>=escape(@z,'/\')<CR><CR>
-xnoremap # "zy?\V<C-R>=escape(@z,'?\')<CR><CR>
+xnoremap * "zy/\V<C-R>=escape(@z,'/\')<CR><CR><Cmd>SearchIndex<CR>
+xnoremap # "zy?\V<C-R>=escape(@z,'?\')<CR><CR><Cmd>SearchIndex<CR>
 
 " Easier substitution.
 nnoremap <Leader>, :%s/
