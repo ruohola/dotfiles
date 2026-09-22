@@ -19,6 +19,7 @@
   "bashIde.shfmt.spaceRedirects": true,
   // Managed via `$ rustup component add rust-analyzer` instead.
   "rust-analyzer.updates.prompt": "neverDownload",
+  "rust-analyzer.check.command": "clippy",
   "tombi.updates.checkOnStartup": false,
   "languageserver": {
     "githubactions": {
