@@ -600,6 +600,7 @@ let &undofile = !g:anonymous   " Use an undofile for persistent undo
 set undolevels=1000000000      " Remember more undo history
 set history=10000              " Remember maximum amount of command history
 set tabpagemax=50              " Don't silently drop tabs when opening many at once, e.g. `vim -p *`
+set jumpoptions=stack          " Make jumping after going back discard the old forward jumps
 set updatecount=10             " Update swap file more often
 set nrformats-=octal           " Don't treat zero-padded numbers as octal with `CTRL-A`/`CTRL-X`
 set matchpairs=(:),{:},[:],<:> " Configure which braces to match
