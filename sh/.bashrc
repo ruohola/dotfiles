@@ -1566,7 +1566,6 @@ done
 _add_to_PATH "${__node_bin_dir}"
 _add_to_PATH "${HOME}/.cargo/bin"
 _add_to_PATH "${HOME}/.poetry/bin"
-_add_to_PATH "${HOME}/.pyenv/bin"
 _add_to_PATH "${HOME}/.local/bin"
 _add_to_PATH "${HOME}/dotfiles/scripts"
 
