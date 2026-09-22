@@ -1,7 +1,7 @@
 {
   "extensions.updateCheck": "weekly",
   "inlayHint.enable": false,
-  "coc.source.dictionary.filetypes": ["markdown"],
+  "coc.source.dictionary.filetypes": ["gitcommit", "markdown"],
   "coc.source.file.ignoreHidden": false,
   "suggest.invalidInsertCharacters": [],
   "suggest.noselect": false,
