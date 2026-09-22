@@ -173,7 +173,7 @@ nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> <Leader>i <Plug>(coc-implementation)
 nmap <silent> <Leader>u <Plug>(coc-references)
 nnoremap <silent> <Leader>d :call <SID>show_documentation()<CR>
-nmap <silent> <leader>r <Plug>(coc-rename)
+nmap <silent> <Leader>r <Plug>(coc-rename)
 " Highlight usages of the symbol under the cursor (until it moves).
 nnoremap <silent> <Leader>ö <Cmd>call CocActionAsync('highlight')<CR>
 " Like Ctrl-Enter in IntelliJ.
@@ -181,8 +181,8 @@ nmap <silent> <C-CR> <Plug>(coc-codeaction-cursor)
 xmap <silent> <C-CR> <Plug>(coc-codeaction-selected)
 nmap <silent> <Leader>x <Plug>(coc-codeaction-refactor)
 xmap <silent> <Leader>x <Plug>(coc-codeaction-refactor-selected)
-xmap <silent> <leader>o <Plug>(coc-format-selected)
-nmap <silent> <leader>o <Plug>(coc-format)
+xmap <silent> <Leader>o <Plug>(coc-format-selected)
+nmap <silent> <Leader>o <Plug>(coc-format)
 nnoremap <silent> <Leader>1 :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <Leader>a :<C-u>CocList commands<cr>
 nnoremap <silent> <Leader>h :<C-u>CocList outline<cr>
