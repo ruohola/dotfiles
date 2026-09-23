@@ -4,6 +4,21 @@ run = "shell -- ql %s"
 desc = "Quick Look"
 
 [[mgr.prepend_keymap]]
-on = "b"
+on = "<Tab>"
 run = ["toggle", "arrow 1"]
+desc = "Toggle the current selection state"
+
+[[mgr.prepend_keymap]]
+on = "b"
+run = "spot"
+desc = "Spot hovered file"
+
+[[spot.prepend_keymap]]
+on = "b"
+run = "close"
+desc = "Close the spot"
+
+[[spot.prepend_keymap]]
+on = "<Tab>"
+run = ["mgr:toggle", "swipe next"]
 desc = "Toggle the current selection state"
