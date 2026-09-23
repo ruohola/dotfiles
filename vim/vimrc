@@ -169,7 +169,7 @@ nnoremap          <Leader>a <Cmd>CocList commands<CR>
 nnoremap          <Leader>d <Cmd>call <SID>show_documentation()<CR>
 nnoremap          <Leader>h <Cmd>CocList outline<CR>
 nmap     <silent> <Leader>i <Plug>(coc-implementation)
-nnoremap          <Leader>o <Cmd>call CocAction('organizeImport')<Bar>call CocAction('format')<CR>
+nnoremap          <Leader>o <Cmd>call CocActionAsync('organizeImport', {... -> CocActionAsync('format')})<CR>
 xmap     <silent> <Leader>o <Plug>(coc-format-selected)
 nmap     <silent> <Leader>r <Plug>(coc-rename)
 nnoremap          <Leader>s <Cmd>CocList -I symbols<CR>
