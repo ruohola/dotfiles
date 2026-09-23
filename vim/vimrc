@@ -165,21 +165,21 @@ inoremap <silent> <expr> <TAB>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
 
-nnoremap <silent> <Leader>a <Cmd>CocList commands<CR>
-nnoremap <silent> <Leader>d <Cmd>call <SID>show_documentation()<CR>
-nnoremap <silent> <Leader>h <Cmd>CocList outline<CR>
+nnoremap          <Leader>a <Cmd>CocList commands<CR>
+nnoremap          <Leader>d <Cmd>call <SID>show_documentation()<CR>
+nnoremap          <Leader>h <Cmd>CocList outline<CR>
 nmap     <silent> <Leader>i <Plug>(coc-implementation)
-nnoremap <silent> <Leader>o <Cmd>call CocAction('organizeImport')<Bar>call CocAction('format')<CR>
+nnoremap          <Leader>o <Cmd>call CocAction('organizeImport')<Bar>call CocAction('format')<CR>
 xmap     <silent> <Leader>o <Plug>(coc-format-selected)
 nmap     <silent> <Leader>r <Plug>(coc-rename)
-nnoremap <silent> <Leader>s <Cmd>CocList -I symbols<CR>
+nnoremap          <Leader>s <Cmd>CocList -I symbols<CR>
 nmap     <silent> <Leader>u <Plug>(coc-references)
 nmap     <silent> <Leader>x <Plug>(coc-codeaction-refactor)
 xmap     <silent> <Leader>x <Plug>(coc-codeaction-refactor-selected)
-nnoremap <silent> <Leader>z <Cmd>CocCommand workspace.renameCurrentFile<CR>
-nnoremap <silent> <Leader>ö <Cmd>call CocActionAsync('highlight')<CR>
-nnoremap <silent> <Leader>1 <Cmd>CocList diagnostics<CR>
-nnoremap <silent> <Leader>0 <Cmd>call CocActionAsync('showIncomingCalls')<CR>
+nnoremap          <Leader>z <Cmd>CocCommand workspace.renameCurrentFile<CR>
+nnoremap          <Leader>ö <Cmd>call CocActionAsync('highlight')<CR>
+nnoremap          <Leader>1 <Cmd>CocList diagnostics<CR>
+nnoremap          <Leader>0 <Cmd>call CocActionAsync('showIncomingCalls')<CR>
 
 nmap <silent> <C-CR> <Plug>(coc-codeaction-cursor)
 xmap <silent> <C-CR> <Plug>(coc-codeaction-selected)
@@ -631,8 +631,8 @@ if has('gui_running')
     nnoremap → <C-W>l
 
     " Cycle tabs (alt+ui).
-    nnoremap <silent>ü <Cmd>tabprevious<CR>
-    nnoremap <silent>↔︎ <Cmd>tabnext<CR>
+    nnoremap ü <Cmd>tabprevious<CR>
+    nnoremap ↔︎ <Cmd>tabnext<CR>
 
     tnoremap ← <C-W><C-H>
     tnoremap ↓ <C-W><C-J>
@@ -666,8 +666,8 @@ else
     nnoremap ì <C-W>l
 
     " Cycle tabs (alt+ui).
-    nnoremap <silent> õ <Cmd>tabprevious<CR>
-    nnoremap <silent> é <Cmd>tabnext<CR>
+    nnoremap õ <Cmd>tabprevious<CR>
+    nnoremap é <Cmd>tabnext<CR>
 
     tnoremap è <C-W><C-H>
     tnoremap ê <C-W><C-J>
@@ -865,11 +865,11 @@ nnoremap <silent> <Leader>vr :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>vc :CocConfig<CR>
 nnoremap <silent> <Leader>vi :e $HOME/.ideavimrc<CR>
 
-nnoremap <silent> <Leader>] <Cmd>windo diffthis<CR><Cmd>syntax off<CR>
-nnoremap <silent> <Leader>[ <Cmd>windo diffoff<CR><Cmd>syntax enable<CR>
+nnoremap <Leader>] <Cmd>windo diffthis<CR><Cmd>syntax off<CR>
+nnoremap <Leader>[ <Cmd>windo diffoff<CR><Cmd>syntax enable<CR>
 
 " Toggle a diff against the on-disk contents of the current file.
-nnoremap <silent> <Leader>O <Cmd>DiffOrig<CR>
+nnoremap <Leader>O <Cmd>DiffOrig<CR>
 
 " Toggle spell checking.
 nnoremap <silent> <Leader>S :setlocal spell! spell?<CR>
@@ -878,7 +878,7 @@ nnoremap <silent> <Leader>S :setlocal spell! spell?<CR>
 nnoremap <silent> <Leader>W :setlocal wrap! wrap?<CR>
 
 " Toggle between light and dark backgrounds.
-nnoremap <silent> <Leader>B <Cmd>let &background = &background ==# 'dark' ? 'light' : 'dark'<CR>
+nnoremap <Leader>B <Cmd>let &background = &background ==# 'dark' ? 'light' : 'dark'<CR>
 
 " Copy the path of the current file.
 nnoremap <silent> <Leader>< :call <SID>CopyFilePath()<CR>
