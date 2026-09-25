@@ -574,6 +574,13 @@ set list listchars=tab:▸\ ,nbsp:␣,trail:·,extends:❯
 " Search settings
 set incsearch hlsearch ignorecase smartcase gdefault
 
+" Diff settings, matching Git/delta.
+set diffopt=internal,filler,closeoff,indent-heuristic
+set diffopt+=algorithm:histogram  " Same as Git's `diff.algorithm`
+set diffopt+=linematch:60         " Pair up similar changed lines like delta does
+set diffopt+=inline:word          " Highlight changed words within a line like delta does
+set diffopt+=context:3            " Fold away all but Git's default 3 lines of context
+
 " No errorbells
 set belloff=all
 
