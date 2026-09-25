@@ -528,6 +528,9 @@ else
         let &t_Cs = "\e[4:3m"
         let &t_Ce = "\e[4:0m"
         let &t_8u = "\e[58;2;%lu;%lu;%lum"
+        " Enable strikethrough (e.g. Markdown ~~text~~).
+        let &t_Ts = "\e[9m"
+        let &t_Te = "\e[29m"
     endif
 endif
 
