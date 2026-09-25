@@ -206,6 +206,10 @@ alias bbbb='cd ../../../..'
 
 alias ls='gls --color=auto --group-directories-first --classify'
 alias ll='ls -l --almost-all --human-readable --time-style=long-iso'
+lld () {
+    # List directory and file sizes, sorted by highest first.
+    command gdu --null --all --apparent-size --human-readable --max-depth=1 "$@" | sort -zhr | tr '\0' '\n' | sed $'s|\t\./|\t|'
+}
 
 alias ta='tree -a --dirsfirst -F'
 alias ta1='ta -L 1'
