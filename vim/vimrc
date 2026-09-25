@@ -531,6 +531,11 @@ else
         " Enable strikethrough (e.g. Markdown ~~text~~).
         let &t_Ts = "\e[9m"
         let &t_Te = "\e[29m"
+        " Enable double, dotted, and dashed underlines. Vim otherwise reads `t_ds` from
+        " terminfo's unrelated `dsl` (disable status line), which clears the window title.
+        let &t_Us = "\e[4:2m"
+        let &t_ds = "\e[4:4m"
+        let &t_Ds = "\e[4:5m"
     endif
 endif
 
