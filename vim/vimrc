@@ -536,6 +536,9 @@ else
         let &t_Us = "\e[4:2m"
         let &t_ds = "\e[4:4m"
         let &t_Ds = "\e[4:5m"
+        " Enable FocusGained/FocusLost (used by e.g. `autoread`) through tmux's `focus-events`.
+        let &t_fe = "\e[?1004h"
+        let &t_fd = "\e[?1004l"
     endif
 endif
 
