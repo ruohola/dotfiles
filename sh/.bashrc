@@ -151,6 +151,9 @@ export HISTFILESIZE=
 # Make ** expand to any number of directories.
 shopt -s globstar
 
+# Don't list every command in $PATH when pressing Tab on an empty line.
+shopt -s no_empty_cmd_completion
+
 # Allow to create cd bookmarks, must be defined before sourcing `bash_completion`.
 shopt -s cdable_vars
 export dotfiles="${HOME}/dotfiles"
