@@ -1549,6 +1549,9 @@ if [[ "$-" == *i* ]]; then
     bind '"\C-x\C-l": clear-screen'
     bind '"\C-x\C-v": quoted-insert'
 
+    # Expand history references like `!!` and `!$` inline when typing a space.
+    bind 'Space: magic-space'
+
     # Make CTRL-L clear the screen while also refreshing the prompt.
     bind '"\C-l": " \C-x\C-b\C-k \C-u\C-m\C-x\C-l\C-y\C-h\C-y\ey\C-x\C-x\C-d"'
 
