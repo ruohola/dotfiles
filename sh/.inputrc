@@ -16,5 +16,9 @@ set mark-symlinked-directories on
 set colored-stats on
 set colored-completion-prefix on
 
+# Make Ctrl-W delete only up to the previous slash, instead of the whole path.
+set bind-tty-special-chars off
+"\C-w": unix-filename-rubout
+
 # Unbind <Esc><Esc> from its default tab complete.
 "\e\e":
