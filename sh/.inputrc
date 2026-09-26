@@ -12,5 +12,9 @@ set menu-complete-display-prefix on
 # Append traling slash when tab completing symlinks to directories.
 set mark-symlinked-directories on
 
+# Color completion candidates by file type like `ls`, and highlight the typed prefix.
+set colored-stats on
+set colored-completion-prefix on
+
 # Unbind <Esc><Esc> from its default tab complete.
 "\e\e":
