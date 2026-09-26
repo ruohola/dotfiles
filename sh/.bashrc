@@ -154,6 +154,9 @@ shopt -s globstar
 # Don't list every command in $PATH when pressing Tab on an empty line.
 shopt -s no_empty_cmd_completion
 
+# Refuse the first `exit` (or Ctrl-D) when there are running or stopped jobs.
+shopt -s checkjobs
+
 # Allow to create cd bookmarks, must be defined before sourcing `bash_completion`.
 shopt -s cdable_vars
 export dotfiles="${HOME}/dotfiles"
