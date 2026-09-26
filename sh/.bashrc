@@ -41,6 +41,11 @@ _green=$'\e[32m'
 # _underlined=$'\e[4m'
 _reset=$'\e[0m'
 
+# Semantic prompt marks (OSC 133), which let tmux jump between prompts and command outputs.
+_mark_prompt_start=$'\e]133;A\a'
+_mark_prompt_end=$'\e]133;B\a'
+_mark_output_start=$'\e]133;C\a'
+
 __ps1_path () {
     # Expand `\w` via bash prompt-string expansion to get the PROMPT_DIRTRIM-
     # and $HOME-collapsed path. Then, if the result still exceeds PS1_PATH_MAX,
@@ -92,13 +97,15 @@ __ps1_dollar_color () {
 # Solarized colored prompt: (venv) (nvm) path/to/dir (branch)*$
 # Remember to keep `tmux/tmux-snaglord-config.toml` in sync.
 PS1="\
+\[$_mark_prompt_start\]\
 \$(__ps1_venv)\
 \$(__ps1_nvm)\
 \[$_cyan\]\$(__ps1_path) \
 \[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
 \[$_reset\]\$(__ps1_git_status 2> /dev/null)\
-\[\$(__ps1_dollar_color)\]\$ \[$_reset\]\
+\[\$(__ps1_dollar_color)\]\$ \[$_reset$_mark_prompt_end\]\
 "
+PS0="$_mark_output_start"
 export PROMPT_DIRTRIM=3      # Show only last 3 dirs in prompt.
 export PS1_PATH_MAX=40       # Only ellipsize path if total length exceeds this.
 export PS1_COMPONENT_MAX=16  # Then ellipsize components longer than this.
@@ -109,6 +116,12 @@ __capture_exit () {
     local histnum
     histnum="$(history 1 | command awk '{print $1}')"
     if [ "$histnum" != "$__last_histnum" ]; then
+        # Close the command's output with its exit status (OSC 133). Done here and not in `PS1`,
+        # as readline reprints the prompt on redraws, which would repeat the mark. Skip the
+        # first prompt, which only sees the previous session's last command.
+        if [ -n "$__last_histnum" ]; then
+            printf '\e]133;D;%s\a' "$exit"
+        fi
         __last_exit="$exit"
         __last_histnum="$histnum"
     else
