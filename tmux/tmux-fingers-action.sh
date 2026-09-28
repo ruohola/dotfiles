@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Dispatcher for the tmux-fingers main action:
-#   http(s):// or file:// URL -> open in browser (open)
-#   #1234 or org/repo#1234    -> open PR in browser (gh)
-#   7-40 char hex hash        -> show commit in a tmux popup (git show)
+#   http(s):// URL             -> open in browser (open)
+#   #1234 or org/repo#1234     -> open PR in browser (gh)
+#   7-40 char hex hash         -> show commit in a tmux popup (git show)
 #   existing path[:line[:col]] -> edit in $EDITOR in a split next to the pane,
 #                                 or Quick Look it if it's not text (ql)
 
@@ -11,7 +11,7 @@
 # and runs this in the original pane's working directory.
 match="$(cat)"
 
-if [[ "$match" =~ ^(https?|file):// ]]; then
+if [[ "$match" =~ ^https?:// ]]; then
     open "$match"
 elif [[ "$match" =~ ^([A-Za-z0-9_-]+/[A-Za-z0-9_.-]+)#([0-9]+)$ ]]; then
     gh pr view --web --repo "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}"
