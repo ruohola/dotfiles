@@ -25,14 +25,16 @@ if [ -n "$window" ] && tmux list-clients -F '#{client_flags} #{window_id}' | gre
 fi
 
 # Show the previous title as the subtitle, unless it's blank.
+# terminal-notifier strips a leading `\` from values, so prefix the untrusted ones
+# with one to keep e.g. a `-help` or a `{` in them from being interpreted.
 set --
 case $previous in
-    *[![:space:]]*) set -- -subtitle "$previous" ;;
+    *[![:space:]]*) set -- -subtitle "\\$previous" ;;
 esac
 
 # `open` also restores a minimized iTerm window.
 terminal-notifier \
     -title "$(tmux display -p -t "$pane" '#{window_name}')" \
     "$@" \
-    -message "${title#notify:}" \
+    -message "\\${title#notify:}" \
     -execute "$(command -v tmux) -S '${TMUX%%,*}' switch-client -t '$pane'; open -b com.googlecode.iterm2"
