@@ -178,14 +178,14 @@ app_shortcut com.google.Chrome 'Close Other Tabs'       '@~w'
 app_shortcut com.google.Chrome 'Force Reload This Page' '@r'
 app_shortcut com.google.Chrome 'Reload This Page'       '@~^$r'
 
-app_shortcut com.apple.Numbers 'Copy Snapshot' '^c'
-# Prompts for one-time access to other apps ^
-
-# Safari and Mail live in TCC-protected containers, so their writes need Full
-# Disk Access on the terminal running this script (System Settings → Privacy &
-# Security → Full Disk Access). Probe by reading ~/Library/Safari, which is
-# only listable with FDA.
+# Sandboxed apps (Numbers, Safari, Mail) keep their prefs in TCC-protected
+# containers, so their writes need Full Disk Access on the terminal running this
+# script (System Settings → Privacy & Security → Full Disk Access). Without it
+# writes are denied without a prompt. Probe by reading ~/Library/Safari, which
+# is only listable with FDA.
 if ls ~/Library/Safari > /dev/null 2>&1; then
+    app_shortcut com.apple.Numbers 'Copy Snapshot' '^c'
+
     app_shortcut com.apple.Safari 'Show Web Inspector'     $'\uf70f'  # F12
     app_shortcut com.apple.Safari 'Close Web Inspector'    $'\uf70f'  # F12
     app_shortcut com.apple.Safari 'Show Bookmarks Sidebar'  '@$l'
@@ -197,8 +197,8 @@ if ls ~/Library/Safari > /dev/null 2>&1; then
     app_shortcut com.apple.mail 'Reply'            '@$r'
     app_shortcut com.apple.mail 'Reply All'        '@~$r'
 elif ! defaults find NSUserKeyEquivalents 2> /dev/null | grep -q "'com.apple.Safari'"; then
-    # Prompts for one-time access to other apps ^
-    echo 'Skipping Safari/Mail shortcuts: grant this terminal Full Disk Access and re-run.' >&2
+    # Reading via `defaults` works without FDA, so this sees shortcuts set on an earlier run ^
+    echo 'Skipping Numbers/Safari/Mail shortcuts: grant this terminal Full Disk Access and re-run.' >&2
 fi
 
 app_shortcut md.obsidian 'Zoom In' '@+'
