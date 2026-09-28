@@ -2,6 +2,11 @@
 
 # Quick Look file(s) on macOS, like on Finder with space bar.
 
-# (The tool is quite verbose.)
-qlmanage -p "$@" > /dev/null 2>&1 &
+# Since macOS 27, `qlmanage` leaves a "Running in Background" icon to
+# the Dock after it has exited, which only goes away by clicking it.
+# (The tool is quite verbose, so supress its output.)
+{
+    qlmanage -p "$@"
+    osascript -e 'tell app "System Events" to tell process "Dock" to click UI element "qlmanage" of list 1'
+} > /dev/null 2>&1 &
 osascript -e 'tell app "System Events" to set frontmost of process "qlmanage" to true'
