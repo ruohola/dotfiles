@@ -118,6 +118,21 @@ command -v fontforge > /dev/null && [ ! -f ~/'Library/Fonts/Menlo Nerd Font Mono
 
 [ ! -L ~/.config/tmux-snaglord/config.toml ] && mkdir -p ~/.config/tmux-snaglord/ && ln -sfv ~/dotfiles/tmux/tmux-snaglord-config.toml ~/.config/tmux-snaglord/config.toml
 
+# macOS 27 refuses to show the notification permission prompt for an app that
+# isn't in `~/Applications` or `/Applications`, so request it once from a temporary
+# copy. The permission is stored per bundle ID, so the Homebrew one works afterwards.
+authorization="$(command -v terminal-notifier > /dev/null && terminal-notifier -diagnose | sed -n 's/^ *authorization *//p')"
+if [ "$authorization" = 'not requested yet' ]; then
+    target=~/Applications/terminal-notifier.app
+    mkdir -p ~/Applications \
+        && cp -R "$(brew --prefix)/opt/terminal-notifier/terminal-notifier.app" "$target" \
+        && "$target/Contents/MacOS/terminal-notifier" -message 'Notifications enabled'
+    read -rp 'Allow the terminal-notifier notification prompt, then press Enter...'
+    rm -rf "$target"
+elif [ "$authorization" = 'denied' ]; then
+    echo 'terminal-notifier is denied: enable it in System Settings -> Notifications.' >&2
+fi
+
 # Use Homebrew Bash
 homebrew_bash='/opt/homebrew/bin/bash'
 if [ -f "$homebrew_bash" ] && [ "$homebrew_bash" != "$SHELL" ]; then

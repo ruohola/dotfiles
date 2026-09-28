@@ -381,8 +381,8 @@ flushdns () {
 alert () {
     # Send a macOS notication from the terminal.
     if [ -n "$TMUX" ]; then
-        # shellcheck disable=SC1003  # Correctly formatted.
-        printf '\ePtmux;\e\e]9;%s\a\e\\' "$*"
+        # Handled by tmux's `pane-title-changed` hook.
+        printf '\e]2;notify:%s\a' "$*"
     else
         printf '\e]9;%s\a' "$*"
     fi
