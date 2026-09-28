@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dispatcher for the tmux-fingers alt-action:
+# Dispatcher for the tmux-fingers main action:
 #   http(s):// or file:// URL -> open in browser (open)
 #   #1234 or org/repo#1234    -> open PR in browser (gh)
 #   7-40 char hex hash        -> show commit in a tmux popup (git show)
