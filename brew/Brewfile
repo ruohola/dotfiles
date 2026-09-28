@@ -1,3 +1,9 @@
+# Serve the formulae in this directory from a local tap, as Homebrew only installs formulae from taps.
+# (Not using `brew tap-new` as it also turns on the developer mode.)
+local_tap = HOMEBREW_LIBRARY/"Taps/ruohola/homebrew-dotfiles/Formula"
+local_tap.mkpath
+Dir[File.expand_path("~/dotfiles/brew/*.rb")].each { |formula| FileUtils.ln_sf(formula, local_tap) }
+
 brew "actions-languageserver"
 brew "bash"
 brew "bash-completion@2"
@@ -41,7 +47,8 @@ brew "ruff"
 brew "shellcheck"
 brew "shfmt"
 brew "terminal-notifier"
-brew "tmux"
+# 3.8 for `#{hook_new_title}`, go back to `brew "tmux"` once it's in Homebrew.
+brew "ruohola/dotfiles/tmux@3.8", trusted: true
 brew "tombi"
 brew "tpack"
 brew "tree"
