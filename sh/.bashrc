@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+# ============= SETUP =============
+
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 [ -f /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"
 
@@ -19,6 +21,8 @@ _add_to_PATH () {
     done
     PATH="${1}${result}"
 }
+
+# ============= PROMPT =============
 
 # Solarized colors for coloring the prompt and man pages in iTerm.
 _base03=$'\e[90m'
@@ -133,6 +137,8 @@ __capture_exit () {
 # (`__capture_exit` has to stay first as it reads `$?` from the last command.)
 PROMPT_COMMAND="__capture_exit;history -a${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 
+# ============= SETTINGS =============
+
 export EDITOR=vim
 export VISUAL=vim
 
@@ -183,6 +189,8 @@ source ~/.sourced/bookmarks 2> /dev/null
 
 # shellcheck source=/dev/null
 [ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ] && . "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+
+# ============= ALIASES & FUNCTIONS =============
 
 alias vvrc='vim ~/dotfiles/vim/vimrc'
 alias vbrc='vim ~/dotfiles/sh/.bashrc && source ~/dotfiles/sh/.bashrc'
@@ -488,6 +496,8 @@ pyclean () {
 
 alias clamshell='sudo pmset -a disablesleep 1'
 alias noclamshell='sudo pmset -a disablesleep 0'
+
+# ============= GIT =============
 
 alias g-='git bisect'
 alias g-b='git bisect bad'
@@ -1347,6 +1357,7 @@ __git_complete gyo _git_show
 __git_complete gyp _git_show
 __git_complete gyr _git_show
 
+# ============= TOOLS =============
 
 alias dc='docker compose'
 alias dcf='docker compose --file'
@@ -1415,7 +1426,6 @@ poetry () {
         command poetry "$@"
     fi
 }
-
 
 # shellcheck source=/dev/null
 source ~/.fzf.bash
@@ -1559,6 +1569,8 @@ z () {
     fi
 }
 
+# ============= MAPPINGS =============
+
 if [[ "$-" == *i* ]]; then
     # Bash specific binds (`.inputrc` only has universal ones).
     bind '"\C-x\C-b": backward-char'
@@ -1586,6 +1598,7 @@ if [[ "$-" == *i* ]]; then
     bind -r '\ec'
 fi
 
+# ============= PATH =============
 
 # Avoid duplicate Homebrew $PATH entries. Can't gate the top-level evals scripts,
 # as then macOS's `path_helper` default paths would take precedence.
@@ -1606,6 +1619,8 @@ _add_to_PATH "${HOME}/.pyenv/bin"
 _add_to_PATH "${PYENV_ROOT}/shims"
 _add_to_PATH "${HOME}/.local/bin"
 _add_to_PATH "${HOME}/dotfiles/scripts"
+
+# ============= STARTUP =============
 
 # Finally, load system specific environment variables and other possible overrides.
 # shellcheck source=/dev/null
