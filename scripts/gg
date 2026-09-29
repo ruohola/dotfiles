@@ -31,13 +31,11 @@ shas () {
 # selection and the scroll position all survive quitting back out of the pager.
 case "$GG_ACTION" in
     show)
-        peeked="$(printf '%s\n' "$@" | shas)"
+        peeked="$(shas <<< "$1")"
         [ -z "$peeked" ] && exit
         clear
-        for sha in $peeked; do
-            git show --format=fuller --first-parent --color=always "$sha" \
-                | delta --paging=always --pager='less +g'
-        done
+        git show --format=fuller --first-parent --color=always "$peeked" \
+            | delta --paging=always --pager='less +g'
         exit ;;
     diff)
         peeked="$(printf '%s\n' "$@" | shas | xargs)"
@@ -53,7 +51,7 @@ while out="$(
         | sed $'s/..\x08\x08 /\xc2\xa0/' \
         | fzf --ansi --multi --no-sort --reverse --delimiter=$'\xc2\xa0' --nth=2 \
               --query="$selected" --print-query \
-              --bind="enter:execute(GG_ACTION=show \"$self\" {+})" \
+              --bind="enter:execute(GG_ACTION=show \"$self\" {})" \
               --bind="ctrl-d:execute(GG_ACTION=diff \"$self\" {+})" \
               --expect=ctrl-n,ctrl-h,ctrl-s,ctrl-f)"
     # nbsp as invisible delimiter ^ to only match starting from the commit subject.
