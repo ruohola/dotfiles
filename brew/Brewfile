@@ -46,6 +46,7 @@ brew "ripgrep"
 brew "ruff"
 brew "shellcheck"
 brew "shfmt"
+brew "tcl-tk@8"
 brew "terminal-notifier"
 # 3.8 for `#{hook_new_title}`, go back to `brew "tmux"` once it's in Homebrew.
 brew "ruohola/dotfiles/tmux@3.8", trusted: true

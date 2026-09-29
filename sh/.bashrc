@@ -1492,7 +1492,6 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PYENV_ROOT="${HOME}/.pyenv"
 
 export PYTHONPYCACHEPREFIX="${HOME}/.cache/pycache/"
-export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I${HOMEBREW_PREFIX}/opt/tcl-tk/include' --with-tcltk-libs='-L${HOMEBREW_PREFIX}/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
 
 __load_pyenv() {
     if ! [[ "$PROMPT_COMMAND" =~ _pyenv_virtualenv_hook ]]; then
