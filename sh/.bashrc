@@ -5,7 +5,7 @@
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 [ -f /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"
 
-_add_to_PATH () {
+_add_to_PATH() {
     # Prepend a directory to $PATH.
     # Avoids duplicate (and non-existent) entries when sourcing multiple times.
 
@@ -50,38 +50,38 @@ _mark_prompt_start=$'\e]133;A\a'
 _mark_prompt_end=$'\e]133;B\a'
 _mark_output_start=$'\e]133;C\a'
 
-__ps1_path () {
+__ps1_path() {
     # Expand `\w` via bash prompt-string expansion to get the PROMPT_DIRTRIM-
     # and $HOME-collapsed path. Then, if the result still exceeds PS1_PATH_MAX,
     # middle-ellipsize any component longer than PS1_COMPONENT_MAX.
     local path='\w'
     path="${path@P}"
-    if (( ${#path} > ${PS1_PATH_MAX:-40} )); then
+    if ((${#path} > ${PS1_PATH_MAX:-40})); then
         local max="${PS1_COMPONENT_MAX:-16}" i IFS=/
-        local half=$(( (max - 1) / 2 ))
+        local half=$(((max - 1) / 2))
         local -a parts
-        read -ra parts <<< "$path"  # `read` avoids glob-expanding `*` etc. in path.
+        read -ra parts <<< "$path" # `read` avoids glob-expanding `*` etc. in path.
         for i in "${!parts[@]}"; do
-            (( ${#parts[i]} > max )) && parts[i]="${parts[i]:0:half}…${parts[i]: -half}"
+            ((${#parts[i]} > max)) && parts[i]="${parts[i]:0:half}…${parts[i]: -half}"
         done
         path="${parts[*]}"
     fi
     printf '%s' "$path"
 }
-__ps1_venv () {
+__ps1_venv() {
     printf '%s' "${VIRTUAL_ENV:+(${VIRTUAL_ENV##*/}) }"
 }
-__ps1_nvm () {
+__ps1_nvm() {
     local nvm_ver
     nvm_ver="${NVM_BIN%/bin}"
     printf '%s' "${nvm_ver:+(${nvm_ver##*/}) }"
 }
-__ps1_git_branch () {
+__ps1_git_branch() {
     # This doesn't use `git branch --show-current` because
     # it doesn't work with a detached HEAD.
     git --no-optional-locks branch | sed -E -e '/^[^*]/d' -e 's/\* \(?([^)]*)\)?$/\(\1\)/'
 }
-__ps1_git_status () {
+__ps1_git_status() {
     local dirty
     dirty="$(git --no-optional-locks status --porcelain)" || return
     if [ -n "$dirty" ]; then
@@ -90,8 +90,8 @@ __ps1_git_status () {
         printf ' '
     fi
 }
-__ps1_dollar_color () {
-    if (( "$__last_exit" > 0 && "$__last_exit" != 141 )); then
+__ps1_dollar_color() {
+    if (("$__last_exit" > 0 && "$__last_exit" != 141)); then
         # Ignore SIGPIPE errors ^ which occur when Git pager is closed mid-stream.
         printf '%s' "$_red"
     else
@@ -110,12 +110,12 @@ PS1="\
 \[\$(__ps1_dollar_color)\]\$ \[$_reset$_mark_prompt_end\]\
 "
 PS0="$_mark_output_start"
-export PROMPT_DIRTRIM=3      # Show only last 3 dirs in prompt.
-export PS1_PATH_MAX=40       # Only ellipsize path if total length exceeds this.
-export PS1_COMPONENT_MAX=16  # Then ellipsize components longer than this.
+export PROMPT_DIRTRIM=3     # Show only last 3 dirs in prompt.
+export PS1_PATH_MAX=40      # Only ellipsize path if total length exceeds this.
+export PS1_COMPONENT_MAX=16 # Then ellipsize components longer than this.
 
 PROMPT_COMMAND=''
-__capture_exit () {
+__capture_exit() {
     local exit="$?"
     local histnum
     histnum="$(history 1 | command awk '{print $1}')"
@@ -209,11 +209,11 @@ alias venv='vim ~/.sourced/env && source ~/.sourced/env'
 alias vlig='vim ~/dotfiles/vim/spell/en.utf-8.add'
 alias vtc='vim ~/dotfiles/tmux/.tmux.conf && tmux source-file ~/dotfiles/tmux/.tmux.conf 2> /dev/null || true'
 
-vims () {
+vims() {
     vim "scp://$1/$2"
 }
 
-vman () {
+vman() {
     man -w "$@" > /dev/null || return
     vim -c "Man $*" -c 'if bufname(1) ==# "" | silent! bwipeout 1 | endif'
 }
@@ -233,7 +233,7 @@ alias bbbb='cd ../../../..'
 
 alias ls='gls --color=auto --group-directories-first --classify'
 alias ll='ls -l --almost-all --human-readable --time-style=long-iso'
-lld () {
+lld() {
     # List directory and file sizes, sorted by highest first.
     command gdu --null --all --apparent-size --human-readable --max-depth=1 "$@" | sort -zhr | tr '\0' '\n' | sed $'s|\t\./|\t|'
 }
@@ -243,7 +243,7 @@ alias ta1='ta -L 1'
 alias ta2='ta -L 2'
 alias ta3='ta -L 3'
 
-mkcd () {
+mkcd() {
     mkdir "$@" && cd "${@: -1}" || return
 }
 
@@ -251,13 +251,13 @@ alias rm='rm -I'
 
 alias th='trash'
 
-alias F='open .'  # Open Finder in the current directory.
+alias F='open .' # Open Finder in the current directory.
 
 alias cp='cp -v'
 alias mv='mv -v'
 alias grep='grep --color'
 
-cpa () {
+cpa() {
     # Copy a shell-escaped absolute path (for pasting into commands).
     # Differences to `cpr`'s behavior for non-repo files:
     #   - cpr resolves directory symlinks, abbreviates $HOME as ~,
@@ -274,7 +274,7 @@ cpa () {
     printf '%q' "$path" | pbcopyn
 }
 
-cpr () {
+cpr() {
     # Copy the path of a file, relative to the Git worktree (or submodule) root
     # when inside one, otherwise absolute with `~` in place of the home directory.
     # Mnemonic: copy repopath
@@ -292,29 +292,29 @@ alias lt='languagetool --language en-US'
 
 alias cloc='cloc --vcs=git --fmt=2 --skip-uniqueness --timeout=0'
 
-alias nq='networkQuality -s'   # Sequential
-alias nqd='networkQuality -u'  # Download
-alias nqu='networkQuality -d'  # Upload
-alias nqp='networkQuality'     # Parallel
+alias nq='networkQuality -s'  # Sequential
+alias nqd='networkQuality -u' # Download
+alias nqu='networkQuality -d' # Upload
+alias nqp='networkQuality'    # Parallel
 
-epoch () {
+epoch() {
     # Print the current epoch seconds, convert the passed epoch seconds into a human-readable format, or convert the passed ISO date/datetime into epoch seconds.
     if [ "$#" -eq 0 ]; then
         gdate --utc '+%s'
     elif [[ "$1" == *-* ]]; then
         gdate --utc --date="$1" '+%s'
-    else  # number input
+    else # number input
         gdate --utc --date="@$1" '+%a %Y-%m-%dT%H:%M:%SZ'
     fi
 }
 
-mepoch () {
+mepoch() {
     # Print the current epoch milliseconds, convert the passed epoch milliseconds into a human-readable format, or convert the passed ISO date/datetime into epoch milliseconds.
     if [ "$#" -eq 0 ]; then
         gdate --utc '+%s%3N'
     elif [[ "$1" == *-* ]]; then
         gdate --utc --date="$1" '+%s%3N'
-    else  # number input
+    else # number input
         local sec msec
         sec=$(("$1" / 1000))
         msec=$(("$1" % 1000))
@@ -322,17 +322,17 @@ mepoch () {
     fi
 }
 
-iso () {
+iso() {
     # Print the current ISO timestamp.
     gdate --utc '+%a %Y-%m-%dT%H:%M:%SZ'
 }
 
-uuid () {
+uuid() {
     # Generate a lowercased UUID v4
     uuidgen | tr '[:upper:]' '[:lower:]'
 }
 
-uni () {
+uni() {
     # Print out the Unicode codepoint names of the characters in the passed input.
     python -c $'
 import sys
@@ -343,12 +343,12 @@ for char in sys.argv[1]:
 ' "$1"
 }
 
-trail () {
+trail() {
     # Use as a pipe to remove all trailing newlines from the input.
     printf '%s' "$(< /dev/stdin)"
 }
 
-splt () {
+splt() {
     # Split the input into lines on a single character separator (e.g. `splt : "$PATH"`).
     # Reads from stdin when no input string is passed, so can also be used as a pipe.
     if [ "$#" -gt 1 ]; then
@@ -358,12 +358,12 @@ splt () {
     fi
 }
 
-pbcopyn () {
+pbcopyn() {
     # Like normal `pbcopy` but strips away all trailing newlines.
     trail | pbcopy
 }
 
-unzipp () {
+unzipp() {
     # Like normal `unzip` but unzips to a directory with the same name as the zipfile.
     # https://unix.stackexchange.com/a/489450/337515
     for file in "$@"; do
@@ -371,22 +371,25 @@ unzipp () {
     done
 }
 
-throttle () {
+throttle() {
     # Disable and enable the thottling of system processes, such as Time Machine backups.
     # https://apple.stackexchange.com/a/240073/321512
     sudo sysctl "debug.lowpri_throttle_enabled=$1"
 }
 
-flushdns () {
+flushdns() {
     # https://support.apple.com/en-ca/HT202516
     # https://apple.stackexchange.com/a/365958/321512
     sudo killall -HUP mDNSResponder \
-        ; sudo killall mDNSResponderHelper \
-        ; sudo dscacheutil -flushcache \
-        ; echo 'DNS cache cleared'
+        ;
+    sudo killall mDNSResponderHelper \
+        ;
+    sudo dscacheutil -flushcache \
+        ;
+    echo 'DNS cache cleared'
 }
 
-alert () {
+alert() {
     # Send a macOS notication from the terminal.
     if [ -n "$TMUX" ]; then
         # Handled by tmux's `pane-title-changed` hook.
@@ -396,7 +399,7 @@ alert () {
     fi
 }
 
-base64url () {
+base64url() {
     local string count
 
     if [ "$1" = '-d' ] || [ "$1" = '--decode' ]; then
@@ -404,7 +407,7 @@ base64url () {
         string="$(echo -n "$string" | tr -- '-_' '+/')"
 
         count="$(echo -n "$string" | wc -c)"
-        while [ $(( count % 4 )) != 0 ]; do
+        while [ $((count % 4)) != 0 ]; do
             string="${string}="
             count="$(echo -n "$string" | wc -c)"
         done
@@ -415,7 +418,7 @@ base64url () {
     fi
 }
 
-jwt () {
+jwt() {
     # Decode a JSON Web Token and output its header and payload.
     # Pass -n or --no-header to just output the payload.
     # Reference from: https://gist.github.com/angelo-v/e0208a18d455e2e6ea3c40ad637aac53?permalink_comment_id=3467741#gistcomment-3467741
@@ -430,22 +433,20 @@ jwt () {
     echo -n "$payload" | base64url --decode | jq
 }
 
-
 # Decompress a zlib stream.
 alias zunzip='python -c "import sys,zlib;sys.stdout.buffer.write(zlib.decompress(sys.stdin.buffer.read()))"'
 
-diffpdf () {
+diffpdf() {
     # Diff two PDF files as text.
     # Accepts any additional arguments for `delta` (e.g. -s for side-by-side) in the end.
     delta <(pdftotext "$1" -) <(pdftotext "$2" -) "${@:3}"
 }
 
-diffjson () {
+diffjson() {
     # Diff two JSON files.
     # Accepts any additional arguments for `delta` (e.g. -s for side-by-side) in the end.
     delta <(jq --sort-keys . "$1") <(jq --sort-keys . "$2") "${@:3}"
 }
-
 
 # Colored man pages and `less`'s help.
 # mb = start blink
@@ -478,7 +479,7 @@ alias grip='go-grip --bounding-box=false'
 
 alias av='aven tui --view all --layout columns'
 
-zk () {
+zk() {
     # Make plain `zk` search notes interactively instead of printing the help.
     if [ "$#" -eq 0 ]; then
         command zk edit --interactive --sort modified-
@@ -490,7 +491,7 @@ zk () {
 alias k9s='K9S_SKIN=transparent TERM=xterm-256color k9s'
 alias gh='PAGER= TERM=xterm-256color gh'
 
-pyclean () {
+pyclean() {
     find . -type f -name '*.py[co]' -delete -or -type d -name __pycache__ -delete
 }
 
@@ -505,12 +506,12 @@ alias g-g='git bisect good'
 alias ga='git add'
 alias gaa='git add --all'
 alias gab='GIT_SEQUENCE_EDITOR=: gabe'
-alias gabe='git absorb --and-rebase --one-fixup-per-commit'  # Allows editing the messages in interactive rebase.
+alias gabe='git absorb --and-rebase --one-fixup-per-commit' # Allows editing the messages in interactive rebase.
 alias gai='git add --interactive'
-alias gam='git add --update'  # Mnemonic: git add modified
+alias gam='git add --update' # Mnemonic: git add modified
 alias gan='git add --intent-to-add'
 alias gap='git add --patch'
-alias gau="git ls-files --others --exclude-standard -z | xargs -0 git add"  # Mnemonic: git add untracked
+alias gau="git ls-files --others --exclude-standard -z | xargs -0 git add" # Mnemonic: git add untracked
 alias gb='git branch'
 alias gba='git branch --all'
 alias gbc='gba --contains'
@@ -539,12 +540,12 @@ alias gdl='git -c delta.line-numbers=false diff'
 alias gd2='git -c delta.side-by-side=true diff'
 alias gds='git diff --staged'
 alias gf='git fetch --all --tags --prune'
-alias gff='gf --force'  # Allow clobbering existing tags.
+alias gff='gf --force' # Allow clobbering existing tags.
 alias gfu='git fsck --unreachable --no-reflogs'
 alias gfuc='gfu | sed -n "s/.*commit \(.*\)/\1/p" | git log --no-walk --stdin'
 alias gl='git log --graph'
-alias gll='git log --graph --branches --tags'  # Mnemonic: git log local branches
-alias gla='git log --graph --branches --tags --remotes'  # Mnemonic: git log all branches
+alias gll='git log --graph --branches --tags'           # Mnemonic: git log local branches
+alias gla='git log --graph --branches --tags --remotes' # Mnemonic: git log all branches
 alias glf='git log --format=fuller --compact-summary'
 alias glp='git log --format=fuller --patch'
 alias glg='glf --regexp-ignore-case --grep'
@@ -621,7 +622,7 @@ alias gyl='git -c delta.line-numbers=false show --format=fuller --first-parent'
 alias gyr='gy --pretty=raw'
 
 # Git functions
-__git_root_dir () {
+__git_root_dir() {
     # Echo the (absolute) path of the repo root directory.
     # (Works also in a nested worktree, a submodule, or a worktree of a submodule.)
     local common_dir worktree
@@ -633,11 +634,11 @@ __git_root_dir () {
         dirname "$common_dir"
     fi
 }
-__git_default_branch () {
+__git_default_branch() {
     # Echo e.g. "master"
     __git_default_remote_branch | cut -d '/' -f 2-
 }
-__git_default_remote_branch () {
+__git_default_remote_branch() {
     # Echo e.g. "origin/master"
     local remote_branch default_branch
     remote_branch="$(git symbolic-ref --short --quiet refs/remotes/upstream/HEAD || git symbolic-ref --short --quiet refs/remotes/origin/HEAD)"
@@ -658,7 +659,7 @@ __git_default_remote_branch () {
         fi
     fi
 }
-__git_remote_tracking_branch () {
+__git_remote_tracking_branch() {
     # Echo the remote tracking branch (e.g. "origin/foo") of the given branch.
     # Defaults to the current branch. Echoes nothing when there is no remote
     # branch, except for the default branch, which follows
@@ -693,23 +694,23 @@ __git_remote_tracking_branch () {
     git rev-parse --verify --quiet "refs/remotes/origin/${branch}" > /dev/null \
         && echo "origin/${branch}"
 }
-__git_is_nondefault_worktree () {
+__git_is_nondefault_worktree() {
     # Return success if the argument is the name or associated branch of a non-default worktree.
     git worktree list \
         | tail -n +2 \
         | ggrep --quiet --perl-regexp "^.*/\Q$1\E |\Q[$1]\E"
 }
-__git_worktree_path () {
+__git_worktree_path() {
     # Echo the (absolute) directory path of a git worktree based on the workree or branch name.
     git worktree list \
         | ggrep --perl-regexp "^.*/\Q$1\E |\Q[$1]\E" \
         | awk '{print $1}'
 }
-__git_current_worktree () {
+__git_current_worktree() {
     # Echo the name of the current worktree.
     basename "$(git rev-parse --show-toplevel)"
 }
-__git_switch_to_branch_or_worktree () {
+__git_switch_to_branch_or_worktree() {
     local target worktree_path current_worktree
 
     if [ "$1" = '--default' ]; then
@@ -745,7 +746,7 @@ __git_switch_to_branch_or_worktree () {
     # Fall back to this for showing a clear error message (this won't ever succeed).
     git switch "$target"
 }
-__git_commit_fixup () {
+__git_commit_fixup() {
     # Squash staged changes to the given commit.
     # The first argument is the `git commit --fixup` prefix (empty or `amend:`).
     local prefix commit
@@ -754,27 +755,28 @@ __git_commit_fixup () {
         && git commit --fixup "${prefix}${commit}" \
         && grbia "${commit}~1" "${@:3}"
 }
-gdm () {
+gdm() {
     # shellcheck disable=SC2145
     git diff "$(__git_default_remote_branch)"..."$@"
 }
-gdgm () {
+gdgm() {
     # shellcheck disable=SC2145
     git diff --compact-summary "$(__git_default_remote_branch)"..."$@"
 }
-glb () {
+glb() {
     # shellcheck disable=SC2145
     glp "$(__git_default_remote_branch)".."$@"
 }
-glbr () {
+glbr() {
     # shellcheck disable=SC2145
     glp --reverse "$(__git_default_remote_branch)".."$@"
 }
-gbdp () {
+gbdp() {
     # Delete local and remote branch.
-    git branch --delete "$1"; git push --delete origin "$1"
+    git branch --delete "$1"
+    git push --delete origin "$1"
 }
-gbr () {
+gbr() {
     # Force move a branch pointer.
     # Usage: `$ gbr @~2` or `$ gbr master af1bc21`.
     # (You can note that passing one vs. two arguments logic is same as with `git branch --move`)
@@ -795,16 +797,16 @@ gbr () {
     git -C "$worktree_path" branch --force "$branchname" "$startpoint" 2> /dev/null \
         || { [ "$?" -eq 128 ] && git -C "$worktree_path" switch --merge --force-create "$branchname" "$startpoint"; }
 }
-gcf () {
+gcf() {
     # Squash staged changes to the given commit.
     __git_commit_fixup '' "$@"
 }
-gcfe () {
+gcfe() {
     # Like `gcf`, but also open an editor for the resulting commit message.
     # Mnemonic: gcf + edit
     __git_commit_fixup 'amend:' "$@"
 }
-__git_diff_with_untracked () {
+__git_diff_with_untracked() {
     # Show a diff that also includes the newly created (untracked) files.
     # The first argument is the revision to diff against (empty for none),
     # the rest are passed to `git diff` as-is.
@@ -815,39 +817,43 @@ __git_diff_with_untracked () {
     shift
     while [ "$#" -gt 0 ]; do
         case "$1" in
-            --) shift; pathspecs=("$@"); break;;  # Everything after this is a pathspec.
-            -*) options+=("$1");;
+            --)
+                shift
+                pathspecs=("$@")
+                break
+                ;; # Everything after this is a pathspec.
+            -*) options+=("$1") ;;
         esac
         shift
     done
 
     (
         git diff --color=always ${revision:+"$revision"} "${args[@]}"
-        git ls-files --others --exclude-standard -z "${pathspecs[@]:-:/}" |
-            while IFS= read -r -d '' file; do
+        git ls-files --others --exclude-standard -z "${pathspecs[@]:-:/}" \
+            | while IFS= read -r -d '' file; do
                 git diff --color=always "${options[@]}" -- /dev/null "$file"
             done
     ) | delta
 }
 # shellcheck disable=SC2120
-gdh () {
+gdh() {
     # Show the diff of the currently staged and unstaged files compared to HEAD.
     # The speciality is that this also shows the diff for newly created files.
     __git_diff_with_untracked HEAD "$@"
 }
 # shellcheck disable=SC2120
-gdu () {
+gdu() {
     # Show the diff of the currently unstaged files compared to HEAD.
     # The speciality is that this also show the diff for newly created files.
     __git_diff_with_untracked '' "$@"
 }
-gfug () {
+gfug() {
     # Search unreachable (lost) commits by their commit message.
     # Usage: $ gfug 'word' [<git log args>]
     # Mnemonic: gfu + glg
     gfuc --format=fuller --compact-summary --regexp-ignore-case --grep="$1" "${@:2}"
 }
-__git_history_and_sign () {
+__git_history_and_sign() {
     # Run a `git history` subcommand and then GPG sign the commits it rewrote,
     # as `git history` (being built on `git replay`) never signs any of them.
     # The first argument is the subcommand, the rest are passed to it as-is.
@@ -859,7 +865,7 @@ __git_history_and_sign () {
     # Resolve before rewriting, as `split` inserts a commit and thus shifts the
     # relative revisions. Starting from the parent also covers that new commit.
     if ! base="$(git rev-parse --verify --quiet "${1}^")"; then
-        base='--root'  # The rewritten commit is the root commit.
+        base='--root' # The rewritten commit is the root commit.
     fi
 
     # `git history` has no `commit.verbose`, so this works around it,
@@ -871,7 +877,7 @@ __git_history_and_sign () {
 
     for arg in "${@:2}"; do
         if [ "$arg" = '--' ]; then
-            break  # Everything after this is a pathspec.
+            break # Everything after this is a pathspec.
         fi
         if [ "$arg" = '--dry-run' ]; then
             # If the built-in flag is used, history is not actually re-written.
@@ -884,35 +890,35 @@ __git_history_and_sign () {
         git rebase --no-ff --rebase-merges --gpg-sign "$base"
     fi
 }
-ghd () {
+ghd() {
     # Like `git history drop`, but GPG signs the rewritten commits.
     # NOTE: Will be usable in Git 2.56
     __git_history_and_sign drop "$@"
 }
-ghr () {
+ghr() {
     # Like `git history reword`, but GPG signs the rewritten commits.
     __git_history_and_sign reword "$@"
 }
-ghs () {
+ghs() {
     # Like `git history split`, but GPG signs the rewritten commits.
     __git_history_and_sign split "$@"
 }
-gsh () {
+gsh() {
     # Copy the hash of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
     git rev-parse "${1:-HEAD}" | pbcopyn
 }
-gss () {
+gss() {
     # Copy the shorthash of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
     git rev-parse --short "${1:-HEAD}" | pbcopyn
 }
-gini () {
+gini() {
     # Initalize a new repository with an initial commit.
     git rev-parse --git-dir > /dev/null 2>&1 && return
     git init "$1" && if [ "$1" != . ]; then cd "$1"; fi && git commit --allow-empty --message 'Initial commit'
 }
-gdb () {
+gdb() {
     # Diff of what's "missing" from `our` branch compared to `their` branch.
     # With zero arguments passed, defaults to remote tracking branch vs. HEAD.
     # With a single argument passed, defaults to the passed branch vs. HEAD.
@@ -936,7 +942,7 @@ gdb () {
 
     git diff "$our" "$(git merge-tree --strategy-option=theirs --write-tree "$our" "$their" | head -1)" "${@:3}"
 }
-gld () {
+gld() {
     # "Diff" the logs of two branches.
     # With zero arguments passed, defaults to HEAD and master.
     # With a single argument passed, defaults to the passed and master.
@@ -967,7 +973,7 @@ gld () {
     # `--octopus` is needed for the base to be an ancestor of *all* the refs.
     git log --graph "${refs[@]}" "$(git merge-base --octopus "${refs[@]}")"^! "${@:3}"
 }
-gmb () {
+gmb() {
     # Return the merge base of the two branches.
     # With zero arguments passed, defaults to HEAD and master.
     # With a single argument passed, defaults to the passed and master.
@@ -987,32 +993,32 @@ gmb () {
 
     git merge-base "$first" "$second"
 }
-gms () {
+gms() {
     # Copy the commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
     git show --no-patch --format=%B "${1:-HEAD}" | pbcopyn
 }
-gms1 () {
+gms1() {
     # Copy the subject line of commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
     git show --no-patch --format=%s "${1:-HEAD}" | pbcopyn
 }
-gms2 () {
+gms2() {
     # Copy everything but the subject line of commit message of the specified revision to the clipboard.
     # Use the latest commit as the default if no argument is passed.
     git show --no-patch --format=%b "${1:-HEAD}" | pbcopyn
 }
-gmt () {
+gmt() {
     if git diff --check | grep --quiet 'leftover conflict marker'; then
-        git mergetool  # Must be after the if-check since this affects its evaluation.
+        git mergetool # Must be after the if-check since this affects its evaluation.
     else
-        git mergetool  # Get the 'No files need merging' output and be really really sure that everything is resolved.
+        git mergetool # Get the 'No files need merging' output and be really really sure that everything is resolved.
         git ls-files --unmerged | cut -f2 | sort -u | xargs git add
         gs
         gdh
     fi
 }
-gn () {
+gn() {
     # Create a new branch with the given name or switch to if it already exists.
     # The `$@` on the create call allows to pass `<branchname> <hash>` as the arguments.
     if ! __git_is_nondefault_worktree "$(__git_current_worktree)"; then
@@ -1021,11 +1027,11 @@ gn () {
         echo "Shouldn't create branches in a worktree!"
     fi
 }
-gplm () {
+gplm() {
     # Pull the default branch without switching to it.
     gub --dont-update-current-branch
 }
-gpsd () {
+gpsd() {
     # Delete a remote branch or tag.
     # Usage: `$ gpsd origin foo` or `$ gpsd origin/foo` or `$ gpsd remotes/origin/foo`.
     # Useful for copying the branch name arg from `git log` or `git branch` output.
@@ -1036,14 +1042,14 @@ gpsd () {
         git push --delete "$@"
     fi
 }
-grboa () {
+grboa() {
     # Rebase onto a branch using the first common commit as the starting point.
     # Mnemonic: git rebase onto auto
     local newbase branch commit_subject_of_newbase start_from
 
     newbase="$1"
 
-    branch="$2"  # Optional argument.
+    branch="$2" # Optional argument.
     [ -n "$branch" ] && git switch "$branch"
 
     commit_subject_of_newbase="$(git log --format=%s --max-count=1 "$newbase")"
@@ -1051,12 +1057,12 @@ grboa () {
 
     git rebase --onto "$newbase" "$start_from"
 }
-gtp () {
+gtp() {
     # Tag a commit in the past.
     # Usage: $ gtp v1.0.1 af1bc21
     GIT_COMMITTER_DATE="$(git show "${2:-HEAD}" --format=%aD | head -1)" git tag --annotate --message "" "$@"
 }
-gub () {
+gub() {
     # Update the curent branch to the latest primary remote HEAD.
     local status remote head current
 
@@ -1083,16 +1089,16 @@ gub () {
         git stash pop
     fi
 }
-gubm () {
+gubm() {
     # Like `gub`, but use git merge instead of rebase.
     gub merge
 }
-gvi () {
+gvi() {
     # Open the specified file at the given revision in vim.
     # Usage: $ gvi HEAD~10 foo/bar.txt
     [ "$#" -ne 0 ] && vim -c "Gedit $1:$2"
 }
-gw () {
+gw() {
     local selected
     if [ "$#" -ne 0 ]; then
         __git_switch_to_branch_or_worktree "$1"
@@ -1101,11 +1107,11 @@ gw () {
         [ -n "$selected" ] && __git_switch_to_branch_or_worktree "$selected"
     fi
 }
-gwm () {
+gwm() {
     # Switch to the default branch.
     __git_switch_to_branch_or_worktree --default
 }
-gwmm () {
+gwmm() {
     # Switch to the default branch, update it, and delete the feature branch that you changed from.
     [ -n "$(git status --porcelain --ignore-submodules)" ] && echo 'not clean' && return
     local head current
@@ -1113,11 +1119,11 @@ gwmm () {
     current="$(git branch --show-current)"
     [ "$head" != "$current" ] && git switch "$head" && gpl && gbd "$current"
 }
-gwmp () {
+gwmp() {
     # Switch to the default branch and pull latest changes.
     gwm && gpl
 }
-gwtn () {
+gwtn() {
     # Create a new worktree and switch to it.
     # If already on the passed branch, extracts the branch into a new worktree.
     local status current repo_root path
@@ -1138,7 +1144,7 @@ gwtn () {
     # Either create a new worktree and a matching branch or checkout the existing branch in the new worktree.
     { git worktree add "$path" -b "$1" "${@:2}" || git worktree add "$path" -B "$1" "$1"; } && cd "$path" || return
 }
-gwtm () {
+gwtm() {
     # Remove a worktree.
     # Can pass `--force` as the 2nd argument to delete even uncommited changes.
     # Without any arguments (or -- as the 1st argument), deletes the current worktree.
@@ -1164,7 +1170,7 @@ gwtm () {
         && echo "Deleted worktree ${worktree} (${relative_path})." \
         && if [ "$worktree_path" = "$PWD" ]; then cd "$repo_root" || return; fi
 }
-gwtr () {
+gwtr() {
     # Like `gwtm` but also deletes the associated branch.
     local branch
 
@@ -1177,7 +1183,7 @@ gwtr () {
     gwtm "$@" && gbd "$branch"
 }
 # GitHub/GitLab functions
-ghpr () {
+ghpr() {
     # Open a pull request.
     local output title url
 
@@ -1193,27 +1199,27 @@ ghpr () {
 
     gh pr view
 }
-ghrc () {
+ghrc() {
     # Clone a repo more easily without the full URI.
     # Usage: $ ghrc username repo-name
     git clone --recurse-submodules "git@github.com:${1}/${2}.git" "${@:3}"
 }
-ghrf () {
+ghrf() {
     # Fork and clone the given repo.
     # Usage: $ ghrf username repo-name
     gh repo fork --clone "${1}/${2}" "${@:3}"
 }
-ghu () {
+ghu() {
     # Open the GitHub/GitLab link for the current repo in the browser.
     # shellcheck disable=SC2001
     remote=$(git config remote.upstream.url || git config remote.origin.url) \
         && open "$(echo "$remote" | sed 's,^.*@\(.*\):\(.*\)\.git$,https://\1/\2,')"
 }
-gyo () {
+gyo() {
     # Open the pull request where the given commit belongs to in a browser.
     gyp "${1:-HEAD}" --web
 }
-gyp () {
+gyp() {
     # Show the pull request where the given commit belongs to.
     local commit subject repo pr
 
@@ -1221,11 +1227,11 @@ gyp () {
     subject="$(git show --no-patch --format=%s "$commit")"
 
     # Try to read `(org/repo#123)` from the subject line.
-    read -r repo pr <<<"$(
+    read -r repo pr <<< "$(
         sed -nE 's/.*[( ]([A-Za-z0-9_-]+\/[A-Za-z0-9_.-]+)#([0-9]+)(\)$| .*)/\1 \2/p' <<< "$subject"
     )"
     if [ -n "$repo" ]; then
-        gh pr view --repo "$repo" "$pr" "${@:2}" 
+        gh pr view --repo "$repo" "$pr" "${@:2}"
         return
     fi
 
@@ -1245,7 +1251,7 @@ gyp () {
     gh pr view "$pr" "${@:2}"
 }
 
-gga () {
+gga() {
     gg --branches --tags --remotes "$@"
 }
 
@@ -1347,9 +1353,9 @@ __git_complete gu _git_restore
 __git_complete gup _git_restore
 __git_complete gw _git_switch
 __git_complete gwd _git_switch
-__git_complete gwtn _git_branch  # sic, autocompleting *branch* names as the second argument creates a worktree from an existing branch.
-__git_complete gwtm _git_branch  # sic, autocompleting *branch* names as they correlate with worktrees and `_git_workree` would autocomplete the subcommand.
-__git_complete gwtr _git_branch  # sic, autocompleting *branch* names as they correlate with worktrees and `_git_workree` would autocomplete the subcommand.
+__git_complete gwtn _git_branch # sic, autocompleting *branch* names as the second argument creates a worktree from an existing branch.
+__git_complete gwtm _git_branch # sic, autocompleting *branch* names as they correlate with worktrees and `_git_workree` would autocomplete the subcommand.
+__git_complete gwtr _git_branch # sic, autocompleting *branch* names as they correlate with worktrees and `_git_workree` would autocomplete the subcommand.
 __git_complete gy _git_show
 __git_complete gyg _git_show
 __git_complete gyl _git_show
@@ -1362,24 +1368,24 @@ __git_complete gyr _git_show
 alias dc='docker compose'
 alias dcf='docker compose --file'
 alias dcb='docker compose build '
-dcbf () { docker compose --file "$1" build; }
+dcbf() { docker compose --file "$1" build; }
 alias dcbn='docker compose build --no-cache'
 alias dcu='docker compose up'
 alias dcud='docker compose up --detach'
-dcuf () { docker compose --file "$1" up; }
-dcudf () { docker compose --file "$1" up --detach; }
-dcub () { docker compose build "$@" && docker compose up "$@"; }
-dcubf () { docker compose --file "$1" build && docker compose --file "$1" up; }
+dcuf() { docker compose --file "$1" up; }
+dcudf() { docker compose --file "$1" up --detach; }
+dcub() { docker compose build "$@" && docker compose up "$@"; }
+dcubf() { docker compose --file "$1" build && docker compose --file "$1" up; }
 alias dcubn='docker compose build --no-cache && docker compose up'
 alias dcd='docker compose down'
 alias dcr='docker compose run --rm'
-dcrf () { docker compose --file "$1" run --rm "$2"; }
+dcrf() { docker compose --file "$1" run --rm "$2"; }
 alias dcs='docker compose stop'
-dcsh () { docker compose run --rm "$1" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
-dcshf () { docker compose --file "$1" run --rm "$2" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
+dcsh() { docker compose run --rm "$1" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
+dcshf() { docker compose --file "$1" run --rm "$2" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
 
-desh () { docker exec --interactive --tty "$1" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
-dssh () {
+desh() { docker exec --interactive --tty "$1" sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
+dssh() {
     ssh "$1" -t \
         "docker exec --interactive --tty \$(docker container ls | awk '/$2/ {print \$NF; exit}') \
             sh -c \"${3:-if command -v bash > /dev/null; then bash; else sh; fi}\"; \
@@ -1387,13 +1393,13 @@ dssh () {
 }
 
 alias kugp='kubectl get pods'
-kush () { kubectl exec --stdin --tty "$1" -- sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
+kush() { kubectl exec --stdin --tty "$1" -- sh -c 'if command -v bash > /dev/null; then bash; else sh; fi'; }
 
 alias yif='yarn install --frozen-lockfile'
 
 alias tff='terraform fmt -recursive'
 
-brew () {
+brew() {
     local -a brewfiles=("${BREWFILES[@]:-$HOME/dotfiles/brew/Brewfile}")
     if [ "$*" == "up" ]; then
         local rc
@@ -1419,7 +1425,7 @@ brew () {
     fi
 }
 
-poetry () {
+poetry() {
     if [ "$1" == "old" ]; then
         command poetry show --outdated | grep --file=<(poetry show --tree | grep '^\w' | sed 's/^\([^ ]*\).*/^\1/')
     else
@@ -1430,23 +1436,23 @@ poetry () {
 # shellcheck source=/dev/null
 source ~/.fzf.bash
 
-__fzf_vim__ () {
+__fzf_vim__() {
     local file
     file=$(__fzf_select__)
     file="${file% }"
     [ -z "${file}" ] || echo vim "${file}"
 }
-__fzf_select_branch__ () {
+__fzf_select_branch__() {
     # Git branch browser. Reference from:
     # https://github.com/junegunn/fzf/blob/736344e151fd8937353ef8da5379c1082e441468/shell/key-bindings.bash#L34
     local selected
     git branch --all --color=always | fzf --height=40% --reverse --ansi --tiebreak=index | sed -e 's/^[*+ ]*//' -e 's#\(^remotes/\).* -> \(.*$\)#\1\2#'
 }
-__fzf_branch__ () {
+__fzf_branch__() {
     local selected
     selected="$(__fzf_select_branch__ | sed -e 's#^remotes/##' -e 's/ *$/ /')"
     READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
-    READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
+    READLINE_POINT=$((READLINE_POINT + ${#selected}))
 }
 
 export FZF_IGNORES='Applications,Library,Movies,Music,Pictures,node_modules,venv,.DS_Store,.Trash,.cache,.gradle,.git,.m2,.mypy_cache,.next,.npm,.pyenv,.pytest_cache,.stack,.temp,__pycache__,build,dist,.idea,.zk'
@@ -1465,7 +1471,7 @@ export DOCKER_CLI_HINTS=false
 export BAT_THEME='Solarized (dark)'
 
 export GLOW_STYLE="$HOME/dotfiles/glow/solarized-dark.json"
-export GLAMOUR_STYLE="$GLOW_STYLE"  # Used by `gh` CLI.
+export GLAMOUR_STYLE="$GLOW_STYLE" # Used by `gh` CLI.
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_UPGRADE_AUTO_UPDATES_CASKS=1
@@ -1488,19 +1494,18 @@ export PYENV_ROOT="${HOME}/.pyenv"
 export PYTHONPYCACHEPREFIX="${HOME}/.cache/pycache/"
 export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I${HOMEBREW_PREFIX}/opt/tcl-tk/include' --with-tcltk-libs='-L${HOMEBREW_PREFIX}/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
 
-__load_pyenv () {
+__load_pyenv() {
     if ! [[ "$PROMPT_COMMAND" =~ _pyenv_virtualenv_hook ]]; then
         eval "$(command pyenv virtualenv-init -)"
     fi
 }
-pyenv () {
+pyenv() {
     __load_pyenv
 
     if [ "$*" == "available" ]; then
         local versions
         versions="$(command pyenv install --list)"
-        for version in 6 7 8 9 10 11 12 13 14
-        do
+        for version in 6 7 8 9 10 11 12 13 14; do
             # Latest stable version.
             echo "${versions}" | grep -E "^\s+3\.${version}(\.\d+)?$" | tail -1
             if [ "$version" -ge 13 ]; then
@@ -1515,17 +1520,17 @@ pyenv () {
         command pyenv "$@"
     fi
 }
-python () {
+python() {
     __load_pyenv
     unset -f python
     command python "$@"
 }
-mypy () {
+mypy() {
     __load_pyenv
     unset -f mypy
     command mypy "$@"
 }
-ruff () {
+ruff() {
     __load_pyenv
     unset -f ruff
     command ruff "$@"
@@ -1534,7 +1539,7 @@ ruff () {
 # Lazy load nvm https://blog.yo1.dog/better-nvm-lazy-loading/
 export NVM_DIR="${HOME}/.nvm"
 
-nvm () {
+nvm() {
     unset -f nvm
     # shellcheck source=/dev/null
     [ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh" --no-use
@@ -1560,7 +1565,7 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 
 eval "$(zoxide init bash)"
 
-z () {
+z() {
     # Make plain `z` trigger zoxide interactive mode instead of `cd`ing to home.
     if [ "$#" -eq 0 ]; then
         __zoxide_zi

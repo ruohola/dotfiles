@@ -29,7 +29,7 @@ fi
 # gives both the pane counts and the session details. Asking tmux per session
 # instead would cost four processes per session. Every session has at least one
 # pane, so nothing is missed.
-sessions () {
+sessions() {
     tmux list-panes -a -F $'#{session_last_attached}\t#{session_name}\t#{session_windows}\t#{session_attached}' 2> /dev/null \
         | sort --numeric-sort --reverse \
         | awk -F'\t' -v cur="$current_session" '

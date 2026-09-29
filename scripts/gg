@@ -17,12 +17,12 @@ case "$self" in
 esac
 self="$(cd "$(dirname "$self")" && pwd)/$(basename "$self")"
 
-pbcopyn () {
+pbcopyn() {
     # Like normal `pbcopy` but strips away all trailing newlines.
     printf '%s' "$(< /dev/stdin)" | pbcopy
 }
 
-shas () {
+shas() {
     # Strip the graph characters off the log lines in stdin to get the hashes.
     sed 's/^[^a-z0-9]*//;/^$/d' | awk '{print $1}'
 }
@@ -36,26 +36,27 @@ case "$GG_ACTION" in
         clear
         git show --format=fuller --first-parent --color=always "$peeked" \
             | delta --paging=always --pager='less +g'
-        exit ;;
+        exit
+        ;;
     diff)
         peeked="$(printf '%s\n' "$@" | shas | xargs)"
         [ -z "$peeked" ] && exit
         clear
         # shellcheck disable=SC2086  # Not quoted to allow diffing many.
         git diff --color=always $peeked | delta --paging=always --pager='less +g'
-        exit ;;
+        exit
+        ;;
 esac
 
 while out="$(
     git log --graph --color=always "$@" \
         | sed $'s/..\x08\x08 /\xc2\xa0/' \
         | fzf --ansi --multi --no-sort --reverse --delimiter=$'\xc2\xa0' --nth=2 \
-              --query="$selected" --print-query \
-              --bind="enter:execute(GG_ACTION=show \"$self\" {})" \
-              --bind="ctrl-d:execute(GG_ACTION=diff \"$self\" {+})" \
-              --expect=ctrl-n,ctrl-h,ctrl-s,ctrl-f)"
-    # nbsp as invisible delimiter ^ to only match starting from the commit subject.
-do
+            --query="$selected" --print-query \
+            --bind="enter:execute(GG_ACTION=show \"$self\" {})" \
+            --bind="ctrl-d:execute(GG_ACTION=diff \"$self\" {+})" \
+            --expect=ctrl-n,ctrl-h,ctrl-s,ctrl-f
+)"; do # nbsp as invisible delimiter ^ to only match starting from the commit subject.
     selected="$(head -1 <<< "$out")"
     key="$(head -2 <<< "$out" | tail -1)"
     picked="$(sed '1,2d' <<< "$out" | shas | xargs)"

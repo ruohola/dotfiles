@@ -17,9 +17,9 @@ oid="${object##*/objects/}"
 oid="${oid/\//}"
 
 case "${oid:+$(git cat-file -t "$oid")}" in
-    commit) git diff "$oid" "$commit";;      # What is left of the original commit.
-    tree)   git diff "$base" "$oid";;        # The part split out of it.
-    *)      git diff "$commit"^ "$commit";;  # Rewritten as-is, e.g. by `reword`.
+    commit) git diff "$oid" "$commit" ;; # What is left of the original commit.
+    tree) git diff "$base" "$oid" ;;     # The part split out of it.
+    *) git diff "$commit"^ "$commit" ;;  # Rewritten as-is, e.g. by `reword`.
 esac > "${gitdir}/HISTORY_DIFF"
 
 vim -c "call githistorycommit#render_diff('${gitdir}/HISTORY_DIFF')" "$2"

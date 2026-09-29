@@ -17,14 +17,14 @@ else
     path="${dir}/$(basename -- "$1")"
 fi
 
-root="$(git -C "${dir}" rev-parse --show-toplevel 2>/dev/null)"
+root="$(git -C "${dir}" rev-parse --show-toplevel 2> /dev/null)"
 if [ -n "${root}" ]; then
     grealpath --no-symlinks --relative-to="${root}" -- "${path}"
 else
     # Substitute only a whole path component, so that a sibling directory whose
     # name starts with the home path (e.g. `/Users/foo2`) doesn't become `~2`.
     case "${path}" in
-        "$HOME" | "$HOME"/*) path="~${path#"$HOME"}";;
+        "$HOME" | "$HOME"/*) path="~${path#"$HOME"}" ;;
     esac
     printf '%s\n' "${path}"
 fi

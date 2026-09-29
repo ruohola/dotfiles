@@ -2,7 +2,7 @@
 
 # shellcheck disable=SC2016  # Ignore quoting "issues" in app_shortcut mappings.
 
-cd ~ || exit  # Makes sure that the symlinks are shown as relative to `~` with `ls -la`.
+cd ~ || exit # Makes sure that the symlinks are shown as relative to `~` with `ls -la`.
 
 # Make the needed symlinks if they don't exist.
 [ ! -L .vim ] && rm -rf .vim && ln -sv dotfiles/vim .vim
@@ -27,9 +27,11 @@ command -v brew > /dev/null \
 
 # Install all brew packages (use fzf as a proxy for checking if they have been installed).
 command -v fzf > /dev/null \
-    || { brew bundle install --file=~/dotfiles/brew/Brewfile;
-            "$(brew --prefix)/opt/fzf/install";
-            go install github.com/chrishrb/go-grip@latest; }
+    || {
+        brew bundle install --file=~/dotfiles/brew/Brewfile
+        "$(brew --prefix)/opt/fzf/install"
+        go install github.com/chrishrb/go-grip@latest
+    }
 
 # Link gitconfig only after modern git from brew is installed.
 for file in .gitconfig .gitignore_global; do
@@ -37,7 +39,7 @@ for file in .gitconfig .gitignore_global; do
 done
 
 # Install nvm.
-default_node=lts/krypton  # v24
+default_node=lts/krypton # v24
 [ ! -f ~/.nvm/nvm.sh ] \
     && curl --fail https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash \
     && . ~/.nvm/nvm.sh \
@@ -142,7 +144,6 @@ if [ -f "$homebrew_bash" ] && [ "$homebrew_bash" != "$SHELL" ]; then
     chsh -s "$homebrew_bash"
 fi
 
-
 # ============= MACOS SETTINGS =============
 
 # Remove delay from Dock.
@@ -171,7 +172,6 @@ defaults write kCFPreferencesAnyApplication TSMLanguageIndicatorEnabled 0
 # Disable clipboard history in Keyboard Maestro.
 defaults write com.stairways.keyboardmaestro.engine MaxClipboardHistory -int 1
 
-
 # ============= MACOS KEY BINDINGS =============
 
 # App Shortcuts (System Settings → Keyboard → Keyboard Shortcuts → App Shortcuts).
@@ -185,13 +185,13 @@ global_shortcut() {
     defaults write -g NSUserKeyEquivalents -dict-add "$1" "\"$2\""
 }
 
-global_shortcut 'Back'               '@['
-global_shortcut 'Forward'            '@]'
+global_shortcut 'Back' '@['
+global_shortcut 'Forward' '@]'
 global_shortcut 'System Settings...' '@$,'
 
-app_shortcut com.google.Chrome 'Close Other Tabs'       '@~w'
+app_shortcut com.google.Chrome 'Close Other Tabs' '@~w'
 app_shortcut com.google.Chrome 'Force Reload This Page' '@r'
-app_shortcut com.google.Chrome 'Reload This Page'       '@~^$r'
+app_shortcut com.google.Chrome 'Reload This Page' '@~^$r'
 
 # Sandboxed apps (Numbers, Safari, Mail) keep their prefs in TCC-protected
 # containers, so their writes need Full Disk Access on the terminal running this
@@ -201,16 +201,16 @@ app_shortcut com.google.Chrome 'Reload This Page'       '@~^$r'
 if ls ~/Library/Safari > /dev/null 2>&1; then
     app_shortcut com.apple.Numbers 'Copy Snapshot' '^c'
 
-    app_shortcut com.apple.Safari 'Show Web Inspector'     $'\uf70f'  # F12
-    app_shortcut com.apple.Safari 'Close Web Inspector'    $'\uf70f'  # F12
-    app_shortcut com.apple.Safari 'Show Bookmarks Sidebar'  '@$l'
-    app_shortcut com.apple.Safari 'Hide Bookmarks Sidebar'  '@$l'
-    app_shortcut com.apple.Safari 'Translate to English'    '@~t'
+    app_shortcut com.apple.Safari 'Show Web Inspector' $'\uf70f'  # F12
+    app_shortcut com.apple.Safari 'Close Web Inspector' $'\uf70f' # F12
+    app_shortcut com.apple.Safari 'Show Bookmarks Sidebar' '@$l'
+    app_shortcut com.apple.Safari 'Hide Bookmarks Sidebar' '@$l'
+    app_shortcut com.apple.Safari 'Translate to English' '@~t'
 
-    app_shortcut com.apple.mail 'Get New Mail'     '@r'
+    app_shortcut com.apple.mail 'Get New Mail' '@r'
     app_shortcut com.apple.mail 'Get All New Mail' '@r'
-    app_shortcut com.apple.mail 'Reply'            '@$r'
-    app_shortcut com.apple.mail 'Reply All'        '@~$r'
+    app_shortcut com.apple.mail 'Reply' '@$r'
+    app_shortcut com.apple.mail 'Reply All' '@~$r'
 elif ! defaults find NSUserKeyEquivalents 2> /dev/null | grep -q "'com.apple.Safari'"; then
     # Reading via `defaults` works without FDA, so this sees shortcuts set on an earlier run ^
     echo 'Skipping Numbers/Safari/Mail shortcuts: grant this terminal Full Disk Access and re-run.' >&2
