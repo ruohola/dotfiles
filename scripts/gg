@@ -3,7 +3,7 @@
 # Git commit browser
 # (Reference from: https://gist.github.com/junegunn/f4fca918e937e6bf5bad)
 # enter   show commit
-# ctrl-d  diff to current
+# ctrl-d  diff to current or diff the selected commits against each other
 # ctrl-n  copy commit message
 # ctrl-h  copy commit hash
 # ctrl-s  copy commit shorthash
