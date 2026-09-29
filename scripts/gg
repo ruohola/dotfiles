@@ -44,7 +44,7 @@ case "$GG_ACTION" in
         [ -z "$peeked" ] && exit
         clear
         # shellcheck disable=SC2086  # Not quoted to allow diffing many.
-        git diff --color=always $peeked | delta --paging=always
+        git diff --color=always $peeked | delta --paging=always --pager='less +g'
         exit ;;
 esac
 
