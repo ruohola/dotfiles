@@ -594,6 +594,7 @@ alias grvc='git revert --continue'
 alias gs='git status --untracked-files'
 alias gsk='git ls-files -v | grep --color "^[Sa-z]"'
 alias gsl='git shortlog'
+alias gsln='git shortlog --summary --numbered --email'
 alias gsm='git submodule'
 alias gsms='git submodule summary'
 alias gsmu="export -f __git_default_branch __git_default_remote_branch __git_worktree_path gub gplm; git submodule foreach 'gplm'"
