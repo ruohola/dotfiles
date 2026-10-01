@@ -184,7 +184,6 @@ export Documents="${HOME}/Documents"
 export Downloads="${HOME}/Downloads"
 export tmp="${HOME}/tmp"
 export bin="${HOME}/.local/bin"
-# shellcheck source=/dev/null
 source ~/.sourced/bookmarks 2> /dev/null
 
 # shellcheck source=/dev/null
@@ -1433,7 +1432,6 @@ poetry() {
     fi
 }
 
-# shellcheck source=/dev/null
 source ~/.fzf.bash
 
 __fzf_vim__() {
@@ -1627,7 +1625,6 @@ _add_to_PATH "${HOME}/dotfiles/scripts"
 # ============= STARTUP =============
 
 # Finally, load system specific environment variables and other possible overrides.
-# shellcheck source=/dev/null
 source ~/.sourced/env 2> /dev/null
 
 # Always start in tmux.
