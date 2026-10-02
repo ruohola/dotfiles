@@ -1,41 +1,37 @@
 Let a language server finish saving its state before coc exits
 
-On Vim exit coc's node process gets SIGTERM and `gracefulExit` sends every server
-the LSP `shutdown` request and `exit` notification. Those two messages only *ask*
-a server to stop. eclipse.jdt.ls answers `shutdown` immediately and then saves its
-Eclipse workspace in a background job that `exit` waits for, which takes about a
-second on a large Gradle project. coc does not wait for any of it: `stopAll`
-resolves as soon as the messages are sent, and the `finally` calls `process.exit`,
-so the server dies mid-save. The next Vim start then finds a dirty workspace,
-re-imports the Gradle build, and takes ~20 s to answer the first request instead
-of ~2 s.
-
-Dropping the early `process.exit` leaves the fallback timer as the only exit
-trigger, so the node process stays up for the whole `EXIT_TIMEOUT` budget and its
-servers get that long to write their state. Raising the budget from 1 s covers a
-slow save. Vim itself does not wait for the node process, so the delay is
-invisible: `:q` returns immediately and the save finishes in the background.
-
-The cost is an idle node process that lingers for the budget after Vim is gone.
-Starting a new Vim in the same project meanwhile is fine; a second jdt.ls does not
-trip over the first one's workspace lock.
-
-Raising `EXIT_TIMEOUT` alone would do nothing, because the early `process.exit`
-fires as soon as the messages are sent, long before the budget matters.
-
-Both hunks are in the generated bundle, so their context contains build-specific
-names (`logger72`, `services_default`) that change between coc releases. If this
-patch stops applying after an update, regenerate it: delete the `let timer` /
-`clearTimeout` / `exitFn(0)` wrapper around the `stopAll` call in `gracefulExit`,
-and raise `EXIT_TIMEOUT`.
+Vim stops coc by sending SIGTERM to its whole process group, which kills the
+language servers before they get the LSP `shutdown`. Spawning them `detached`
+(on the spawn call only, so coc still force-kills a hung server after 2 s)
+leaves the signal to node, whose `gracefulExit` then shuts them down properly.
+Keeping node alive for the full `EXIT_TIMEOUT`, raised to 5 s, gives that
+shutdown and the force-kill time to finish.
 
 diff --git a/build/index.js b/build/index.js
-index afb1980..ed27d2c 100644
+index a6f75db..8f0ef9b 100644
 --- a/build/index.js
 +++ b/build/index.js
-@@ -143021,11 +143021,8 @@ var init_plugin = __esm({
+@@ -128162,7 +128162,7 @@ var init_language_client = __esm({
+             };
+             let cmd = workspace_default.expand(json.command);
+             if (transport === void 0 || transport === 0 /* stdio */) {
+-              const serverProcess = child_process.spawn(cmd, args, options3);
++              const serverProcess = child_process.spawn(cmd, args, { ...options3, detached: true });
+               if (!serverProcess || !serverProcess.pid) {
+                 return handleChildProcessStartError(serverProcess, `Launching server using command ${cmd} failed.`);
+               }
+@@ -128176,7 +128176,7 @@ var init_language_client = __esm({
+                 promise = createClientSocketTransport(transport.port);
+               }
+               return promise.then((transport2) => {
+-                const serverProcess = child_process.spawn(cmd, args, options3);
++                const serverProcess = child_process.spawn(cmd, args, { ...options3, detached: true });
+                 if (!serverProcess || !serverProcess.pid) {
+                   transport2.dispose();
+                   return handleChildProcessStartError(serverProcess, `Launching server using command ${cmd} failed.`);
+@@ -146202,11 +146202,8 @@ var init_plugin = __esm({
  function gracefulExit(signal) {
-   logger72.info(`Received ${signal}, stopping language servers`);
+   logger73.info(`Received ${signal}, stopping language servers`);
    mcp_default.stop();
 -  let timer = setTimeout(() => exitFn(0), EXIT_TIMEOUT);
 -  void services_default.stopAll(EXIT_TIMEOUT).finally(() => {
@@ -47,10 +43,10 @@ index afb1980..ed27d2c 100644
  }
  function registerExitHandlers() {
    let exiting = false;
-@@ -143045,7 +143042,7 @@ var init_exit = __esm({
+@@ -146226,7 +146223,7 @@ var init_exit = __esm({
      init_mcp();
      init_services();
-     logger72 = createLogger("exit");
+     logger73 = createLogger("exit");
 -    EXIT_TIMEOUT = 1e3;
 +    EXIT_TIMEOUT = 5e3;
      exitFn = (code) => process.exit(code);
