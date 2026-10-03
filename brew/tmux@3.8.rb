@@ -3,8 +3,8 @@
 class TmuxAT38 < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/3.8-rc2/tmux-3.8-rc2.tar.gz"
-  sha256 "6a976a6ee712ab12562f4671d7de55a919bc1f0067c3703ed5871378700a2fee"
+  url "https://github.com/tmux/tmux/releases/download/3.8-rc3/tmux-3.8-rc3.tar.gz"
+  sha256 "bc0875c70d0b9e47d9f9061b92fe5033769bf50ac3541affdd3a85621f7230d5"
   license "ISC"
 
   depends_on "pkgconf" => :build
@@ -19,6 +19,9 @@ class TmuxAT38 < Formula
   end
 
   conflicts_with "tmux", because: "both install a `tmux` binary"
+
+  # (Resolve the symlink from the local tap, see `Brewfile`.)
+  patch File.read(File.join(File.dirname(File.realpath(__FILE__)), "tmux@3.8.patch"))
 
   def install
     args = %W[
