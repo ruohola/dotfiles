@@ -914,6 +914,22 @@ gss() {
     # Use the latest commit as the default if no argument is passed.
     git rev-parse --short "${1:-HEAD}" | pbcopyn
 }
+gslna() {
+    # Like `gsln`, but count bot commits for their first non-bot `Co-authored-by`.
+    git log --format='%an <%ae>%x09%(trailers:key=Co-authored-by,valueonly,separator=%x09)' "$@" \
+        | command awk -F '\t' '{
+            author = $1
+            if (author ~ /\[bot\]/) {
+                for (i = 2; i <= NF; i++) {
+                    if ($i != "" && $i !~ /\[bot\]/) { author = $i; break }
+                }
+            }
+            print author
+        }' \
+        | git check-mailmap --stdin \
+        | command awk '{ count[$0]++ } END { for (a in count) printf "%6d\t%s\n", count[a], a }' \
+        | sort -t $'\t' -k1,1nr -k2,2
+}
 gini() {
     # Initalize a new repository with an initial commit.
     git rev-parse --git-dir > /dev/null 2>&1 && return
