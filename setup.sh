@@ -41,7 +41,7 @@ done
 # Install nvm.
 default_node=lts/krypton # v24
 [ ! -f ~/.nvm/nvm.sh ] \
-    && curl --fail https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash \
+    && curl --fail https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash \
     && . ~/.nvm/nvm.sh \
     && nvm install "$default_node" \
     && nvm alias default "$default_node" \
