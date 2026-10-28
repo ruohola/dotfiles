@@ -1,10 +1,9 @@
-# Homebrew's `tmux` formula, but for the 3.8 release candidate.
-# Drop this and go back to `brew "tmux"` once 3.8 is in Homebrew.
+# Homebrew's `tmux` formula, but with `tmux@3.8.patch` applied.
 class TmuxAT38 < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/3.8-rc3/tmux-3.8-rc3.tar.gz"
-  sha256 "bc0875c70d0b9e47d9f9061b92fe5033769bf50ac3541affdd3a85621f7230d5"
+  url "https://github.com/tmux/tmux/releases/download/3.8/tmux-3.8.tar.gz"
+  sha256 "e79c699c7e949dccd0a4a125e17b8d1261e311b16979dbc8eb34542f3966d82e"
   license "ISC"
 
   depends_on "pkgconf" => :build

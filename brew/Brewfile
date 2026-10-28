@@ -47,7 +47,7 @@ brew "shellcheck"
 brew "shfmt"
 brew "tcl-tk@8"
 brew "terminal-notifier"
-# 3.8 for `#{hook_new_title}`, go back to `brew "tmux"` once it's in Homebrew.
+# Patched to restore 3.7's pane layout behavior, see `tmux@3.8.patch`.
 brew "ruohola/dotfiles/tmux@3.8", trusted: true
 brew "tombi"
 brew "tpack"
