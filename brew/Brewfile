@@ -12,6 +12,7 @@ brew "cabal-install"
 brew "cloc"
 brew "cmake"
 brew "coreutils"
+brew "curl", link: true
 brew "fd"
 brew "findutils"
 brew "fontforge"
