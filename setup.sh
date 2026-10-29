@@ -39,7 +39,7 @@ for file in .gitconfig .gitignore_global; do
 done
 
 # Install nvm.
-default_node=lts/krypton # v24
+default_node=lts/lithium # v26
 [ ! -f ~/.nvm/nvm.sh ] \
     && curl --fail https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash \
     && . ~/.nvm/nvm.sh \
