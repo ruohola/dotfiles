@@ -804,6 +804,9 @@ xnoremap <Leader>7 "zy:%s/<C-R>=escape(@z,'/\')<CR>/
 
 " Insert the current ISO date.
 nnoremap <Leader>' a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+" With the weekday.
+nnoremap <Leader><Leader>' a<C-R>=strftime("%a %Y-%m-%d")<CR><Esc>
+
 
 " Easy way to run : command again for a visual selection.
 xnoremap <Leader>' q:<UP>I'<,'><Esc>$
