@@ -9,6 +9,11 @@ nnoremap <Leader>* a<C-R>=strftime("%Y-%m-%d")<CR><CR>----------<CR><CR><Esc>
 " With the weekday.
 nnoremap <Leader><Leader>* a<C-R>=strftime("%a %Y-%m-%d")<CR><CR>--------------<CR><CR><Esc>
 
+" Paste a Markdown link from the clipboard.
+nnoremap <Leader>p a[](<C-R>=trim(@+)<CR>)<Esc>`[a
+" Use a visual selection as the link text.
+xmap <Leader>p <Plug>VSurround]%a(<C-R>=trim(@+)<CR>)<Esc>`[h
+
 function! s:ToggleMarkdownPreview() abort
     if bufexists(get(b:, '_run_term', -1))
         execute 'bwipeout!' b:_run_term
