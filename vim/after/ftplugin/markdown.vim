@@ -4,6 +4,11 @@ setlocal wrap
 
 setlocal dictionary=/usr/share/dict/words
 
+" Insert the current ISO date as a header.
+nnoremap <Leader>* a<C-R>=strftime("%Y-%m-%d")<CR><CR>----------<CR><CR><Esc>
+" With the weekday.
+nnoremap <Leader><Leader>* a<C-R>=strftime("%a %Y-%m-%d")<CR><CR>--------------<CR><CR><Esc>
+
 function! s:ToggleMarkdownPreview() abort
     if bufexists(get(b:, '_run_term', -1))
         execute 'bwipeout!' b:_run_term
