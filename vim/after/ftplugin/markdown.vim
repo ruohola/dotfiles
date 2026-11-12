@@ -5,9 +5,9 @@ setlocal wrap
 setlocal dictionary=/usr/share/dict/words
 
 " Insert the current ISO date as a header.
-nnoremap <Leader>* a<C-R>=strftime("%Y-%m-%d")<CR><CR>----------<CR><CR><Esc>
+nnoremap <Leader>* o<CR><C-R>=strftime("%Y-%m-%d")<CR><CR>----------<CR><CR><Esc>
 " With the weekday.
-nnoremap <Leader><Leader>* a<C-R>=strftime("%a %Y-%m-%d")<CR><CR>--------------<CR><CR><Esc>
+nnoremap <Leader><Leader>* o<CR><C-R>=strftime("%a %Y-%m-%d")<CR><CR>--------------<CR><CR><Esc>
 
 " Paste a Markdown link from the clipboard.
 nnoremap <Leader>p a[](<C-R>=trim(@+)<CR>)<Esc>`[a
