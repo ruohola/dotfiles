@@ -68,9 +68,6 @@ __ps1_path() {
     fi
     printf '%s' "$path"
 }
-__ps1_venv() {
-    printf '%s' "${VIRTUAL_ENV:+(${VIRTUAL_ENV##*/}) }"
-}
 __ps1_nvm() {
     local nvm_ver
     nvm_ver="${NVM_BIN%/bin}"
@@ -98,11 +95,10 @@ __ps1_dollar_color() {
         printf '%s' "$_cyan"
     fi
 }
-# Solarized colored prompt: (venv) (nvm) path/to/dir (branch)*$
+# Solarized colored prompt: (nvm) path/to/dir (branch)*$
 # Remember to keep `tmux/tmux-snaglord-config.toml` in sync.
 PS1="\
 \[$_mark_prompt_start\]\
-\$(__ps1_venv)\
 \$(__ps1_nvm)\
 \[$_cyan\]\$(__ps1_path) \
 \[$_magenta\]\$(__ps1_git_branch 2> /dev/null)\
@@ -1442,14 +1438,6 @@ brew() {
     fi
 }
 
-poetry() {
-    if [ "$1" == "old" ]; then
-        command poetry show --outdated | grep --file=<(poetry show --tree | grep '^\w' | sed 's/^\([^ ]*\).*/^\1/')
-    else
-        command poetry "$@"
-    fi
-}
-
 source ~/.fzf.bash
 
 __fzf_vim__() {
@@ -1471,7 +1459,7 @@ __fzf_branch__() {
     READLINE_POINT=$((READLINE_POINT + ${#selected}))
 }
 
-export FZF_IGNORES='Applications,Library,Movies,Music,Pictures,node_modules,venv,.DS_Store,.Trash,.cache,.gradle,.git,.m2,.mypy_cache,.next,.npm,.pyenv,.pytest_cache,.stack,.temp,__pycache__,build,dist,.idea,.zk'
+export FZF_IGNORES='Applications,Library,Movies,Music,Pictures,node_modules,venv,.venv,.DS_Store,.Trash,.cache,.gradle,.git,.m2,.mypy_cache,.next,.npm,.pytest_cache,.stack,.temp,,__pycache__,build,dist,.idea,.zk'
 # shellcheck disable=SC2016  # $FZF_IGNORES expands at runtime when fzf evaluates the command.
 export FZF_FD_FLAGS='--hidden --exclude "{$FZF_IGNORES}"'
 export FZF_DEFAULT_COMMAND="command fd $FZF_FD_FLAGS ."
@@ -1502,54 +1490,7 @@ export SCARF_ANALYTICS=false
 
 export CYPRESS_WATCH_FOR_FILE_CHANGES=false
 
-export POETRY_HOME="${HOME}/.poetry"
-
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-export PYENV_ROOT="${HOME}/.pyenv"
-
 export PYTHONPYCACHEPREFIX="${HOME}/.cache/pycache/"
-
-__load_pyenv() {
-    if ! [[ "$PROMPT_COMMAND" =~ _pyenv_virtualenv_hook ]]; then
-        eval "$(command pyenv virtualenv-init -)"
-    fi
-}
-pyenv() {
-    __load_pyenv
-
-    if [ "$*" == "available" ]; then
-        local versions
-        versions="$(command pyenv install --list)"
-        for version in 6 7 8 9 10 11 12 13 14; do
-            # Latest stable version.
-            echo "${versions}" | grep -E "^\s+3\.${version}(\.\d+)?$" | tail -1
-            if [ "$version" -ge 13 ]; then
-                # Latest noGIL version.
-                echo "${versions}" | grep -E "^\s+3\.${version}(\.\d+)?t$" | tail -1
-            fi
-        done
-        # Dev versions.
-        version=15
-        echo "${versions}" | grep -E "^\s+3\.${version}"
-    else
-        command pyenv "$@"
-    fi
-}
-python() {
-    __load_pyenv
-    unset -f python
-    command python "$@"
-}
-mypy() {
-    __load_pyenv
-    unset -f mypy
-    command mypy "$@"
-}
-ruff() {
-    __load_pyenv
-    unset -f ruff
-    command ruff "$@"
-}
 
 # Lazy load nvm https://blog.yo1.dog/better-nvm-lazy-loading/
 export NVM_DIR="${HOME}/.nvm"
@@ -1633,9 +1574,6 @@ done
 
 _add_to_PATH "${__node_bin_dir}"
 _add_to_PATH "${HOME}/.cargo/bin"
-_add_to_PATH "${HOME}/.poetry/bin"
-# Add the entry eagerly, so that non-shell programs (e.g. language servers in Vim) also get pyenv's `python`.
-_add_to_PATH "${PYENV_ROOT}/shims"
 _add_to_PATH "${HOME}/.local/bin"
 _add_to_PATH "${HOME}/dotfiles/scripts"
 
