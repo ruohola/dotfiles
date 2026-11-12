@@ -38,7 +38,7 @@ for file in .gitconfig .gitignore_global; do
     [ ! -L "$file" ] && ln -sfv dotfiles/git/"$file" "$file"
 done
 
-# Install nvm.
+# Install programming languages.
 default_node=lts/lithium # v26
 [ ! -f ~/.nvm/nvm.sh ] \
     && curl --fail https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash \
@@ -46,6 +46,10 @@ default_node=lts/lithium # v26
     && nvm install "$default_node" \
     && nvm alias default "$default_node" \
     && npm update --global npm
+
+default_python=3.15
+[ ! -e ~/.local/bin/python ] \
+    && uv python install "$default_python" --default
 
 # Install Bash completions.
 mkdir -p ~/.local/share/bash-completion/completions
