@@ -1492,6 +1492,13 @@ export CYPRESS_WATCH_FOR_FILE_CHANGES=false
 
 export PYTHONPYCACHEPREFIX="${HOME}/.cache/pycache/"
 
+# Only install package versions that have been out for at least 72 hours.
+export NPM_CONFIG_MIN_RELEASE_AGE=3
+export PNPM_CONFIG_MINIMUM_RELEASE_AGE=4320
+export PIP_UPLOADED_PRIOR_TO=P3D
+export UV_EXCLUDE_NEWER='3 days'
+export CARGO_REGISTRY_GLOBAL_MIN_PUBLISH_AGE='3 days'
+
 # Lazy load nvm https://blog.yo1.dog/better-nvm-lazy-loading/
 export NVM_DIR="${HOME}/.nvm"
 
