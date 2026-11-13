@@ -48,7 +48,7 @@ default_node=lts/lithium # v26
     && npm update --global npm
 
 default_python=3.15
-[ ! -e ~/.local/bin/python ] \
+command -v uv > /dev/null && [ ! -e ~/.local/bin/python ] \
     && uv python install "$default_python" --default
 
 # Install Bash completions.
