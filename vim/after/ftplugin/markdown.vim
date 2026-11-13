@@ -4,10 +4,24 @@ setlocal wrap
 
 setlocal dictionary=/usr/share/dict/words
 
+" Return the keys for starting a date header so that it always ends up
+" separated by exactly one empty line from the text above, i.e. only add
+" the leading newlines that aren't already there.
+function! s:StartDateHeader() abort
+    let l:line = line('.')
+    if !empty(getline(l:line))
+        return "o\<CR>"
+    elseif l:line > 1 && !empty(getline(l:line - 1))
+        return 'o'
+    else
+        return 'a'
+    endif
+endfunction
+
 " Insert the current ISO date as a header.
-nnoremap <Leader>* o<CR><C-R>=strftime("%Y-%m-%d")<CR><CR>----------<CR><CR><Esc>
+nnoremap <expr> <Leader>* <SID>StartDateHeader() . '<C-R>=strftime("%Y-%m-%d")<CR><CR>----------<CR><CR><Esc>'
 " With the weekday.
-nnoremap <Leader><Leader>* o<CR><C-R>=strftime("%a %Y-%m-%d")<CR><CR>--------------<CR><CR><Esc>
+nnoremap <expr> <Leader><Leader>* <SID>StartDateHeader() . '<C-R>=strftime("%a %Y-%m-%d")<CR><CR>--------------<CR><CR><Esc>'
 
 " Paste a Markdown link from the clipboard.
 nnoremap <Leader>p a[](<C-R>=trim(@+)<CR>)<Esc>`[a
